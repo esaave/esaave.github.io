@@ -38,34 +38,29 @@
       font-weight: bold;
     }
 
-    /* ===== Dropdown ===== */
-    .dropdown {
-      position: absolute;
-      top: 65px;
-      left: 20px;
-      background: white;
-      color: #1f2937;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* ===== Menú desplegable ===== */
+    .menu {
       display: none;
       flex-direction: column;
-      min-width: 180px;
-      z-index: 1000;
+      background: #fff;
+      border-bottom: 2px solid #f97316;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 10px 20px;
+      animation: slideDown 0.3s ease;
     }
-    .dropdown a {
-      padding: 12px 16px;
+    .menu a {
       text-decoration: none;
       color: #1f2937;
       font-weight: bold;
-      transition: background 0.2s;
-      border-bottom: 1px solid #e5e7eb;
+      padding: 10px 0;
+      transition: color 0.2s;
     }
-    .dropdown a:hover {
-      background: #f97316;
-      color: white;
+    .menu a:hover {
+      color: #f97316;
     }
-    .dropdown a:last-child {
-      border-bottom: none;
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .container {
@@ -212,10 +207,6 @@
       header h1 {
         font-size: 18px;
       }
-      .dropdown {
-        left: 50%;
-        transform: translateX(-50%);
-      }
     }
   </style>
 </head>
@@ -223,10 +214,13 @@
   <header>
     <img src="logo.png" alt="Logo" onclick="toggleMenu()">
     <h1>Orange Store - Accesorios</h1>
-    <div id="dropdown" class="dropdown">
-      <a href="index.html">🏠 Volver al menú principal</a>
-    </div>
   </header>
+
+  <!-- Menú que despliega y empuja todo hacia abajo -->
+  <div id="menu" class="menu">
+    <a href="index.html">🏠 Volver al menú principal</a>
+    <a href="repuestos.html">🔧 Ir a Repuestos</a>
+  </div>
 
   <div class="container">
     <input type="text" id="search" class="search-box" placeholder="🔍 Busca accesorios... (ej: amsentri, cable 2m)">
@@ -242,7 +236,7 @@
     <div id="grid" class="grid"></div>
   </div>
 
-  <!-- ===== Modal Detalle ===== -->
+  <!-- Modal de detalles -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="cerrarModal()">&times;</span>
@@ -258,15 +252,13 @@
     let productos = [];
     let fuse;
     let filtroActivo = "all";
-    const FACTOR_PRECIO2 = 1.7; // 👉 Multiplicador para Precio 2
-
+    const FACTOR_PRECIO2 = 1.7; 
     const DATA_FILE = "precios.json"; 
 
     fetch(DATA_FILE)
       .then(res => res.json())
       .then(data => {
         productos = data;
-
         fuse = new Fuse(productos, {
           keys: ["descripcion", "codigo"],
           threshold: 0.4,
@@ -274,7 +266,6 @@
           distance: 120,
           minMatchCharLength: 2,
         });
-
         mostrarProductos(productos);
       });
 
@@ -319,11 +310,9 @@
       if (texto !== "") {
         lista = fuse.search(texto).map(r => r.item);
       }
-
       if (categoria !== "all") {
         lista = lista.filter(p => detectarCategoria(p.descripcion).toLowerCase().includes(categoria));
       }
-
       mostrarProductos(lista);
     }
 
@@ -335,7 +324,7 @@
       }, 200);
     });
 
-    // ===== Modal Functions =====
+    // Modal
     function verDetalle(item) {
       document.getElementById("modal-descripcion").innerText = item.descripcion;
       document.getElementById("modal-codigo").innerText = "Código: " + item.codigo;
@@ -349,28 +338,20 @@
 
       document.getElementById("modal").style.display = "flex";
     }
-
     function cerrarModal() {
       document.getElementById("modal").style.display = "none";
     }
-
     window.onclick = function(event) {
       const modal = document.getElementById("modal");
-      if (event.target === modal) {
-        cerrarModal();
-      }
+      if (event.target === modal) cerrarModal();
     }
 
-    // ===== Dropdown Menu =====
+    // Toggle menú
     function toggleMenu() {
-      const menu = document.getElementById("dropdown");
+      const menu = document.getElementById("menu");
       menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
-    window.addEventListener("click", (e) => {
-      if (!e.target.closest("header img") && !e.target.closest("#dropdown")) {
-        document.getElementById("dropdown").style.display = "none";
-      }
-    });
   </script>
 </body>
 </html>
+
