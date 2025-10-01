@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Precios</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9fafb; }
+    h1 { text-align: center; }
+    input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+    th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+    th { background: #111827; color: white; }
+    tr:hover { background: #f3f4f6; }
+  </style>
+</head>
+<body>
+  <h1>📋 Lista de Precios</h1>
+  <input type="text" id="search" placeholder="Buscar por nombre o código...">
+
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Descripción</th>
+        <th>Unidad</th>
+        <th>Precio</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-body"></tbody>
+  </table>
+
+  <script>
+    let productos = [];
+
+    // Cargar el archivo JSON con los precios
+    fetch("precios.json")
+      .then(res => res.json())
+      .then(data => {
+        productos = data;
+        mostrarTabla(productos);
+      });
+
+    // Función para mostrar los datos en la tabla
+    function mostrarTabla(lista) {
+      const tbody = document.getElementById("tabla-body");
+      tbody.innerHTML = "";
+      lista.forEach(item => {
+        const fila = `
+          <tr>
+            <td>${item.codigo}</td>
+            <td>${item.descripcion}</td>
+            <td>${item.unidad}</td>
+            <td>$${item.precio.toFixed(2)}</td>
+          </tr>`;
+        tbody.innerHTML += fila;
+      });
+    }
+
+    // Buscador en tiempo real
+    document.getElementById("search").addEventListener("input", e => {
+      const texto = e.target.value.toLowerCase();
+      const filtrados = productos.filter(p =>
+        p.descripcion.toLowerCase().includes(texto) ||
+        p.codigo.toLowerCase().includes(texto)
+      );
+      mostrarTabla(filtrados);
+    });
+  </script>
+</body>
+</html>
