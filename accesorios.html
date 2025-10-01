@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orange Store - Catálogo</title>
+  <title>Orange Store - Accesorios</title>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <style>
     body {
@@ -105,9 +105,8 @@
       margin-top: 12px;
     }
     .tag {
-      position: absolute;
-      top: 12px;
-      right: 12px;
+      align-self: flex-end;
+      margin-top: 8px;
       background: #f97316;
       color: white;
       padding: 4px 8px;
@@ -128,7 +127,7 @@
   <header>
     <div style="display:flex; align-items:center; gap:10px;">
       <img src="logo.png" alt="Logo">
-      <h1>Orange Store - Catálogo</h1>
+      <h1>Orange Store - Accesorios</h1>
     </div>
   </header>
 
@@ -139,8 +138,7 @@
       <button class="filter-btn active" onclick="filtrar('all')">Todos</button>
       <button class="filter-btn" onclick="filtrar('cable')">Cables</button>
       <button class="filter-btn" onclick="filtrar('cargador')">Cargadores</button>
-      <button class="filter-btn" onclick="filtrar('pantalla')">Pantallas</button>
-      <button class="filter-btn" onclick="filtrar('flex')">Flex</button>
+      <button class="filter-btn" onclick="filtrar('audifono')">Audífonos</button>
     </div>
 
     <div id="grid" class="grid"></div>
@@ -151,7 +149,7 @@
     let fuse;
     let filtroActivo = "all";
 
-    const DATA_FILE = "precios.json"; // accesorios.json / repuestos.json
+    const DATA_FILE = "precios.json"; 
 
     fetch(DATA_FILE)
       .then(res => res.json())
@@ -180,11 +178,11 @@
         const categoria = detectarCategoria(item.descripcion);
         const card = `
           <div class="card">
-            <span class="tag">${categoria}</span>
             <div class="descripcion">${item.descripcion}</div>
             <div class="codigo">Código: ${item.codigo}</div>
             <div class="precio">$${Number(item.precio).toFixed(2)}</div>
             <div class="unidad">${item.unidad}</div>
+            <span class="tag">${categoria}</span>
           </div>`;
         grid.innerHTML += card;
       });
@@ -194,8 +192,7 @@
       const d = desc.toLowerCase();
       if (d.includes("cable")) return "Cables";
       if (d.includes("cargador")) return "Cargadores";
-      if (d.includes("pantalla")) return "Pantallas";
-      if (d.includes("flex")) return "Flex";
+      if (d.includes("audifono") || d.includes("auricular")) return "Audífonos";
       return "Otros";
     }
 
@@ -218,7 +215,6 @@
       mostrarProductos(lista);
     }
 
-    // Buscador en vivo
     let timeout;
     document.getElementById("search").addEventListener("input", e => {
       clearTimeout(timeout);
