@@ -15,7 +15,7 @@
     header {
       display: flex;
       align-items: center;
-      gap: 15px;
+      justify-content: space-between;
       padding: 15px 20px;
       background: linear-gradient(90deg, #f97316, #ea580c);
       color: white;
@@ -31,8 +31,28 @@
     }
     .container {
       padding: 25px;
-      max-width: 1200px;
+      max-width: 1300px;
       margin: auto;
+    }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .filter-btn {
+      background: white;
+      border: 2px solid #f97316;
+      color: #f97316;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: bold;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: #f97316;
+      color: white;
     }
     .search-box {
       width: 100%;
@@ -55,22 +75,23 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
-      transition: transform 0.15s, box-shadow 0.15s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
     }
     .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-    }
-    .codigo {
-      font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 5px;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
     .descripcion {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
       margin-bottom: 10px;
       color: #1f2937;
+    }
+    .codigo {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 5px;
     }
     .unidad {
       font-size: 14px;
@@ -78,10 +99,21 @@
       margin-top: auto;
     }
     .precio {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
       color: #f97316;
-      margin-top: 10px;
+      margin-top: 12px;
+    }
+    .tag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #f97316;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: bold;
     }
     .empty {
       text-align: center;
@@ -94,32 +126,43 @@
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Logo">
-    <h1>Orange Store - Accesorios</h1>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="logo.png" alt="Logo">
+      <h1>Orange Store - Catálogo</h1>
+    </div>
   </header>
 
   <div class="container">
     <input type="text" id="search" class="search-box" placeholder="🔍 Busca accesorios... (ej: amsentri, cable 2m)">
+    
+    <div class="filters">
+      <button class="filter-btn active" onclick="filtrar('all')">Todos</button>
+      <button class="filter-btn" onclick="filtrar('cable')">Cables</button>
+      <button class="filter-btn" onclick="filtrar('cargador')">Cargadores</button>
+      <button class="filter-btn" onclick="filtrar('pantalla')">Pantallas</button>
+      <button class="filter-btn" onclick="filtrar('flex')">Flex</button>
+    </div>
+
     <div id="grid" class="grid"></div>
   </div>
 
   <script>
     let productos = [];
     let fuse;
+    let filtroActivo = "all";
 
-    const DATA_FILE = "precios.json"; // cambiar a "repuestos.json" en la otra página
+    const DATA_FILE = "precios.json"; // accesorios.json / repuestos.json
 
     fetch(DATA_FILE)
       .then(res => res.json())
       .then(data => {
         productos = data;
 
-        // 🔥 Configuración de Fuse.js
         fuse = new Fuse(productos, {
           keys: ["descripcion", "codigo"],
-          threshold: 0.4,  // tolerancia de error (0 exacto, 1 muy permisivo)
-          distance: 100,
+          threshold: 0.4,
           ignoreLocation: true,
+          distance: 120,
           minMatchCharLength: 2,
         });
 
@@ -134,10 +177,12 @@
         return;
       }
       lista.forEach(item => {
+        const categoria = detectarCategoria(item.descripcion);
         const card = `
           <div class="card">
-            <div class="codigo">Código: ${item.codigo}</div>
+            <span class="tag">${categoria}</span>
             <div class="descripcion">${item.descripcion}</div>
+            <div class="codigo">Código: ${item.codigo}</div>
             <div class="precio">$${Number(item.precio).toFixed(2)}</div>
             <div class="unidad">${item.unidad}</div>
           </div>`;
@@ -145,18 +190,40 @@
       });
     }
 
-    // Buscador con Fuse.js
+    function detectarCategoria(desc) {
+      const d = desc.toLowerCase();
+      if (d.includes("cable")) return "Cables";
+      if (d.includes("cargador")) return "Cargadores";
+      if (d.includes("pantalla")) return "Pantallas";
+      if (d.includes("flex")) return "Flex";
+      return "Otros";
+    }
+
+    function filtrar(categoria) {
+      filtroActivo = categoria;
+      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+
+      const texto = document.getElementById("search").value.trim();
+      let lista = productos;
+
+      if (texto !== "") {
+        lista = fuse.search(texto).map(r => r.item);
+      }
+
+      if (categoria !== "all") {
+        lista = lista.filter(p => detectarCategoria(p.descripcion).toLowerCase().includes(categoria));
+      }
+
+      mostrarProductos(lista);
+    }
+
+    // Buscador en vivo
     let timeout;
     document.getElementById("search").addEventListener("input", e => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        const texto = e.target.value.trim();
-        if (texto === "") {
-          mostrarProductos(productos);
-        } else {
-          const resultados = fuse.search(texto).map(r => r.item);
-          mostrarProductos(resultados);
-        }
+        filtrar(filtroActivo);
       }, 200);
     });
   </script>
