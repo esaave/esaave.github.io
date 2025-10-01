@@ -10,5 +10,3491 @@
     "descripcion": "CABLE WAKE MICRO 6.5 2M",
     "unidad": "UNIDAD",
     "precio": 10.0
+  },
+  {
+    "codigo": "A00072",
+    "descripcion": "CABLE BELKIN IPHONE 5G/6G/7G",
+    "unidad": "UNIDAD",
+    "precio": 3.0
+  },
+  {
+    "codigo": "A00081",
+    "descripcion": "CABLE BELKIN TIPO C USB 1.2M",
+    "unidad": "UNIDAD",
+    "precio": 3.0
+  },
+  {
+    "codigo": "A00082",
+    "descripcion": "CABLE GRIFFIN IPHONE 4/4S 3M",
+    "unidad": "UNIDAD",
+    "precio": 2.0
+  },
+  {
+    "codigo": "A00086",
+    "descripcion": "CABLE WAKE TIPO C 2M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00087",
+    "descripcion": "CABLE METALIZADO TIPO C 1M AZUL",
+    "unidad": "UNIDAD",
+    "precio": 2.0
+  },
+  {
+    "codigo": "A00090",
+    "descripcion": "CABLE GRIFFIN IPHONE 5/6 2M",
+    "unidad": "UNIDAD",
+    "precio": 2.0
+  },
+  {
+    "codigo": "A00100",
+    "descripcion": "CABLE GRIFFIN IPHONE 5/6 3M",
+    "unidad": "UNIDAD",
+    "precio": 2.0
+  },
+  {
+    "codigo": "A00130",
+    "descripcion": "CARGADOR CARRO MOXOM MICRO 3.4A 2USB",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A00133",
+    "descripcion": "CARGADOR CARRO SKY DOLPHIN A LIGHTING 3.6A 2USB",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A00138",
+    "descripcion": "CARGADOR CARRO BELKIN 2USB 4.2AMP IPHONE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A00140",
+    "descripcion": "CARGADOR CARRO BELKIN 2USB 4.2AMP MICRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A00141",
+    "descripcion": "CARGADOR CARRO SKY DOLPHIN TIPO C 3.6A 2USB",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A00142",
+    "descripcion": "CARGADOR CARRO WAKE MICRO 3.4A 2USB",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A00149",
+    "descripcion": "CARGADOR CARRO WAKE QUEEN MICRO 3.4A 2POR",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A00159",
+    "descripcion": "CARGADOR PARED BELKIN 2.1 AMP 2 USB IPHONE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A00166",
+    "descripcion": "CABLE BELKIN MICRO USB 1.2M",
+    "unidad": "UNIDAD",
+    "precio": 3.0
+  },
+  {
+    "codigo": "A00186",
+    "descripcion": "CARGADOR 2 EN 1 SAMSUNG SUPER RAPIDO 5V",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A001891",
+    "descripcion": "VIDRIO TEMPLADO CERAMICA A150",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A001892",
+    "descripcion": "VIDRIO TEMPLADO CERAMICA A226",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A001893",
+    "descripcion": "VIDRIO TEMPLADO CERAMICA A070",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A001895",
+    "descripcion": "VIDRIO TEMPLADO CERAMICA A186",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A001896",
+    "descripcion": "VIDRIO TEMPLADO CERAMICA A171",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A00192",
+    "descripcion": "TACO PARED AMPSENTRIX DUAL TIPO C 65W",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A00194",
+    "descripcion": "TACO PARED AMPSENTRIX DUAL TIPO C - USB 20W",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A003546",
+    "descripcion": "CORREA APPLE WATCH LONA 42/44/45/49 MM",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00659",
+    "descripcion": "FORRO NIKO DEFENDER IPHONE 11 PRO MAX TURQUESA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00757",
+    "descripcion": "POWER BANK HOCO J73 30.000 MAH",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
+    "codigo": "A00784",
+    "descripcion": "TACO DE PARED WAKE UNIVERSAL 4.8A 4USB",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A008000",
+    "descripcion": "FORRO TRANSFORMES  SAMSUNG A20S NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008002",
+    "descripcion": "FORRO TRANSFORMES SAMSUNG A22 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008003",
+    "descripcion": "FORRO TRANSFORMES SAMSUNG A04 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008007",
+    "descripcion": "FORRO TRANSFORMES SAMSUNG A33 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008008",
+    "descripcion": "FORRO TRANSFORMES SAMSUNG A53 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008010",
+    "descripcion": "FORRO TRANSFORMES SAMSUNG A03 CORE NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008011",
+    "descripcion": "FORRO TRANSFORMES UMIDIGI A11 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008012",
+    "descripcion": "FORRO TRANSFORMES CAMON 17 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008014",
+    "descripcion": "FORRO TRANSFORMES CAMON 19 NEO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A008015",
+    "descripcion": "FORRO TRANSFORMES CAMON 19 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008016",
+    "descripcion": "FORRO TRANSFORMES INFINIX HOT 10 LITE NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008017",
+    "descripcion": "FORRO TRANSFORMES INFINIX HOT 20i NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008018",
+    "descripcion": "FORRO TRANSFORMES INFINIX HOT 12i NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008019",
+    "descripcion": "FORRO TRANSFORMES INFINIX HOT 20 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008020",
+    "descripcion": "FORRO TRANSFORMES ALCATEL1B NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008021",
+    "descripcion": "FORRO TRANSFORMES INFINIX HOT 11S NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008022",
+    "descripcion": "FORRO TRANSFORMES INFINIX HOT 11 PLAY NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008023",
+    "descripcion": "FORRO TRANSFORMES INFINIX HOT 12 PLAY NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008024",
+    "descripcion": "FORRO TRANSFORMES REALME C11 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008025",
+    "descripcion": "FORRO TRANSFORMES REALME C21Y NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008027",
+    "descripcion": "FORRO TRANSFORMES REDMI 9C / 10A NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008030",
+    "descripcion": "FORRO TRANSFORMES REDMI NOTE 11 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008037",
+    "descripcion": "FORRO TRANSFORMES REDMI A1 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008038",
+    "descripcion": "FORRO TRANSFORMES REDMI A1 PLUS NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008039",
+    "descripcion": "FORRO TRANSFORMES TECNO POP 5 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008040",
+    "descripcion": "FORRO TRANSFORMES TECNO POP 5 LITE NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008041",
+    "descripcion": "FORRO TRANSFORMES TECNO POP 6 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008042",
+    "descripcion": "FORRO TRANSFORMES SPARK 8C / GO 2022 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008043",
+    "descripcion": "FORRO TRANSFORMES SPARK GO 2023 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008044",
+    "descripcion": "FORRO TRANSFORMES SPARK 8 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008045",
+    "descripcion": "FORRO TRANSFORMES SPARK 6 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008046",
+    "descripcion": "FORRO TRANSFORMES SPARK 7T NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008047",
+    "descripcion": "FORRO TRANSFORMES SPARK 9 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008048",
+    "descripcion": "FORRO TRANSFORMES SPARK 9T NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008049",
+    "descripcion": "FORRO TRANSFORMES SPARK 8P",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008051",
+    "descripcion": "FORRO TRANSFORMES TECNO POVA 2",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008052",
+    "descripcion": "FORRO TRANSFORMES TECNO POVA 3",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008053",
+    "descripcion": "FORRO TRANSFORMES INFINITIX HOT 12",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008054",
+    "descripcion": "FORRO TRANSFORMES REDMI NOTE 11",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008055",
+    "descripcion": "AUDIFONO APPLE AIRPODS MAX",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
+    "codigo": "A008056",
+    "descripcion": "AUDIFONO MANOS LIBRES SAMSUNG S10 AKG",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A008057",
+    "descripcion": "POWER BANK KALIO K-A135 10000MAH",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A008063",
+    "descripcion": "FORRO GOMA TRANSPARENTE 360 IPHONE 16 ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A008064",
+    "descripcion": "FORRO GOMA TRANSPARENTE 360 IPHONE 16 PRO MAX ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A008066",
+    "descripcion": "FORRO NEW CASE SAMSUNG S24 ULTRA ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008067",
+    "descripcion": "AUDÍFONO LAMBO HURACAN 700 ( FIX )",
+    "unidad": "UNIDAD",
+    "precio": 60.0
+  },
+  {
+    "codigo": "A008068",
+    "descripcion": "AUDÍFONO LAMBO HURACAN 300 ( FIX )",
+    "unidad": "UNIDAD",
+    "precio": 60.0
+  },
+  {
+    "codigo": "A008069",
+    "descripcion": "AUDÍFONO LAMBO HURACAN NOCTIS ( FIX )",
+    "unidad": "UNIDAD",
+    "precio": 60.0
+  },
+  {
+    "codigo": "A008070",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 12 PRO MAX CASPER TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008071",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 15 PRO MAX CASPER TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008072",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 14  PRO MAX CASPER TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008074",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 16  PRO MAX CASPER TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008075",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 12  PRO MAX CASPER MATTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008076",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 14  PRO MAX CASPER MATTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008077",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 15  PRO MAX CASPER MATTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008078",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 16  PRO MAX CASPER MATTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008079",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 13  PRO MAX/ 14 PLUS  CASPER MATTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008080",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 13 PRO MAX CASPER  ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008081",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 12  PRO MAX CASPER  ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008082",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 15  PRO MAX CASPER  ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008083",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 14  PRO MAX CASPER  ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A008085",
+    "descripcion": "VIDRIO TEMPLADO IPHONE 13  PRO MAX/ 14 PLUS  CASPER TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009100",
+    "descripcion": "AUDIFONO APPLE AIRPODS PRO 2 BLANCO (FIX)",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A009102",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE X - XS - 11 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009103",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 12 - 12 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009104",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 12 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009105",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 13 -13 PRO -14- 14 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009106",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 13 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009107",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 14 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009108",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 15 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009109",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 15 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009110",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 15 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009111",
+    "descripcion": "VIDRIO TEMPLADO XK IPHONE 16 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009112",
+    "descripcion": "VIDRIO TEMPLADO XK IPHONE 16 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009113",
+    "descripcion": "VIDRIO TEMPLADO XK IPHONE 16 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009114",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 11 - XR ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009115",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE X - XS - 11 PRO ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009116",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 12 - 12 PRO ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009117",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 12 PRO MAX ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009118",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 13 -13 PRO -14- 14 PRO ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009119",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 14 PRO MAX ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009120",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 15 ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009121",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 15 PRO ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009122",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 16 ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009123",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 16 PRO ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A009124",
+    "descripcion": "VIDRIO TEMPLADO WOTAER IPHONE 16 PRO MAX ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00937",
+    "descripcion": "TECLADO Y MOUSE GAMING HP KM300F",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
+    "codigo": "A00941",
+    "descripcion": "AUDIFONO APPLE AIRPODS PRO BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A00942",
+    "descripcion": "AUDIFONO MANOS LIBRES SAMSUNG S10",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A00948",
+    "descripcion": "FORRO BALLISTIC JEWEL SPARK SAMSUNG S10E TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A00969",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 6 6S PLUS BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00970",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 6 6S PLUS ROJO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00972",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 6 6S PLUS NARANJA PASTEL",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00973",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 6 6S PLUS GRIS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A00999",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO MAX AZUL CELESTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01000",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01002",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO MAX AMARILLO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01003",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO MAX GRIS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01033",
+    "descripcion": "FORRO BALLISTIC SOFT JACKET IPHONE 11 PRO MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A01034",
+    "descripcion": "FORRO OTTERBOX POPSOCKET SIMMETRY IPHONE 11 AZUL",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A01037",
+    "descripcion": "FORRO OTTERBOX POPSOCKET SIMMETRY IPHONE 11 PRO AZUL",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A01038",
+    "descripcion": "FORRO OTTERBOX POPSOCKET SIMMETRY IPHONE 11 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A01039",
+    "descripcion": "FORRO OTTERBOX POPSOCKET SIMMETRY IPHONE 11 PRO MAX AZUL",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A01040",
+    "descripcion": "FORRO PRODIGEE IPHONE 11 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A01041",
+    "descripcion": "FORRO PRODIGEE IPHONE 11 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A01060",
+    "descripcion": "FORRO CORAZON NIKO IPHONE X XS PLATA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A010610",
+    "descripcion": "CABLE APPLE USB C A USB C 1M BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A010611",
+    "descripcion": "PROTECTOR DE CAMARAS IPHONE 14 / 14 PLUS",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A010612",
+    "descripcion": "PROTECTOR DE CAMARAS IPHONE 12 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A010613",
+    "descripcion": "PROTECTOR DE CAMARAS IPHONE  13 PRO/ 13 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A010615",
+    "descripcion": "PROTECTOR DE CAMARAS IPHONE 14 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A010623",
+    "descripcion": "PROTECTOR DE CAMARAS COMPLETO IPHONE 11 / 11 PRO / 11 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A010624",
+    "descripcion": "PROTECTOR DE CAMARAS IPHONE 16",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A010625",
+    "descripcion": "PROTECTOR DE CAMARAS IPHONE 16 PRO/ PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A010626",
+    "descripcion": "PROTECTOR DE CAMARAS IPHONE 16/ 16 PLUS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01063",
+    "descripcion": "FORRO CORAZON NIKO IPHONE XS MAX PLATA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01068",
+    "descripcion": "CABLE APPLE LIGHTNING USB C 1M BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01070",
+    "descripcion": "CABLE APPLE LIGHTNING USB 1M BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01094",
+    "descripcion": "TACO CARRO BELKIN 2 USB 4.2 AMP",
+    "unidad": "UNIDAD",
+    "precio": 3.0
+  },
+  {
+    "codigo": "A01095",
+    "descripcion": "CARGADOR PARED BELKIN 3.0 AMP 1 USB IPHONE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01096",
+    "descripcion": "CARGADOR PARED BELKIN 3.1 AMP 2 USB IPHONE CUADRADO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01172",
+    "descripcion": "CABLE METALIZADO TIPO C 1M PLATA",
+    "unidad": "UNIDAD",
+    "precio": 1.0
+  },
+  {
+    "codigo": "A01173",
+    "descripcion": "CABLE METALIZADO TIPO C 1M DORADO",
+    "unidad": "UNIDAD",
+    "precio": 1.0
+  },
+  {
+    "codigo": "A01174",
+    "descripcion": "CABLE METALIZADO TIPO C 1M VERDE",
+    "unidad": "UNIDAD",
+    "precio": 1.0
+  },
+  {
+    "codigo": "A01175",
+    "descripcion": "CABLE METALIZADO TIPO C 1M GRIS",
+    "unidad": "UNIDAD",
+    "precio": 1.0
+  },
+  {
+    "codigo": "A01176",
+    "descripcion": "CABLE METALIZADO TIPO C 1M FUCSIA",
+    "unidad": "UNIDAD",
+    "precio": 1.0
+  },
+  {
+    "codigo": "A01189",
+    "descripcion": "FORRO TPU GAMUZA IPHONE XS MAX GRIS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01284",
+    "descripcion": "CARGADOR PARED TOXIIK TOK 322 IPHONE 3.1 AMP 2 USB",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A01294",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 6 6S PLUS NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01302",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE XS MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01317",
+    "descripcion": "RELOJ SMART BRACELET M4 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01323",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO MAX VERDE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A014101",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE ROCKSPACE M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01441",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE ROCKSPACE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01559",
+    "descripcion": "FORRO CORAZON NIKO IPHONE XS MAX DORADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01697",
+    "descripcion": "CORNETA INALAMBRICA KTX-1152",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01699",
+    "descripcion": "CORNETA INALAMBRICA MS-1602BT VERDE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A01701",
+    "descripcion": "CORNETA INALAMBRICA MS-1604BT MORADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A017118",
+    "descripcion": "AUDIFONO AIRPODS PANTALLA TACTIL",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A017119",
+    "descripcion": "VIDRIO TEMPLADO  IPHONE 13 PRO SUPEREDGE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017120",
+    "descripcion": "VIDRIO TEMPLADO  IPHONE 13 PRO MAX SUPEREDGE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017121",
+    "descripcion": "VIDRIO TEMPLADO  IPHONE 14  PRO MAX SUPEREDGE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017122",
+    "descripcion": "VIDRIO TEMPLADO  IPHONE 15 SUPEREDGE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017123",
+    "descripcion": "VIDRIO TEMPLADO  IPHONE 15 PRO MAX SUPEREDGE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017124",
+    "descripcion": "FORRO CHINO COMMUTER IPHONE 13 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017125",
+    "descripcion": "FORRO CHINO COMMUTER IPHONE 14 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017126",
+    "descripcion": "FORRO CHINO COMMUTER 15 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017127",
+    "descripcion": "FORRO CHINO COMMUTER IPHONE 16",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017128",
+    "descripcion": "FORRO CHINO COMMUTER  IPHONE 16 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017129",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG A35 / A55",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017130",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG S24 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017131",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE XS MAX COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017132",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE XR COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017133",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017134",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11  PRO MAX COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017135",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017136",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12 PRO MAX COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017137",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 13 COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017138",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 13 PRO COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017139",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 13 PRO MAX COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017140",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 14 COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017141",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 14 PRO MAX COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017142",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 14 PRO/15 PRO COLOR MIX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017143",
+    "descripcion": "FORRO 360 (2 CAPAS)  IPHONE 16 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017144",
+    "descripcion": "FORRO 360 CASE IPHONE 16 PRO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A017145",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S24 ULTRA NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A017146",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 16 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A017147",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 16",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A017148",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 16 PRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A017149",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S24 FE NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A017151",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S25 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A01725",
+    "descripcion": "MOUSE DELL OPTICO CON PUERTO USB",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017510",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S25",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A017511",
+    "descripcion": "CABLE SAMSUNG USB TIPO C A USB TIPO C 8A (FIX)",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A017512",
+    "descripcion": "CABLE APPLE USB C A USB C 1M BLANCO TRENZADO",
+    "unidad": "UNIDAD",
+    "precio": 12.5
+  },
+  {
+    "codigo": "A01755",
+    "descripcion": "RELOJ SMART BRACELET",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A01818",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE 7/8",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01819",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE 7/8+",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01820",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE X/XS",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01821",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE XR",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01822",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE XS MAX",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01823",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE 11",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01824",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE 11 PRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01825",
+    "descripcion": "FORRO ESTAMPADO FASHION CON CORREA IPHONE 11 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01891",
+    "descripcion": "FORRO GOMA RESISTENTE FASHION CASE IPHONE 7/8 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01902",
+    "descripcion": "FORRO GOMA RESISTENTE FASHION CASE IPHONE 11 PRO MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01906",
+    "descripcion": "FORRO GOMA RESISTENTE FASHION CASE IPHONE XR NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01909",
+    "descripcion": "FORRO GOMA RESISTENTE FASHION CASE IPHONE X/XS NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01910",
+    "descripcion": "FORRO GOMA RESISTENTE FASHION CASE IPHONE 11 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01994",
+    "descripcion": "CARGADOR PARED BELKIN 3.0 AMP 1 USB TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A01997",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12 PRO MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A01998",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12 PRO MAX AZUL",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02003",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02004",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO GRIS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02005",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO AZUL",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02017",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO GRIS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02019",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE CHINA",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02072",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE XS MAX MORADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A02155",
+    "descripcion": "CARGADOR PARED BELKIN 2.1 AMP 2 USB TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02161",
+    "descripcion": "CORREA RELOJ APPLE 42MM / 44MM LISA",
+    "unidad": "UNIDAD",
+    "precio": 7.0
+  },
+  {
+    "codigo": "A02162",
+    "descripcion": "CORREA RELOJ APPLE 42MM / 44MM TELA",
+    "unidad": "UNIDAD",
+    "precio": 7.0
+  },
+  {
+    "codigo": "A02167",
+    "descripcion": "CORREA COLORES RELOJ M4 / M3",
+    "unidad": "UNIDAD",
+    "precio": 2.5
+  },
+  {
+    "codigo": "A02175",
+    "descripcion": "MOUSE INALAMBRICO ZERODATE T35",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02176",
+    "descripcion": "MOUSE INALAMBRICO WIRELESS M33 2.4",
+    "unidad": "UNIDAD",
+    "precio": 25.0
+  },
+  {
+    "codigo": "A02180",
+    "descripcion": "MOUSE GAMING JERTECH ROCKET M300",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02183",
+    "descripcion": "MOUSE GAMING MKESPN X11",
+    "unidad": "UNIDAD",
+    "precio": 25.0
+  },
+  {
+    "codigo": "A02186",
+    "descripcion": "TECLADO HP GAMING K500Y",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02187",
+    "descripcion": "TECLADO HP GAMING GK400F",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
+    "codigo": "A02188",
+    "descripcion": "TECLADO HP GAMING GHK100F",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A022100",
+    "descripcion": " FAN COOLER (FIX)",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02217",
+    "descripcion": "RELOJ SMART BRACELET M5",
+    "unidad": "UNIDAD",
+    "precio": 12.0
+  },
+  {
+    "codigo": "A02220",
+    "descripcion": "CARGADOR PARED BELKIN 3.1 AMP 2 USB TIPO C CUADRADO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02237",
+    "descripcion": "FORRO BALLISTIC TOUGH JACKET IPHONE X XS BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02240",
+    "descripcion": "AUDIFONO APPLE EARPODS",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02251",
+    "descripcion": "POWER CASE IPHONE 11 PRO MAX 4500MAH",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A02254",
+    "descripcion": "POWER CASE IPHONE X/XS 3800MAH NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 35.0
+  },
+  {
+    "codigo": "A02257",
+    "descripcion": "POWER CASE IPHONE 7 8 3800MAH NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02282",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO MAX MORADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02289",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE X XS MORADO OSCURO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02311",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 11 PRO MAX BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A02346",
+    "descripcion": "CARGADOR CARRO BELKIN 2USB TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02349",
+    "descripcion": "LAMINA HYDROGEL MATTE CHINA",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A023606",
+    "descripcion": "CORNETA PORTATIL VIDVIE SP914",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
+    "codigo": "A023611",
+    "descripcion": "CARGADOR MAGNETICO VIDVIE 15W WLC1405",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A023615",
+    "descripcion": "RELOJ SMART WATCH A800 PLUS NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
+    "codigo": "A023617",
+    "descripcion": "CARGADOR 2 EN 1 APPLE IPHONE 16 PRO MAX TIPO C A C",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02369",
+    "descripcion": "CARGADOR PARED XIAOMI TURBO TIPO C 27W",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02375",
+    "descripcion": "AUDIFONO MANOS LIBRE XIAOMI PISTON TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02378",
+    "descripcion": "AUDIFONO MANOS LIBRES JBL BY HARMAN",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02383",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12/12PRO ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A02384",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12PRO MAX ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02385",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12/12PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02386",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12/12PRO BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02387",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12 PRO MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02388",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12 PRO MAX BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02389",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12/12 PRO TRANSPARENTE / NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02390",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12/12 PRO TRANSPARENTE / ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02391",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12/12 PRO TRANSPARENTE / AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02392",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12/12 PRO TRANSPARENTE / BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02393",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12 PRO MAX TRANSPARENTE / ROJO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02394",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12 PRO MAX TRANSPARENTE / BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02395",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12 PRO MAX TRANSPARENTE / ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02396",
+    "descripcion": "FORRO GOMA RESISTENTE PLATINA APPLE IPHONE 12 PRO MAX TRANSPARENTE / AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02454",
+    "descripcion": "CABLE KOUDERS KOD371 TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02498",
+    "descripcion": "FORRO SPACE IPHONE 12/12 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02499",
+    "descripcion": "FORRO SPACE IPHONE 12 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02504",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO AZUL CELESTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02505",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12 PRO MAX MORADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02506",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12 PRO MAX AZUL CELESTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025100",
+    "descripcion": "CARGADOR 2 EN 1 APPLE IPHONE 14 PRO MAX TIPO C A LIGHTING",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02516",
+    "descripcion": "RELOJ SMART WATCH T500+ ROJO",
+    "unidad": "UNIDAD",
+    "precio": 35.0
+  },
+  {
+    "codigo": "A02522",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE TABLET CHINA",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A02540",
+    "descripcion": "FORRO BALLISTIC JEWEL IPHONE 12 PRO MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02543",
+    "descripcion": "FORRO SPIGEN IPHONE 12/12 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02545",
+    "descripcion": "FORRO SPIGEN IPHONE 11 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02546",
+    "descripcion": "FORRO SPIGEN IPHONE 13/13 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02554",
+    "descripcion": "FORRO SPIGEN IPHONE 12 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A02581",
+    "descripcion": "FORRO GOMA IGOK APPLE IPHONE 11 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02582",
+    "descripcion": "FORRO GOMA IGOK APPLE IPHONE 11 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02583",
+    "descripcion": "FORRO GOMA IGOK APPLE IPHONE 12/12 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02584",
+    "descripcion": "FORRO GOMA IGOK APPLE IPHONE 12 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02585",
+    "descripcion": "FORRO GOMA IGOK APPLE IPHONE SE 2020 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A02587",
+    "descripcion": "FORRO SPIGEN IPHONE 13/13 PRO CRYSTAL FLEX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025876",
+    "descripcion": "FORRO SPIGEN IPHONE 13/13 PRO CRYSTAL FLEX ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025877",
+    "descripcion": "FORRO SPIGEN IPHONE 13 PRO MAX CRYSTAL FLEX AMARILLO NEON",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025883",
+    "descripcion": "FORRO SPIGEN IPHONE 12 PRO MAX CRYSTAL FLEX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025888",
+    "descripcion": "FORRO PRODIGEE IPHONE 13/13 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025889",
+    "descripcion": "FORRO PRODIGEE IPHONE 13/13 PRO NEON/AMARILLO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025891",
+    "descripcion": "FORRO PRODIGEE IPHONE 13/13 PRO NEON/TURQUESA",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025892",
+    "descripcion": "FORRO PRODIGEE IPHONE 13/13 PRO NEON/MELON",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025895",
+    "descripcion": "FORRO PRODIGEE IPHONE 13/13 PRO TRANSPRENTE ROJO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025896",
+    "descripcion": "FORRO PRODIGEE IPHONE 13/13 PRO VERDE OSCURO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025899",
+    "descripcion": "FORRO SPACE IPHONE X/XS TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025901",
+    "descripcion": "FORRO SPACE IPHONE XR TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025902",
+    "descripcion": "FORRO SPACE IPHONE XS MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025904",
+    "descripcion": "FORRO SPACE IPHONE 11 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025905",
+    "descripcion": "FORRO SPACE IPHONE 13 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025906",
+    "descripcion": "FORRO SPACE IPHONE 13 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A02591",
+    "descripcion": "FORRO PRODIGEE APPLE UNIVERSAL IPHONE 11/12/13",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025910",
+    "descripcion": "AUDIFONO MANOS LIBRE XIAOMI SK-1M BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A025914",
+    "descripcion": "AUDIFONO APPLE EARPODS TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025915",
+    "descripcion": "CARGADOR PARED SAMSUNG TIPO C A TIPO C 25W",
+    "unidad": "UNIDAD",
+    "precio": 25.0
+  },
+  {
+    "codigo": "A025918",
+    "descripcion": "CARGADOR PARED SAMSUNG TIPO C A TIPO C 45W",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025920",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE XS MAX AMARILLO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025921",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE XS MAX VERDE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025922",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE XR VERDE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025923",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE X XS AMARILLO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025926",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO ROJO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025927",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO AMARILLO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025928",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12 PRO MAX VERDE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025940",
+    "descripcion": "CABLE AMPSENTRIX MATRIX TIPO C A LIGHTNING 1M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025943",
+    "descripcion": "CARGADOR CARRO SAMSUNG TIPO C A TIPO C 25W",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A025947",
+    "descripcion": "AUDIFONO CATEAR VZV-23M INALAMBRICO AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A025951",
+    "descripcion": "CABLE USB LDNIO LS521 MICRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025952",
+    "descripcion": "TACO PARED SAMSUNG 1 USB TIPO C 25W",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A025965",
+    "descripcion": "TACO PARED PARED 65W POWER ADAPTER TRIO",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A025967",
+    "descripcion": "AUDIFONO APPLE EARPODS CONECTOR LIGHTNING BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025970",
+    "descripcion": "CARGADOR PARED POWER BANK WAKE MICRO 2000MAH",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025971",
+    "descripcion": "CABLE AUXILIAR BELKIN 3.5 BLANCO 1.8M",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A025973",
+    "descripcion": "CABLE AUXILIAR BELKIN 3.5 ROSADO 1.8M",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A025977",
+    "descripcion": "CARGADOR PARED XIAOMI  TIPO C 67W",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A025978",
+    "descripcion": "CARGADOR PARED XIAOMI QUICK CON CABLE V8",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025979",
+    "descripcion": "MEMORIA MULTIFUNCIONAL 64 GB",
+    "unidad": "UNIDAD",
+    "precio": 35.0
+  },
+  {
+    "codigo": "A025982",
+    "descripcion": "CORNETA INALAMBRICA 3 AM-306",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A025984",
+    "descripcion": "CABLE AUXILIAR 3.5MM MOXON AUX-08",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A025991",
+    "descripcion": "CARGADOR DE CARRO 2 EN 1 APPLE IPHONE 13  PRO MAX TIPO C A LIGHTING",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A025992",
+    "descripcion": "AUDIFONO MANOS LIBRES XIAOMI M10",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A025995",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE XR TURQUESA",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A025997",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 11 AZUL",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A025999",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 11 PRO MAX NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026001",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 11 PRO MAX BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026004",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 12/12 PRO AZUL OSCURO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026005",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 12/12 PRO ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026008",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 12/12 PRO ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026011",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 12 PRO MAX BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026012",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 12 PRO MAX ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026014",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 12 PRO MAX TURQUESA",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026017",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 13 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026018",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 13 BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026019",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 13 AZUL",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026020",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 13 ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026021",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 13 TURQUESA",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026022",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 13 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026029",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 13 PRO MAX AZUL",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026030",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 13 PRO MAX ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026033",
+    "descripcion": "FORRO OTTERBOX COMMUTER IPHONE 12/12 PRO BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026035",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 13 PRO ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026036",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 13 PRO OSCURO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026037",
+    "descripcion": "TACO PARED SAMSUNG 45W TIPO C A TIPO C ORIGINAL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026038",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S21 GRIS CON BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026044",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 GRIS CON BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026045",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 NEGRO CON GRIS",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026046",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 PLUS NEGRO CON GRIS",
+    "unidad": "UNIDAD",
+    "precio": 25.0
+  },
+  {
+    "codigo": "A026048",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A026053",
+    "descripcion": "LAMINA HYDROGEL ROCKSPACE ANTIESPIA",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A026054",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE ROCKSPACE MATTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026055",
+    "descripcion": "TACO PARED APPLE 2 USB TIPO C 35W",
+    "unidad": "UNIDAD",
+    "precio": 25.0
+  },
+  {
+    "codigo": "A026070",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 13 GRIS CON BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026072",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 13 AZUL OSCURO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026087",
+    "descripcion": "RELOJ SMART WATCH A800 PLUS NARANJA",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
+    "codigo": "A026093",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 12/12 PRO AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026096",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 13 AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026097",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 13 GRIS CON NARANJA",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026102",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S21 PLUS AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026120",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026121",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 GRIS CON NARANJA",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026122",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026123",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 PLUS AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026124",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S22 PLUS GRIS CON NARANJA",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026129",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S21 AZUL",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026130",
+    "descripcion": "FORRO OTTERBOX DEFENDER SAMSUNG S21 GRIS CON NARANJA",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A026150",
+    "descripcion": "FORRO GOMA IPHONE 11 PRO MAX TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026151",
+    "descripcion": "FORRO GOMA IPHONE 12 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026152",
+    "descripcion": "FORRO GOMA IPHONE 12 TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026153",
+    "descripcion": "FORRO GOMA IPHONE 12 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026154",
+    "descripcion": "FORRO GOMA IPHONE 12 PRO MAX TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026155",
+    "descripcion": "FORRO GOMA IPHONE 13 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026156",
+    "descripcion": "FORRO GOMA IPHONE 13 TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026157",
+    "descripcion": "FORRO GOMA IPHONE 13 PRO TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026158",
+    "descripcion": "FORRO GOMA IPHONE 13 PRO TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026159",
+    "descripcion": "FORRO GOMA IPHONE 13 PRO MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026160",
+    "descripcion": "FORRO GOMA IPHONE 13 PRO MAX TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026161",
+    "descripcion": "FORRO GOMA IPHONE 14 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026162",
+    "descripcion": "FORRO GOMA IPHONE 14 TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026165",
+    "descripcion": "FORRO GOMA IPHONE X/XS TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026166",
+    "descripcion": "FORRO GOMA IPHONE XS MAX TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026167",
+    "descripcion": "FORRO GOMA IPHONE XS MAX TRANSPARENTE ESCARCHADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026172",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 11 PRO MAX ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026182",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 13 PRO MAX VERDE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026185",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 14 PRO AZUL",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026186",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 14 PRO ROJO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026187",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 14 PRO VERDE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026188",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 14 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026193",
+    "descripcion": "FORRO APPLE SILICONE CASE IPHONE 12/12 PRO VERDE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026194",
+    "descripcion": "FORRO GOMA AIRPODS",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A026197",
+    "descripcion": "CABLE XIAOMI USB A MICRO",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A026198",
+    "descripcion": "CABLE XIAOMI USB A TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A026200",
+    "descripcion": "CABLE SAMSUNG TIPO C A TIPO C 5A",
+    "unidad": "UNIDAD",
+    "precio": 7.0
+  },
+  {
+    "codigo": "A026201",
+    "descripcion": "CABLE SAMSUNG TIPO C A TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A026203",
+    "descripcion": "CABLE AMPSENTRIX MATRIX USB A LIGHTNING 1M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026204",
+    "descripcion": "CABLE AMPSENTRIX INFINITY USB C A LIGHTNING 1M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026206",
+    "descripcion": "AUDIFONO INALAMBRICO G11 BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026210",
+    "descripcion": "AUDIFONO INALAMBRICO TWS-F9-5 BLANCO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026212",
+    "descripcion": "AUDIFONO INALAMBRICO TWS-F9-5 AZUL CELESTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026223",
+    "descripcion": "AUDIFONO INALAMBRICO M28 GAME NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026226",
+    "descripcion": "AUDIFONO INALAMBRICO PRO 6 NARANJA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026227",
+    "descripcion": "AUDIFONO INALAMBRICO PRO 6 ROSADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026228",
+    "descripcion": "AUDIFONO INALAMBRICO PRO 6 AZUL CELESTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026230",
+    "descripcion": "AUDIFONO INALAMBRICO PRO 6 MORADO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026231",
+    "descripcion": "CABLE AMPSENTRIX SILVER INFINITY USB A TIPO C 1M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A026232",
+    "descripcion": "FORRO GOMA CARGADOR",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A026957",
+    "descripcion": "CABLE XIAOMI TIPO C-C",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A028110",
+    "descripcion": "CABLE AMPSENTRIX INFINITY USB A TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0288100",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 13 PRO TRANSPARENTE MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0288102",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 14 TRANSPARENTE MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0288106",
+    "descripcion": "POWER BANK SUPER FAST CHARGE 18000MAH",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A0288109",
+    "descripcion": "CARGADOR SAMSUNG TURBO POWER 45W S24 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A028893",
+    "descripcion": "FORRO OTTERBOX SYMMETRY SAMSUNG S23 ULTRA TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A028894",
+    "descripcion": "CARGADOR PARED SAMSUNG TIPO USB A TIPO C - 25W",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A028897",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 11 PRO TRANSPARENTE MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A028898",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 12 PRO MAX TRANSPARENTE MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A02987",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 14 NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A02988",
+    "descripcion": "FORRO OTTERBOX SYMMETRY IPHONE 14 PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A02997",
+    "descripcion": "CABLE LDNIO USB A LIGHTNING IPHONE 2M",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032062",
+    "descripcion": "FORRO GOMA TRANSPARENTE IPHONE XS MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032063",
+    "descripcion": "FORRO GOMA TRANSPARENTE IPHONE 13",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032064",
+    "descripcion": "FORRO GOMA TRANSPARENTE IPHONE X",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032065",
+    "descripcion": "FORRO GOMA TRANSPARENTE IPHONE 14",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032066",
+    "descripcion": "FORRO GOMA TRANSPARENTE IPHONE 14 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032067",
+    "descripcion": "FORRO GOMA TRANSPARENTE SAMSUNG S22 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032068",
+    "descripcion": "FORRO GOMA TRANSPARENTE SAMSUNG NOTE 20 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032074",
+    "descripcion": "CABLE AMPSENTRIX INFINITY USB A LIGHTNING 1M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032076",
+    "descripcion": "FORRO GENERICO IPHONE PROMOCION 2 X 5",
+    "unidad": "UNIDAD",
+    "precio": 2.5
+  },
+  {
+    "codigo": "A032077",
+    "descripcion": "FORRO GENERICO SAMSUNG PROMOCION 2 X 5",
+    "unidad": "UNIDAD",
+    "precio": 2.5
+  },
+  {
+    "codigo": "A032079",
+    "descripcion": "FORRO OTTERBOX DEFENDER IPHONE 13 PRO MAX NEGRO CON NARANJA",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A032080",
+    "descripcion": "CARGADOR PARED XIAOMI  TIPO C 55W",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032090",
+    "descripcion": "CARGADOR APPLE 60W MACBOOK",
+    "unidad": "UNIDAD",
+    "precio": 90.0
+  },
+  {
+    "codigo": "A032091",
+    "descripcion": "CARGADOR APPLE 85W MACBOOK",
+    "unidad": "UNIDAD",
+    "precio": 90.0
+  },
+  {
+    "codigo": "A032092",
+    "descripcion": "CONVERTIDOR MULTIPUERTO 3 EN 1 LIGHTNING-HDMI Y LIGTHNING AON",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A032094",
+    "descripcion": "BASE PARA MOTO HOLDER HOCO CA73",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A032096",
+    "descripcion": "AUDIFONO INALAMBRICO NEWEST M20",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032098",
+    "descripcion": "AUDIFONO INALAMBRICO JBL AIR F9 PRO+",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0321010",
+    "descripcion": "POWER BANK XIAOMI 10000MAH",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A0321015",
+    "descripcion": "FORRO NEW CASE IPHONE 12 PRO MAX MORADO 360 MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A0321016",
+    "descripcion": "FORRO NEW CASE IPHONE 12/12 PRO MORADO 360 MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032102",
+    "descripcion": "CABLE APPLE LIGHTNING ADAPTADOR JACK3.5MM GENERICO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0321020",
+    "descripcion": "FORRO NEW CASE IPHONE 11 PRO MORADO 360 MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A0321021",
+    "descripcion": "FORRO NEW CASE IPHONE 11 PRO MAX MORADO 360 MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A0321028",
+    "descripcion": "CABLE AMPSENTRIX INFINITY TIPO C A TIPO C 1M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0321029",
+    "descripcion": "CABLE AMPSENTRIX INFINITY USB C A LIGHTNING 2M",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032103",
+    "descripcion": "AUDIFONO MANOS LIBRES XIAOMI CAPSULE",
+    "unidad": "UNIDAD",
+    "precio": 5.0
+  },
+  {
+    "codigo": "A0321031",
+    "descripcion": "CABLE AMPSENTRIX INFINITY USB A TIPO C 2M",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A0321033",
+    "descripcion": "FORRO GOMA IPHONE  XR TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0321040",
+    "descripcion": "FORRO NEW CASE IPHONE 14 PRO MAX MORADO 360 MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032105",
+    "descripcion": "MEMORIA MULTIFUNCIONAL 32 GB",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A032107",
+    "descripcion": "CARGADOR INALAMBRICO APPLE MAGSAFE",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032113",
+    "descripcion": "CORNETA INALAMBRICA NEGRA T&G PORTABLE TG624",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A032117",
+    "descripcion": "CORNETA INALAMBRICA AZUL T&G PORTABLE TG619",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A032118",
+    "descripcion": "CORNETA INALAMBRICA ROJO T&G PORTABLE TG619",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A032123",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE UV CURED ROCKSPACE",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A032124",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE TABLET ROCKSPACE",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A032125",
+    "descripcion": "CABLE SAMSUNG ADAPTADOR JACK 3.5MM TIPO C",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032126",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE XR",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0321269",
+    "descripcion": "AUDIFONO INALAMBRICO LG DEPORTIVO HBS900",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A032127",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 11",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032128",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 11 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032129",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 12 / 12 PRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032130",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 12 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032131",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 13 / 13 PRO / 14",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032132",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 13 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032133",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 14 PRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032134",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 14 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032135",
+    "descripcion": "AUDIFONO APPLE AIRPODS PRO NEGRO",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A032136",
+    "descripcion": "CABLE MULTIENTRADA VIDVIE 3 EN 2 CB4010",
+    "unidad": "UNIDAD",
+    "precio": 15.0
+  },
+  {
+    "codigo": "A032137",
+    "descripcion": "FORRO SPACE POCO M5 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032138",
+    "descripcion": "FORRO SPACE POCO X4 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032139",
+    "descripcion": "FORRO SPACE SAMSUNG S21 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032140",
+    "descripcion": "FORRO SPACE SAMSUNG S22 PLUS TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032141",
+    "descripcion": "FORRO SPACE SAMSUNG S22 ULTRA TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032142",
+    "descripcion": "FORRO SPACE SAMSUNG S23 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032143",
+    "descripcion": "FORRO SPACE IPHONE 13 MINI TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032144",
+    "descripcion": "FORRO SPACE POCO M4 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032145",
+    "descripcion": "FORRO SPACE REDMI NOTE 12 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032146",
+    "descripcion": "FORRO SPACE SAMSUNG A03 CORE TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032147",
+    "descripcion": "FORRO SPACE SAMSUNG A13 4G/ 5G TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032148",
+    "descripcion": "FORRO SPACE SAMSUNG S22 TRANSPARENTE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032149",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG S21 FE",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032150",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG S22",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032151",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG S22 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032152",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG S23",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032153",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG S23 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032155",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG A14 5G",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0321553",
+    "descripcion": "BASE PARA TELEFONO MOTO- BICICLETA 360",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A032156",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG A33",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032157",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG A34",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A032163",
+    "descripcion": "CARGADOR PARED SAMSUNG TIPO C A TIPO C 35W",
+    "unidad": "UNIDAD",
+    "precio": 25.0
+  },
+  {
+    "codigo": "A0321969",
+    "descripcion": "BASE PARA TELEFONO CARRO 6601",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0321970",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE X / XS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0321971",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE XS MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0325695",
+    "descripcion": "LAMPARA ROTATIVA DE MESA",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A032690",
+    "descripcion": "FORRO SAMSUNG A23 3D",
+    "unidad": "UNIDAD",
+    "precio": 8.0
+  },
+  {
+    "codigo": "A032691",
+    "descripcion": "VIDRIO TEMPLADO SAMSUNG A23",
+    "unidad": "UNIDAD",
+    "precio": 2.0
+  },
+  {
+    "codigo": "A032692",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 15",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326969",
+    "descripcion": "CABLE HDMI TEJIDO 3MTS",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326970",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG A23 4G/5G",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326971",
+    "descripcion": "FORRO CHINO COMMUTER SAMSUNG S24 ULTRA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326972",
+    "descripcion": "FORRO NEW CASE IPHONE 15 PRO MAX TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326973",
+    "descripcion": "FORRO NEW CASE IPHONE 14 PRO MAX TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326975",
+    "descripcion": "FORRO NEW CASE IPHONE 12  TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326977",
+    "descripcion": "FORRO NEW CASE IPHONE 12 PRO MAX  ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326978",
+    "descripcion": "FORRO NEW CASE IPHONE 13  ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326979",
+    "descripcion": "FORRO NEW CASE IPHONE 13  PRO MAX  ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326980",
+    "descripcion": "FORRO NEW CASE IPHONE 14  PRO MAX  ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326981",
+    "descripcion": "FORRO NEW CASE IPHONE 14   ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326982",
+    "descripcion": "FORRO NEW CASE IPHONE 15  ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326983",
+    "descripcion": "FORRO NEW CASE IPHONE 15 PRO MAX  ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326984",
+    "descripcion": "FORRO NEW CASE IPHONE XR  ESCARCHADO  360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326985",
+    "descripcion": "FORRO NEW CASE  REDMI NOTE 12 TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326986",
+    "descripcion": "FORRO NEW CASE  REDMI NOTE 12 PRO TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326987",
+    "descripcion": "FORRO NEW CASE  REDMI NOTE 13 PRO TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326988",
+    "descripcion": "FORRO NEW CASE SAMSUNG S21 ULTRA TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326991",
+    "descripcion": "FORRO NEW CASE SAMSUNG A25 TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326992",
+    "descripcion": "FORRO NEW CASE SAMSUNG A55 TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326993",
+    "descripcion": "FORRO NEW CASE SAMSUNG S24 ULTRA TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326994",
+    "descripcion": "FORRO NEW CASE SAMSUNG A14 TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326995",
+    "descripcion": "FORRO NEW CASE SAMSUNG A54 TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326996",
+    "descripcion": "FORRO NEW CASE SAMSUNG A24 TRANSPARENTE 360",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0326997",
+    "descripcion": "TACO PARED APPLE 1 USB C 25W",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0326999",
+    "descripcion": "CABLE AMPSENTRIX ALPHA TIPO C A TIPO C  1M",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327000",
+    "descripcion": "CABLE AMPSENTRIX INFINITY USB A TIPO MICRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327002",
+    "descripcion": "MOUSE GAMING T-WOLF V9",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A0327003",
+    "descripcion": "MOUSE GAMING T-WOLF V10",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A0327005",
+    "descripcion": "TECLADO Y MOUSE BLUETOOTH 616",
+    "unidad": "UNIDAD",
+    "precio": 40.0
+  },
+  {
+    "codigo": "A0327007",
+    "descripcion": "EXTENSOR USB 5 EN 1 ADAPTER",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327008",
+    "descripcion": "MOUSE GAMING ZERODATE T30",
+    "unidad": "UNIDAD",
+    "precio": 30.0
+  },
+  {
+    "codigo": "A0327056",
+    "descripcion": "LAMINA HYDROGEL TRANSPARENTE UV GLASS  ROCKSPACE",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327063",
+    "descripcion": "FORRO TROPICAL CASE SAMSUNG A55",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327064",
+    "descripcion": "FORRO TROPICAL CASE SAMSUNG A35",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327066",
+    "descripcion": "FORRO TROPICAL CASE SAMSUNG A15",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327067",
+    "descripcion": "FORRO 360 CASE IPHONE 15 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327068",
+    "descripcion": "FORRO 360 CASE IPHONE 15/14/13",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327069",
+    "descripcion": "FORRO SHIELD 3 EN 1 IPHONE 16 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327072",
+    "descripcion": "FORRO SHIELD 3 EN 1 IPHONE 15/14/13",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327073",
+    "descripcion": "TACO CARRO MP3 KOUVOLSEN 20W",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327074",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE SAMSUNG S22 ULTTRA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327075",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE SAMSUNG S23 ULTTRA",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327077",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE SAMSUNG A24",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327078",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE SAMSUNG A34",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327079",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE SAMSUNG A54",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327080",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE XR",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327081",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 12",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327082",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 13",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327083",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 13 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327084",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 14",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327085",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 14 PRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327086",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 14 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327087",
+    "descripcion": "TACO PARED APPLE 1 USB C 35W",
+    "unidad": "UNIDAD",
+    "precio": 25.0
+  },
+  {
+    "codigo": "A0327088",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 16",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327089",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE SAMSUNG A25",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A032709",
+    "descripcion": "VIDRIO TEMPLADO AIRBAG FILM IPHONE 15 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327091",
+    "descripcion": "FORRO 360 CASE IPHONE 15 PRO",
+    "unidad": "UNIDAD",
+    "precio": 20.0
+  },
+  {
+    "codigo": "A0327092",
+    "descripcion": "FORRO MAGSAFE IPHONE 11",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327093",
+    "descripcion": "FORRO MAGSAFE IPHONE 12/12 PRO",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327094",
+    "descripcion": "FORRO MAGSAFE IPHONE 11 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327095",
+    "descripcion": "FORRO MAGSAFE IPHONE 12 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327096",
+    "descripcion": "FORRO MAGSAFE IPHONE 13",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327097",
+    "descripcion": "FORRO MAGSAFE IPHONE 13 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327099",
+    "descripcion": "FORRO MAGSAFE IPHONE 14 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327100",
+    "descripcion": "FORRO MAGSAFE IPHONE 15",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327101",
+    "descripcion": "FORRO MAGSAFE IPHONE 15 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327102",
+    "descripcion": "FORRO MAGSAFE IPHONE 16",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "A0327103",
+    "descripcion": "FORRO MAGSAFE IPHONE 16 PRO MAX",
+    "unidad": "UNIDAD",
+    "precio": 10.0
+  },
+  {
+    "codigo": "R02181",
+    "descripcion": "FORRO 360 (2 CAPAS) MAGSAFE IPHONE 11",
+    "unidad": "UNIDAD",
+    "precio": 20.0
   }
 ]
