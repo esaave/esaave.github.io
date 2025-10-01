@@ -77,6 +77,7 @@
       flex-direction: column;
       transition: transform 0.2s, box-shadow 0.2s;
       position: relative;
+      cursor: pointer;
     }
     .card:hover {
       transform: translateY(-5px);
@@ -121,6 +122,44 @@
       grid-column: 1 / -1;
       padding: 30px;
     }
+
+    /* ===== Modal ===== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      animation: fadeIn 0.3s;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    .close {
+      float: right;
+      font-size: 22px;
+      cursor: pointer;
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: #f97316;
+    }
+    .modal p {
+      margin: 8px 0;
+      font-size: 15px;
+    }
   </style>
 </head>
 <body>
@@ -139,15 +178,29 @@
       <button class="filter-btn" onclick="filtrar('cable')">Cables</button>
       <button class="filter-btn" onclick="filtrar('cargador')">Cargadores</button>
       <button class="filter-btn" onclick="filtrar('audifono')">Audífonos</button>
+      <button class="filter-btn" onclick="filtrar('forro')">Forros</button>
     </div>
 
     <div id="grid" class="grid"></div>
+  </div>
+
+  <!-- ===== Modal Detalle ===== -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h2 id="modal-descripcion"></h2>
+      <p id="modal-codigo"></p>
+      <p id="modal-unidad"></p>
+      <p><strong>Precio 1:</strong> <span id="modal-precio1"></span></p>
+      <p><strong>Precio 2:</strong> <span id="modal-precio2"></span></p>
+    </div>
   </div>
 
   <script>
     let productos = [];
     let fuse;
     let filtroActivo = "all";
+    const FACTOR_PRECIO2 = 1.7; // 👉 Multiplicador para Precio 2 cambiar depende del porcentaje
 
     const DATA_FILE = "precios.json"; 
 
@@ -177,7 +230,7 @@
       lista.forEach(item => {
         const categoria = detectarCategoria(item.descripcion);
         const card = `
-          <div class="card">
+          <div class="card" onclick='verDetalle(${JSON.stringify(item)})'>
             <div class="descripcion">${item.descripcion}</div>
             <div class="codigo">Código: ${item.codigo}</div>
             <div class="precio">$${Number(item.precio).toFixed(2)}</div>
@@ -193,6 +246,7 @@
       if (d.includes("cable")) return "Cables";
       if (d.includes("cargador")) return "Cargadores";
       if (d.includes("audifono") || d.includes("auricular")) return "Audífonos";
+      if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return "Forros";
       return "Otros";
     }
 
@@ -222,6 +276,32 @@
         filtrar(filtroActivo);
       }, 200);
     });
+
+    // ===== Modal Functions =====
+    function verDetalle(item) {
+      document.getElementById("modal-descripcion").innerText = item.descripcion;
+      document.getElementById("modal-codigo").innerText = "Código: " + item.codigo;
+      document.getElementById("modal-unidad").innerText = "Unidad: " + item.unidad;
+
+      const precio1 = Number(item.precio);
+      const precio2 = precio1 * FACTOR_PRECIO2;
+
+      document.getElementById("modal-precio1").innerText = "$" + precio1.toFixed(2);
+      document.getElementById("modal-precio2").innerText = "$" + precio2.toFixed(2);
+
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function cerrarModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("modal");
+      if (event.target === modal) {
+        cerrarModal();
+      }
+    }
   </script>
 </body>
 </html>
