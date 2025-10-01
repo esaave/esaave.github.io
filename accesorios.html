@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orange Store - Catálogo</title>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <style>
     body {
       margin: 0;
@@ -21,7 +22,7 @@
       box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     }
     header img {
-      height: 45px;
+      height: 50px;
     }
     header h1 {
       font-size: 22px;
@@ -30,7 +31,7 @@
     }
     .container {
       padding: 25px;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: auto;
     }
     .search-box {
@@ -54,12 +55,11 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       transition: transform 0.15s, box-shadow 0.15s;
     }
     .card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      transform: scale(1.03);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
     }
     .codigo {
       font-size: 12px;
@@ -95,45 +95,36 @@
 <body>
   <header>
     <img src="logo.png" alt="Logo">
-    <h1>Orange Store - Catálogo</h1>
+    <h1>Orange Store - Accesorios</h1>
   </header>
 
   <div class="container">
-    <input type="text" id="search" class="search-box" placeholder="🔍 Buscar accesorios o repuestos...">
+    <input type="text" id="search" class="search-box" placeholder="🔍 Busca accesorios... (ej: amsentri, cable 2m)">
     <div id="grid" class="grid"></div>
   </div>
 
   <script>
     let productos = [];
+    let fuse;
 
-    // 🔧 Cambia según el archivo de datos
-    const DATA_FILE = "precios.json"; // para accesorios
-    // const DATA_FILE = "repuestos.json"; // para repuestos
+    const DATA_FILE = "precios.json"; // cambiar a "repuestos.json" en la otra página
 
     fetch(DATA_FILE)
       .then(res => res.json())
       .then(data => {
         productos = data;
+
+        // 🔥 Configuración de Fuse.js
+        fuse = new Fuse(productos, {
+          keys: ["descripcion", "codigo"],
+          threshold: 0.4,  // tolerancia de error (0 exacto, 1 muy permisivo)
+          distance: 100,
+          ignoreLocation: true,
+          minMatchCharLength: 2,
+        });
+
         mostrarProductos(productos);
       });
-
-    function normalizarTexto(txt) {
-      return txt.toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, ""); // quita acentos
-    }
-
-    function buscarProductos(texto) {
-      const palabras = normalizarTexto(texto).split(" ").filter(p => p);
-      if (palabras.length === 0) return productos;
-      return productos.filter(p => {
-        const desc = normalizarTexto(p.descripcion || "");
-        const cod = normalizarTexto(p.codigo || "");
-        return palabras.every(palabra =>
-          desc.includes(palabra) || cod.includes(palabra)
-        );
-      });
-    }
 
     function mostrarProductos(lista) {
       const grid = document.getElementById("grid");
@@ -154,13 +145,18 @@
       });
     }
 
-    // 🕒 Debounce para que no se pegue
+    // Buscador con Fuse.js
     let timeout;
     document.getElementById("search").addEventListener("input", e => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        const filtrados = buscarProductos(e.target.value);
-        mostrarProductos(filtrados);
+        const texto = e.target.value.trim();
+        if (texto === "") {
+          mostrarProductos(productos);
+        } else {
+          const resultados = fuse.search(texto).map(r => r.item);
+          mostrarProductos(resultados);
+        }
       }, 200);
     });
   </script>
