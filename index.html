@@ -3,68 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Precios</title>
+  <title>Catálogo de Precios</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f9fafb; }
-    h1 { text-align: center; }
-    input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; }
-    table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
-    th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
-    th { background: #111827; color: white; }
-    tr:hover { background: #f3f4f6; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #f3f4f6; color: #111827; }
+    header { display: flex; align-items: center; gap: 15px; padding: 15px 20px; background: #111827; color: white; }
+    header img { height: 40px; }
+    header h1 { font-size: 20px; margin: 0; }
+    .container { padding: 20px; max-width: 1000px; margin: auto; }
+    .search-box { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 12px; font-size: 16px; margin-bottom: 25px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: space-between; }
+    .codigo { font-size: 12px; color: #6b7280; margin-bottom: 5px; }
+    .descripcion { font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+    .unidad { font-size: 14px; color: #6b7280; margin-top: auto; }
+    .precio { font-size: 18px; font-weight: bold; color: #1d4ed8; margin-top: 10px; }
   </style>
 </head>
 <body>
-  <h1>📋 Lista de Precios</h1>
-  <input type="text" id="search" placeholder="Buscar por nombre o código...">
+  <header>
+    <img src="logo.png" alt="Logo de la empresa">
+    <h1>Catálogo de Precios</h1>
+  </header>
 
-  <table id="tabla">
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Descripción</th>
-        <th>Unidad</th>
-        <th>Precio</th>
-      </tr>
-    </thead>
-    <tbody id="tabla-body"></tbody>
-  </table>
+  <div class="container">
+    <input type="text" id="search" class="search-box" placeholder="🔍 Buscar por nombre o código...">
+
+    <div id="grid" class="grid"></div>
+  </div>
 
   <script>
     let productos = [];
 
-    // Cargar el archivo JSON con los precios
+    // Cargar archivo JSON
     fetch("precios.json")
       .then(res => res.json())
       .then(data => {
         productos = data;
-        mostrarTabla(productos);
+        mostrarProductos(productos);
       });
 
-    // Función para mostrar los datos en la tabla
-    function mostrarTabla(lista) {
-      const tbody = document.getElementById("tabla-body");
-      tbody.innerHTML = "";
+    // Renderizar tarjetas
+    function mostrarProductos(lista) {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
       lista.forEach(item => {
-        const fila = `
-          <tr>
-            <td>${item.codigo}</td>
-            <td>${item.descripcion}</td>
-            <td>${item.unidad}</td>
-            <td>$${item.precio.toFixed(2)}</td>
-          </tr>`;
-        tbody.innerHTML += fila;
+        const card = `
+          <div class="card">
+            <div class="codigo">Código: ${item.codigo}</div>
+            <div class="descripcion">${item.descripcion}</div>
+            <div class="precio">$${item.precio.toFixed(2)}</div>
+            <div class="unidad">${item.unidad}</div>
+          </div>`;
+        grid.innerHTML += card;
       });
     }
 
-    // Buscador en tiempo real
+    // Buscador
     document.getElementById("search").addEventListener("input", e => {
       const texto = e.target.value.toLowerCase();
       const filtrados = productos.filter(p =>
         p.descripcion.toLowerCase().includes(texto) ||
         p.codigo.toLowerCase().includes(texto)
       );
-      mostrarTabla(filtrados);
+      mostrarProductos(filtrados);
     });
   </script>
 </body>
