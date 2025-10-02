@@ -13,8 +13,8 @@
 
   <style>
     :root {
-      --header-height: 72px;    /* se actualizará desde JS */
-      --dropdown-height: 0px;   /* calculada en runtime al abrir menú */
+      --header-height: 72px;
+      --dropdown-height: 0px;
     }
 
     /* ===== Global ===== */
@@ -27,7 +27,7 @@
       flex-direction: column;
       min-height: 100vh;
       overflow-x: hidden;
-      background: #fff; /* temporary fallback */
+      background: #fff;
     }
 
     /* Background con cambio de imagen (difuminado) */
@@ -41,7 +41,6 @@
       transition: background-image 1s linear;
       animation: changeBg 40s infinite linear;
     }
-
     @keyframes changeBg {
       0%   { background-image: url('fondo1.jpg'); }
       25%  { background-image: url('fondo2.jpg'); }
@@ -50,7 +49,6 @@
       100% { background-image: url('fondo1.jpg'); }
     }
 
-    /* Overlay para mejorar contraste del texto */
     body::after{
       content: "";
       position: fixed;
@@ -72,7 +70,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.18);
       flex-wrap: nowrap;
       border-bottom: 1px solid rgba(255,255,255,0.12);
-      position: relative; /* en mobile lo cambiaremos a fixed vía .mobile */
+      position: relative;
       z-index: 1100;
     }
     header .brand {
@@ -84,9 +82,7 @@
     header h1 { font-size: 20px; margin: 0; font-weight:700; white-space:nowrap; color:#fff; }
 
     /* nav (desktop) */
-    header nav {
-      margin-left: auto;
-    }
+    header nav { margin-left: auto; }
     header nav a {
       background: rgba(255,255,255,0.12);
       padding: 8px 14px;
@@ -114,7 +110,9 @@
 
     /* Header dropdown (inserted after header in DOM) */
     #headerDropdown {
-      display: none;
+      display: none;            /* toggled by JS */
+      max-height: 0;           /* animamos max-height + opacity */
+      opacity: 0;
       width: calc(100% - 28px);
       margin: 0 14px;
       background: rgba(255,255,255,0.98);
@@ -122,6 +120,8 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.18);
       overflow: hidden;
       z-index: 1050;
+      transition: max-height 260ms ease, opacity 200ms ease;
+      will-change: max-height, opacity;
     }
     #headerDropdown a {
       display: block;
@@ -200,7 +200,6 @@
 
     /* ===== Responsive tweaks (mobile specific) ===== */
     @media (max-width: 720px) {
-      /* add class .mobile via JS — but also safe fallback here */
       header {
         position: fixed;
         top: 0;
@@ -211,19 +210,15 @@
         padding: 10px 14px;
       }
 
-      /* show menu toggle and hide desktop nav */
       #menuToggle { display: inline-block; margin-left: 8px; }
       header nav { display: none; }
 
-      /* header brand centering */
       .brand { gap:8px; }
       header h1 { font-size: 18px; }
 
-      /* shrink welcome spacing on mobile */
       .welcome { margin: 14px auto 12px; padding: 0 14px; }
       .welcome h2 { font-size: 22px; }
 
-      /* single column cards, tighter */
       .cards {
         grid-template-columns: 1fr;
         gap: 14px;
@@ -232,15 +227,12 @@
       }
       .card { padding: 16px; border-radius: 14px; }
 
-      /* Dropdown styling for mobile */
       #headerDropdown {
-        display: none; /* JS will toggle to block when open */
         position: relative;
         margin-top: 8px;
         width: calc(100% - 28px);
       }
 
-      /* footer minimal */
       footer {
         font-size: 12px;
         padding: 10px 8px;
@@ -300,19 +292,22 @@
   </footer>
 
   <script>
-    // ---------- Util: detectar "mobile" (mejor usar matchMedia + pointer coarse)
+    // Detect mobile: touch + narrow screen
     function detectMobile() {
       const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
       const smallScreen = window.matchMedia("(max-width: 720px)").matches;
       return isTouch && smallScreen;
     }
 
-    // ---------- Ajustes iniciales y recalculos
     const bodyEl = document.body;
     const headerEl = document.querySelector("header");
     const pageContent = document.getElementById("pageContent");
     const dropdown = document.getElementById("headerDropdown");
     const menuToggle = document.getElementById("menuToggle");
+
+    let lastDropdownHeight = 0;
+    let animationLock = false; // evita toggles rápidos que puedan causar flicker
+    let resizeTimer = null;
 
     function applyDeviceClass() {
       if (detectMobile()) {
@@ -322,42 +317,111 @@
       }
     }
 
-    // Calcula la altura del header y la pone en la variable CSS --header-height
     function updateHeaderHeight() {
-      // For consistent spacing, we compute header offsetHeight and add 6px margin
       const h = headerEl.offsetHeight || 72;
       document.documentElement.style.setProperty('--header-height', `${h}px`);
     }
 
-    // Abre / cierra dropdown en mobile y empuja contenido
+    // Toggle dropdown abierto/cerrado con animación suave y sin jank
     function toggleDropdown(force) {
-      const isOpen = dropdown.style.display === "block";
+      if (!menuToggle) return;
+      if (animationLock) return; // prevenir spam rápido
+      const isOpen = bodyEl.classList.contains('menu-open');
       const shouldOpen = (typeof force === 'boolean') ? force : !isOpen;
 
+      // Si no es mobile, forzamos cerrado
+      if (!bodyEl.classList.contains('mobile')) {
+        // asegurarse cerrado y retorno
+        closeDropdownImmediate();
+        return;
+      }
+
+      animationLock = true;
+      menuToggle.disabled = true;
+
       if (shouldOpen) {
-        dropdown.style.display = "block";
+        // mostrar para poder medir
+        dropdown.style.display = 'block';
+        dropdown.style.opacity = '0';
+        dropdown.style.maxHeight = '0px';
         dropdown.setAttribute('aria-hidden', 'false');
-        // calculamos altura del dropdown y la ponemos en variable
-        // usar timeout para permitir que el elemento tenga layout
+
+        // medir en el siguiente frame
         requestAnimationFrame(() => {
-          const dh = dropdown.offsetHeight || 0;
+          const dh = dropdown.scrollHeight || 0;
+          lastDropdownHeight = dh;
+          // aplicar valores para animación
+          dropdown.style.maxHeight = dh + 'px';
+          dropdown.style.opacity = '1';
+          // actualizar variable CSS para empujar contenido
           document.documentElement.style.setProperty('--dropdown-height', `${dh}px`);
           bodyEl.classList.add('menu-open');
           menuToggle.setAttribute('aria-expanded', 'true');
+
+          // esperar a que termine la transición (usar transitionend)
+          const onEnd = (e) => {
+            if (e.propertyName === 'max-height' || e.propertyName === 'opacity') {
+              dropdown.removeEventListener('transitionend', onEnd);
+              animationLock = false;
+              menuToggle.disabled = false;
+            }
+          };
+          dropdown.addEventListener('transitionend', onEnd);
+          // fallback timeout (en caso de que no dispare transitionend)
+          setTimeout(() => {
+            if (animationLock) {
+              animationLock = false;
+              menuToggle.disabled = false;
+            }
+          }, 360);
         });
+
       } else {
+        // cerrar: animar maxHeight -> 0 y opacity -> 0
+        dropdown.style.maxHeight = (dropdown.scrollHeight || lastDropdownHeight || 200) + 'px';
+        // force reflow to ensure transition
+        dropdown.getBoundingClientRect();
+        dropdown.style.opacity = '0';
+        dropdown.style.maxHeight = '0px';
         bodyEl.classList.remove('menu-open');
-        // pequeña transición, luego ocultamos
+        menuToggle.setAttribute('aria-expanded', 'false');
+
+        const onEndClose = (e) => {
+          if (e.propertyName === 'max-height' || e.propertyName === 'opacity') {
+            dropdown.removeEventListener('transitionend', onEndClose);
+            dropdown.style.display = 'none';
+            dropdown.setAttribute('aria-hidden', 'true');
+            document.documentElement.style.setProperty('--dropdown-height', `0px`);
+            animationLock = false;
+            menuToggle.disabled = false;
+          }
+        };
+        dropdown.addEventListener('transitionend', onEndClose);
+
+        // fallback
         setTimeout(() => {
-          dropdown.style.display = "none";
-          dropdown.setAttribute('aria-hidden', 'true');
-          document.documentElement.style.setProperty('--dropdown-height', `0px`);
-          menuToggle.setAttribute('aria-expanded', 'false');
-        }, 230);
+          if (animationLock) {
+            dropdown.style.display = 'none';
+            dropdown.setAttribute('aria-hidden', 'true');
+            document.documentElement.style.setProperty('--dropdown-height', `0px`);
+            animationLock = false;
+            menuToggle.disabled = false;
+          }
+        }, 360);
       }
     }
 
-    // cerrar dropdown si clic afuera (pero mantener en desktop)
+    function closeDropdownImmediate() {
+      dropdown.style.display = 'none';
+      dropdown.style.opacity = '0';
+      dropdown.style.maxHeight = '0px';
+      dropdown.setAttribute('aria-hidden', 'true');
+      bodyEl.classList.remove('menu-open');
+      document.documentElement.style.setProperty('--dropdown-height', `0px`);
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    // Cerrar dropdown si clic afuera (solo en mobile)
     document.addEventListener('click', (e) => {
       if (!bodyEl.classList.contains('mobile')) return;
       if (e.target.closest('header') || e.target.closest('#headerDropdown') || e.target.closest('#menuToggle')) return;
@@ -365,60 +429,66 @@
     });
 
     // menú toggle click
-    menuToggle.addEventListener('click', (ev) => {
-      ev.stopPropagation();
-      toggleDropdown();
-    });
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        toggleDropdown();
+      });
 
-    // Recálculo en resize / orientationchange
-    function onResize() {
-      applyDeviceClass();
-      updateHeaderHeight();
-      // si no es mobile, asegurar dropdown cerrado
-      if (!bodyEl.classList.contains('mobile')) {
-        toggleDropdown(false);
-        dropdown.style.display = "none";
-      } else {
-        // si menu está abierto, recalcular height
-        if (bodyEl.classList.contains('menu-open')) {
-          const dh = dropdown.offsetHeight || 0;
-          document.documentElement.style.setProperty('--dropdown-height', `${dh}px`);
+      // keyboard
+      menuToggle.addEventListener('keydown', (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleDropdown();
         }
-      }
+      });
     }
-    window.addEventListener('resize', onResize);
-    window.addEventListener('orientationchange', onResize);
+
+    // Debounced resize/orientation handler
+    function onResizeDebounced() {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        applyDeviceClass();
+        updateHeaderHeight();
+        if (!bodyEl.classList.contains('mobile')) {
+          closeDropdownImmediate();
+        } else {
+          // si está abierto, recalcular altura
+          if (bodyEl.classList.contains('menu-open')) {
+            const dh = dropdown.scrollHeight || 0;
+            document.documentElement.style.setProperty('--dropdown-height', `${dh}px`);
+            dropdown.style.maxHeight = dh + 'px';
+          }
+        }
+      }, 120);
+    }
+    window.addEventListener('resize', onResizeDebounced);
+    window.addEventListener('orientationchange', onResizeDebounced);
 
     // Inicial
     applyDeviceClass();
-    // small delay to ensure CSS computed sizes are available
     setTimeout(() => {
       updateHeaderHeight();
-      // if mobile and menu open class previously, ensure closed
       if (!bodyEl.classList.contains('mobile')) {
-        dropdown.style.display = "none";
+        closeDropdownImmediate();
       }
     }, 80);
 
-    // ---------- Login protection (igual que antes) ----------
+    // ---------- Login protection ----------
+
     (function checkLogin(){
-      if (localStorage.getItem("logueado") !== "true") {
+      // ahora usamos sessionStorage: válida solo mientras la pestaña esté abierta
+      if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
       }
     })();
 
     function logout() {
-      localStorage.removeItem("logueado");
+      // quitar sessionStorage en lugar de localStorage (sesión por pestaña)
+      sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
-
-    // small accessibility: allow keyboard opening of menu toggle
-    menuToggle.addEventListener('keydown', (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        toggleDropdown();
-      }
-    });
   </script>
 </body>
 </html>
+
