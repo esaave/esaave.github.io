@@ -216,7 +216,7 @@
     <h1>Orange Store - Accesorios</h1>
   </header>
 
-  <!-- Menú -->
+  <!-- Menú que despliega y empuja todo hacia abajo -->
   <div id="menu" class="menu">
     <a href="index.html">🏠 Volver al menú principal</a>
     <a href="repuestos.html">🔧 Ir a Repuestos</a>
@@ -227,17 +227,17 @@
     <input type="text" id="search" class="search-box" placeholder="🔍 Busca accesorios... (ej: amsentri, cable 2m)">
     
     <div class="filters">
-      <button class="filter-btn active" onclick="filtrar('all')">Todos</button>
-      <button class="filter-btn" onclick="filtrar('cable')">Cables</button>
-      <button class="filter-btn" onclick="filtrar('cargador')">Cargadores</button>
-      <button class="filter-btn" onclick="filtrar('audifono')">Audífonos</button>
-      <button class="filter-btn" onclick="filtrar('forro')">Forros</button>
+      <button class="filter-btn active" onclick="filtrar('all', event)">Todos</button>
+      <button class="filter-btn" onclick="filtrar('cable', event)">Cables</button>
+      <button class="filter-btn" onclick="filtrar('cargador', event)">Cargadores</button>
+      <button class="filter-btn" onclick="filtrar('audifono', event)">Audífonos</button>
+      <button class="filter-btn" onclick="filtrar('forro', event)">Forros</button>
     </div>
 
     <div id="grid" class="grid"></div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal de detalles -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="cerrarModal()">&times;</span>
@@ -250,23 +250,6 @@
   </div>
 
   <script>
-    // 🔒 Verificación de login
-    if (localStorage.getItem("logueado") !== "true") {
-      window.location.href = "login.html";
-    }
-
-    // 🚪 Logout
-    function logout() {
-      localStorage.removeItem("logueado");
-      window.location.href = "login.html";
-    }
-
-    // Toggle menú
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
-
     let productos = [];
     let fuse;
     let filtroActivo = "all";
@@ -317,10 +300,10 @@
       return "Otros";
     }
 
-    function filtrar(categoria) {
+    function filtrar(categoria, ev) {
       filtroActivo = categoria;
       document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-      event.target.classList.add("active");
+      if (ev) ev.target.classList.add("active");
 
       const texto = document.getElementById("search").value.trim();
       let lista = productos;
@@ -334,6 +317,7 @@
       mostrarProductos(lista);
     }
 
+    // 🔎 Buscar con debounce
     let timeout;
     document.getElementById("search").addEventListener("input", e => {
       clearTimeout(timeout);
@@ -342,7 +326,7 @@
       }, 200);
     });
 
-    // Modal
+    // ===== Modal =====
     function verDetalle(item) {
       document.getElementById("modal-descripcion").innerText = item.descripcion;
       document.getElementById("modal-codigo").innerText = "Código: " + item.codigo;
@@ -362,6 +346,23 @@
     window.onclick = function(event) {
       const modal = document.getElementById("modal");
       if (event.target === modal) cerrarModal();
+    }
+
+    // ===== Toggle menú =====
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
+    // 🔒 Verificación de login
+    if (localStorage.getItem("logueado") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    // 🚪 Logout
+    function logout() {
+      localStorage.removeItem("logueado");
+      window.location.href = "login.html";
     }
   </script>
 </body>
