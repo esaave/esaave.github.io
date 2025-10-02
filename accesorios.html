@@ -43,7 +43,7 @@
     .logo img { height:40px; display:block; }
     .logo span { font-weight:600; font-size:18px; }
 
-    /* Search in header */
+    /* Search */
     .search-area {
       margin-left:auto;
       width: min(620px, 58%);
@@ -117,7 +117,6 @@
     .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
     .unidad { font-size:13px; color:#556; margin-top:auto; }
 
-    /* Tag bottom-right */
     .tag {
       position:absolute;
       right:10px;
@@ -131,7 +130,7 @@
       box-shadow:0 3px 8px rgba(0,0,0,0.04);
     }
 
-    /* Empty message centered */
+    /* Empty message */
     .empty {
       grid-column: 1 / -1;
       display:flex;
@@ -176,36 +175,24 @@
       color:#333;
     }
 
-    /* Spinner Overlay */
-    .spinner-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 3000;
-      font-family: 'Poppins', sans-serif;
-      display: none;
-    }
+    /* Spinner */
     .spinner {
-      border: 4px solid #ffe0cc;
-      border-top: 4px solid #ff6b00;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 0.9s linear infinite;
-      margin-bottom: 12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:200px;
+      grid-column:1 / -1;
     }
-    .spinner-text {
-      font-size: 15px;
-      color: #444;
-      font-weight: 600;
+    .spinner div {
+      width:40px;
+      height:40px;
+      border:4px solid #ff7a2a;
+      border-top-color:transparent;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
     }
     @keyframes spin {
-      0% { transform: rotate(0deg);}
-      100% { transform: rotate(360deg);}
+      to { transform:rotate(360deg); }
     }
 
     /* Responsive */
@@ -229,9 +216,11 @@
     </div>
   </header>
 
-  <!-- Dropdown -->
+  <!-- Menú desplegable -->
   <div id="headerDropdown" style="position:fixed; top:62px; left:14px; z-index:1500; display:none;">
     <div style="background:#fff; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.12); overflow:hidden;">
+      <a href="index.html" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🏠 Volver al menú principal</a>
+      <a href="repuestos.html" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🛠 Repuestos</a>
       <a href="#" onclick="logout()" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🚪 Cerrar sesión</a>
     </div>
   </div>
@@ -245,7 +234,8 @@
   </div>
 
   <main class="grid" id="grid" aria-live="polite">
-    <!-- Productos renderizados aquí -->
+    <!-- Spinner inicial -->
+    <div class="spinner"><div></div></div>
   </main>
 
   <!-- Modal -->
@@ -258,12 +248,6 @@
       <p id="m-price2" class="precio"></p>
       <p id="m-unit" class="unidad"></p>
     </div>
-  </div>
-
-  <!-- Spinner -->
-  <div id="spinner" class="spinner-overlay">
-    <div class="spinner"></div>
-    <div class="spinner-text">Cargando...</div>
   </div>
 
   <!-- Fuse.js -->
@@ -284,19 +268,12 @@
       const d = normalizar(desc);
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
       if (d.includes("cargador")) return { key: "cargadores", label: "Cargadores" };
-      if (d.includes("audifono") || d.includes("audifonos") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
+      if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
       if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
       return { key: "otros", label: "Otros" };
     }
 
-    function mostrarSpinner() {
-      document.getElementById("spinner").style.display = "flex";
-    }
-    function ocultarSpinner() {
-      document.getElementById("spinner").style.display = "none";
-    }
-
-    mostrarSpinner();
+    // Fetch productos
     fetch(DATA_FILE)
       .then(r => r.json())
       .then(data => {
@@ -308,12 +285,10 @@
           minMatchCharLength: 2,
         });
         mostrarProductos(productos);
-        ocultarSpinner();
       })
       .catch(err => {
         console.error("No se pudo cargar precios.json:", err);
         mostrarEmpty("Error cargando datos");
-        ocultarSpinner();
       });
 
     function mostrarProductos(lista) {
@@ -323,6 +298,7 @@
         mostrarEmpty("❌ No se encontraron resultados");
         return;
       }
+
       const frag = document.createDocumentFragment();
       lista.forEach(item => {
         const cat = detectarCategoria(item.descripcion);
@@ -348,9 +324,8 @@
       grid.appendChild(frag);
     }
 
-    function mostrarEmpty(mensaje = "❌ No se encontraron resultados") {
-      const grid = document.getElementById("grid");
-      grid.innerHTML = `
+    function mostrarEmpty(mensaje) {
+      document.getElementById("grid").innerHTML = `
         <div class="empty" role="status">
           <div class="icon">❌</div>
           <div>${mensaje}</div>
@@ -359,36 +334,31 @@
     }
 
     function filtrar(categoria, ev) {
-      mostrarSpinner();
-      setTimeout(() => {
-        filtroActivo = categoria;
-        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-        if (ev && ev.target) ev.target.classList.add("active");
-        else {
-          const btn = document.querySelector(\`.filter-btn[data-cat="\${categoria}"]\`);
-          if (btn) btn.classList.add("active");
-        }
-        let lista = productos;
-        const texto = document.getElementById("search").value.trim();
-        if (texto !== "" && fuse) {
-          const resultados = fuse.search(normalizar(texto));
-          lista = resultados.map(r => r.item);
-        }
-        if (categoria !== "all") {
-          lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
-        }
-        mostrarProductos(lista);
-        ocultarSpinner();
-      }, 300);
+      filtroActivo = categoria;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      if (ev && ev.target) ev.target.classList.add("active");
+      else {
+        const btn = document.querySelector(\`.filter-btn[data-cat="\${categoria}"]\`);
+        if (btn) btn.classList.add("active");
+      }
+
+      let lista = productos;
+      const texto = document.getElementById("search").value.trim();
+      if (texto !== "" && fuse) {
+        const resultados = fuse.search(normalizar(texto));
+        lista = resultados.map(r => r.item);
+      }
+      if (categoria !== "all") {
+        lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
+      }
+      mostrarProductos(lista);
     }
 
+    // Search debounce
     let debounce;
-    const searchInput = document.getElementById("search");
-    searchInput.addEventListener("input", (e) => {
+    document.getElementById("search").addEventListener("input", () => {
       clearTimeout(debounce);
-      debounce = setTimeout(() => {
-        filtrar(filtroActivo);
-      }, 180);
+      debounce = setTimeout(() => filtrar(filtroActivo), 180);
     });
 
     function verDetalle(item) {
