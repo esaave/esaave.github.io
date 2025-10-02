@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Orange Store</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+    .login-box {
+      background: white;
+      color: #1f2937;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      text-align: center;
+      width: 100%;
+      max-width: 350px;
+    }
+    .login-box h1 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #f97316;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+    }
+    .login-box button {
+      background: #f97316;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-box button:hover {
+      background: #ea580c;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h1>Orange Store</h1>
+    <input type="text" id="usuario" placeholder="Usuario">
+    <input type="password" id="clave" placeholder="Contraseña">
+    <button onclick="login()">Ingresar</button>
+    <p class="error" id="error">Usuario o contraseña incorrectos</p>
+  </div>
+
+  <script>
+    const USUARIO = "admin";   // 👉 cámbialo
+    const CLAVE = "1234";      // 👉 cámbialo
+
+    function login() {
+      const u = document.getElementById("usuario").value.trim();
+      const c = document.getElementById("clave").value.trim();
+
+      if (u === USUARIO && c === CLAVE) {
+        localStorage.setItem("logueado", "true");
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    }
+
+    // Si ya está logueado → redirige directo
+    if (localStorage.getItem("logueado") === "true") {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
