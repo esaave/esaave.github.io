@@ -216,7 +216,7 @@
     <h1>Orange Store - Accesorios</h1>
   </header>
 
-  <!-- Menú que despliega y empuja todo hacia abajo -->
+  <!-- Menú -->
   <div id="menu" class="menu">
     <a href="index.html">🏠 Volver al menú principal</a>
     <a href="repuestos.html">🔧 Ir a Repuestos</a>
@@ -237,7 +237,7 @@
     <div id="grid" class="grid"></div>
   </div>
 
-  <!-- Modal de detalles -->
+  <!-- Modal -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="cerrarModal()">&times;</span>
@@ -250,6 +250,23 @@
   </div>
 
   <script>
+    // 🔒 Verificación de login
+    if (localStorage.getItem("logueado") !== "true") {
+      window.location.href = "login.html";
+    }
+
+    // 🚪 Logout
+    function logout() {
+      localStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
+
+    // Toggle menú
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
     let productos = [];
     let fuse;
     let filtroActivo = "all";
@@ -346,24 +363,6 @@
       const modal = document.getElementById("modal");
       if (event.target === modal) cerrarModal();
     }
-
-    // Toggle menú
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-
-      <script>
-  // 🔒 Verificación de login
-  if (localStorage.getItem("logueado") !== "true") {
-    window.location.href = "login.html";
-  }
-
-  // 🚪 Función logout
-  function logout() {
-    localStorage.removeItem("logueado");
-    window.location.href = "login.html";
-  }
   </script>
 </body>
 </html>
-
