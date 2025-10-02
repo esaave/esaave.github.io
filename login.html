@@ -151,26 +151,26 @@
 </head>
 <body>
   <!-- Slideshow -->
-  <div class="slideshow">
+  <div class="slideshow" aria-hidden="true">
     <img src="fondo1.jpg" class="active" alt="Fondo 1">
     <img src="fondo2.jpg" alt="Fondo 2">
     <img src="fondo3.jpg" alt="Fondo 3">
     <img src="fondo4.jpg" alt="Fondo 4">
   </div>
 
-  <div class="login-container">
+  <div class="login-container" role="form" aria-label="Formulario de inicio de sesión">
     <img src="logo.png" alt="Orange Store" class="logo">
     <h1>Iniciar Sesión</h1>
     <div class="input-group">
       <label for="usuario">Usuario</label>
-      <input type="text" id="usuario" placeholder="Ingresa tu usuario">
+      <input type="text" id="usuario" placeholder="Ingresa tu usuario" autocomplete="username" />
     </div>
     <div class="input-group">
       <label for="password">Contraseña</label>
-      <input type="password" id="password" placeholder="Ingresa tu contraseña">
+      <input type="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" />
     </div>
-    <button class="btn" onclick="login()">Entrar</button>
-    <div id="errorMsg" class="error">Usuario o contraseña incorrectos</div>
+    <button class="btn" id="btnLogin">Entrar</button>
+    <div id="errorMsg" class="error" role="status" aria-live="polite">Usuario o contraseña incorrectos</div>
   </div>
 
   <script>
@@ -183,29 +183,38 @@
       slides[current].classList.add("active");
     }, 10000);
 
-    // Login simple
+    // Login simple (ahora usa sessionStorage)
     function login() {
       const user = document.getElementById("usuario").value.trim();
       const pass = document.getElementById("password").value.trim();
       const errorMsg = document.getElementById("errorMsg");
 
+      // ejemplo simple de credenciales (cambiar según necesites)
       if (user === "Orange" && pass === "OrangeStore") {
-        localStorage.setItem("logueado", "true");
+        sessionStorage.setItem("logueado", "true");
         window.location.href = "index.html";
       } else {
         errorMsg.style.display = "block";
       }
     }
 
-    // Permitir iniciar sesión con Enter
-    document.addEventListener("keydown", function(e) {
+    // Permitir iniciar sesión con Enter en inputs
+    document.getElementById("usuario").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        login();
+      }
+    });
+    document.getElementById("password").addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         login();
       }
     });
 
-    // Si ya está logueado, redirige
-    if (localStorage.getItem("logueado") === "true") {
+    // También botón
+    document.getElementById("btnLogin").addEventListener("click", login);
+
+    // Si ya está logueado en esta pestaña, redirige
+    if (sessionStorage.getItem("logueado") === "true") {
       window.location.href = "index.html";
     }
   </script>
