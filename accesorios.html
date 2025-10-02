@@ -140,8 +140,9 @@
       color:#b06e6e;
       font-size:16px;
       min-height:180px;
+      text-align:center;
     }
-    .empty .icon { font-size:22px; margin-bottom:8px; }
+    .empty .icon { font-size:30px; margin-bottom:8px; }
 
     /* Modal */
     .modal {
@@ -212,7 +213,7 @@
     </div>
 
     <div class="search-area">
-      <input id="search" type="text" placeholder="Buscar accesorios... (ej: amsentri, cable 2m)" aria-label="Buscar accesorios">
+      <input id="search" type="text" placeholder="Buscar accesorios..." aria-label="Buscar accesorios">
     </div>
   </header>
 
@@ -235,7 +236,7 @@
 
   <main class="grid" id="grid" aria-live="polite">
     <!-- Spinner inicial -->
-    <div class="spinner"><div></div></div>
+    <div class="spinner" id="spinner"><div></div></div>
   </main>
 
   <!-- Modal -->
@@ -284,6 +285,7 @@
           ignoreLocation: true,
           minMatchCharLength: 2,
         });
+        document.getElementById("spinner").style.display = "none";
         mostrarProductos(productos);
       })
       .catch(err => {
@@ -295,7 +297,7 @@
       const grid = document.getElementById("grid");
       grid.innerHTML = "";
       if (!lista || lista.length === 0) {
-        mostrarEmpty("❌ No se encontraron resultados");
+        mostrarEmpty("No se encontraron resultados");
         return;
       }
 
@@ -318,7 +320,6 @@
         card.querySelector(".unidad").textContent = item.unidad || "";
         card.querySelector(".tag").textContent = cat.label;
         card.addEventListener("click", () => verDetalle(item));
-        card.addEventListener("keypress", (e) => { if (e.key === "Enter") verDetalle(item); });
         frag.appendChild(card);
       });
       grid.appendChild(frag);
@@ -337,10 +338,6 @@
       filtroActivo = categoria;
       document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
       if (ev && ev.target) ev.target.classList.add("active");
-      else {
-        const btn = document.querySelector(\`.filter-btn[data-cat="\${categoria}"]\`);
-        if (btn) btn.classList.add("active");
-      }
 
       let lista = productos;
       const texto = document.getElementById("search").value.trim();
