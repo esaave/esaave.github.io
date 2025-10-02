@@ -3,148 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orange Store - Menú Principal</title>
+  <title>Orange Store</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f8fafc;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff7ed 0%, #ffe5d0 100%);
       color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-  header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  background: #f97316;
-  color: white;
-  position: relative;
-}
-header h1 {
-  margin: 0;
-  font-size: 20px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-header h1 img {
-  height: 35px;
-  margin-right: 10px;
-}
-.menu {
-  position: absolute;
-  top: 60px;
-  left: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  min-width: 200px;
-  z-index: 1000;
-}
-.menu a {
-  padding: 12px 15px;
-  text-decoration: none;
-  color: #1f2937;
-  font-size: 15px;
-  border-bottom: 1px solid #e5e7eb;
-  transition: background 0.2s;
-}
-.menu a:hover {
-  background: #f97316;
-  color: white;
-}
 
-    .welcome {
-      text-align: center;
-      margin: 40px 20px;
+    /* ===== Header ===== */
+    header {
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    .welcome h2 {
-      font-size: 28px;
-      color: #f97316;
-      margin-bottom: 15px;
-    }
-    .welcome p {
-      font-size: 18px;
-      color: #4b5563;
-      max-width: 650px;
-      margin: auto;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-      padding: 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-    .card {
-      background: white;
-      border-radius: 15px;
-      padding: 35px 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
+    header img {
+      height: 45px;
+      margin-right: 10px;
       transition: transform 0.2s;
       cursor: pointer;
     }
+    header img:hover {
+      transform: scale(1.05);
+    }
+    header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    /* ===== Bienvenida ===== */
+    .welcome {
+      text-align: center;
+      margin: 40px auto 20px;
+      max-width: 700px;
+      padding: 0 15px;
+    }
+    .welcome h2 {
+      font-size: 32px;
+      color: #f97316;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+    .welcome p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #374151;
+    }
+
+    /* ===== Cards ===== */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.8);
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
     .card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     }
     .card h3 {
       color: #f97316;
-      margin-top: 10px;
+      margin: 15px 0 10px;
       font-size: 20px;
+      font-weight: 600;
+    }
+    .card p {
+      font-size: 14px;
+      color: #4b5563;
+    }
+    .icon {
+      font-size: 42px;
+      color: #f97316;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      color: #6b7280;
+      background: #fff8f1;
+      border-top: 1px solid #fcd9bd;
+    }
+
+    /* ===== Animación de entrada ===== */
+    .card, .welcome {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s forwards;
+    }
+    .welcome {
+      animation-delay: 0.2s;
+    }
+    .card:nth-child(1) { animation-delay: 0.4s; }
+    .card:nth-child(2) { animation-delay: 0.6s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Header global -->
   <header>
-    <h1 onclick="toggleMenu()">
-      <img src="logo.png" alt="Orange Store Logo"> Orange Store
-    </h1>
-    <nav id="menu" class="menu">
-      <a href="index.html">🏠 Menú Principal</a>
-      <a href="accesorios.html">🎧 Accesorios</a>
-      <a href="repuestos.html">🔧 Repuestos</a>
-      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-    </nav>
+    <img src="logo.png" alt="Logo" onclick="window.location.href='index.html'">
+    <h1>Orange Store</h1>
   </header>
 
-  <!-- Bienvenida -->
   <section class="welcome">
     <h2>Bienvenidos a Orange Store</h2>
     <p>
-      Muchachos, acá podremos ver de manera rápida y sencilla los precios de los productos
-      que tenemos en stock. Encuentra fácilmente accesorios y repuestos organizados en nuestra plataforma.
+      Muchachos, acá podremos ver de manera rápida y sencilla los precios de los productos que tenemos en stock. 
+      Encuentra fácilmente accesorios y repuestos organizados en nuestra plataforma con un diseño moderno.
     </p>
   </section>
 
-  <!-- Tarjetas -->
   <section class="cards">
-    <div class="card" onclick="location.href='accesorios.html'">
-      <h3>🎧 Accesorios</h3>
+    <div class="card" onclick="window.location.href='accesorios.html'">
+      <div class="icon">🎧</div>
+      <h3>Accesorios</h3>
       <p>Explora nuestro catálogo de accesorios para smartphones.</p>
     </div>
-    <div class="card" onclick="location.href='repuestos.html'">
-      <h3>🔧 Repuestos</h3>
+    <div class="card" onclick="window.location.href='repuestos.html'">
+      <div class="icon">🔧</div>
+      <h3>Repuestos</h3>
       <p>Encuentra pantallas, flex, pines de carga y más repuestos.</p>
     </div>
   </section>
 
-  <!-- Script global -->
+  <footer>
+    © 2025 Orange Store. Todos los derechos reservados.
+  </footer>
+
   <script>
+    // 🔒 Verificación de login
     if (localStorage.getItem("logueado") !== "true") {
-      window.location.href = "login.html";
-    }
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
-    function logout() {
-      localStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
   </script>
