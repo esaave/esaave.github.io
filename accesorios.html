@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Orange Store - Accesorios</title>
 
+  <!-- Favicon -->
+  <link rel="icon" href="logopeq.png" type="image/png">
+
   <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -13,7 +16,8 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg,#fff7ed 0%,#ffece0 100%);
+      /* 🎨 Fondo suavizado distinto al login/index */
+      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
       color:#223;
       min-height:100vh;
       display:flex;
@@ -200,8 +204,9 @@
     @media(max-width:720px){
       .search-area { width:100%; margin-left:0; order:2; }
       header { flex-wrap:wrap; gap:10px; padding:12px; }
-      .filters { padding-top:10px; }
-      .grid { padding:14px; }
+      .filters { padding-top:10px; gap:8px; }
+      .grid { padding:12px; gap:14px; }
+      .card { padding:12px; }
     }
   </style>
 </head>
@@ -270,7 +275,6 @@
     function detectarCategoria(desc = "") {
       const d = normalizar(desc);
 
-      // ⚡ Orden corregido para evitar que se mezclen
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
       if (d.includes("vidrio") || d.includes("templado") || d.includes("glass")) return { key: "vidrios", label: "Vidrio Templado" };
       if (d.includes("cargador") || d.includes("taco cargador") || d.includes("tacos cargador")) return { key: "cargadores", label: "Cargadores" };
@@ -381,7 +385,6 @@
       modal.setAttribute("aria-hidden","true");
     }
 
-    // 🔥 Cerrar modal al hacer click fuera del contenido
     document.getElementById("modal").addEventListener("click", function(e) {
       if (e.target === this) {
         cerrarModal();
