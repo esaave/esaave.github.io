@@ -37,10 +37,19 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 2s ease-in-out;
-      filter: blur(8px) brightness(0.6); /* 🔥 Difuminado + oscurecido */
+      filter: blur(8px) brightness(0.6);
+      transform: scale(1);
     }
     .slideshow img.active {
       opacity: 1;
+      animation: kenburns 20s ease-in-out infinite;
+    }
+
+    /* Efecto Ken Burns */
+    @keyframes kenburns {
+      0% { transform: scale(1) translate(0,0); }
+      50% { transform: scale(1.1) translate(10px, -10px); }
+      100% { transform: scale(1) translate(0,0); }
     }
 
     /* Caja de login */
@@ -142,9 +151,9 @@
 <body>
   <!-- Slideshow -->
   <div class="slideshow">
-    <img src="fondo1.jpg" class="active" alt="Fondo 1">
-    <img src="fondo2.jpg" alt="Fondo 2">
-    <img src="fondo3.jpg" alt="Fondo 3">
+    <img src="bg-login/fondo1.jpg" class="active" alt="Fondo 1">
+    <img src="bg-login/fondo2.jpg" alt="Fondo 2">
+    <img src="bg-login/fondo3.jpg" alt="Fondo 3">
   </div>
 
   <div class="login-container">
@@ -163,14 +172,14 @@
   </div>
 
   <script>
-    // Slideshow automático
+    // Slideshow automático con fade + ken burns
     const slides = document.querySelectorAll(".slideshow img");
     let current = 0;
     setInterval(() => {
       slides[current].classList.remove("active");
       current = (current + 1) % slides.length;
       slides[current].classList.add("active");
-    }, 10000); // ⏱ 10 segundos por imagen
+    }, 10000);
 
     // Login simple
     function login() {
@@ -192,4 +201,6 @@
     }
   </script>
 </body>
+</html>
+
 </html>
