@@ -4,257 +4,229 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orange Store - Accesorios</title>
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #fff7ed;
-      color: #1f2937;
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #333;
     }
     header {
+      background: #ff6600;
+      color: white;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 15px 20px;
-      background: linear-gradient(90deg, #f97316, #ea580c);
-      color: white;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      flex-wrap: wrap;
-      position: relative;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    header img {
-      height: 45px;
+    .logo {
+      display: flex;
+      align-items: center;
       cursor: pointer;
-      transition: transform 0.2s;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 18px;
     }
-    header img:hover {
-      transform: scale(1.05);
+    .logo img {
+      height: 35px;
     }
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-      font-weight: bold;
+    .search-bar {
+      max-width: 500px;
+      flex: 1;
+      margin: 0 20px;
     }
-
-    /* ===== Menú desplegable ===== */
-    .menu {
-      display: none;
-      flex-direction: column;
-      background: #fff;
-      border-bottom: 2px solid #f97316;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      padding: 10px 20px;
-      animation: slideDown 0.3s ease;
-    }
-    .menu a {
-      text-decoration: none;
-      color: #1f2937;
-      font-weight: bold;
-      padding: 10px 0;
-      transition: color 0.2s;
-    }
-    .menu a:hover {
-      color: #f97316;
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .container {
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
+    .search-bar input {
+      width: 100%;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 25px;
+      font-size: 15px;
+      outline: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .filters {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 18px;
       justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 15px;
     }
     .filter-btn {
-      background: white;
-      border: 2px solid #f97316;
-      color: #f97316;
-      padding: 7px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-      font-weight: bold;
+      background: #fff;
+      border: 2px solid #ff6600;
+      color: #ff6600;
+      padding: 8px 18px;
+      border-radius: 25px;
       font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
-    .filter-btn:hover, .filter-btn.active {
-      background: #f97316;
-      color: white;
-    }
-    .search-box {
-      width: 100%;
-      padding: 14px;
-      border: 2px solid #f97316;
-      border-radius: 12px;
-      font-size: 15px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #ff6600;
+      color: #fff;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
     }
     .card {
       background: white;
-      padding: 16px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
       cursor: pointer;
+      position: relative;
     }
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+      transform: translateY(-5px);
     }
     .descripcion {
-      font-size: 16px;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 15px;
       margin-bottom: 8px;
-      color: #1f2937;
+      color: #333;
     }
     .codigo {
-      font-size: 12px;
-      color: #6b7280;
-      margin-bottom: 4px;
+      font-size: 13px;
+      color: #777;
+    }
+    .precio {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ff6600;
+      margin-top: 5px;
     }
     .unidad {
       font-size: 13px;
-      color: #6b7280;
-      margin-top: auto;
-    }
-    .precio {
-      font-size: 18px;
-      font-weight: bold;
-      color: #f97316;
-      margin-top: 10px;
+      color: #555;
     }
     .tag {
-      align-self: flex-end;
-      margin-top: 6px;
-      background: #f97316;
-      color: white;
-      padding: 3px 7px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: bold;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: #ffe6d5;
+      color: #ff6600;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
     }
     .empty {
       text-align: center;
+      padding: 30px;
       font-size: 16px;
-      color: #9ca3af;
-      grid-column: 1 / -1;
-      padding: 20px;
+      color: #999;
     }
 
-    /* ===== Modal ===== */
+    /* Modal */
     .modal {
       display: none;
       position: fixed;
-      z-index: 1000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      inset: 0;
+      background: rgba(0,0,0,0.6);
       justify-content: center;
       align-items: center;
-      padding: 15px;
+      z-index: 2000;
     }
     .modal-content {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
+      background: #fff;
+      border-radius: 20px;
+      padding: 25px;
       max-width: 400px;
-      width: 100%;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      animation: fadeIn 0.3s;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: scale(0.95);}
-      to {opacity: 1; transform: scale(1);}
-    }
-    .close {
-      float: right;
-      font-size: 22px;
-      cursor: pointer;
+      width: 90%;
+      text-align: center;
+      position: relative;
     }
     .modal h2 {
-      margin-top: 0;
-      color: #f97316;
-      font-size: 18px;
+      margin: 0 0 15px;
+      font-size: 20px;
+      color: #ff6600;
     }
-    .modal p {
-      margin: 6px 0;
-      font-size: 14px;
+    .modal .precio {
+      font-size: 18px;
+      margin: 8px 0;
+    }
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #555;
     }
 
-    /* ===== Responsivo ===== */
-    @media (max-width: 600px) {
+    /* Responsive */
+    @media(max-width: 600px) {
       header {
         flex-direction: column;
-        text-align: center;
+        align-items: flex-start;
+        gap: 10px;
       }
-      header h1 {
-        font-size: 18px;
+      .search-bar {
+        width: 100%;
+        margin: 0;
       }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <img src="logo.png" alt="Logo" onclick="toggleMenu()">
-    <h1>Orange Store - Accesorios</h1>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="logo.png" alt="Orange Store">
+      <span>Orange Store</span>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Buscar accesorios...">
+    </div>
   </header>
 
-  <!-- Menú que despliega y empuja todo hacia abajo -->
-  <div id="menu" class="menu">
-    <a href="index.html">🏠 Volver al menú principal</a>
-    <a href="repuestos.html">🔧 Ir a Repuestos</a>
-    <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filtrar('all', event)">Todos</button>
+    <button class="filter-btn" onclick="filtrar('cables', event)">Cables</button>
+    <button class="filter-btn" onclick="filtrar('cargadores', event)">Cargadores</button>
+    <button class="filter-btn" onclick="filtrar('audifonos', event)">Audífonos</button>
+    <button class="filter-btn" onclick="filtrar('forros', event)">Forros</button>
   </div>
 
-  <div class="container">
-    <input type="text" id="search" class="search-box" placeholder="🔍 Busca accesorios... (ej: amsentri, cable 2m)">
-    
-    <div class="filters">
-      <button class="filter-btn active" onclick="filtrar('all', event)">Todos</button>
-      <button class="filter-btn" onclick="filtrar('cable', event)">Cables</button>
-      <button class="filter-btn" onclick="filtrar('cargador', event)">Cargadores</button>
-      <button class="filter-btn" onclick="filtrar('audifono', event)">Audífonos</button>
-      <button class="filter-btn" onclick="filtrar('forro', event)">Forros</button>
-    </div>
+  <div class="grid" id="grid"></div>
 
-    <div id="grid" class="grid"></div>
-  </div>
-
-  <!-- Modal de detalles -->
-  <div id="modal" class="modal">
+  <!-- Modal detalle -->
+  <div class="modal" id="modal">
     <div class="modal-content">
-      <span class="close" onclick="cerrarModal()">&times;</span>
-      <h2 id="modal-descripcion"></h2>
-      <p id="modal-codigo"></p>
-      <p id="modal-unidad"></p>
-      <p><strong>Precio 1:</strong> <span id="modal-precio1"></span></p>
-      <p><strong>Precio 2:</strong> <span id="modal-precio2"></span></p>
+      <button class="close-btn" onclick="cerrarModal()">×</button>
+      <h2 id="detalle-nombre"></h2>
+      <p class="codigo" id="detalle-codigo"></p>
+      <p class="precio" id="detalle-precio1"></p>
+      <p class="precio" id="detalle-precio2"></p>
+      <p class="unidad" id="detalle-unidad"></p>
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
   <script>
     let productos = [];
     let fuse;
     let filtroActivo = "all";
-    const FACTOR_PRECIO2 = 1.7; 
-    const DATA_FILE = "precios.json"; 
+    const FACTOR_PRECIO2 = 1.7;
+    const DATA_FILE = "precios.json";
+
+    // Normalizar texto
+    function normalizarTexto(txt) {
+      return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
 
     fetch(DATA_FILE)
       .then(res => res.json())
@@ -264,7 +236,6 @@
           keys: ["descripcion", "codigo"],
           threshold: 0.4,
           ignoreLocation: true,
-          distance: 120,
           minMatchCharLength: 2,
         });
         mostrarProductos(productos);
@@ -292,10 +263,10 @@
     }
 
     function detectarCategoria(desc) {
-      const d = desc.toLowerCase();
+      const d = normalizarTexto(desc);
       if (d.includes("cable")) return "Cables";
       if (d.includes("cargador")) return "Cargadores";
-      if (d.includes("audifono") || d.includes("auricular")) return "Audífonos";
+      if (d.includes("audifono") || d.includes("audifonos") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return "Audífonos";
       if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return "Forros";
       return "Otros";
     }
@@ -303,13 +274,13 @@
     function filtrar(categoria, ev) {
       filtroActivo = categoria;
       document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-      if (ev) ev.target.classList.add("active");
+      ev.target.classList.add("active");
 
       const texto = document.getElementById("search").value.trim();
       let lista = productos;
 
       if (texto !== "") {
-        lista = fuse.search(texto).map(r => r.item);
+        lista = fuse.search(normalizarTexto(texto)).map(r => r.item);
       }
       if (categoria !== "all") {
         lista = lista.filter(p => detectarCategoria(p.descripcion).toLowerCase().includes(categoria));
@@ -317,52 +288,25 @@
       mostrarProductos(lista);
     }
 
-    // 🔎 Buscar con debounce
     let timeout;
     document.getElementById("search").addEventListener("input", e => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        filtrar(filtroActivo);
+        filtrar(filtroActivo, {target: document.querySelector(`.filter-btn.${filtroActivo}`)});
       }, 200);
     });
 
-    // ===== Modal =====
     function verDetalle(item) {
-      document.getElementById("modal-descripcion").innerText = item.descripcion;
-      document.getElementById("modal-codigo").innerText = "Código: " + item.codigo;
-      document.getElementById("modal-unidad").innerText = "Unidad: " + item.unidad;
-
-      const precio1 = Number(item.precio);
-      const precio2 = precio1 * FACTOR_PRECIO2;
-
-      document.getElementById("modal-precio1").innerText = "$" + precio1.toFixed(2);
-      document.getElementById("modal-precio2").innerText = "$" + precio2.toFixed(2);
-
+      document.getElementById("detalle-nombre").innerText = item.descripcion;
+      document.getElementById("detalle-codigo").innerText = "Código: " + item.codigo;
+      document.getElementById("detalle-precio1").innerText = "Precio 1: $" + Number(item.precio).toFixed(2);
+      document.getElementById("detalle-precio2").innerText = "Precio 2: $" + (Number(item.precio) * FACTOR_PRECIO2).toFixed(2);
+      document.getElementById("detalle-unidad").innerText = "Unidad: " + item.unidad;
       document.getElementById("modal").style.display = "flex";
     }
+
     function cerrarModal() {
       document.getElementById("modal").style.display = "none";
-    }
-    window.onclick = function(event) {
-      const modal = document.getElementById("modal");
-      if (event.target === modal) cerrarModal();
-    }
-
-    // ===== Toggle menú =====
-    function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
-
-    // 🔒 Verificación de login
-    if (localStorage.getItem("logueado") !== "true") {
-      window.location.href = "login.html";
-    }
-
-    // 🚪 Logout
-    function logout() {
-      localStorage.removeItem("logueado");
-      window.location.href = "login.html";
     }
   </script>
 </body>
