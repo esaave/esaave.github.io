@@ -43,7 +43,7 @@
     .logo img { height:40px; display:block; }
     .logo span { font-weight:600; font-size:18px; }
 
-    /* Search in header (keeps inside margins) */
+    /* Search in header */
     .search-area {
       margin-left:auto;
       width: min(620px, 58%);
@@ -95,7 +95,7 @@
       margin:0 auto 40px;
       width:100%;
       align-items:start;
-      min-height:260px; /* give space so "no results" centers vertically */
+      min-height:260px;
     }
 
     .card {
@@ -161,6 +161,7 @@
       padding:18px;
       text-align:center;
       box-shadow:0 10px 30px rgba(0,0,0,0.2);
+      position:relative;
     }
     .modal h3 { color:#ff6b00; margin:4px 0 8px; }
     .modal p { margin:6px 0; color:#333; }
@@ -173,6 +174,38 @@
       font-size:22px;
       cursor:pointer;
       color:#333;
+    }
+
+    /* Spinner Overlay */
+    .spinner-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 3000;
+      font-family: 'Poppins', sans-serif;
+      display: none;
+    }
+    .spinner {
+      border: 4px solid #ffe0cc;
+      border-top: 4px solid #ff6b00;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 0.9s linear infinite;
+      margin-bottom: 12px;
+    }
+    .spinner-text {
+      font-size: 15px;
+      color: #444;
+      font-weight: 600;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
     }
 
     /* Responsive */
@@ -196,7 +229,7 @@
     </div>
   </header>
 
-  <!-- Dropdown simple: se muestra al clickear logo -->
+  <!-- Dropdown -->
   <div id="headerDropdown" style="position:fixed; top:62px; left:14px; z-index:1500; display:none;">
     <div style="background:#fff; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.12); overflow:hidden;">
       <a href="#" onclick="logout()" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🚪 Cerrar sesión</a>
@@ -227,23 +260,26 @@
     </div>
   </div>
 
+  <!-- Spinner -->
+  <div id="spinner" class="spinner-overlay">
+    <div class="spinner"></div>
+    <div class="spinner-text">Cargando...</div>
+  </div>
+
   <!-- Fuse.js -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
   <script>
-    // Config
     const DATA_FILE = "precios.json";
     const FACTOR_PRECIO2 = 1.7;
     let productos = [];
     let fuse = null;
     let filtroActivo = "all";
 
-    // Normaliza (quita tildes y pasa a minusculas)
     function normalizar(txt = "") {
       return String(txt).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
 
-    // Detector retorna {key,label}
     function detectarCategoria(desc = "") {
       const d = normalizar(desc);
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
@@ -253,7 +289,14 @@
       return { key: "otros", label: "Otros" };
     }
 
-    // Fetch y set up Fuse
+    function mostrarSpinner() {
+      document.getElementById("spinner").style.display = "flex";
+    }
+    function ocultarSpinner() {
+      document.getElementById("spinner").style.display = "none";
+    }
+
+    mostrarSpinner();
     fetch(DATA_FILE)
       .then(r => r.json())
       .then(data => {
@@ -265,29 +308,27 @@
           minMatchCharLength: 2,
         });
         mostrarProductos(productos);
+        ocultarSpinner();
       })
       .catch(err => {
         console.error("No se pudo cargar precios.json:", err);
         mostrarEmpty("Error cargando datos");
+        ocultarSpinner();
       });
 
-    // Mostrar productos (optimized)
     function mostrarProductos(lista) {
       const grid = document.getElementById("grid");
-      grid.innerHTML = ""; // quick clear
+      grid.innerHTML = "";
       if (!lista || lista.length === 0) {
         mostrarEmpty("❌ No se encontraron resultados");
         return;
       }
-
       const frag = document.createDocumentFragment();
       lista.forEach(item => {
         const cat = detectarCategoria(item.descripcion);
         const card = document.createElement("article");
         card.className = "card";
         card.tabIndex = 0;
-
-        // build inner content
         card.innerHTML = `
           <div class="descripcion"></div>
           <div class="codigo"></div>
@@ -295,20 +336,15 @@
           <div class="unidad"></div>
           <div class="tag"></div>
         `;
-        // fill values safely
         card.querySelector(".descripcion").textContent = item.descripcion;
         card.querySelector(".codigo").textContent = "Código: " + (item.codigo || "");
         card.querySelector(".precio").textContent = "$" + Number(item.precio).toFixed(2);
         card.querySelector(".unidad").textContent = item.unidad || "";
         card.querySelector(".tag").textContent = cat.label;
-
-        // click opens modal with detail
         card.addEventListener("click", () => verDetalle(item));
         card.addEventListener("keypress", (e) => { if (e.key === "Enter") verDetalle(item); });
-
         frag.appendChild(card);
       });
-
       grid.appendChild(frag);
     }
 
@@ -322,35 +358,30 @@
       `;
     }
 
-    // Filtrado combinado
     function filtrar(categoria, ev) {
-      filtroActivo = categoria;
-      // manejar la clase .active correctamente
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      if (ev && ev.target) ev.target.classList.add("active");
-      else {
-        // si no viene evento, buscar el botón con data-cat
-        const btn = document.querySelector(`.filter-btn[data-cat="${categoria}"]`);
-        if (btn) btn.classList.add("active");
-      }
-
-      let lista = productos;
-
-      const texto = document.getElementById("search").value.trim();
-      if (texto !== "" && fuse) {
-        // usamos normalizar texto para mejorar coincidencias
-        const resultados = fuse.search(normalizar(texto));
-        lista = resultados.map(r => r.item);
-      }
-
-      if (categoria !== "all") {
-        lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
-      }
-
-      mostrarProductos(lista);
+      mostrarSpinner();
+      setTimeout(() => {
+        filtroActivo = categoria;
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        if (ev && ev.target) ev.target.classList.add("active");
+        else {
+          const btn = document.querySelector(\`.filter-btn[data-cat="\${categoria}"]\`);
+          if (btn) btn.classList.add("active");
+        }
+        let lista = productos;
+        const texto = document.getElementById("search").value.trim();
+        if (texto !== "" && fuse) {
+          const resultados = fuse.search(normalizar(texto));
+          lista = resultados.map(r => r.item);
+        }
+        if (categoria !== "all") {
+          lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
+        }
+        mostrarProductos(lista);
+        ocultarSpinner();
+      }, 300);
     }
 
-    // Buscador con debounce
     let debounce;
     const searchInput = document.getElementById("search");
     searchInput.addEventListener("input", (e) => {
@@ -360,7 +391,6 @@
       }, 180);
     });
 
-    // Modal detalle
     function verDetalle(item) {
       document.getElementById("m-name").textContent = item.descripcion;
       document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
@@ -377,7 +407,6 @@
       modal.setAttribute("aria-hidden","true");
     }
 
-    // Simple dropdown from logo
     function toggleMenu() {
       const d = document.getElementById("headerDropdown");
       d.style.display = (d.style.display === "flex") ? "none" : "flex";
@@ -388,13 +417,11 @@
       if (!e.target.closest(".logo") && !e.target.closest("#headerDropdown")) d.style.display = "none";
     });
 
-    // Logout (simple localStorage)
     function logout() {
       localStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
 
-    // Verificación de login (si usas el flujo simple)
     (function checkLogin(){
       if (localStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
