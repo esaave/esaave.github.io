@@ -11,78 +11,79 @@
       background: #f8fafc;
       color: #1f2937;
     }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: #f97316;
-      color: white;
-      position: relative;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-    }
-    header h1 img {
-      height: 35px;
-      margin-right: 10px;
-    }
-    .menu {
-      position: absolute;
-      top: 60px;
-      left: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      min-width: 200px;
-      z-index: 1000;
-    }
-    .menu a {
-      padding: 12px 15px;
-      text-decoration: none;
-      color: #1f2937;
-      font-size: 15px;
-      border-bottom: 1px solid #e5e7eb;
-      transition: background 0.2s;
-    }
-    .menu a:hover {
-      background: #f97316;
-      color: white;
-    }
+  header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f97316;
+  color: white;
+  position: relative;
+}
+header h1 {
+  margin: 0;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+header h1 img {
+  height: 35px;
+  margin-right: 10px;
+}
+.menu {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 200px;
+  z-index: 1000;
+}
+.menu a {
+  padding: 12px 15px;
+  text-decoration: none;
+  color: #1f2937;
+  font-size: 15px;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s;
+}
+.menu a:hover {
+  background: #f97316;
+  color: white;
+}
+
     .welcome {
       text-align: center;
       margin: 40px 20px;
     }
     .welcome h2 {
-      font-size: 26px;
+      font-size: 28px;
       color: #f97316;
       margin-bottom: 15px;
     }
     .welcome p {
       font-size: 18px;
       color: #4b5563;
-      max-width: 600px;
+      max-width: 650px;
       margin: auto;
     }
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
       padding: 20px;
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
     }
     .card {
       background: white;
       border-radius: 15px;
-      padding: 25px;
+      padding: 35px 25px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
       transition: transform 0.2s;
@@ -94,11 +95,12 @@
     .card h3 {
       color: #f97316;
       margin-top: 10px;
-      font-size: 18px;
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
+  <!-- Header global -->
   <header>
     <h1 onclick="toggleMenu()">
       <img src="logo.png" alt="Orange Store Logo"> Orange Store
@@ -111,6 +113,7 @@
     </nav>
   </header>
 
+  <!-- Bienvenida -->
   <section class="welcome">
     <h2>Bienvenidos a Orange Store</h2>
     <p>
@@ -119,6 +122,7 @@
     </p>
   </section>
 
+  <!-- Tarjetas -->
   <section class="cards">
     <div class="card" onclick="location.href='accesorios.html'">
       <h3>🎧 Accesorios</h3>
@@ -130,19 +134,15 @@
     </div>
   </section>
 
+  <!-- Script global -->
   <script>
-    // 🔒 Verificación de login
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
-
-    // Toggle menú desplegable
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
-
-    // 🚪 Logout
     function logout() {
       localStorage.removeItem("logueado");
       window.location.href = "login.html";
