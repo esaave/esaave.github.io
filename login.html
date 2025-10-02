@@ -70,8 +70,8 @@
   </div>
 
   <script>
-    const USUARIO = "admin";   // 👉 cámbialo
-    const CLAVE = "1234";      // 👉 cámbialo
+    const USUARIO = "Orange";   // cambia aqui el user
+    const CLAVE = "OrangeStore";      // cambia aqui la clave
 
     function login() {
       const u = document.getElementById("usuario").value.trim();
@@ -85,7 +85,7 @@
       }
     }
 
-    // Si ya está logueado → redirige directo
+    // Si ya está logueado → redirige directo (en caso de que tengamos o hagamos otra pagina o otro login)
     if (localStorage.getItem("logueado") === "true") {
       window.location.href = "index.html";
     }
