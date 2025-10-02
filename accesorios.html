@@ -374,6 +374,13 @@
       modal.setAttribute("aria-hidden","true");
     }
 
+    // 🔥 NUEVO: cerrar modal si haces clic fuera del cuadro
+    document.getElementById("modal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        cerrarModal();
+      }
+    });
+
     function toggleMenu() {
       const d = document.getElementById("headerDropdown");
       d.style.display = (d.style.display === "flex") ? "none" : "flex";
@@ -397,3 +404,4 @@
   </script>
 </body>
 </html>
+
