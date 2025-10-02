@@ -351,7 +351,18 @@
     function toggleMenu() {
       const menu = document.getElementById("menu");
       menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
+
+      <script>
+  // 🔒 Verificación de login
+  if (localStorage.getItem("logueado") !== "true") {
+    window.location.href = "login.html";
+  }
+
+  // 🚪 Función logout
+  function logout() {
+    localStorage.removeItem("logueado");
+    window.location.href = "login.html";
+  }
   </script>
 </body>
 </html>
