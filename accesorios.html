@@ -233,6 +233,7 @@
     <button class="filter-btn" data-cat="audifonos" onclick="filtrar('audifonos', event)">Audífonos</button>
     <button class="filter-btn" data-cat="forros" onclick="filtrar('forros', event)">Forros</button>
     <button class="filter-btn" data-cat="vidrios" onclick="filtrar('vidrios', event)">Vidrios Templados</button>
+    <button class="filter-btn" data-cat="camara" onclick="filtrar('camara', event)">Protector de Cámara</button>
   </div>
 
   <main class="grid" id="grid" aria-live="polite">
@@ -268,11 +269,15 @@
 
     function detectarCategoria(desc = "") {
       const d = normalizar(desc);
+
+      // ⚡ Orden corregido para evitar que se mezclen
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
       if (d.includes("vidrio") || d.includes("templado") || d.includes("glass")) return { key: "vidrios", label: "Vidrio Templado" };
       if (d.includes("cargador") || d.includes("taco cargador") || d.includes("tacos cargador")) return { key: "cargadores", label: "Cargadores" };
       if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
+      if (d.includes("protector de camara") || d.includes("camara")) return { key: "camara", label: "Protector de Cámara" };
       if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
+
       return { key: "otros", label: "Otros" };
     }
 
