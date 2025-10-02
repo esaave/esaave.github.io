@@ -16,7 +16,6 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      /* 🎨 Fondo suavizado distinto al login/index */
       background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
       color:#223;
       min-height:100vh;
@@ -41,11 +40,51 @@
       display:flex;
       align-items:center;
       gap:10px;
-      cursor:pointer;
       user-select:none;
     }
     .logo img { height:40px; display:block; }
     .logo span { font-weight:600; font-size:18px; }
+
+    .menu-toggle {
+      font-size:24px;
+      cursor:pointer;
+      margin-right:10px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height:100%;
+      width:0;
+      position:fixed;
+      top:0;
+      left:0;
+      background:#fff;
+      overflow-x:hidden;
+      transition:0.3s;
+      box-shadow:0 4px 20px rgba(0,0,0,0.2);
+      z-index:2000;
+      padding-top:60px;
+    }
+    .sidebar a {
+      display:block;
+      padding:14px 20px;
+      text-decoration:none;
+      font-size:16px;
+      color:#222;
+      font-weight:600;
+      transition:0.2s;
+    }
+    .sidebar a:hover {
+      background:#ffe9e0;
+    }
+    .sidebar .closebtn {
+      position:absolute;
+      top:12px;
+      right:20px;
+      font-size:28px;
+      cursor:pointer;
+      color:#333;
+    }
 
     /* Search */
     .search-area {
@@ -212,7 +251,8 @@
 </head>
 <body>
   <header>
-    <div class="logo" title="Menú" onclick="toggleMenu()">
+    <span class="menu-toggle" onclick="openMenu()">☰</span>
+    <div class="logo">
       <img src="logo.png" alt="logo">
       <span>Orange Store</span>
     </div>
@@ -222,13 +262,12 @@
     </div>
   </header>
 
-  <!-- Menú desplegable -->
-  <div id="headerDropdown" style="position:fixed; top:62px; left:14px; z-index:1500; display:none;">
-    <div style="background:#fff; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.12); overflow:hidden;">
-      <a href="index.html" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🏠 Volver al menú principal</a>
-      <a href="repuestos.html" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🛠 Repuestos</a>
-      <a href="#" onclick="logout()" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🚪 Cerrar sesión</a>
-    </div>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <span class="closebtn" onclick="closeMenu()">×</span>
+    <a href="index.html">🏠 Volver al menú principal</a>
+    <a href="repuestos.html">🛠 Repuestos</a>
+    <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
   </div>
 
   <div class="filters" role="toolbar" aria-label="Filtros">
@@ -391,23 +430,21 @@
       }
     });
 
-    function toggleMenu() {
-      const d = document.getElementById("headerDropdown");
-      d.style.display = (d.style.display === "flex") ? "none" : "flex";
-      if (d.style.display === "flex") d.style.flexDirection = "column";
+    /* Sidebar Menu */
+    function openMenu() {
+      document.getElementById("sidebar").style.width = "250px";
     }
-    window.addEventListener("click", (e) => {
-      const d = document.getElementById("headerDropdown");
-      if (!e.target.closest(".logo") && !e.target.closest("#headerDropdown")) d.style.display = "none";
-    });
+    function closeMenu() {
+      document.getElementById("sidebar").style.width = "0";
+    }
 
     function logout() {
-      localStorage.removeItem("logueado");
+      sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
 
     (function checkLogin(){
-      if (localStorage.getItem("logueado") !== "true") {
+      if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
       }
     })();
