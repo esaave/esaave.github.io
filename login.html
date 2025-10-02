@@ -3,89 +3,190 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Orange Store</title>
+  <title>Orange Store - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #f97316, #ea580c);
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      color: white;
+      overflow: hidden;
+      position: relative;
     }
-    .login-box {
-      background: white;
-      color: #1f2937;
-      padding: 30px 25px;
-      border-radius: 15px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+
+    /* Slideshow de fondo */
+    .slideshow {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      filter: blur(8px) brightness(0.6); /* 🔥 Difuminado + oscurecido */
+    }
+    .slideshow img.active {
+      opacity: 1;
+    }
+
+    /* Caja de login */
+    .login-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      width: min(400px, 90%);
       text-align: center;
-      width: 100%;
-      max-width: 350px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      color: #fff;
+      animation: fadeIn 0.8s ease;
     }
-    .login-box h1 {
-      margin-bottom: 20px;
-      font-size: 22px;
-      color: #f97316;
+
+    .logo {
+      width: 80px;
+      margin-bottom: 15px;
     }
-    .login-box input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #d1d5db;
-      font-size: 15px;
+
+    .login-container h1 {
+      font-size: 24px;
+      margin-bottom: 25px;
+      font-weight: 700;
+      color: #fff;
     }
-    .login-box button {
-      background: #f97316;
-      color: white;
-      font-weight: bold;
-      border: none;
-      padding: 12px;
-      width: 100%;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s;
+
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
     }
-    .login-box button:hover {
-      background: #ea580c;
-    }
-    .error {
-      color: red;
+
+    .input-group label {
       font-size: 14px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      color: #fcd9bd;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.85);
+      color: #333;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+
+    .error {
       margin-top: 10px;
+      font-size: 14px;
+      color: #ffb4a2;
       display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media(max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+      }
+      .logo {
+        width: 65px;
+      }
+      .login-container h1 {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="login-box">
-    <h1>Orange Store</h1>
-    <input type="text" id="usuario" placeholder="Usuario">
-    <input type="password" id="clave" placeholder="Contraseña">
-    <button onclick="login()">Ingresar</button>
-    <p class="error" id="error">Usuario o contraseña incorrectos</p>
+  <!-- Slideshow -->
+  <div class="slideshow">
+    <img src="fondo1.jpg" class="active" alt="Fondo 1">
+    <img src="fondo2.jpg" alt="Fondo 2">
+    <img src="fondo3.jpg" alt="Fondo 3">
+  </div>
+
+  <div class="login-container">
+    <img src="logo.png" alt="Orange Store" class="logo">
+    <h1>Iniciar Sesión</h1>
+    <div class="input-group">
+      <label for="usuario">Usuario</label>
+      <input type="text" id="usuario" placeholder="Ingresa tu usuario">
+    </div>
+    <div class="input-group">
+      <label for="password">Contraseña</label>
+      <input type="password" id="password" placeholder="Ingresa tu contraseña">
+    </div>
+    <button class="btn" onclick="login()">Entrar</button>
+    <div id="errorMsg" class="error">Usuario o contraseña incorrectos</div>
   </div>
 
   <script>
-    const USUARIO = "Orange";   // cambia aqui el user
-    const CLAVE = "OrangeStore";      // cambia aqui la clave
+    // Slideshow automático
+    const slides = document.querySelectorAll(".slideshow img");
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove("active");
+      current = (current + 1) % slides.length;
+      slides[current].classList.add("active");
+    }, 10000); // ⏱ 10 segundos por imagen
 
+    // Login simple
     function login() {
-      const u = document.getElementById("usuario").value.trim();
-      const c = document.getElementById("clave").value.trim();
+      const user = document.getElementById("usuario").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      const errorMsg = document.getElementById("errorMsg");
 
-      if (u === USUARIO && c === CLAVE) {
+      if (user === "admin" && pass === "1234") {
         localStorage.setItem("logueado", "true");
         window.location.href = "index.html";
       } else {
-        document.getElementById("error").style.display = "block";
+        errorMsg.style.display = "block";
       }
     }
 
-    // Si ya está logueado → redirige directo (en caso de que tengamos o hagamos otra pagina o otro login)
+    // Si ya está logueado, redirige
     if (localStorage.getItem("logueado") === "true") {
       window.location.href = "index.html";
     }
