@@ -1,313 +1,405 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Orange Store - Accesorios</title>
+
+  <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #fdfdfd;
-      color: #333;
+      background: linear-gradient(135deg,#fff7ed 0%,#ffece0 100%);
+      color:#223;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
     }
+
+    /* Header */
     header {
-      background: #ff6600;
-      color: white;
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      background: linear-gradient(90deg,#f97316,#ea580c);
+      color:#fff;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
     }
     .logo {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      gap: 10px;
-      font-weight: 600;
-      font-size: 18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
     }
-    .logo img {
-      height: 35px;
+    .logo img { height:40px; display:block; }
+    .logo span { font-weight:600; font-size:18px; }
+
+    /* Search in header (keeps inside margins) */
+    .search-area {
+      margin-left:auto;
+      width: min(620px, 58%);
     }
-    .search-bar {
-      max-width: 500px;
-      flex: 1;
-      margin: 0 20px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 10px 15px;
+    .search-area input {
+      width:100%;
+      padding:10px 16px;
+      border-radius:999px;
       border: none;
-      border-radius: 25px;
-      font-size: 15px;
-      outline: none;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size:15px;
+      outline:none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
+
+    /* Filters */
     .filters {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 15px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      padding:18px 16px 6px;
+      flex-wrap:wrap;
     }
     .filter-btn {
-      background: #fff;
-      border: 2px solid #ff6600;
-      color: #ff6600;
-      padding: 8px 18px;
-      border-radius: 25px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
+      border:2px solid #ff7a2a;
+      color:#ff7a2a;
+      background:#fff;
+      padding:8px 16px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .18s;
+      font-size:14px;
     }
-    .filter-btn.active,
-    .filter-btn:hover {
-      background: #ff6600;
-      color: #fff;
+    .filter-btn:hover { transform:translateY(-3px); }
+    .filter-btn.active {
+      background:linear-gradient(90deg,#ff7a2a,#e85b07);
+      color:#fff;
+      box-shadow:0 6px 18px rgba(232, 88, 12, 0.18);
+      transform:none;
     }
+
+    /* Grid */
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 20px;
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+      gap:20px;
+      padding:18px;
+      max-width:1150px;
+      margin:0 auto 40px;
+      width:100%;
+      align-items:start;
+      min-height:260px; /* give space so "no results" centers vertically */
     }
+
     .card {
-      background: white;
-      border-radius: 15px;
-      padding: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
-      cursor: pointer;
-      position: relative;
+      background:#fff;
+      border-radius:14px;
+      padding:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      transition:transform .18s, box-shadow .18s;
+      position:relative;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      min-height:120px;
     }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .descripcion {
-      font-weight: 600;
-      font-size: 15px;
-      margin-bottom: 8px;
-      color: #333;
-    }
-    .codigo {
-      font-size: 13px;
-      color: #777;
-    }
-    .precio {
-      font-size: 16px;
-      font-weight: 600;
-      color: #ff6600;
-      margin-top: 5px;
-    }
-    .unidad {
-      font-size: 13px;
-      color: #555;
-    }
+    .card:hover { transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.12); }
+
+    .descripcion { font-weight:600; color:#243; font-size:15px; margin-bottom:6px; }
+    .codigo { font-size:12px; color:#667; margin-bottom:6px; }
+    .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
+    .unidad { font-size:13px; color:#556; margin-top:auto; }
+
+    /* Tag bottom-right */
     .tag {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: #ffe6d5;
-      color: #ff6600;
-      padding: 4px 10px;
-      border-radius: 12px;
-      font-size: 12px;
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      background:#ffeddc;
+      color:#d95300;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      box-shadow:0 3px 8px rgba(0,0,0,0.04);
     }
+
+    /* Empty message centered */
     .empty {
-      text-align: center;
-      padding: 30px;
-      font-size: 16px;
-      color: #999;
+      grid-column: 1 / -1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      color:#b06e6e;
+      font-size:16px;
+      min-height:180px;
     }
+    .empty .icon { font-size:22px; margin-bottom:8px; }
 
     /* Modal */
     .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.5);
+      align-items:center;
+      justify-content:center;
+      z-index:2000;
     }
-    .modal-content {
-      background: #fff;
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      position: relative;
+    .modal .content {
+      width: min(420px,92%);
+      background:#fff;
+      border-radius:12px;
+      padding:18px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
     }
-    .modal h2 {
-      margin: 0 0 15px;
-      font-size: 20px;
-      color: #ff6600;
-    }
-    .modal .precio {
-      font-size: 18px;
-      margin: 8px 0;
-    }
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 15px;
-      background: transparent;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      color: #555;
+    .modal h3 { color:#ff6b00; margin:4px 0 8px; }
+    .modal p { margin:6px 0; color:#333; }
+    .close-modal {
+      position:absolute;
+      top:14px;
+      right:18px;
+      background:transparent;
+      border:none;
+      font-size:22px;
+      cursor:pointer;
+      color:#333;
     }
 
     /* Responsive */
-    @media(max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-      .search-bar {
-        width: 100%;
-        margin: 0;
-      }
+    @media(max-width:720px){
+      .search-area { width:100%; margin-left:0; order:2; }
+      header { flex-wrap:wrap; gap:10px; padding:12px; }
+      .filters { padding-top:10px; }
+      .grid { padding:14px; }
     }
   </style>
 </head>
 <body>
-
   <header>
-    <div class="logo" onclick="window.location.href='index.html'">
-      <img src="logo.png" alt="Orange Store">
+    <div class="logo" title="Menú" onclick="toggleMenu()">
+      <img src="logo.png" alt="logo">
       <span>Orange Store</span>
     </div>
-    <div class="search-bar">
-      <input type="text" id="search" placeholder="Buscar accesorios...">
+
+    <div class="search-area">
+      <input id="search" type="text" placeholder="Buscar accesorios... (ej: amsentri, cable 2m)" aria-label="Buscar accesorios">
     </div>
   </header>
 
-  <div class="filters">
-    <button class="filter-btn active" onclick="filtrar('all', event)">Todos</button>
-    <button class="filter-btn" onclick="filtrar('cables', event)">Cables</button>
-    <button class="filter-btn" onclick="filtrar('cargadores', event)">Cargadores</button>
-    <button class="filter-btn" onclick="filtrar('audifonos', event)">Audífonos</button>
-    <button class="filter-btn" onclick="filtrar('forros', event)">Forros</button>
-  </div>
-
-  <div class="grid" id="grid"></div>
-
-  <!-- Modal detalle -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <button class="close-btn" onclick="cerrarModal()">×</button>
-      <h2 id="detalle-nombre"></h2>
-      <p class="codigo" id="detalle-codigo"></p>
-      <p class="precio" id="detalle-precio1"></p>
-      <p class="precio" id="detalle-precio2"></p>
-      <p class="unidad" id="detalle-unidad"></p>
+  <!-- Dropdown simple: se muestra al clickear logo -->
+  <div id="headerDropdown" style="position:fixed; top:62px; left:14px; z-index:1500; display:none;">
+    <div style="background:#fff; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.12); overflow:hidden;">
+      <a href="#" onclick="logout()" style="display:block;padding:12px 18px;text-decoration:none;color:#222;font-weight:600;">🚪 Cerrar sesión</a>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-  <script>
-    let productos = [];
-    let fuse;
-    let filtroActivo = "all";
-    const FACTOR_PRECIO2 = 1.7;
-    const DATA_FILE = "precios.json";
+  <div class="filters" role="toolbar" aria-label="Filtros">
+    <button class="filter-btn active" data-cat="all" onclick="filtrar('all', event)">Todos</button>
+    <button class="filter-btn" data-cat="cables" onclick="filtrar('cables', event)">Cables</button>
+    <button class="filter-btn" data-cat="cargadores" onclick="filtrar('cargadores', event)">Cargadores</button>
+    <button class="filter-btn" data-cat="audifonos" onclick="filtrar('audifonos', event)">Audífonos</button>
+    <button class="filter-btn" data-cat="forros" onclick="filtrar('forros', event)">Forros</button>
+  </div>
 
-    // Normalizar texto
-    function normalizarTexto(txt) {
-      return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  <main class="grid" id="grid" aria-live="polite">
+    <!-- Productos renderizados aquí -->
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="content" role="document">
+      <button class="close-modal" onclick="cerrarModal()">×</button>
+      <h3 id="m-name"></h3>
+      <p id="m-code" class="codigo"></p>
+      <p id="m-price1" class="precio"></p>
+      <p id="m-price2" class="precio"></p>
+      <p id="m-unit" class="unidad"></p>
+    </div>
+  </div>
+
+  <!-- Fuse.js -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+  <script>
+    // Config
+    const DATA_FILE = "precios.json";
+    const FACTOR_PRECIO2 = 1.7;
+    let productos = [];
+    let fuse = null;
+    let filtroActivo = "all";
+
+    // Normaliza (quita tildes y pasa a minusculas)
+    function normalizar(txt = "") {
+      return String(txt).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
 
+    // Detector retorna {key,label}
+    function detectarCategoria(desc = "") {
+      const d = normalizar(desc);
+      if (d.includes("cable")) return { key: "cables", label: "Cables" };
+      if (d.includes("cargador")) return { key: "cargadores", label: "Cargadores" };
+      if (d.includes("audifono") || d.includes("audifonos") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
+      if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
+      return { key: "otros", label: "Otros" };
+    }
+
+    // Fetch y set up Fuse
     fetch(DATA_FILE)
-      .then(res => res.json())
+      .then(r => r.json())
       .then(data => {
-        productos = data;
+        productos = data || [];
         fuse = new Fuse(productos, {
           keys: ["descripcion", "codigo"],
-          threshold: 0.4,
+          threshold: 0.35,
           ignoreLocation: true,
           minMatchCharLength: 2,
         });
         mostrarProductos(productos);
+      })
+      .catch(err => {
+        console.error("No se pudo cargar precios.json:", err);
+        mostrarEmpty("Error cargando datos");
       });
 
+    // Mostrar productos (optimized)
     function mostrarProductos(lista) {
       const grid = document.getElementById("grid");
-      grid.innerHTML = "";
-      if (lista.length === 0) {
-        grid.innerHTML = `<div class="empty">❌ No se encontraron resultados</div>`;
+      grid.innerHTML = ""; // quick clear
+      if (!lista || lista.length === 0) {
+        mostrarEmpty("❌ No se encontraron resultados");
         return;
       }
+
+      const frag = document.createDocumentFragment();
       lista.forEach(item => {
-        const categoria = detectarCategoria(item.descripcion);
-        const card = `
-          <div class="card" onclick='verDetalle(${JSON.stringify(item)})'>
-            <div class="descripcion">${item.descripcion}</div>
-            <div class="codigo">Código: ${item.codigo}</div>
-            <div class="precio">$${Number(item.precio).toFixed(2)}</div>
-            <div class="unidad">${item.unidad}</div>
-            <span class="tag">${categoria}</span>
-          </div>`;
-        grid.innerHTML += card;
+        const cat = detectarCategoria(item.descripcion);
+        const card = document.createElement("article");
+        card.className = "card";
+        card.tabIndex = 0;
+
+        // build inner content
+        card.innerHTML = `
+          <div class="descripcion"></div>
+          <div class="codigo"></div>
+          <div class="precio"></div>
+          <div class="unidad"></div>
+          <div class="tag"></div>
+        `;
+        // fill values safely
+        card.querySelector(".descripcion").textContent = item.descripcion;
+        card.querySelector(".codigo").textContent = "Código: " + (item.codigo || "");
+        card.querySelector(".precio").textContent = "$" + Number(item.precio).toFixed(2);
+        card.querySelector(".unidad").textContent = item.unidad || "";
+        card.querySelector(".tag").textContent = cat.label;
+
+        // click opens modal with detail
+        card.addEventListener("click", () => verDetalle(item));
+        card.addEventListener("keypress", (e) => { if (e.key === "Enter") verDetalle(item); });
+
+        frag.appendChild(card);
       });
+
+      grid.appendChild(frag);
     }
 
-    function detectarCategoria(desc) {
-      const d = normalizarTexto(desc);
-      if (d.includes("cable")) return "Cables";
-      if (d.includes("cargador")) return "Cargadores";
-      if (d.includes("audifono") || d.includes("audifonos") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return "Audífonos";
-      if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return "Forros";
-      return "Otros";
+    function mostrarEmpty(mensaje = "❌ No se encontraron resultados") {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = `
+        <div class="empty" role="status">
+          <div class="icon">❌</div>
+          <div>${mensaje}</div>
+        </div>
+      `;
     }
 
+    // Filtrado combinado
     function filtrar(categoria, ev) {
       filtroActivo = categoria;
-      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-      ev.target.classList.add("active");
+      // manejar la clase .active correctamente
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      if (ev && ev.target) ev.target.classList.add("active");
+      else {
+        // si no viene evento, buscar el botón con data-cat
+        const btn = document.querySelector(`.filter-btn[data-cat="${categoria}"]`);
+        if (btn) btn.classList.add("active");
+      }
 
-      const texto = document.getElementById("search").value.trim();
       let lista = productos;
 
-      if (texto !== "") {
-        lista = fuse.search(normalizarTexto(texto)).map(r => r.item);
+      const texto = document.getElementById("search").value.trim();
+      if (texto !== "" && fuse) {
+        // usamos normalizar texto para mejorar coincidencias
+        const resultados = fuse.search(normalizar(texto));
+        lista = resultados.map(r => r.item);
       }
+
       if (categoria !== "all") {
-        lista = lista.filter(p => detectarCategoria(p.descripcion).toLowerCase().includes(categoria));
+        lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
       }
+
       mostrarProductos(lista);
     }
 
-    let timeout;
-    document.getElementById("search").addEventListener("input", e => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        filtrar(filtroActivo, {target: document.querySelector(`.filter-btn.${filtroActivo}`)});
-      }, 200);
+    // Buscador con debounce
+    let debounce;
+    const searchInput = document.getElementById("search");
+    searchInput.addEventListener("input", (e) => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => {
+        filtrar(filtroActivo);
+      }, 180);
     });
 
+    // Modal detalle
     function verDetalle(item) {
-      document.getElementById("detalle-nombre").innerText = item.descripcion;
-      document.getElementById("detalle-codigo").innerText = "Código: " + item.codigo;
-      document.getElementById("detalle-precio1").innerText = "Precio 1: $" + Number(item.precio).toFixed(2);
-      document.getElementById("detalle-precio2").innerText = "Precio 2: $" + (Number(item.precio) * FACTOR_PRECIO2).toFixed(2);
-      document.getElementById("detalle-unidad").innerText = "Unidad: " + item.unidad;
-      document.getElementById("modal").style.display = "flex";
+      document.getElementById("m-name").textContent = item.descripcion;
+      document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
+      document.getElementById("m-price1").textContent = "Precio 1: $" + Number(item.precio).toFixed(2);
+      document.getElementById("m-price2").textContent = "Precio 2: $" + (Number(item.precio) * FACTOR_PRECIO2).toFixed(2);
+      document.getElementById("m-unit").textContent = "Unidad: " + (item.unidad || "");
+      const modal = document.getElementById("modal");
+      modal.style.display = "flex";
+      modal.setAttribute("aria-hidden","false");
+    }
+    function cerrarModal() {
+      const modal = document.getElementById("modal");
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden","true");
     }
 
-    function cerrarModal() {
-      document.getElementById("modal").style.display = "none";
+    // Simple dropdown from logo
+    function toggleMenu() {
+      const d = document.getElementById("headerDropdown");
+      d.style.display = (d.style.display === "flex") ? "none" : "flex";
+      if (d.style.display === "flex") d.style.flexDirection = "column";
     }
+    window.addEventListener("click", (e) => {
+      const d = document.getElementById("headerDropdown");
+      if (!e.target.closest(".logo") && !e.target.closest("#headerDropdown")) d.style.display = "none";
+    });
+
+    // Logout (simple localStorage)
+    function logout() {
+      localStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
+
+    // Verificación de login (si usas el flujo simple)
+    (function checkLogin(){
+      if (localStorage.getItem("logueado") !== "true") {
+        window.location.href = "login.html";
+      }
+    })();
   </script>
 </body>
 </html>
