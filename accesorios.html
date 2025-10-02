@@ -139,10 +139,10 @@
       flex-direction:column;
       color:#b06e6e;
       font-size:16px;
-      min-height:180px;
+      min-height:220px;
       text-align:center;
     }
-    .empty .icon { font-size:30px; margin-bottom:8px; }
+    .empty .icon { font-size:36px; margin-bottom:10px; }
 
     /* Modal */
     .modal {
@@ -270,7 +270,7 @@
       const d = normalizar(desc);
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
       if (d.includes("vidrio") || d.includes("templado") || d.includes("glass")) return { key: "vidrios", label: "Vidrio Templado" };
-      if (d.includes("cargador")) return { key: "cargadores", label: "Cargadores" };
+      if (d.includes("cargador") || d.includes("taco cargador") || d.includes("tacos cargador")) return { key: "cargadores", label: "Cargadores" };
       if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
       if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
       return { key: "otros", label: "Otros" };
@@ -376,7 +376,7 @@
       modal.setAttribute("aria-hidden","true");
     }
 
-    // 🔥 NUEVO: cerrar modal si haces clic fuera del cuadro
+    // 🔥 Cerrar modal al hacer click fuera del contenido
     document.getElementById("modal").addEventListener("click", function(e) {
       if (e.target === this) {
         cerrarModal();
@@ -406,4 +406,3 @@
   </script>
 </body>
 </html>
-
