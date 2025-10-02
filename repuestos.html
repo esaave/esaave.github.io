@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Orange Store - Repuestos</title>
+
+  <!-- Tipografía -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg,#fff7ed 0%,#ffece0 100%);
+      color:#223;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(90deg,#f97316,#ea580c);
+      color:#fff;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+    }
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .logo img { height:40px; display:block; }
+    .logo span { font-weight:600; font-size:18px; }
+
+    /* Menú desplegable */
+    #headerDropdown {
+      position:fixed; 
+      top:62px; 
+      left:14px; 
+      z-index:1500; 
+      display:none;
+    }
+    #headerDropdown div {
+      background:#fff;
+      border-radius:10px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.12);
+      overflow:hidden;
+    }
+    #headerDropdown a {
+      display:block;
+      padding:12px 18px;
+      text-decoration:none;
+      color:#222;
+      font-weight:600;
+    }
+
+    /* Mantenimiento */
+    main {
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:30px 15px;
+    }
+    .maintenance {
+      background:#fff;
+      padding:40px 30px;
+      border-radius:16px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
+      max-width:450px;
+      animation: fadeIn .6s ease;
+    }
+    .maintenance .icon {
+      font-size:50px;
+      margin-bottom:18px;
+      color:#f97316;
+    }
+    .maintenance h2 {
+      font-size:24px;
+      margin-bottom:12px;
+      color:#f97316;
+    }
+    .maintenance p {
+      font-size:15px;
+      color:#555;
+    }
+
+    footer {
+      text-align:center;
+      padding:15px;
+      font-size:14px;
+      color:#6b7280;
+      background:#fff8f1;
+      border-top:1px solid #fcd9bd;
+    }
+
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(15px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="toggleMenu()" title="Menú">
+      <img src="logo.png" alt="logo">
+      <span>Orange Store</span>
+    </div>
+  </header>
+
+  <!-- Menú desplegable -->
+  <div id="headerDropdown">
+    <div>
+      <a href="index.html">🏠 Volver al menú principal</a>
+      <a href="accesorios.html">🎧 Accesorios</a>
+      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="maintenance">
+      <div class="icon">🛠</div>
+      <h2>Repuestos en mantenimiento</h2>
+      <p>Estamos actualizando esta sección para brindarte el mejor servicio.<br>
+      Muy pronto podrás consultar todos los repuestos disponibles.</p>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Orange Store. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const d = document.getElementById("headerDropdown");
+      d.style.display = (d.style.display === "flex") ? "none" : "flex";
+      if (d.style.display === "flex") d.style.flexDirection = "column";
+    }
+    window.addEventListener("click", (e) => {
+      const d = document.getElementById("headerDropdown");
+      if (!e.target.closest(".logo") && !e.target.closest("#headerDropdown")) d.style.display = "none";
+    });
+
+    function logout() {
+      localStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
+
+    (function checkLogin(){
+      if (localStorage.getItem("logueado") !== "true") {
+        window.location.href = "login.html";
+      }
+    })();
+  </script>
+</body>
+</html>
