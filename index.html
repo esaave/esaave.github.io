@@ -22,78 +22,58 @@
       color: white;
       display: flex;
       align-items: center;
-      padding: 12px 20px;
+      justify-content: space-between;
+      padding: 10px 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      position: relative;
+      flex-wrap: wrap;
+    }
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     header img {
-      height: 45px;
-      margin-right: 10px;
-      transition: transform 0.2s;
+      height: 38px;
       cursor: pointer;
     }
-    header img:hover {
-      transform: scale(1.05);
-    }
     header h1 {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       margin: 0;
+      white-space: nowrap;
     }
-
-    /* ===== Dropdown ===== */
-    .dropdown {
-      position: relative;
+    header nav {
+      margin-left: auto;
     }
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 60px;
-      left: 10px;
-      background: white;
-      color: #333;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      min-width: 160px;
-      z-index: 1000;
-      animation: fadeIn 0.3s ease;
-    }
-    .dropdown-menu a {
-      display: block;
-      padding: 12px 15px;
+    header nav a {
+      background: rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 999px;
       text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      transition: background 0.3s;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s;
     }
-    .dropdown-menu a:hover {
-      background: #ffe5d0;
-      color: #f97316;
-    }
-    .show {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(-10px);}
-      to {opacity: 1; transform: translateY(0);}
+    header nav a:hover {
+      background: rgba(255,255,255,0.35);
     }
 
     /* ===== Bienvenida ===== */
     .welcome {
       text-align: center;
-      margin: 40px auto 20px;
+      margin: 30px auto 20px;
       max-width: 700px;
       padding: 0 15px;
     }
     .welcome h2 {
-      font-size: 32px;
+      font-size: 28px;
       color: #f97316;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       font-weight: 700;
     }
     .welcome p {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.6;
       color: #374151;
     }
@@ -101,16 +81,16 @@
     /* ===== Cards ===== */
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
       max-width: 900px;
-      margin: 30px auto;
-      padding: 0 20px;
+      margin: 20px auto 40px;
+      padding: 0 16px;
     }
     .card {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.85);
       border-radius: 16px;
-      padding: 25px;
+      padding: 20px;
       text-align: center;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       backdrop-filter: blur(10px);
@@ -118,13 +98,13 @@
       cursor: pointer;
     }
     .card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
     }
     .card h3 {
       color: #f97316;
-      margin: 15px 0 10px;
-      font-size: 20px;
+      margin: 12px 0 8px;
+      font-size: 18px;
       font-weight: 600;
     }
     .card p {
@@ -132,7 +112,7 @@
       color: #4b5563;
     }
     .icon {
-      font-size: 42px;
+      font-size: 38px;
       color: #f97316;
     }
 
@@ -140,42 +120,46 @@
     footer {
       margin-top: auto;
       text-align: center;
-      padding: 15px;
-      font-size: 14px;
+      padding: 12px;
+      font-size: 13px;
       color: #6b7280;
       background: #fff8f1;
       border-top: 1px solid #fcd9bd;
     }
 
-    /* ===== Animación de entrada ===== */
-    .card, .welcome {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.6s forwards;
-    }
-    .welcome {
-      animation-delay: 0.2s;
-    }
-    .card:nth-child(1) { animation-delay: 0.4s; }
-    .card:nth-child(2) { animation-delay: 0.6s; }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    /* ===== Responsive ===== */
+    @media (max-width: 600px) {
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+      header .brand {
+        flex: 1;
+        justify-content: center;
+      }
+      header nav {
+        width: 100%;
+        text-align: center;
+        margin-top: 8px;
+      }
+      header h1 {
+        font-size: 18px;
+      }
+      .welcome h2 {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="dropdown">
-      <img src="logo.png" alt="Logo" onclick="toggleMenu()">
-      <div class="dropdown-menu" id="menu">
-        <a href="#" onclick="logout()">Cerrar sesión</a>
-      </div>
+    <div class="brand">
+      <img src="logo.png" alt="Logo" onclick="window.location.href='index.html'">
+      <h1>Orange Store</h1>
     </div>
-    <h1>Orange Store</h1>
+    <nav>
+      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+    </nav>
   </header>
 
   <section class="welcome">
@@ -208,23 +192,10 @@
     if (localStorage.getItem("logueado") !== "true") {
       window.location.href = "login.html";
     }
-
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
-    }
-
     function logout() {
       localStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
-
-    // Cerrar menú al hacer click fuera
-    window.addEventListener("click", function(e) {
-      const menu = document.getElementById("menu");
-      if (!e.target.closest(".dropdown")) {
-        menu.classList.remove("show");
-      }
-    });
   </script>
 </body>
 </html>
