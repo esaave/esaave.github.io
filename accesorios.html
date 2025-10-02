@@ -232,6 +232,7 @@
     <button class="filter-btn" data-cat="cargadores" onclick="filtrar('cargadores', event)">Cargadores</button>
     <button class="filter-btn" data-cat="audifonos" onclick="filtrar('audifonos', event)">Audífonos</button>
     <button class="filter-btn" data-cat="forros" onclick="filtrar('forros', event)">Forros</button>
+    <button class="filter-btn" data-cat="Vidrio Templado" onclick="filtrar('Vidrio Templado', event)">Vidrio Templado</button>
   </div>
 
   <main class="grid" id="grid" aria-live="polite">
@@ -268,6 +269,7 @@
     function detectarCategoria(desc = "") {
       const d = normalizar(desc);
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
+      if (d.includes("cable")) return { key: "Vidrio Templado", label: "Vidrio Templado" };
       if (d.includes("cargador")) return { key: "cargadores", label: "Cargadores" };
       if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
       if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
