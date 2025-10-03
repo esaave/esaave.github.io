@@ -5,17 +5,14 @@
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "AAA",
         "precio": 30
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 25
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 30
       }
     ]
@@ -26,17 +23,14 @@
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "AAA",
         "precio": 35
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 25
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 30
       }
     ]
@@ -47,117 +41,94 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 70
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 40
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 30
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 20
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRASPASO DE INFORMACI�N",
         "precio": 30
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 40
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 80
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 80
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 100
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 60
       }
     ]
@@ -168,122 +139,98 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 70
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 40
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 50
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 30
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 20
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 30
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 40
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 80
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 80
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 100
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 80
       }
     ]
@@ -294,122 +241,98 @@
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "INCELL",
         "precio": 60
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 40
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 60
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 30
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 20
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 30
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 40
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 60
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 80
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 80
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 100
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 80
       }
     ]
@@ -420,127 +343,102 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 80
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 40
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 60
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 30
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 20
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 30
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 40
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 80
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 80
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 100
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 80
       }
     ]
@@ -551,132 +449,106 @@
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "INCELL",
         "precio": 60
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 40
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 60
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 50
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 20
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 30
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 40
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 70
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 120
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 120
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 120
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 120
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 150
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 64GB",
-        "calidad": "",
         "precio": 170
       }
     ]
@@ -687,132 +559,106 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 80
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 50
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 80
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 20
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 30
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 40
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 70
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 120
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 120
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 120
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 120
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 150
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 64GB",
-        "calidad": "",
         "precio": 150
       }
     ]
@@ -823,132 +669,106 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 100
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 50
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 80
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 50
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 20
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 30
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 40
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 70
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 120
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 120
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 120
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 120
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 150
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 64GB",
-        "calidad": "",
         "precio": 150
       }
     ]
@@ -959,137 +779,110 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "",
         "precio": 100
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 50
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 90
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 80
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 50
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 60
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 100
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 80
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 170
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 170
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 40
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 120
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 170
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 250
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 180
       }
     ]
@@ -1100,137 +893,110 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 140
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 60
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 100
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 80
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 90
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 50
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 60
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 150
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 80
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 170
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 170
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 60
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 150
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 170
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 250
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 200
       }
     ]
@@ -1241,142 +1007,114 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 150
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 180
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 60
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 100
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 100
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 50
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 60
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 130
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 170
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 170
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 60
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 150
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 180
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 300
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 250
       }
     ]
@@ -1387,142 +1125,114 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 190
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 250
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 80
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 120
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 100
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 50
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 60
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 130
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 200
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 200
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 60
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 180
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 180
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 300
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 250
       }
     ]
@@ -1533,142 +1243,114 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 180
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 400
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 80
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 140
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 100
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 210
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 30
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 50
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 60
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 130
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 250
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 250
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 100
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 180
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 180
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 300
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 250
       }
     ]
@@ -1679,137 +1361,110 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 190
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 80
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 140
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 70
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 180
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 140
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 200
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 200
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 250
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 60
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 180
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 260
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 260
       }
     ]
@@ -1820,137 +1475,110 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 200
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 0
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 140
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 70
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 180
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 40
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 140
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 200
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 200
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 250
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 80
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 180
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 260
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 280
       }
     ]
@@ -1961,142 +1589,114 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 250
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 300
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 80
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 160
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 120
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 260
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 190
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 140
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 250
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 250
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 250
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 80
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 250
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 260
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 300
       }
     ]
@@ -2107,147 +1707,118 @@
     "repuestos": [
       {
         "nombre": "PANTALLA INCELL",
-        "calidad": "INCELL",
         "precio": 240
       },
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 290
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 450
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 90
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 160
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 120
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 260
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 90
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 190
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 50
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 140
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 300
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 300
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 250
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 100
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 250
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 260
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 320
       }
     ]
@@ -2258,142 +1829,114 @@
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "OLED",
         "precio": 190
       },
       {
         "nombre": "PANTALLA",
-        "calidad": "ORIGINAL",
         "precio": 240
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 90
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 140
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "COMPLETA",
         "precio": 90
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 90
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 220
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 150
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 250
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 250
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 80
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 250
       },
       {
         "nombre": "MEMORIA 256GB",
-        "calidad": "",
         "precio": 0
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 300
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 360
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 320
       }
     ]
@@ -2404,122 +1947,98 @@
     "repuestos": [
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 340
       },
       {
         "nombre": "BATERIA",
-        "calidad": "",
         "precio": 75
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "OEM",
         "precio": 90
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 110
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 90
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 220
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 150
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 250
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 250
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 80
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 300
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 300
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 360
       }
     ]
@@ -2530,137 +2049,110 @@
     "repuestos": [
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 290
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 340
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 90
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 170
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "COMPLETA",
         "precio": 90
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 310
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 120
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 90
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 240
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 150
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 300
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 300
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 40
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 100
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 320
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 300
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 360
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 128GB",
-        "calidad": "",
         "precio": 400
       }
     ]
@@ -2671,142 +2163,114 @@
     "repuestos": [
       {
         "nombre": "PANTALLA INCELL",
-        "calidad": "INCELL",
         "precio": 190
       },
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 340
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 550
       },
       {
         "nombre": "BATERIA",
-        "calidad": "OEM",
         "precio": 90
       },
       {
         "nombre": "BATERIA",
-        "calidad": "S/F",
         "precio": 170
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "COMPLETA",
         "precio": 90
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 320
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 120
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 90
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 240
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 150
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 300
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 300
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 350
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 60
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 100
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 320
       },
       {
         "nombre": "MEMORIA 512GB",
-        "calidad": "",
         "precio": 300
       },
       {
         "nombre": "MEMORIA 1T",
-        "calidad": "",
         "precio": 360
       },
       {
         "nombre": "TARJETA LOGICA + FACE ID 256GB",
-        "calidad": "",
         "precio": 480
       }
     ]
@@ -2817,122 +2281,98 @@
     "repuestos": [
       {
         "nombre": "PANTALLA INCELL",
-        "calidad": "INCELL",
         "precio": 220
       },
       {
         "nombre": "PANTALLA OLED",
-        "calidad": "OLED",
         "precio": 290
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 500
       },
       {
         "nombre": "BATERIA ORIGINAL APPLE",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "COMPLETA",
         "precio": 100
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 220
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 130
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 290
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 0
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 300
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 300
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 450
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 60
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 150
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 350
       }
     ]
@@ -2943,117 +2383,94 @@
     "repuestos": [
       {
         "nombre": "PANTALLA INCELL",
-        "calidad": "",
         "precio": 190
       },
       {
         "nombre": "PANTALLA ORIGINAL APPLE",
-        "calidad": "",
         "precio": 490
       },
       {
         "nombre": "BATERIA ORIGINAL APPLE",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "COMPLETA",
         "precio": 100
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 220
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 130
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 190
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 340
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 230
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 300
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 300
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 450
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 60
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 150
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 350
       }
     ]
@@ -3064,112 +2481,90 @@
     "repuestos": [
       {
         "nombre": "PANTALLA ORIGINAL APPLE",
-        "calidad": "ORIGINAL",
         "precio": 600
       },
       {
         "nombre": "BATERIA ORIGINAL APPLE",
-        "calidad": "",
         "precio": 160
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "COMPLETA",
         "precio": 100
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 320
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 130
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 140
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 340
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 330
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 350
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 350
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 450
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 60
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 150
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 350
       }
     ]
@@ -3180,2247 +2575,1864 @@
     "repuestos": [
       {
         "nombre": "PANTALLA INCELL",
-        "calidad": "",
         "precio": 290
       },
       {
         "nombre": "PANTALLA ORIGINAL",
-        "calidad": "ORIGINAL",
         "precio": 700
       },
       {
         "nombre": "BATERIA ORIGINAL APPLE",
-        "calidad": "",
         "precio": 190
       },
       {
         "nombre": "TAPA TRASERA",
-        "calidad": "COMPLETA",
         "precio": 100
       },
       {
         "nombre": "MICA",
-        "calidad": "",
         "precio": 320
       },
       {
         "nombre": "SOFTWARE",
-        "calidad": "",
         "precio": 50
       },
       {
-        "nombre": "TRAPASO DE INFORMACIÓN",
-        "calidad": "",
+        "nombre": "TRAPASO DE INFORMACI�N",
         "precio": 80
       },
       {
-        "nombre": "INFORMACIÓN EQUIPO EN LOGO",
-        "calidad": "",
+        "nombre": "INFORMACI�N EQUIPO EN LOGO",
         "precio": 80
       },
       {
         "nombre": "AURICULAR",
-        "calidad": "",
         "precio": 70
       },
       {
         "nombre": "ALATAVOZ",
-        "calidad": "",
         "precio": 80
       },
       {
         "nombre": "FLEX DE POWER",
-        "calidad": "",
         "precio": 130
       },
       {
         "nombre": "FLEX DE CARGA",
-        "calidad": "",
         "precio": 190
       },
       {
         "nombre": "CAMARA FRONTAL",
-        "calidad": "",
         "precio": 200
       },
       {
         "nombre": "CAMARA TRASERA",
-        "calidad": "",
         "precio": 340
       },
       {
         "nombre": "LENTE DE CAMARA",
-        "calidad": "",
         "precio": 60
       },
       {
         "nombre": "CARCASA ORIGINAL",
-        "calidad": "",
         "precio": 230
       },
       {
         "nombre": "FACE ID",
-        "calidad": "",
         "precio": 0
       },
       {
-        "nombre": "CARGA, SEÑAL, WIFI, AUDIO, IMAGEN, CAMARAS",
-        "calidad": "",
+        "nombre": "CARGA, SE�AL, WIFI, AUDIO, IMAGEN, CAMARAS",
         "precio": 350
       },
       {
-        "nombre": "APAGADO (DAÑO TARJETA)",
-        "calidad": "",
+        "nombre": "APAGADO (DA�O TARJETA)",
         "precio": 350
       },
       {
         "nombre": "CPU",
-        "calidad": "",
         "precio": 450
       },
       {
         "nombre": "MANTENIMIENTO",
-        "calidad": "",
         "precio": 60
       },
       {
-        "nombre": "BAÑO QUIMICO",
-        "calidad": "",
+        "nombre": "BA�O QUIMICO",
         "precio": 150
       },
       {
-        "nombre": "MEMORIA (RECUPERACIÓN)",
-        "calidad": "",
+        "nombre": "MEMORIA (RECUPERACI�N)",
         "precio": 350
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A055 / A05",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH81-24189A",
         "precio": 70
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH81-24241A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH81-24185A",
         "precio": 150
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH81-24200A",
         "precio": 45
       },
       {
         "nombre": "ADHESIVO",
-        "calidad": "GH81-24612A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A057 / A05S",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH81-24365A",
         "precio": 70
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH81-24363A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH81-25540A",
         "precio": 160
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH81-24366A",
         "precio": 40
       },
       {
         "nombre": "ADHESIVO",
-        "calidad": "GH81-24390A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A065 / A06",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH81-26440A",
         "precio": 80
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH81-26447A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH81-26445A",
         "precio": 160
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH81-26450A",
         "precio": 45
       },
       {
         "nombre": "ADHESIVO",
-        "calidad": "GH81-26528A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A155 / A15 4G",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-33637A",
         "precio": 90
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-33639A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-33667A",
         "precio": 150
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16630A",
         "precio": 40
       },
       {
         "nombre": "ADHESIVO",
-        "calidad": "GH81-24888A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A156 / A15 5G",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-33637A",
         "precio": 90
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-33639A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-33674A 6",
         "precio": 170
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16630A",
         "precio": 40
       },
       {
         "nombre": "ADHESIVO",
-        "calidad": "GH81-24888A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A165 / A16 4G",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-36253A",
         "precio": 100
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-36254A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-36264A 6",
         "precio": 160
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-18451A",
         "precio": 40
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A166 / 5G",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-36143A",
         "precio": 100
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-36172A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-36234A 6",
         "precio": 160
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-18932A",
         "precio": 40
       },
       {
         "nombre": "ADHESIVO",
-        "calidad": "GH81-26599A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A245 / A24",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-31240A",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-31242A",
         "precio": 40
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15837A",
         "precio": 40
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A256 / A25",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-33214A",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-33217A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-33308A 6",
         "precio": 180
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16227A",
         "precio": 45
       },
       {
         "nombre": "ADHESIVO",
-        "calidad": "GH81-24067A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A336 / A33",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-28143A",
         "precio": 140
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-28146A",
         "precio": 65
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15022A",
         "precio": 45
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A346 / A34",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-31235A",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-31469A",
         "precio": 70
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-31337A",
         "precio": 210
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH81-23487A",
         "precio": 30
       },
       {
         "nombre": "KIT COMPLETO",
-        "calidad": "GH82-31515A",
         "precio": 40
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A356 / A35",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-34224A",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-34228A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-34280A",
         "precio": 200
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16719A",
         "precio": 45
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH02-25711A",
         "precio": 30
       },
       {
         "nombre": "KIT COMPLETO",
-        "calidad": "GH82-34539A",
         "precio": 40
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A515 / A51",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-22083A",
         "precio": 150
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-21668A",
         "precio": 60
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A525 / A52",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-25526A",
         "precio": 170
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-25231A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A535 / A53",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-28024A",
         "precio": 160
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-28027A",
         "precio": 70
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH59-15556A",
         "precio": 50
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A546 / A54",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-31236A",
         "precio": 140
       },
       {
         "nombre": "PANTALLA MARCO NEGRO",
-        "calidad": "GH82-31231A",
         "precio": 170
       },
       {
         "nombre": "PANTALLA MARCO BLANCO",
-        "calidad": "GH82-31231B",
         "precio": 170
       },
       {
         "nombre": "PANTALLA MARCO MORADO",
-        "calidad": "GH82-31231D",
         "precio": 170
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-31204A",
         "precio": 60
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-34472A",
         "precio": 220
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15666A",
         "precio": 40
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH81-23548A",
         "precio": 30
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH02-24726A",
         "precio": 30
       },
       {
         "nombre": "KIT COMPLETO",
-        "calidad": "GH82-31516A",
         "precio": 40
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A556 / A55",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-34308A",
         "precio": 120
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A556 / A56",
     "repuestos": [
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-34311A",
         "precio": 60
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A556 / A57",
     "repuestos": [
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-34472A",
         "precio": 220
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A556 / A58",
     "repuestos": [
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16718A",
         "precio": 45
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A556 / A59",
     "repuestos": [
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH81-25070A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A556 / A60",
     "repuestos": [
       {
         "nombre": "KIT COMPLETO",
-        "calidad": "GH82-34540A",
         "precio": 40
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A715 / A71",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-22152A",
         "precio": 160
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH43-04971A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A725 / A72",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-25463A",
         "precio": 150
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-25461A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "A735 / A73",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-28686A",
         "precio": 150
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-28688A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "G988 /  S20\r\nUltra",
+    "marca": "OTROS",
+    "modelo": "ULTRA\"",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-26032A",
         "precio": 240
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-22272A",
         "precio": 70
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-22257A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "G985 / S20 PLUS",
     "repuestos": [
       {
         "nombre": "PANTALLA C/M",
-        "calidad": "GH82-31441A",
         "precio": 240
       },
       {
         "nombre": "PANTALLA S/M",
-        "calidad": "GH96-13030A",
         "precio": 240
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-22133A",
         "precio": 70
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-22033A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "G980 /  S20",
     "repuestos": [
       {
         "nombre": "PANTALLA C/M",
-        "calidad": "GH82-31432A",
         "precio": 190
       },
       {
         "nombre": "PANTALLA S/M",
-        "calidad": "GH96-13024A",
         "precio": 185
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-22122A",
         "precio": 60
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-22062A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "G780 / S20 fe",
+    "marca": "OTROS",
+    "modelo": "G780 / S20 FE",
     "repuestos": [
       {
         "nombre": "PANTALLA S20 FE",
-        "calidad": "GH82-24219A",
         "precio": 170
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-24205A",
         "precio": 60
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-25841A",
         "precio": 60
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "G991 / S21",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-27255A",
         "precio": 190
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-24537A",
         "precio": 60
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-25060A",
         "precio": 60
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "G996 / S21 PLUS",
     "repuestos": [
       {
         "nombre": "PANTALLA C/M",
-        "calidad": "GH82-27267A",
         "precio": 240
       },
       {
         "nombre": "PANTALLA S/M",
-        "calidad": "GH96-13940B",
         "precio": 220
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-24556A",
         "precio": 70
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-24781A",
         "precio": 80
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "G998 / S21 Ultra",
+    "marca": "OTROS",
+    "modelo": "G998 / S21 ULTRA",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-26035A",
         "precio": 320
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-24592A",
         "precio": 70
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-25074A",
         "precio": 80
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "G990 / S21 FE",
     "repuestos": [
       {
         "nombre": "PANTALLA",
-        "calidad": "GH82-26414A",
         "precio": 170
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-26409A",
         "precio": 70
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-26263A",
         "precio": 50
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "S901 / S22",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH96-14786A",
         "precio": 190
       },
       {
         "nombre": "PANTALLA MARCO NEGRO",
-        "calidad": "GH82-27520A",
         "precio": 240
       },
       {
         "nombre": "PANTALLA MARCO BLANCO",
-        "calidad": "GH82-27520B",
         "precio": 240
       },
       {
         "nombre": "PANTALLA MARCO VERDE",
-        "calidad": "GH82-27520C",
         "precio": 240
       },
       {
         "nombre": "PANTALLA MARCO ROSADO",
-        "calidad": "GH82-27520D",
         "precio": 240
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-27494A",
         "precio": 60
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-27544A",
         "precio": 70
       },
       {
         "nombre": "TAPA BLANCA",
-        "calidad": "GH82-27544B",
         "precio": 70
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-27544C",
         "precio": 70
       },
       {
         "nombre": "TAPA ROSADO",
-        "calidad": "GH82-27544D",
         "precio": 70
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-14922A",
         "precio": 60
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "S906 / S22 Plus",
+    "marca": "OTROS",
+    "modelo": "S906 / S22 PLUS",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH96-14785A",
         "precio": 210
       },
       {
         "nombre": "PANTALLA MARCO NEGRO",
-        "calidad": "GH82-27500A",
         "precio": 220
       },
       {
         "nombre": "PANTALLA MARCO BLANCO",
-        "calidad": "GH82-27500B",
         "precio": 220
       },
       {
         "nombre": "PANTALLA MARCO VERDE",
-        "calidad": "GH82-27500C",
         "precio": 220
       },
       {
         "nombre": "PANTALLA MARCO MORADO",
-        "calidad": "GH82-27500D",
         "precio": 220
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-27502A",
         "precio": 70
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-27515A",
         "precio": 70
       },
       {
         "nombre": "TAPA BLANCA",
-        "calidad": "GH82-27515B",
         "precio": 70
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-27515C",
         "precio": 70
       },
       {
         "nombre": "TAPA MORADO",
-        "calidad": "GH82-27515D",
         "precio": 70
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-14925A",
         "precio": 60
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "S908 / S22 Ultra",
+    "marca": "OTROS",
+    "modelo": "S908 / S22 ULTRA",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH96-14788A",
         "precio": 380
       },
       {
         "nombre": "PANTALLA MARCO NEGRO",
-        "calidad": "GH82-27488A",
         "precio": 410
       },
       {
         "nombre": "PANTALLA MARCO BLANCO",
-        "calidad": "GH82-27488C",
         "precio": 410
       },
       {
         "nombre": "PANTALLA MARCO VERDE",
-        "calidad": "GH82-27488D",
         "precio": 410
       },
       {
         "nombre": "PANTALLA MARCO ROSADO",
-        "calidad": "GH82-27488B",
         "precio": 410
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-27484A",
         "precio": 70
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-27562A",
         "precio": 90
       },
       {
         "nombre": "TAPA BLANCA",
-        "calidad": "GH82-27562C",
         "precio": 90
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-27562D",
         "precio": 90
       },
       {
         "nombre": "TAPA ROSADA",
-        "calidad": "GH82-27562B",
         "precio": 90
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-14920A",
         "precio": 70
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH02-23303A",
         "precio": 40
       },
       {
         "nombre": "KIT COMPLETO",
-        "calidad": "GH82-27490A",
         "precio": 50
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "S911 / S23",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-31245A",
         "precio": 230
       },
       {
         "nombre": "PANTALLA MARCO NEGRO",
-        "calidad": "GH82-30480A",
         "precio": 280
       },
       {
         "nombre": "PANTALLA MARCO BEIGE",
-        "calidad": "GH82-30480B",
         "precio": 280
       },
       {
         "nombre": "PANTALLA MARCO VERDE",
-        "calidad": "GH82-30480C",
         "precio": 280
       },
       {
         "nombre": "PANTALLA MARCO ROSADO",
-        "calidad": "GH82-30480D",
         "precio": 280
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-30483A",
         "precio": 50
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-30207A",
         "precio": 70
       },
       {
         "nombre": "TAPA BEIEGE",
-        "calidad": "GH82-30207B",
         "precio": 70
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-30207C",
         "precio": 70
       },
       {
         "nombre": "TAPA ROSADO",
-        "calidad": "GH82-30207D",
         "precio": 70
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15629A",
         "precio": 70
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "S916 / S23 Plus",
+    "marca": "OTROS",
+    "modelo": "S916 / S23 PLUS",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-31249A",
         "precio": 230
       },
       {
         "nombre": "PANTALLA MARCO NEGRO",
-        "calidad": "GH82-30476A",
         "precio": 270
       },
       {
         "nombre": "PANTALLA MARCO BEIGE",
-        "calidad": "GH82-30476B",
         "precio": 270
       },
       {
         "nombre": "PANTALLA MARCO VERDE",
-        "calidad": "GH82-30476C",
         "precio": 270
       },
       {
         "nombre": "PANTALLA MARCO ROSADO",
-        "calidad": "GH82-30476D",
         "precio": 270
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-30470A",
         "precio": 70
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-30228A",
         "precio": 70
       },
       {
         "nombre": "TAPA BEIGE",
-        "calidad": "GH82-30228B",
         "precio": 70
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-30228C",
         "precio": 70
       },
       {
         "nombre": "TAPA ROSADO",
-        "calidad": "GH82-30228D",
         "precio": 70
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15620A",
         "precio": 100
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "S918 / S23 Ultra",
+    "marca": "OTROS",
+    "modelo": "S918 / S23 ULTRA",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-33783A",
         "precio": 380
       },
       {
         "nombre": "PANTALLA MARCO NEGRO",
-        "calidad": "GH82-30465A",
         "precio": 410
       },
       {
         "nombre": "PANTALLA MARCO BLANCO",
-        "calidad": "GH82-30465B",
         "precio": 410
       },
       {
         "nombre": "PANTALLA MARCO VERDE",
-        "calidad": "GH82-30465C",
         "precio": 410
       },
       {
         "nombre": "PANTALLA MARCO MORADO",
-        "calidad": "GH82-30465D",
         "precio": 410
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-30459A",
         "precio": 20
       },
       {
         "nombre": "TARJETA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-30217A",
         "precio": 90
       },
       {
         "nombre": "TAPA BLANCA",
-        "calidad": "GH82-30217B",
         "precio": 90
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-30217C",
         "precio": 90
       },
       {
         "nombre": "TAPA ROSADO",
-        "calidad": "GH82-30217D",
         "precio": 90
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15782A",
         "precio": 82
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH81-23178A",
         "precio": 40
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH81-23177A",
         "precio": 30
       },
       {
         "nombre": "CAMARA PRINCIPAL",
-        "calidad": "GH96-15525A",
         "precio": 180
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "S921 / S24",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-33286A",
         "precio": 230
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-33421A",
         "precio": 65
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-33588A",
         "precio": 380
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-33105A",
         "precio": 70
       },
       {
         "nombre": "TAPA GRIS",
-        "calidad": "GH82-33105B",
         "precio": 70
       },
       {
         "nombre": "TAPA AMARILLO",
-        "calidad": "GH82-33105D",
         "precio": 70
       },
       {
         "nombre": "TAPA VIOLETA",
-        "calidad": "GH82-33105C",
         "precio": 70
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16507A",
         "precio": 70
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH81-25485A",
         "precio": 45
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH81-25483A",
         "precio": 35
       },
       {
         "nombre": "KIT COMPLETO",
-        "calidad": "GH81-25485A",
         "precio": 55
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "S926 / S24 Plus",
+    "marca": "OTROS",
+    "modelo": "S926 / S24 PLUS",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-33332A",
         "precio": 280
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-33334A",
         "precio": 70
       },
       {
         "nombre": "TARJETA",
-        "calidad": "",
         "precio": 30
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-33450A",
         "precio": 70
       },
       {
         "nombre": "TAPA BEIGE",
-        "calidad": "GH82-33450B",
         "precio": 70
       },
       {
         "nombre": "TAPA VIOLETA",
-        "calidad": "GH82-33450C",
         "precio": 70
       },
       {
         "nombre": "TAPA AMARILLO",
-        "calidad": "GH82-33450D",
         "precio": 70
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16542A",
         "precio": 100
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH81-24979A",
         "precio": 40
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH82-33522A",
         "precio": 40
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "S928 / S24 Ultra",
+    "marca": "OTROS",
+    "modelo": "S928 / S24 ULTRA",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-33385A",
         "precio": 390
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-33387A",
         "precio": 70
       },
       {
         "nombre": "TARJETA",
-        "calidad": "GH82-33535A",
         "precio": 530
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-33371B",
         "precio": 100
       },
       {
         "nombre": "TAPA TITANIUM",
-        "calidad": "GH82-33371A",
         "precio": 100
       },
       {
         "nombre": "TAPA VIOLETA",
-        "calidad": "GH82-33371D",
         "precio": 100
       },
       {
         "nombre": "TAPA AMARILLO",
-        "calidad": "GH82-33371C",
         "precio": 100
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16497A",
         "precio": 100
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH81-25496A",
         "precio": 50
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH81-25497A",
         "precio": 170
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "S931 / S25",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-36327A",
         "precio": 240
       },
       {
         "nombre": "MARCO SILVER",
-        "calidad": "GH82-36328A",
         "precio": 120
       },
       {
         "nombre": "MARCO VERDE",
-        "calidad": "GH82-36328B",
         "precio": 120
       },
       {
         "nombre": "MARCO AZUL CLARO",
-        "calidad": "GH82-36328C",
         "precio": 120
       },
       {
         "nombre": "MARCO AZUL OSCURO",
-        "calidad": "GH82-36328D",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-36337A",
         "precio": 100
       },
       {
         "nombre": "TAPA SILVER",
-        "calidad": "GH98-49857A",
         "precio": 100
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH98-49857B",
         "precio": 100
       },
       {
         "nombre": "TAPA AZUL CLARO",
-        "calidad": "GH98-49857C",
         "precio": 100
       },
       {
         "nombre": "TAPA AZUL OSCURO",
-        "calidad": "GH98-49857D",
         "precio": 100
       },
       {
         "nombre": "TARJETA PRINCIPAL",
-        "calidad": "GH82-36403A",
         "precio": 490
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-18238A",
         "precio": 120
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH82-36478A",
         "precio": 50
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH82-36476A",
         "precio": 35
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "S936 / S25 PLUS",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-36356A",
         "precio": 240
       },
       {
         "nombre": "MARCO SILVER",
-        "calidad": "GH82-36367A",
         "precio": 120
       },
       {
         "nombre": "MARCO VERDE",
-        "calidad": "GH82-36367B",
         "precio": 120
       },
       {
         "nombre": "MARCO AZUL CLARO",
-        "calidad": "GH82-36367C",
         "precio": 120
       },
       {
         "nombre": "MARCO AZUL OSCURO",
-        "calidad": "GH82-36367D",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-36362A",
         "precio": 120
       },
       {
         "nombre": "TAPA SILVER",
-        "calidad": "GH98-49901A",
         "precio": 100
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH98-49901B",
         "precio": 100
       },
       {
         "nombre": "TAPA AZUL CLARO",
-        "calidad": "GH98-49901C",
         "precio": 100
       },
       {
         "nombre": "TAPA AZUL OSCURO",
-        "calidad": "GH98-49901D",
         "precio": 100
       },
       {
         "nombre": "TARJETA PRINCIPAL",
-        "calidad": "GH82-36375A",
         "precio": 510
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-18237A",
         "precio": 120
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH82-36510A",
         "precio": 50
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH82-36508A",
         "precio": 35
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "S938 / S25 ULTRA",
     "repuestos": [
       {
         "nombre": "PANTALLA SIN MARCO",
-        "calidad": "GH82-36588A",
         "precio": 390
       },
       {
         "nombre": "MARCO TITANIUM",
-        "calidad": "GH82-36386A",
         "precio": 200
       },
       {
         "nombre": "MARCO AZUL",
-        "calidad": "GH82-36386C",
         "precio": 200
       },
       {
         "nombre": "MARCO SILVER",
-        "calidad": "GH82-36386C",
         "precio": 200
       },
       {
         "nombre": "MARCO NEGRO",
-        "calidad": "GH82-36386A",
         "precio": 200
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-36381A",
         "precio": 120
       },
       {
         "nombre": "TAPA TITANIUM",
-        "calidad": "GH98-49889A",
         "precio": 120
       },
       {
         "nombre": "TAPA AZUL",
-        "calidad": "GH98-49889B",
         "precio": 120
       },
       {
         "nombre": "TAPA SILVER",
-        "calidad": "GH98-49889C",
         "precio": 120
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH98-49889D",
         "precio": 120
       },
       {
         "nombre": "TARJETA PRINCIPAL",
-        "calidad": "GH82-36577A",
         "precio": 600
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-18321A",
         "precio": 120
       },
       {
         "nombre": "ADHESIVO PANTALLA",
-        "calidad": "GH82-36522A",
         "precio": 55
       },
       {
         "nombre": "ADHESIVO TAPA",
-        "calidad": "GH82-36520A",
         "precio": 30
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
-    "modelo": "N985 / Note 20 Ultra",
+    "marca": "OTROS",
+    "modelo": "N985 / NOTE 20 ULTRA",
     "repuestos": [
       {
         "nombre": "PANTALLA S/M",
-        "calidad": "GH96-13555A",
         "precio": 350
       },
       {
         "nombre": "PANTALLA C/M",
-        "calidad": "GH82-31461A",
         "precio": 380
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-23333A",
         "precio": 90
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-23560A",
         "precio": 90
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "FOLD 6",
     "repuestos": [
       {
         "nombre": "PANTALLA CON MARCO SILVER",
-        "calidad": "GH82-35042A",
         "precio": 690
       },
       {
         "nombre": "PANTALLA CON MARCO ROSADO",
-        "calidad": "GH82-35042B",
         "precio": 690
       },
       {
         "nombre": "PANTALLA CON MARCO AZUL",
-        "calidad": "GH82-35042C",
         "precio": 690
       },
       {
         "nombre": "PANTALLA CON MARCO NEGRO ABSO",
-        "calidad": "GH82-35042D",
         "precio": 690
       },
       {
         "nombre": "PANTALLA EXTERNA",
-        "calidad": "GH82-35047A",
         "precio": 210
       },
       {
         "nombre": "CAMARA QCA01",
-        "calidad": "GH96-16975A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA02",
-        "calidad": "",
-        "precio": 0
+        "precio": null
       },
       {
         "nombre": "CAMARA QCA03",
-        "calidad": "GH96-16978A",
         "precio": 160
       },
       {
         "nombre": "CAMARA QCA04",
-        "calidad": "GH96-16979A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA05",
-        "calidad": "GH96-16976A",
         "precio": 110
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-35057A",
         "precio": 140
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-35058A",
         "precio": 140
       },
       {
         "nombre": "TAPA SILVER",
-        "calidad": "GH82-35085A",
         "precio": 80
       },
       {
         "nombre": "TAPA ROSADO",
-        "calidad": "GH82-35085B",
         "precio": 80
       },
       {
         "nombre": "TAPA AZUL",
-        "calidad": "GH82-35085C",
         "precio": 80
       },
       {
         "nombre": "TAPA NEGRO ABSOLUTO",
-        "calidad": "GH82-35085D",
         "precio": 80
       },
       {
         "nombre": "TARJETA PRINCIPAL",
-        "calidad": "GH82-35125A",
         "precio": 510
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH59-15765A",
         "precio": 160
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "FOLD 5",
     "repuestos": [
       {
         "nombre": "PANTALLA CON MARCO",
-        "calidad": "GH82-31842A",
         "precio": 690
       },
       {
         "nombre": "PANTALLA CON MARCO BEIGE",
-        "calidad": "GH82-31842B",
         "precio": 690
       },
       {
         "nombre": "PANTALLA CON MARCO AZUL",
-        "calidad": "GH82-31842C",
         "precio": 690
       },
       {
         "nombre": "PANTALLA EXTERNA",
-        "calidad": "GH82-31849A",
         "precio": 210
       },
       {
         "nombre": "CAMARA QCA01",
-        "calidad": "GH96-15979A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA02",
-        "calidad": "GH96-15260A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA03",
-        "calidad": "GH96-15977A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA04",
-        "calidad": "GH96-15976A",
         "precio": 160
       },
       {
         "nombre": "CAMARA QCA05",
-        "calidad": "GH96-15975A",
         "precio": 110
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-31846A",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-31847A",
         "precio": 120
       },
       {
         "nombre": "TAPA NEGRA",
-        "calidad": "GH82-32003A",
         "precio": 80
       },
       {
         "nombre": "TAPA BEIGE",
-        "calidad": "GH82-32003B",
         "precio": 80
       },
       {
         "nombre": "TAPA AZUL",
-        "calidad": "GH82-32003C",
         "precio": 80
       },
       {
         "nombre": "TARJETA PRINCIPAL",
-        "calidad": "GH82-32218A",
         "precio": 510
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16008A",
         "precio": 130
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "FOLD 4",
     "repuestos": [
       {
         "nombre": "PANTALLA CON MARCO",
-        "calidad": "GH82-29461A",
         "precio": 690
       },
       {
         "nombre": "PANTALLA CON MARCO GRIS",
-        "calidad": "GH82-29461B",
         "precio": 690
       },
       {
         "nombre": "PANTALLA CON MARCO BEIGE",
-        "calidad": "GH82-29461C",
         "precio": 690
       },
       {
         "nombre": "PANTALLA EXTERNA",
-        "calidad": "GH96-15279A",
         "precio": 220
       },
       {
         "nombre": "CAMARA QCA01",
-        "calidad": "GH96-14452A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA02",
-        "calidad": "GH96-15260A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA03",
-        "calidad": "GH96-15297A",
         "precio": 160
       },
       {
         "nombre": "CAMARA QCA04",
-        "calidad": "GH96-15299A",
         "precio": 110
       },
       {
         "nombre": "CAMARA QCA05",
-        "calidad": "GH96-15300A",
         "precio": 110
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-29450A",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-29451A",
         "precio": 120
       },
       {
         "nombre": "TAPA NEGRO",
-        "calidad": "GH82-29331A",
         "precio": 80
       },
       {
         "nombre": "TAPA GRIS",
-        "calidad": "GH82-29331B",
         "precio": 80
       },
       {
         "nombre": "TAPA BEIGE",
-        "calidad": "GH82-29331C",
         "precio": 80
       },
       {
         "nombre": "TARJETA MAIN",
-        "calidad": "GH82-29511A",
         "precio": 470
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15258A",
         "precio": 110
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "F741 / FLIP 6",
     "repuestos": [
       {
         "nombre": "PANTALLA CON MARCO GRIS",
-        "calidad": "GH82-35014A",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO AMARILLA",
-        "calidad": "GH82-35014B",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO AZUL",
-        "calidad": "GH82-35014C",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO VERDE",
-        "calidad": "GH82-35014D",
         "precio": 440
       },
       {
         "nombre": "PANTALLA EXTERNA GRIS",
-        "calidad": "GH97-30012A",
         "precio": 210
       },
       {
         "nombre": "PANTALLA EXTERNA AMARILLA",
-        "calidad": "GH97-30012B",
         "precio": 210
       },
       {
         "nombre": "PANTALLA EXTERNA AZUL",
-        "calidad": "GH97-30012C",
         "precio": 210
       },
       {
         "nombre": "PANTALLA EXTERNA VERDE",
-        "calidad": "GH97-30012D",
         "precio": 210
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-35026A",
         "precio": 120
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-35027A",
         "precio": 120
       },
       {
         "nombre": "TAPA GRIS",
-        "calidad": "GH82-35185A",
         "precio": 80
       },
       {
         "nombre": "TAPA AMARILLA",
-        "calidad": "GH82-35185B",
         "precio": 80
       },
       {
         "nombre": "TAPA AZUL",
-        "calidad": "GH82-35185C",
         "precio": 80
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-35185D",
         "precio": 80
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-16986A",
         "precio": 110
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "F731 - FLIP 5",
     "repuestos": [
       {
         "nombre": "PANTALLA CON MARCO GRIS",
-        "calidad": "GH82-31827A",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO VIOLETA",
-        "calidad": "GH82-31827B",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO ROSADO",
-        "calidad": "GH82-31827C",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO VERDE",
-        "calidad": "GH82-31827D",
         "precio": 440
       },
       {
         "nombre": "PANTALLA EXTERNA",
-        "calidad": "GH97-29135A",
         "precio": 210
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-31699A",
         "precio": 110
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-31700A",
         "precio": 110
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-31940A",
         "precio": 80
       },
       {
         "nombre": "TAPA",
-        "calidad": "GH82-31940B",
         "precio": 80
       },
       {
         "nombre": "TAPA ROSADA",
-        "calidad": "GH82-31940C",
         "precio": 80
       },
       {
         "nombre": "TAPA VERDE",
-        "calidad": "GH82-31940D",
         "precio": 80
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15970A",
         "precio": 90
       },
       {
         "nombre": "PROTECTOR VINYL",
-        "calidad": "GH81-23854A",
         "precio": 80
       }
     ]
   },
   {
-    "marca": "SAMSUNG",
+    "marca": "OTROS",
     "modelo": "F721 / FLIP 4",
     "repuestos": [
       {
         "nombre": "PANTALLA CON MARCO GRIS",
-        "calidad": "GH82-30238A",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO VIOLETA",
-        "calidad": "GH82-30238B",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO DORADO",
-        "calidad": "GH82-30238C",
         "precio": 440
       },
       {
         "nombre": "PANTALLA CON MARCO AZUL",
-        "calidad": "GH82-30238D",
         "precio": 440
       },
       {
         "nombre": "PANTALLA EXTERNA GRIS",
-        "calidad": "GH97-27947A",
         "precio": 210
       },
       {
         "nombre": "PANTALLA EXTERNA VIOLETA",
-        "calidad": "GH97-27947B",
         "precio": 210
       },
       {
         "nombre": "PANTALLA EXTERNA DORADO",
-        "calidad": "GH97-27947C",
         "precio": 210
       },
       {
         "nombre": "PANTALLA EXTERNA AZUL",
-        "calidad": "GH97-27947D",
         "precio": 210
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-29433A",
         "precio": 110
       },
       {
         "nombre": "BATERIA",
-        "calidad": "GH82-29434A",
         "precio": 110
       },
       {
         "nombre": "TAPA GRIS",
-        "calidad": "GH82-29302A",
         "precio": 80
       },
       {
         "nombre": "TAPA VIOLETA",
-        "calidad": "GH82-29302B",
         "precio": 80
       },
       {
         "nombre": "TAPA DORADA",
-        "calidad": "GH82-29302C",
         "precio": 80
       },
       {
         "nombre": "TAPA AZUL",
-        "calidad": "GH82-29302D",
         "precio": 80
       },
       {
         "nombre": "SUBPBA",
-        "calidad": "GH96-15289A",
         "precio": 110
       }
     ]
   },
   {
-    "marca": "SONNY",
+    "marca": "OTROS",
     "modelo": "PS5",
     "repuestos": [
       {
         "nombre": "CONECTOR HDMI",
-        "calidad": "",
         "precio": 10
       },
       {
         "nombre": "MODULO JOYSTICK 3D",
-        "calidad": "",
         "precio": 10
       },
       {
         "nombre": "LECTORA DISCO",
-        "calidad": "",
         "precio": 10
       },
       {
         "nombre": "METAL LIQUIDO",
-        "calidad": "",
         "precio": 10
       }
     ]
   },
   {
-    "marca": "SONNY",
+    "marca": "OTROS",
     "modelo": "PS4",
     "repuestos": [
       {
         "nombre": "MODULO JOYSTICK 3D",
-        "calidad": "",
         "precio": 10
       }
     ]
   },
   {
-    "marca": "MICROSOFT",
+    "marca": "OTROS",
     "modelo": "XBOX",
     "repuestos": [
       {
         "nombre": "MODULO JOYSTICK 3D",
-        "calidad": "",
         "precio": 10
       }
     ]
