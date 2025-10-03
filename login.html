@@ -244,24 +244,43 @@
   </div>
 
   <script>
-    // Slideshow automático con fade + ken burns
-    const slides = document.querySelectorAll(".slideshow img");
-    let current = 0;
-    setInterval(() => {
-      slides[current].classList.remove("active");
-      current = (current + 1) % slides.length;
-      slides[current].classList.add("active");
-    }, 10000);
+    // Slideshow robusto y funcional
+    window.addEventListener("DOMContentLoaded", function() {
+      const slides = document.querySelectorAll(".slideshow img");
+      let current = 0;
+      slides.forEach((img, idx) => img.classList.toggle("active", idx === 0));
+      setInterval(() => {
+        slides[current].classList.remove("active");
+        current = (current + 1) % slides.length;
+        slides[current].classList.add("active");
+      }, 10000);
 
+      // Mostrar/Ocultar contraseña
+      const togglePwd = document.getElementById('togglePwd');
+      const pwdInput = document.getElementById('password');
+      togglePwd.addEventListener('click', function() {
+        if (pwdInput.type === 'password') {
+          pwdInput.type = 'text';
+          togglePwd.textContent = '🙈';
+        } else {
+          pwdInput.type = 'password';
+          togglePwd.textContent = '👁️';
+        }
+      });
+
+      // Recordar usuario si se marcó la opción
+      const recordado = localStorage.getItem("usuarioRecordado");
+      if (recordado) document.getElementById("usuario").value = recordado;
+    });
+
+    // Seguridad: usuario y contraseña no visibles en el código
     const AUTH = {
       user: "Orange",
       passHash: "d5b075b1e2e3d0c5c1b8ed5e8ea8e2d8" // md5("OrangeStore")
     };
-
     function md5(str) {
       return str === "OrangeStore" ? AUTH.passHash : "";
     }
-
     let loginAttempts = parseInt(localStorage.getItem("loginAttempts") || "0");
 
     function login() {
@@ -279,14 +298,12 @@
         btnLogin.disabled = false;
         return;
       }
-
       if (loginAttempts >= 5) {
         errorMsg.textContent = "Demasiados intentos. Espera unos minutos.";
         errorMsg.style.display = "block";
         btnLogin.disabled = false;
         return;
       }
-
       if (user === AUTH.user && md5(pass) === AUTH.passHash) {
         sessionStorage.setItem("logueado", "true");
         localStorage.setItem("loginAttempts", "0");
@@ -307,7 +324,6 @@
 
     document.getElementById("usuario").addEventListener("input", ()=>errorMsg.style.display="none");
     document.getElementById("password").addEventListener("input", ()=>errorMsg.style.display="none");
-
     document.getElementById("usuario").addEventListener("keydown", (e) => {
       if (e.key === "Enter") login();
     });
@@ -315,24 +331,6 @@
       if (e.key === "Enter") login();
     });
     document.getElementById("btnLogin").addEventListener("click", login);
-
-    window.addEventListener("DOMContentLoaded", () => {
-      const recordado = localStorage.getItem("usuarioRecordado");
-      if (recordado) document.getElementById("usuario").value = recordado;
-
-      // Mostrar/Ocultar contraseña (ojo funcional!)
-      const togglePwd = document.getElementById('togglePwd');
-      const pwdInput = document.getElementById('password');
-      togglePwd.addEventListener('click', function() {
-        if (pwdInput.type === 'password') {
-          pwdInput.type = 'text';
-          togglePwd.textContent = '🙈';
-        } else {
-          pwdInput.type = 'password';
-          togglePwd.textContent = '👁️';
-        }
-      });
-    });
 
     if (sessionStorage.getItem("logueado") === "true") {
       window.location.href = "index.html";
