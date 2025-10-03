@@ -4,28 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Orange Store - Accesorios</title>
-
-  <!-- Favicon -->
   <link rel="icon" href="logopeq.png" type="image/png">
-
-  <!-- Tipografía -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
   <style>
     * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
-      color:#223;
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#fff7ed,#ffe5d0);
+      color:#1f2937;
       min-height:100vh;
       display:flex;
       flex-direction:column;
     }
-
-    /* Header */
     header {
-      background: linear-gradient(90deg,#f97316,#ea580c);
+      background:linear-gradient(90deg,#f97316,#ea580c);
       color:#fff;
       padding:10px 18px;
       display:flex;
@@ -49,8 +42,6 @@
       cursor:pointer;
       margin-right:10px;
     }
-
-    /* Tasa */
     .rate-bar {
       text-align:center;
       margin:12px 0 2px;
@@ -87,7 +78,6 @@
       transition: background .16s;
     }
     .rate-bar button:hover { background: #ffe9e0; }
-
     .rate-bar .tooltip {
       font-size:13px;
       color:#8a4f08;
@@ -98,8 +88,6 @@
       border-radius: 6px;
       padding: 2px 7px;
     }
-
-    /* Sidebar */
     .sidebar {
       height:100%;
       width:0;
@@ -133,8 +121,6 @@
       cursor:pointer;
       color:#333;
     }
-
-    /* Search */
     .search-area {
       margin-left:auto;
       width: min(620px, 58%);
@@ -148,8 +134,6 @@
       outline:none;
       box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
-
-    /* Filters */
     .filters {
       display:flex;
       gap:10px;
@@ -158,71 +142,126 @@
       flex-wrap:wrap;
     }
     .filter-btn {
-      border:2px solid #ff7a2a;
-      color:#ff7a2a;
+      border:2px solid #f97316;
       background:#fff;
+      color:#f97316;
       padding:8px 16px;
       border-radius:999px;
-      cursor:pointer;
       font-weight:600;
-      transition:all .18s;
+      cursor:pointer;
       font-size:14px;
+      transition:all .18s;
     }
-    .filter-btn:hover { transform:translateY(-3px); }
     .filter-btn.active {
-      background:linear-gradient(90deg,#ff7a2a,#e85b07);
+      background:linear-gradient(90deg,#f97316,#ea580c);
       color:#fff;
       box-shadow:0 6px 18px rgba(232, 88, 12, 0.18);
       transform:none;
     }
-
-    /* Grid */
     .grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-      gap:20px;
-      padding:18px;
-      max-width:1150px;
-      margin:0 auto 40px;
-      width:100%;
-      align-items:start;
-      min-height:260px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 22px;
+      align-items: stretch;
+      padding: 18px;
+      max-width: 1150px;
+      margin: 0 auto 40px;
+      width: 100%;
     }
-
     .card {
-      background:#fff;
-      border-radius:14px;
-      padding:14px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.06);
-      transition:transform .18s, box-shadow .18s;
-      position:relative;
-      cursor:pointer;
-      display:flex;
-      flex-direction:column;
-      min-height:120px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 16px 16px 12px 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transition: box-shadow .16s;
+      min-height: 180px;
+      max-height: 270px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      word-break: break-word;
+      justify-content: space-between;
     }
-    .card:hover { transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.12); }
-
-    .descripcion { font-weight:600; color:#243; font-size:15px; margin-bottom:6px; }
-    .codigo { font-size:12px; color:#667; margin-bottom:6px; }
-    .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
-    .precio-bs { font-weight:500; color:#ea580c; font-size:14px; margin-top:2px; }
-    .unidad { font-size:13px; color:#556; margin-top:auto; }
-
+    .card:hover {
+      box-shadow: 0 14px 38px rgba(0,0,0,0.15);
+    }
+    .card-header {
+      background: #ffedd5;
+      padding: 10px 14px;
+      font-weight: 600;
+      color: #ea580c;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      word-break: break-word;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .codigo {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 8px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .card-table-wrap {
+      flex: 1 1 auto;
+      min-height: 60px;
+      max-height: 100px;
+      overflow-y: auto;
+      margin-bottom: 8px;
+    }
+    .card-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .card-table th, .card-table td {
+      padding: 7px 10px;
+      border-bottom: 1px solid #f1f1f1;
+      font-size: 14px;
+      word-break: break-word;
+    }
+    .card-table th {
+      background: #fafafa;
+      color: #374151;
+      text-align: left;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .card-table td {
+      color: #222;
+      cursor: pointer;
+    }
     .tag {
-      position:absolute;
-      right:10px;
-      bottom:10px;
-      background:#ffeddc;
-      color:#d95300;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:700;
-      box-shadow:0 3px 8px rgba(0,0,0,0.04);
+      background: #ffeddc;
+      color: #d95300;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-left: 8px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+      white-space: nowrap;
     }
-
-    /* Empty message */
+    .spinner {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:200px;
+      grid-column:1 / -1;
+    }
+    .spinner div {
+      width:40px;
+      height:40px;
+      border:4px solid #f97316;
+      border-top-color:transparent;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
     .empty {
       grid-column: 1 / -1;
       display:flex;
@@ -235,8 +274,6 @@
       text-align:center;
     }
     .empty .icon { font-size:36px; margin-bottom:10px; }
-
-    /* Modal */
     .modal {
       display:none;
       position:fixed;
@@ -268,28 +305,8 @@
       color:#333;
     }
     .modal .bs-row { font-size:15px; color:#ea580c; margin-bottom:8px; }
-
-    /* Spinner */
-    .spinner {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:200px;
-      grid-column:1 / -1;
-    }
-    .spinner div {
-      width:40px;
-      height:40px;
-      border:4px solid #ff7a2a;
-      border-top-color:transparent;
-      border-radius:50%;
-      animation:spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to { transform:rotate(360deg); }
-    }
-
-    /* Footer */
+    .precio-bs { color:#ea580c; font-size:15px;}
+    .unidad { font-size:13px; color:#888; margin-top:6px;}
     footer {
       text-align:center;
       padding:12px;
@@ -298,16 +315,10 @@
       background:#fff7ed;
       color:#6b7280;
     }
-
-    /* Responsive */
     @media(max-width:720px){
-      .search-area { width:100%; margin-left:0; order:2; }
-      header { flex-wrap:wrap; gap:10px; padding:12px; }
-      .filters { padding-top:10px; gap:8px; }
       .grid { padding:12px; gap:14px; }
-      .card { padding:12px; }
-      .rate-bar { font-size:14px; padding:8px 2px;}
-      .modal .content{ padding:13px;}
+      .card { padding:11px; min-height: 110px; max-height: 200px; }
+      .card-header { font-size: 15px; }
     }
   </style>
 </head>
@@ -318,29 +329,23 @@
       <img src="logo.png" alt="logo">
       <span>Orange Store</span>
     </div>
-
     <div class="search-area">
       <input id="search" type="text" placeholder="Buscar accesorios..." aria-label="Buscar accesorios">
     </div>
   </header>
-
-  <!-- Tasa de cambio -->
   <div class="rate-bar">
     <label for="tasaInput">Tasa Bs/$:</label>
-    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00" title="Ingresa la tasa de cambio para ver los precios en bolívares">
-    <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares"></span>
+    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00">
+    <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares">¿Para qué sirve?</span>
     <button onclick="borrarTasa()">Borrar tasa</button>
     <span id="ultimaTasa" style="margin-left:10px;color:#888;font-size:13px;"></span>
   </div>
-
-  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <span class="closebtn" onclick="closeMenu()">×</span>
     <a href="index.html">🏠 Volver al menú principal</a>
     <a href="repuestos.html">🛠 Repuestos</a>
     <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
   </div>
-
   <div class="filters" role="toolbar" aria-label="Filtros">
     <button class="filter-btn active" data-cat="all" onclick="filtrar('all', event)">Todos</button>
     <button class="filter-btn" data-cat="cables" onclick="filtrar('cables', event)">Cables</button>
@@ -350,13 +355,9 @@
     <button class="filter-btn" data-cat="vidrios" onclick="filtrar('vidrios', event)">Vidrios Templados</button>
     <button class="filter-btn" data-cat="camara" onclick="filtrar('camara', event)">Protector de Cámara</button>
   </div>
-
   <main class="grid" id="grid" aria-live="polite">
-    <!-- Spinner inicial -->
     <div class="spinner" id="spinner"><div></div></div>
   </main>
-
-  <!-- Modal -->
   <div id="modal" class="modal" role="dialog" aria-hidden="true">
     <div class="content" role="document">
       <button class="close-modal" onclick="cerrarModal()">×</button>
@@ -364,41 +365,31 @@
       <p id="m-code" class="codigo"></p>
       <div class="bs-row" id="m-tasa"></div>
       <p id="m-price1" class="precio"></p>
-      <p id="m-price1bs" class="precio-bs"></p>
       <p id="m-price2" class="precio"></p>
       <p id="m-price2bs" class="precio-bs"></p>
       <p id="m-unit" class="unidad"></p>
     </div>
   </div>
-
-  <!-- Fuse.js -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
-
   <script>
-    const DATA_FILE = "precios.json";
+    const DATA_FILE = "accesorios.json";
     const FACTOR_PRECIO2 = 1.7;
-    let productos = [];
+    let accesorios = [];
     let fuse = null;
     let filtroActivo = "all";
-
     function escapeHtml(str=""){ 
       return String(str).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
     }
-    function normalizar(txt = "") {
-      return String(txt).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    function detectarTipo(nombre=""){
+      const n = nombre.toLowerCase();
+      if(n.includes("cable")) return "cables";
+      if(n.includes("cargador")) return "cargadores";
+      if(n.includes("audifono")||n.includes("auricular")) return "audifonos";
+      if(n.includes("forro")||n.includes("case")||n.includes("carcasa")) return "forros";
+      if(n.includes("vidrio")||n.includes("templado")) return "vidrios";
+      if(n.includes("camara")) return "camara";
+      return "otros";
     }
-    function detectarCategoria(desc = "") {
-      const d = normalizar(desc);
-      if (d.includes("cable")) return { key: "cables", label: "Cables" };
-      if (d.includes("vidrio") || d.includes("templado") || d.includes("glass")) return { key: "vidrios", label: "Vidrio Templado" };
-      if (d.includes("cargador") || d.includes("taco cargador") || d.includes("tacos cargador")) return { key: "cargadores", label: "Cargadores" };
-      if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
-      if (d.includes("protector de camara") || d.includes("camara")) return { key: "camara", label: "Protector de Cámara" };
-      if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
-      return { key: "otros", label: "Otros" };
-    }
-
-    // Tasa de cambio
     function obtenerTasa() {
       const val = parseFloat(localStorage.getItem("tasaBS"));
       return (!isNaN(val) && val > 0) ? val : 0;
@@ -413,109 +404,73 @@
       mostrarUltimaTasa();
       filtrar(filtroActivo);
     }
-
-    // Fetch productos
     fetch(DATA_FILE)
-      .then(r => r.json())
-      .then(data => {
-        productos = data || [];
-        fuse = new Fuse(productos, {
-          keys: ["descripcion", "codigo"],
-          threshold: 0.35,
-          ignoreLocation: true,
-          minMatchCharLength: 2,
+      .then(r=>r.json())
+      .then(data=>{
+        accesorios = data || [];
+        fuse = new Fuse(accesorios, {
+          keys:["nombre","codigo"],
+          threshold:0.3,
+          ignoreLocation:true,
+          minMatchCharLength:2,
         });
-        document.getElementById("spinner").style.display = "none";
-        mostrarProductos(productos);
+        document.getElementById("spinner").style.display="none";
+        mostrarAccesorios(accesorios);
       })
-      .catch(err => {
-        console.error("No se pudo cargar precios.json:", err);
-        mostrarEmpty("Error cargando datos");
+      .catch(err=>{
+        console.error("Error cargando datos:",err);
+        document.getElementById("grid").innerHTML="<div class='empty'><div class='icon'>❌</div>Error cargando datos</div>";
       });
-
-    function mostrarProductos(lista) {
-      const grid = document.getElementById("grid");
-      grid.innerHTML = "";
-      if (!lista || lista.length === 0) {
-        mostrarEmpty("No se encontraron resultados");
+    function mostrarAccesorios(lista){
+      const grid=document.getElementById("grid");
+      grid.innerHTML="";
+      if(!lista||lista.length===0){
+        grid.innerHTML="<div class='empty'><div class='icon'>🔍</div>No se encontraron resultados</div>";
         return;
       }
-      const tasa = obtenerTasa();
-      const frag = document.createDocumentFragment();
-      lista.forEach(item => {
-        const cat = detectarCategoria(item.descripcion);
-        const card = document.createElement("article");
-        card.className = "card";
-        card.tabIndex = 0;
-        // Calcula precios
-        const precio = Number(item.precio);
-        const precio2 = precio * FACTOR_PRECIO2;
-        card.innerHTML = `
-          <div class="descripcion"></div>
-          <div class="codigo"></div>
-          <div class="precio"></div>
-          <div class="precio-bs"></div>
-          <div class="precio"></div>
-          <div class="precio-bs"></div>
-          <div class="unidad"></div>
-          <div class="tag"></div>
+      lista.forEach(item=>{
+        const tipo = detectarTipo(item.nombre);
+        const card=document.createElement("div");
+        card.className="card";
+        card.tabIndex=0;
+        card.innerHTML=`<div class="card-header">${escapeHtml(item.nombre||"")}<span class="tag">${tipo.charAt(0).toUpperCase()+tipo.slice(1)}</span></div>
+          <p class="codigo">Código: ${escapeHtml(item.codigo||"-")}</p>
+          <div style="margin-bottom:10px;"></div>
+          <div><strong>Precio: $${parseFloat(item.precio||"").toFixed(2)}</strong></div>
+          <div class="unidad">${escapeHtml(item.unidad||"")}</div>
         `;
-        card.querySelector(".descripcion").textContent = escapeHtml(item.descripcion);
-        card.querySelector(".codigo").textContent = "Código: " + escapeHtml(item.codigo || "");
-        card.querySelectorAll(".precio")[0].textContent = "$" + precio.toFixed(2);
-        card.querySelectorAll(".precio-bs")[0].textContent = (tasa>0) ? "Bs " + (precio*tasa).toFixed(2) : "";
-        card.querySelectorAll(".precio")[1].textContent = "Precio 2: $" + precio2.toFixed(2);
-        card.querySelectorAll(".precio-bs")[1].textContent = (tasa>0) ? "Bs " + (precio2*tasa).toFixed(2) : "";
-        card.querySelector(".unidad").textContent = item.unidad || "";
-        card.querySelector(".tag").textContent = cat.label;
-        card.addEventListener("click", () => verDetalle(item));
-        frag.appendChild(card);
+        card.addEventListener("click", () => verDetalleAccesorio(item));
+        grid.appendChild(card);
       });
-      grid.appendChild(frag);
     }
-
-    function mostrarEmpty(mensaje) {
-      document.getElementById("grid").innerHTML = `
-        <div class="empty" role="status">
-          <div class="icon">❌</div>
-          <div>${escapeHtml(mensaje)}</div>
-        </div>
-      `;
-    }
-
-    function filtrar(categoria, ev) {
-      filtroActivo = categoria;
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      if (ev && ev.target) ev.target.classList.add("active");
-
-      let lista = productos;
-      const texto = document.getElementById("search").value.trim();
-      if (texto !== "" && fuse) {
-        const resultados = fuse.search(normalizar(texto));
-        lista = resultados.map(r => r.item);
+    function filtrar(cat="all",ev){
+      filtroActivo=cat;
+      document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+      if(ev&&ev.target) ev.target.classList.add("active");
+      let lista=accesorios;
+      const texto=document.getElementById("search").value.trim();
+      if(texto!==""&&fuse){
+        const resultados=fuse.search(texto);
+        lista=resultados.map(r=>r.item);
       }
-      if (categoria !== "all") {
-        lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
+      if(cat!=="all") {
+        lista=lista.filter(a=>detectarTipo(a.nombre)===cat);
       }
-      mostrarProductos(lista);
+      mostrarAccesorios(lista);
     }
-
-    // Search debounce
     let debounce;
-    document.getElementById("search").addEventListener("input", () => {
+    document.getElementById("search").addEventListener("input",()=>{
       clearTimeout(debounce);
-      debounce = setTimeout(() => filtrar(filtroActivo), 180);
+      debounce=setTimeout(()=>filtrar(filtroActivo),200);
     });
-
-    // Tasa input
-    const tasaInput = document.getElementById("tasaInput");
-    if (tasaInput) {
-      const guardada = localStorage.getItem("tasaBS");
-      if (guardada) tasaInput.value = guardada;
-      tasaInput.addEventListener("input", () => {
-        const val = parseFloat(tasaInput.value);
-        if (!isNaN(val) && val > 0) {
-          localStorage.setItem("tasaBS", val);
+    const tasaInput=document.getElementById("tasaInput");
+    if(tasaInput){
+      const guardada=localStorage.getItem("tasaBS");
+      if(guardada) tasaInput.value=guardada;
+      tasaInput.addEventListener("input",()=>{
+        const val=parseFloat(tasaInput.value);
+        if(!isNaN(val)&&val>0){
+          localStorage.setItem("tasaBS",val);
           mostrarUltimaTasa();
           filtrar(filtroActivo);
         }
@@ -523,56 +478,50 @@
     }
     mostrarUltimaTasa();
 
-    // Modal detalle
-    function verDetalle(item) {
-      const tasa = obtenerTasa();
-      document.getElementById("m-name").textContent = escapeHtml(item.descripcion);
-      document.getElementById("m-code").textContent = "Código: " + escapeHtml(item.codigo || "");
-      document.getElementById("m-tasa").textContent = tasa ? `Tasa actual: Bs ${tasa}` : "";
-      const precio = Number(item.precio);
-      const precio2 = precio * FACTOR_PRECIO2;
-      document.getElementById("m-price1").textContent = "Precio 1: $" + precio.toFixed(2);
-      document.getElementById("m-price1bs").textContent = (tasa>0) ? "Bs " + (precio*tasa).toFixed(2) : "";
-      document.getElementById("m-price2").textContent = "Precio 2: $" + precio2.toFixed(2);
-      document.getElementById("m-price2bs").textContent = (tasa>0) ? "Bs " + (precio2*tasa).toFixed(2) : "";
-      document.getElementById("m-unit").textContent = "Unidad: " + escapeHtml(item.unidad || "");
-      const modal = document.getElementById("modal");
-      modal.style.display = "flex";
-      modal.setAttribute("aria-hidden","false");
+    function verDetalleAccesorio(item){
+      document.getElementById('m-name').textContent = escapeHtml(item.nombre||"");
+      document.getElementById('m-code').textContent = "Código: " + escapeHtml(item.codigo||"-");
+      document.getElementById('m-unit').textContent = escapeHtml(item.unidad||"");
+      document.getElementById('m-tasa').textContent = obtenerTasa() ? `Tasa actual: Bs ${obtenerTasa()}` : "";
+      document.getElementById('m-price1').textContent = "Precio 1: $" + parseFloat(item.precio||"").toFixed(2);
+      // Precio 2 y su conversión a Bs
+      const precio2 = parseFloat(item.precio||"") * FACTOR_PRECIO2;
+      document.getElementById('m-price2').textContent = "Precio 2: $" + precio2.toFixed(2);
+      if (obtenerTasa() > 0) {
+        document.getElementById('m-price2bs').textContent = "Precio 2 en Bs: " + (precio2 * obtenerTasa()).toFixed(2);
+      } else {
+        document.getElementById('m-price2bs').textContent = "";
+      }
     }
     function cerrarModal() {
-      const modal = document.getElementById("modal");
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden","true");
+      document.getElementById("modal").style.display = "none";
+      document.getElementById("modal").setAttribute("aria-hidden","true");
     }
-
     document.getElementById("modal").addEventListener("click", function(e) {
-      if (e.target === this) {
-        cerrarModal();
-      }
+      if (e.target === this) cerrarModal();
     });
-
-    /* Sidebar Menu */
     function openMenu() {
       document.getElementById("sidebar").style.width = "250px";
     }
     function closeMenu() {
       document.getElementById("sidebar").style.width = "0";
     }
-
     function logout() {
       sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
-
     (function checkLogin(){
       if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
       }
     })();
+    // Show modal when clicking a card
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => document.getElementById("modal").style.display = "flex");
+    });
   </script>
   <footer>
-    © 2012-2025 Orange Store. Todos los derechos reservados.By Javier Esaa
+    © 2025 Orange Store. Todos los derechos reservados.
   </footer>
 </body>
 </html>
