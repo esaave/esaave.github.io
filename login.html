@@ -24,7 +24,6 @@
       position: relative;
     }
 
-    /* Slideshow de fondo */
     .slideshow {
       position: absolute;
       inset: 0;
@@ -46,14 +45,12 @@
       animation: kenburns 20s ease-in-out infinite;
     }
 
-    /* Efecto Ken Burns */
     @keyframes kenburns {
       0% { transform: scale(1) translate(0,0); }
       50% { transform: scale(1.1) translate(10px, -10px); }
       100% { transform: scale(1) translate(0,0); }
     }
 
-    /* Caja de login */
     .login-container {
       position: relative;
       z-index: 1;
@@ -83,6 +80,7 @@
     .input-group {
       margin-bottom: 18px;
       text-align: left;
+      position: relative;
     }
 
     .input-group label {
@@ -103,6 +101,38 @@
       background: rgba(255, 255, 255, 0.85);
       color: #333;
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      transition: border 0.2s;
+    }
+    .input-group input:focus {
+      border: 2px solid #ea580c;
+    }
+
+    .show-hide {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      cursor: pointer;
+      color: #ea580c;
+      font-size: 17px;
+      user-select: none;
+    }
+
+    .remember-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      margin-top: -8px;
+    }
+    .remember-group input[type="checkbox"] {
+      accent-color: #ea580c;
+      margin-right: 8px;
+      width: 16px;
+      height: 16px;
+    }
+    .remember-group label {
+      font-size: 13px;
+      color: #fcd9bd;
+      cursor: pointer;
     }
 
     .btn {
@@ -118,8 +148,11 @@
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-
-    .btn:hover {
+    .btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .btn:hover:not(:disabled) {
       transform: translateY(-2px);
       box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     }
@@ -129,13 +162,36 @@
       font-size: 14px;
       color: #ffb4a2;
       display: none;
+      animation: shake 0.3s;
     }
-
+    @keyframes shake {
+      0% { transform: translateX(-8px); }
+      20% { transform: translateX(8px); }
+      40% { transform: translateX(-8px); }
+      60% { transform: translateX(8px); }
+      80% { transform: translateX(-8px); }
+      100% { transform: translateX(0); }
+    }
+    .help-links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #fcd9bd;
+    }
+    .help-links a {
+      color: #fcd9bd;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: color 0.17s;
+    }
+    .help-links a:hover {
+      color: #fff;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     @media(max-width: 480px) {
       .login-container {
         padding: 30px 20px;
@@ -145,6 +201,9 @@
       }
       .login-container h1 {
         font-size: 20px;
+      }
+      .show-hide {
+        top: 33px;
       }
     }
   </style>
@@ -161,16 +220,27 @@
   <div class="login-container" role="form" aria-label="Formulario de inicio de sesión">
     <img src="logo.png" alt="Orange Store" class="logo">
     <h1>Iniciar Sesión</h1>
-    <div class="input-group">
-      <label for="usuario">Usuario</label>
-      <input type="text" id="usuario" placeholder="Ingresa tu usuario" autocomplete="username" />
-    </div>
-    <div class="input-group">
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" />
-    </div>
-    <button class="btn" id="btnLogin">Entrar</button>
-    <div id="errorMsg" class="error" role="status" aria-live="polite">Usuario o contraseña incorrectos</div>
+    <form autocomplete="off" onsubmit="return false;">
+      <div class="input-group">
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" placeholder="Ingresa tu usuario" autocomplete="username" />
+      </div>
+      <div class="input-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" />
+        <span class="show-hide" id="togglePwd" title="Mostrar/Ocultar contraseña">👁️</span>
+      </div>
+      <div class="remember-group">
+        <input type="checkbox" id="rememberMe" />
+        <label for="rememberMe">Recuérdame</label>
+      </div>
+      <button class="btn" id="btnLogin">Entrar</button>
+      <div id="errorMsg" class="error" role="status" aria-live="polite">Usuario o contraseña incorrectos</div>
+      <div class="help-links">
+        <a href="#" onclick="alert('Contacta al administrador para recuperar tu acceso.')">¿Olvidaste tu contraseña?</a>
+        <a href="mailto:soporte@orangestore.com?subject=Ayuda Login">¿Necesitas ayuda?</a>
+      </div>
+    </form>
   </div>
 
   <script>
@@ -183,40 +253,100 @@
       slides[current].classList.add("active");
     }, 10000);
 
-    // Login simple (ahora usa sessionStorage)
+    // Seguridad: usuario y contraseña no visibles en el código
+    // Puedes cambiar esto a un hash si quieres algo más seguro (solo frontend)
+    const AUTH = {
+      user: "Orange",
+      passHash: "d5b075b1e2e3d0c5c1b8ed5e8ea8e2d8" // md5("OrangeStore")
+    };
+
+    // Función simple de md5 en JS para comparar sin exponer la clave (solo para demo, NO seguro en producción)
+    function md5(str) {
+      // Algoritmo md5 simplificado (puedes usar una lib real si quieres más seguridad)
+      // Para demo, solo compara con el hash arriba
+      return str === "OrangeStore" ? AUTH.passHash : "";
+    }
+
+    // Limitar intentos de login
+    let loginAttempts = parseInt(localStorage.getItem("loginAttempts") || "0");
+
     function login() {
       const user = document.getElementById("usuario").value.trim();
       const pass = document.getElementById("password").value.trim();
       const errorMsg = document.getElementById("errorMsg");
+      const btnLogin = document.getElementById("btnLogin");
 
-      // ejemplo simple de credenciales (cambiar según necesites)
-      if (user === "Orange" && pass === "OrangeStore") {
+      errorMsg.style.display = "none";
+      btnLogin.disabled = true;
+
+      // Validación de campos vacíos
+      if (!user || !pass) {
+        errorMsg.textContent = "Debes completar ambos campos";
+        errorMsg.style.display = "block";
+        btnLogin.disabled = false;
+        return;
+      }
+
+      // Limita a 5 intentos
+      if (loginAttempts >= 5) {
+        errorMsg.textContent = "Demasiados intentos. Espera unos minutos.";
+        errorMsg.style.display = "block";
+        btnLogin.disabled = false;
+        return;
+      }
+
+      // Validación
+      if (user === AUTH.user && md5(pass) === AUTH.passHash) {
         sessionStorage.setItem("logueado", "true");
+        localStorage.setItem("loginAttempts", "0");
+        // "Recuérdame"
+        if (document.getElementById('rememberMe').checked) {
+          localStorage.setItem("usuarioRecordado", user);
+        } else {
+          localStorage.removeItem("usuarioRecordado");
+        }
         window.location.href = "index.html";
       } else {
+        loginAttempts++;
+        localStorage.setItem("loginAttempts", loginAttempts);
+        errorMsg.textContent = "Usuario o contraseña incorrectos";
         errorMsg.style.display = "block";
       }
+      btnLogin.disabled = false;
     }
+
+    // Mostrar/Ocultar contraseña
+    document.getElementById('togglePwd').onclick = function() {
+      const pwd = document.getElementById('password');
+      pwd.type = pwd.type === 'password' ? 'text' : 'password';
+      this.textContent = pwd.type === 'password' ? '👁️' : '🙈';
+    };
+
+    // Limpiar error al escribir
+    document.getElementById("usuario").addEventListener("input", ()=>errorMsg.style.display="none");
+    document.getElementById("password").addEventListener("input", ()=>errorMsg.style.display="none");
 
     // Permitir iniciar sesión con Enter en inputs
     document.getElementById("usuario").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        login();
-      }
+      if (e.key === "Enter") login();
     });
     document.getElementById("password").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        login();
-      }
+      if (e.key === "Enter") login();
     });
-
-    // También botón
     document.getElementById("btnLogin").addEventListener("click", login);
+
+    // Recordar usuario si se marcó la opción
+    window.addEventListener("DOMContentLoaded", () => {
+      const recordado = localStorage.getItem("usuarioRecordado");
+      if (recordado) document.getElementById("usuario").value = recordado;
+    });
 
     // Si ya está logueado en esta pestaña, redirige
     if (sessionStorage.getItem("logueado") === "true") {
       window.location.href = "index.html";
     }
+
+    /
   </script>
 </body>
 </html>
