@@ -44,11 +44,59 @@
     }
     .logo img { height:40px; display:block; }
     .logo span { font-weight:600; font-size:18px; }
-
     .menu-toggle {
       font-size:24px;
       cursor:pointer;
       margin-right:10px;
+    }
+
+    /* Tasa */
+    .rate-bar {
+      text-align:center;
+      margin:12px 0 2px;
+      background: #fff7ed;
+      padding: 8px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .rate-bar label {
+      font-weight:600;
+      color:#ea580c;
+      margin-right:6px;
+    }
+    .rate-bar input {
+      padding:6px 10px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      max-width:100px;
+      font-size:15px;
+    }
+    .rate-bar button {
+      background: #fff;
+      border: 1px solid #ff7a2a;
+      color: #ff7a2a;
+      border-radius: 8px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size:13px;
+      margin-left: 8px;
+      transition: background .16s;
+    }
+    .rate-bar button:hover { background: #ffe9e0; }
+
+    .rate-bar .tooltip {
+      font-size:13px;
+      color:#8a4f08;
+      border-bottom:1px dotted #ea580c;
+      cursor:help;
+      margin-left:7px;
+      background: #fff8eb;
+      border-radius: 6px;
+      padding: 2px 7px;
     }
 
     /* Sidebar */
@@ -158,6 +206,7 @@
     .descripcion { font-weight:600; color:#243; font-size:15px; margin-bottom:6px; }
     .codigo { font-size:12px; color:#667; margin-bottom:6px; }
     .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
+    .precio-bs { font-weight:500; color:#ea580c; font-size:14px; margin-top:2px; }
     .unidad { font-size:13px; color:#556; margin-top:auto; }
 
     .tag {
@@ -218,6 +267,7 @@
       cursor:pointer;
       color:#333;
     }
+    .modal .bs-row { font-size:15px; color:#ea580c; margin-bottom:8px; }
 
     /* Spinner */
     .spinner {
@@ -239,6 +289,16 @@
       to { transform:rotate(360deg); }
     }
 
+    /* Footer */
+    footer {
+      text-align:center;
+      padding:12px;
+      font-size:13px;
+      margin-top:auto;
+      background:#fff7ed;
+      color:#6b7280;
+    }
+
     /* Responsive */
     @media(max-width:720px){
       .search-area { width:100%; margin-left:0; order:2; }
@@ -246,6 +306,8 @@
       .filters { padding-top:10px; gap:8px; }
       .grid { padding:12px; gap:14px; }
       .card { padding:12px; }
+      .rate-bar { font-size:14px; padding:8px 2px;}
+      .modal .content{ padding:13px;}
     }
   </style>
 </head>
@@ -261,6 +323,15 @@
       <input id="search" type="text" placeholder="Buscar accesorios..." aria-label="Buscar accesorios">
     </div>
   </header>
+
+  <!-- Tasa de cambio -->
+  <div class="rate-bar">
+    <label for="tasaInput">Tasa Bs/$:</label>
+    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00" title="Ingresa la tasa de cambio para ver los precios en bolívares">
+    <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares">¿Para qué sirve?</span>
+    <button onclick="borrarTasa()">Borrar tasa</button>
+    <span id="ultimaTasa" style="margin-left:10px;color:#888;font-size:13px;"></span>
+  </div>
 
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
@@ -291,8 +362,11 @@
       <button class="close-modal" onclick="cerrarModal()">×</button>
       <h3 id="m-name"></h3>
       <p id="m-code" class="codigo"></p>
+      <div class="bs-row" id="m-tasa"></div>
       <p id="m-price1" class="precio"></p>
+      <p id="m-price1bs" class="precio-bs"></p>
       <p id="m-price2" class="precio"></p>
+      <p id="m-price2bs" class="precio-bs"></p>
       <p id="m-unit" class="unidad"></p>
     </div>
   </div>
@@ -307,21 +381,37 @@
     let fuse = null;
     let filtroActivo = "all";
 
+    function escapeHtml(str=""){ 
+      return String(str).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+    }
     function normalizar(txt = "") {
       return String(txt).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
-
     function detectarCategoria(desc = "") {
       const d = normalizar(desc);
-
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
       if (d.includes("vidrio") || d.includes("templado") || d.includes("glass")) return { key: "vidrios", label: "Vidrio Templado" };
       if (d.includes("cargador") || d.includes("taco cargador") || d.includes("tacos cargador")) return { key: "cargadores", label: "Cargadores" };
       if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
       if (d.includes("protector de camara") || d.includes("camara")) return { key: "camara", label: "Protector de Cámara" };
       if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
-
       return { key: "otros", label: "Otros" };
+    }
+
+    // Tasa de cambio
+    function obtenerTasa() {
+      const val = parseFloat(localStorage.getItem("tasaBS"));
+      return (!isNaN(val) && val > 0) ? val : 0;
+    }
+    function mostrarUltimaTasa() {
+      const tasa = obtenerTasa();
+      document.getElementById("ultimaTasa").textContent = tasa ? `Última tasa: Bs ${tasa}` : "";
+    }
+    function borrarTasa() {
+      localStorage.removeItem("tasaBS");
+      document.getElementById("tasaInput").value = "";
+      mostrarUltimaTasa();
+      filtrar(filtroActivo);
     }
 
     // Fetch productos
@@ -350,23 +440,32 @@
         mostrarEmpty("No se encontraron resultados");
         return;
       }
-
+      const tasa = obtenerTasa();
       const frag = document.createDocumentFragment();
       lista.forEach(item => {
         const cat = detectarCategoria(item.descripcion);
         const card = document.createElement("article");
         card.className = "card";
         card.tabIndex = 0;
+        // Calcula precios
+        const precio = Number(item.precio);
+        const precio2 = precio * FACTOR_PRECIO2;
         card.innerHTML = `
           <div class="descripcion"></div>
           <div class="codigo"></div>
           <div class="precio"></div>
+          <div class="precio-bs"></div>
+          <div class="precio"></div>
+          <div class="precio-bs"></div>
           <div class="unidad"></div>
           <div class="tag"></div>
         `;
-        card.querySelector(".descripcion").textContent = item.descripcion;
-        card.querySelector(".codigo").textContent = "Código: " + (item.codigo || "");
-        card.querySelector(".precio").textContent = "$" + Number(item.precio).toFixed(2);
+        card.querySelector(".descripcion").textContent = escapeHtml(item.descripcion);
+        card.querySelector(".codigo").textContent = "Código: " + escapeHtml(item.codigo || "");
+        card.querySelectorAll(".precio")[0].textContent = "$" + precio.toFixed(2);
+        card.querySelectorAll(".precio-bs")[0].textContent = (tasa>0) ? "Bs " + (precio*tasa).toFixed(2) : "";
+        card.querySelectorAll(".precio")[1].textContent = "Precio 2: $" + precio2.toFixed(2);
+        card.querySelectorAll(".precio-bs")[1].textContent = (tasa>0) ? "Bs " + (precio2*tasa).toFixed(2) : "";
         card.querySelector(".unidad").textContent = item.unidad || "";
         card.querySelector(".tag").textContent = cat.label;
         card.addEventListener("click", () => verDetalle(item));
@@ -379,7 +478,7 @@
       document.getElementById("grid").innerHTML = `
         <div class="empty" role="status">
           <div class="icon">❌</div>
-          <div>${mensaje}</div>
+          <div>${escapeHtml(mensaje)}</div>
         </div>
       `;
     }
@@ -408,12 +507,35 @@
       debounce = setTimeout(() => filtrar(filtroActivo), 180);
     });
 
+    // Tasa input
+    const tasaInput = document.getElementById("tasaInput");
+    if (tasaInput) {
+      const guardada = localStorage.getItem("tasaBS");
+      if (guardada) tasaInput.value = guardada;
+      tasaInput.addEventListener("input", () => {
+        const val = parseFloat(tasaInput.value);
+        if (!isNaN(val) && val > 0) {
+          localStorage.setItem("tasaBS", val);
+          mostrarUltimaTasa();
+          filtrar(filtroActivo);
+        }
+      });
+    }
+    mostrarUltimaTasa();
+
+    // Modal detalle
     function verDetalle(item) {
-      document.getElementById("m-name").textContent = item.descripcion;
-      document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
-      document.getElementById("m-price1").textContent = "Precio 1: $" + Number(item.precio).toFixed(2);
-      document.getElementById("m-price2").textContent = "Precio 2: $" + (Number(item.precio) * FACTOR_PRECIO2).toFixed(2);
-      document.getElementById("m-unit").textContent = "Unidad: " + (item.unidad || "");
+      const tasa = obtenerTasa();
+      document.getElementById("m-name").textContent = escapeHtml(item.descripcion);
+      document.getElementById("m-code").textContent = "Código: " + escapeHtml(item.codigo || "");
+      document.getElementById("m-tasa").textContent = tasa ? `Tasa actual: Bs ${tasa}` : "";
+      const precio = Number(item.precio);
+      const precio2 = precio * FACTOR_PRECIO2;
+      document.getElementById("m-price1").textContent = "Precio 1: $" + precio.toFixed(2);
+      document.getElementById("m-price1bs").textContent = (tasa>0) ? "Bs " + (precio*tasa).toFixed(2) : "";
+      document.getElementById("m-price2").textContent = "Precio 2: $" + precio2.toFixed(2);
+      document.getElementById("m-price2bs").textContent = (tasa>0) ? "Bs " + (precio2*tasa).toFixed(2) : "";
+      document.getElementById("m-unit").textContent = "Unidad: " + escapeHtml(item.unidad || "");
       const modal = document.getElementById("modal");
       modal.style.display = "flex";
       modal.setAttribute("aria-hidden","false");
@@ -449,5 +571,8 @@
       }
     })();
   </script>
+  <footer>
+    © 2025 Orange Store. Todos los derechos reservados.
+  </footer>
 </body>
 </html>
