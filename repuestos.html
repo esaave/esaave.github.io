@@ -1,168 +1,236 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orange Store - Repuestos</title>
-
-  <!-- Tipografía -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
+  <link rel="icon" href="logopeq.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg,#fff7ed 0%,#ffece0 100%);
-      color:#223;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
+      background: #fff7ed;
+      color: #1f2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Header */
     header {
-      background: linear-gradient(90deg,#f97316,#ea580c);
-      color:#fff;
-      padding:10px 18px;
-      display:flex;
-      align-items:center;
-      gap:16px;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      color: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     }
-    .logo {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      cursor:pointer;
-      user-select:none;
+    header h1 {
+      font-size: 20px;
+      margin: 0;
     }
-    .logo img { height:40px; display:block; }
-    .logo span { font-weight:600; font-size:18px; }
-
-    /* Menú desplegable */
-    #headerDropdown {
-      position:fixed; 
-      top:62px; 
-      left:14px; 
-      z-index:1500; 
-      display:none;
-    }
-    #headerDropdown div {
-      background:#fff;
-      border-radius:10px;
-      box-shadow:0 8px 20px rgba(0,0,0,0.12);
-      overflow:hidden;
-    }
-    #headerDropdown a {
-      display:block;
-      padding:12px 18px;
-      text-decoration:none;
-      color:#222;
-      font-weight:600;
+    .menu-btn {
+      font-size: 26px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: white;
     }
 
-    /* Mantenimiento */
-    main {
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:30px 15px;
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 220px;
+      height: 100%;
+      background: #fff;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.15);
+      padding: 20px;
+      transition: left 0.3s;
+      z-index: 1000;
     }
-    .maintenance {
-      background:#fff;
-      padding:40px 30px;
-      border-radius:16px;
-      box-shadow:0 8px 24px rgba(0,0,0,0.08);
-      max-width:450px;
-      animation: fadeIn .6s ease;
+    .sidebar.active {
+      left: 0;
     }
-    .maintenance .icon {
-      font-size:50px;
-      margin-bottom:18px;
-      color:#f97316;
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #ea580c;
     }
-    .maintenance h2 {
-      font-size:24px;
-      margin-bottom:12px;
-      color:#f97316;
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #374151;
+      margin: 12px 0;
+      font-weight: 500;
+      transition: 0.2s;
     }
-    .maintenance p {
-      font-size:15px;
-      color:#555;
+    .sidebar a:hover {
+      color: #ea580c;
+    }
+
+    /* Buscador */
+    .search-container {
+      margin: 20px auto;
+      max-width: 500px;
+      width: 90%;
+      display: flex;
+      gap: 10px;
+    }
+    .search-container input {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    .search-container button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .search-container button:hover {
+      background: linear-gradient(90deg, #ea580c, #c2410c);
+    }
+
+    /* Spinner */
+    .spinner {
+      display: none;
+      margin: 30px auto;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #f97316;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Lista de repuestos */
+    .results {
+      margin: 20px auto;
+      max-width: 900px;
+      width: 90%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .item {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .item h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #ea580c;
+    }
+    .item p {
+      font-size: 14px;
+      color: #555;
     }
 
     footer {
-      text-align:center;
-      padding:15px;
-      font-size:14px;
-      color:#6b7280;
-      background:#fff8f1;
-      border-top:1px solid #fcd9bd;
-    }
-
-    @keyframes fadeIn {
-      from { opacity:0; transform:translateY(15px); }
-      to { opacity:1; transform:translateY(0); }
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      background: #fff7ed;
+      color: #6b7280;
+      margin-top: auto;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo" onclick="toggleMenu()" title="Menú">
-      <img src="logo.png" alt="logo">
-      <span>Orange Store</span>
-    </div>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <h1>Repuestos</h1>
   </header>
 
-  <!-- Menú desplegable -->
-  <div id="headerDropdown">
-    <div>
-      <a href="index.html">🏠 Volver al menú principal</a>
-      <a href="accesorios.html">🎧 Accesorios</a>
-      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-    </div>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h2>Menú</h2>
+    <a href="index.html">🏠 Volver al Menú Principal</a>
+    <a href="accesorios.html">📱 Accesorios</a>
+    <a href="repuestos.html">🔧 Repuestos</a>
+    <a href="#" onclick="cerrarSesion()">🚪 Cerrar Sesión</a>
   </div>
 
-  <main>
-    <div class="maintenance">
-      <div class="icon">🛠</div>
-      <h2>Repuestos en mantenimiento</h2>
-      <p>Estamos actualizando esta sección para brindarte el mejor servicio.<br>
-      Muy pronto podrás consultar todos los repuestos disponibles.</p>
-    </div>
-  </main>
+  <!-- Buscador -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar repuesto por modelo o nombre...">
+    <button onclick="buscar()">Buscar</button>
+  </div>
+
+  <!-- Spinner -->
+  <div class="spinner" id="spinner"></div>
+
+  <!-- Resultados -->
+  <div class="results" id="results">
+    <!-- Aquí aparecerán los repuestos filtrados -->
+  </div>
 
   <footer>
     © 2025 Orange Store. Todos los derechos reservados.
   </footer>
 
   <script>
-    function toggleMenu() {
-      const d = document.getElementById("headerDropdown");
-      d.style.display = (d.style.display === "flex") ? "none" : "flex";
-      if (d.style.display === "flex") d.style.flexDirection = "column";
-    }
-    window.addEventListener("click", (e) => {
-      const d = document.getElementById("headerDropdown");
-      if (!e.target.closest(".logo") && !e.target.closest("#headerDropdown")) d.style.display = "none";
-    });
-
-    function logout() {
-      localStorage.removeItem("logueado");
-      window.location.href = "login.html";
-    }
-
+    // ✅ Verificación de sesión
     (function checkLogin(){
-      if (localStorage.getItem("logueado") !== "true") {
+      if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
       }
     })();
+
+    // Sidebar
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // Cerrar sesión
+    function cerrarSesion() {
+      sessionStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
+
+    // Buscador (simulado por ahora)
+    function buscar() {
+      const query = document.getElementById("searchInput").value.trim().toLowerCase();
+      const resultsDiv = document.getElementById("results");
+      const spinner = document.getElementById("spinner");
+
+      resultsDiv.innerHTML = "";
+      spinner.style.display = "block";
+
+      setTimeout(() => {
+        spinner.style.display = "none";
+
+        if (!query) {
+          resultsDiv.innerHTML = "<p style='text-align:center; width:100%'>Ingresa un término de búsqueda.</p>";
+          return;
+        }
+
+        // Simulación de resultado
+        resultsDiv.innerHTML = `
+          <div class="item">
+            <h3>Ejemplo de Repuesto</h3>
+            <p>Este es un resultado de prueba para "${query}".</p>
+          </div>
+        `;
+      }, 1000);
+    }
   </script>
 </body>
 </html>
