@@ -22,14 +22,23 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 15px 20px;
+      padding: 12px 20px;
       background: linear-gradient(90deg, #f97316, #ea580c);
       color: white;
       box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header img {
+      height: 45px;
+    }
     header h1 {
       font-size: 20px;
       margin: 0;
+      font-weight: 700;
     }
     .menu-btn {
       font-size: 26px;
@@ -155,14 +164,17 @@
 </head>
 <body>
   <header>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    <h1>Repuestos</h1>
+    <div class="header-left">
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <img src="logo.png" alt="Logo Orange Store">
+      <h1>Orange Store</h1>
+    </div>
   </header>
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <h2>Menú</h2>
-    <a href="index.html">🏠 Volver al Menú Principal</a>
+    <a href="index.html">🏠 Menú Principal</a>
     <a href="accesorios.html">📱 Accesorios</a>
     <a href="repuestos.html">🔧 Repuestos</a>
     <a href="#" onclick="cerrarSesion()">🚪 Cerrar Sesión</a>
@@ -178,9 +190,7 @@
   <div class="spinner" id="spinner"></div>
 
   <!-- Resultados -->
-  <div class="results" id="results">
-    <!-- Aquí aparecerán los repuestos filtrados -->
-  </div>
+  <div class="results" id="results"></div>
 
   <footer>
     © 2025 Orange Store. Todos los derechos reservados.
@@ -205,7 +215,7 @@
       window.location.href = "login.html";
     }
 
-    // Buscador (simulado por ahora)
+    // Buscador (esperando JSON)
     function buscar() {
       const query = document.getElementById("searchInput").value.trim().toLowerCase();
       const resultsDiv = document.getElementById("results");
@@ -214,21 +224,11 @@
       resultsDiv.innerHTML = "";
       spinner.style.display = "block";
 
+      // 🚨 Cuando carguemos el JSON de repuestos,
+      // BORRAR todo este setTimeout y poner la lógica real de búsqueda
       setTimeout(() => {
         spinner.style.display = "none";
-
-        if (!query) {
-          resultsDiv.innerHTML = "<p style='text-align:center; width:100%'>Ingresa un término de búsqueda.</p>";
-          return;
-        }
-
-        // Simulación de resultado
-        resultsDiv.innerHTML = `
-          <div class="item">
-            <h3>Ejemplo de Repuesto</h3>
-            <p>Este es un resultado de prueba para "${query}".</p>
-          </div>
-        `;
+        resultsDiv.innerHTML = "<p style='text-align:center; width:100%'>[Aquí aparecerán los repuestos filtrados del JSON]</p>";
       }, 1000);
     }
   </script>
