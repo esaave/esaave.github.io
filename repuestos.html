@@ -418,6 +418,44 @@
         console.error("Error cargando datos:",err);
         document.getElementById("grid").innerHTML="<div class='empty'><div class='icon'>❌</div>Error cargando datos</div>";
       });
+
+    // FILTRO Y BUSCADOR CORREGIDO
+    function filtrar(cat = "all", ev) {
+      filtroActivo = cat;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      if (ev && ev.target) ev.target.classList.add("active");
+
+      const texto = document.getElementById("search").value.trim().toLowerCase();
+      let lista = productos.map(prod => {
+        // Si hay texto en el buscador, filtra repuestos que coincidan, y modelo
+        if (texto !== "") {
+          const modeloMatch = prod.modelo.toLowerCase().includes(texto);
+          const repuestosFiltrados = (prod.repuestos || []).filter(r =>
+            r.nombre.toLowerCase().includes(texto)
+          );
+          if (modeloMatch || repuestosFiltrados.length > 0) {
+            // Si no hay repuestos filtrados pero sí modelo, muestra todos los repuestos
+            return {
+              ...prod,
+              repuestos: modeloMatch ? prod.repuestos : repuestosFiltrados
+            };
+          }
+          return null;
+        } else {
+          return prod;
+        }
+      }).filter(e => e && e.repuestos && e.repuestos.length > 0);
+
+      // Filtro de categoría/marca o tipo de repuesto
+      if (cat === "apple" || cat === "samsung" || cat === "otros") {
+        lista = lista.filter(p => detectarMarca(p.modelo) === cat);
+      } else if (cat !== "all") {
+        lista = lista.filter(p => (p.repuestos || []).some(r => detectarTipo(r.nombre) === cat));
+      }
+
+      mostrarProductos(lista);
+    }
+
     function mostrarProductos(lista){
       const grid=document.getElementById("grid");
       grid.innerHTML="";
@@ -456,23 +494,6 @@
         card.appendChild(tableWrap);
         grid.appendChild(card);
       });
-    }
-    function filtrar(cat="all",ev){
-      filtroActivo=cat;
-      document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
-      if(ev&&ev.target) ev.target.classList.add("active");
-      let lista=productos;
-      const texto=document.getElementById("search").value.trim();
-      if(texto!==""&&fuse){
-        const resultados=fuse.search(texto);
-        lista=resultados.map(r=>r.item);
-      }
-      if(cat==="apple"||cat==="samsung"||cat==="otros"){
-        lista=lista.filter(p=>detectarMarca(p.modelo)===cat);
-      } else if(cat!=="all") {
-        lista=lista.filter(p => (p.repuestos||[]).some(r=>detectarTipo(r.nombre)===cat));
-      }
-      mostrarProductos(lista);
     }
     let debounce;
     document.getElementById("search").addEventListener("input",()=>{
