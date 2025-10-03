@@ -8,7 +8,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; } /* Añadido box-sizing para consistencia */
+    * { box-sizing: border-box; } /* Esencial para el layout */
+
     body {
       margin:0;
       font-family:'Poppins',sans-serif;
@@ -19,7 +20,7 @@
       flex-direction:column;
     }
 
-    /* Header - Ajustado para incluir el toggle */
+    /* HEADER Y MENÚ TOGGLE */
     header {
       background:linear-gradient(90deg,#f97316,#ea580c);
       color:#fff;
@@ -40,7 +41,7 @@
     header img { height:40px; cursor:pointer; }
     header h1 { font-size:20px; margin:0; font-weight:600; }
 
-    /* Sidebar Styles */
+    /* SIDEBAR (Menú Lateral) */
     .sidebar {
       height:100%;
       width:0;
@@ -74,8 +75,8 @@
       cursor:pointer;
       color:#333;
     }
-    /* Fin Sidebar Styles */
 
+    /* TASA y BÚSQUEDA */
     .rate-bar {
       text-align:center;
       margin:10px 0;
@@ -90,9 +91,8 @@
       border:1px solid #ccc;
       border-radius:6px;
       max-width:100px;
-      text-align:center; /* Centrar texto */
+      text-align:center;
     }
-
     .search-area {
       text-align:center;
       margin:14px;
@@ -107,6 +107,7 @@
       box-shadow:0 2px 6px rgba(0,0,0,0.08);
     }
 
+    /* FILTROS */
     .filters {
       display:flex;
       gap:10px;
@@ -130,18 +131,18 @@
       color:#fff;
       box-shadow:0 4px 12px rgba(234, 88, 12, 0.25);
     }
-    .filter-btn:hover { /* Combinado con :active para hover */
+    .filter-btn:hover {
       background:linear-gradient(90deg,#f97316,#ea580c);
       color:#fff;
     }
 
+    /* GRID y CARD (Tablas) */
     .grid {
       max-width:1100px;
       margin:0 auto;
       padding:0 14px 40px;
       width:100%;
     }
-
     .card {
       background:#fff;
       border-radius:14px;
@@ -170,8 +171,10 @@
       color:#374151;
     }
     td { color:#222; }
-    td:nth-child(2), td:nth-child(3) { text-align:right; font-weight:600; } /* Alineación de precios */
+    td:nth-child(2) { color: #22c55e; font-weight:600; text-align:right;} /* Precio 1 en verde */
+    td:nth-child(3) { color: #f97316; font-weight:600; text-align:right;} /* Precio 2 en naranja */
 
+    /* SPINNER Y FOOTER */
     .spinner {
       display:flex;
       align-items:center;
@@ -187,7 +190,6 @@
       animation:spin 1s linear infinite;
     }
     @keyframes spin { to { transform:rotate(360deg); } }
-
     footer {
       text-align:center;
       padding:12px;
@@ -197,6 +199,7 @@
       color:#6b7280;
     }
 
+    /* RESPONSIVE */
     @media(max-width:720px){
       th,td{ font-size:13px; padding:8px; }
       header h1{ font-size:18px; }
@@ -217,13 +220,13 @@
     <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
   </div>
 
-  <div class="rate-bar">
+    <div class="rate-bar">
     <label for="tasaInput">Tasa Bs/$:</label>
     <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00">
   </div>
 
   <div class="search-area">
-    <input id="search" type="text" placeholder="Buscar repuesto o modelo...">
+    <input id="search" type="text" placeholder="Buscar repuesto o modelo..." aria-label="Buscar repuestos">
   </div>
 
   <div class="filters">
@@ -279,7 +282,7 @@
         document.getElementById("grid").innerHTML="<p style='text-align:center;color:#b91c1c;'>Error cargando datos.</p>";
       });
 
-    /* Renderizado de Productos */
+    /* Renderizado de Productos con Tasa */
     function mostrarProductos(lista){
       const grid=document.getElementById("grid");
       grid.innerHTML="";
@@ -304,11 +307,13 @@
         (item.repuestos||[]).forEach(r=>{
           const precio=parsePrice(r.precio);
           const precio2=precio*FACTOR_PRECIO2;
+          /* Cálculo en Bs: solo si la tasa es válida */
           const precio2bs = (!isNaN(precio2)&&tasa>0) ? `<br>(${formatMoney(precio2*tasa)} Bs)` : "";
+          
           const tr=document.createElement("tr");
           tr.innerHTML=`<td>${escapeHtml(r.nombre||"")}</td>
-                        <td style="color:#22c55e;">$${formatMoney(precio)}</td>
-                        <td style="color:#f97316;">$${formatMoney(precio2)}${precio2bs}</td>`;
+                        <td>$${formatMoney(precio)}</td>
+                        <td>$${formatMoney(precio2)}${precio2bs}</td>`;
           tbody.appendChild(tr);
         });
 
@@ -364,17 +369,19 @@
     function closeMenu() {
       document.getElementById("sidebar").style.width = "0";
     }
-    /* Exportar funciones al scope global */
-    window.openMenu = openMenu;
-    window.closeMenu = closeMenu;
-    window.filtrar = filtrar;
-    window.logout = logout;
-
+    
     /* Control de Acceso */
     function logout() {
       sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
+
+    /* Exportar funciones al scope global */
+    window.openMenu = openMenu;
+    window.closeMenu = closeMenu;
+    window.filtrar = filtrar;
+    window.logout = logout;
+    
     (function checkLogin(){
       if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
