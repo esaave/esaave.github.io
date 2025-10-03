@@ -1,230 +1,224 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orange Store - Repuestos</title>
-
-  <!-- Favicon -->
-  <link rel="icon" href="logopeq.png" type="image/png">
-
-  <!-- Fuente -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
-      color:#223;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
+      background: #fff7ed;
+      color: #1f2937;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
-    /* Header */
     header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 20px;
+      background: linear-gradient(90deg, #f97316, #ea580c);
+      color: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    }
+    header img { height: 50px; cursor: pointer; }
+    header h1 { font-size: 22px; margin: 0; font-weight: 700; }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      padding: 14px;
+    }
+    .filter-btn {
+      border: 2px solid #f97316;
+      color: #f97316;
+      background: #fff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { transform: translateY(-3px); }
+    .filter-btn.active {
       background: linear-gradient(90deg,#f97316,#ea580c);
-      color:#fff;
-      padding:10px 18px;
-      display:flex;
-      align-items:center;
-      gap:16px;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      box-shadow:0 4px 12px rgba(0,0,0,0.12);
-    }
-    .logo {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      cursor:pointer;
-      user-select:none;
-    }
-    .logo img { height:40px; display:block; }
-    .logo span { font-weight:600; font-size:18px; }
-
-    /* Search */
-    .search-area {
-      margin-left:auto;
-      width: min(620px, 58%);
-    }
-    .search-area input {
-      width:100%;
-      padding:10px 16px;
-      border-radius:999px;
-      border: none;
-      font-size:15px;
-      outline:none;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
     }
 
-    /* Grid */
-    .grid {
-      display:grid;
-      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
-      gap:20px;
-      padding:18px;
-      max-width:1150px;
-      margin:0 auto 40px;
-      width:100%;
-      align-items:start;
-      min-height:260px;
+    .search-bar {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .search-bar input {
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: 80%;
+      max-width: 400px;
+      font-size: 15px;
     }
 
-    .card {
-      background:#fff;
-      border-radius:14px;
-      padding:14px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.06);
-      transition:transform .18s, box-shadow .18s;
-      cursor:pointer;
-      display:flex;
-      flex-direction:column;
+    .container {
+      flex: 1;
+      padding: 20px;
+      max-width: 1100px;
+      margin: auto;
     }
-    .card:hover { transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.12); }
-
-    .descripcion { font-weight:600; color:#243; font-size:15px; margin-bottom:6px; }
-    .codigo { font-size:12px; color:#667; margin-bottom:6px; }
-    .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
-    .unidad { font-size:13px; color:#556; margin-top:auto; }
-
-    /* Empty message */
-    .empty {
-      grid-column: 1 / -1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      color:#b06e6e;
-      font-size:16px;
-      min-height:220px;
-      text-align:center;
+    .modelo {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .empty .icon { font-size:36px; margin-bottom:10px; }
-
-    /* Spinner */
+    .modelo h2 {
+      margin: 0 0 10px;
+      color: #f97316;
+      font-size: 18px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th { background: #ffe5d0; }
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      background: #fff7ed;
+      color: #6b7280;
+    }
     .spinner {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:200px;
-      grid-column:1 / -1;
+      text-align: center;
+      margin: 50px;
+      font-size: 18px;
+      color: #ea580c;
     }
-    .spinner div {
-      width:40px;
-      height:40px;
-      border:4px solid #ff7a2a;
-      border-top-color:transparent;
-      border-radius:50%;
-      animation:spin 1s linear infinite;
-    }
-    @keyframes spin { to { transform:rotate(360deg); } }
-
-    /* Responsive */
-    @media(max-width:720px){
-      .search-area { width:100%; margin-left:0; order:2; }
-      header { flex-wrap:wrap; gap:10px; padding:12px; }
-      .grid { padding:12px; gap:14px; }
-      .card { padding:12px; }
+    .empty {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 16px;
+      margin: 30px 0;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="logo" onclick="window.location.href='index.html'">
-      <img src="logo.png" alt="logo">
-      <span>Orange Store</span>
-    </div>
-
-    <div class="search-area">
-      <input id="search" type="text" placeholder="Buscar repuestos..." aria-label="Buscar repuestos">
-    </div>
+    <img src="logo.png" alt="Logo Orange Store" onclick="window.location.href='index.html'">
+    <h1>Orange Store - Repuestos</h1>
   </header>
 
-  <main class="grid" id="grid" aria-live="polite">
-    <!-- Spinner inicial -->
-    <div class="spinner" id="spinner"><div></div></div>
-  </main>
+  <!-- Filtros -->
+  <div class="filters" id="filters"></div>
 
-  <!-- Fuse.js -->
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+  <!-- Buscador -->
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Buscar modelo o repuesto...">
+  </div>
+
+  <div class="container" id="content">
+    <div class="spinner">⏳ Cargando repuestos...</div>
+  </div>
+
+  <footer>
+    © 2025 Orange Store. Todos los derechos reservados.
+  </footer>
 
   <script>
-    const DATA_FILE = "repuestos.json";
-    let repuestos = [];
-    let fuse = null;
+    let data = [];
+    let marcaActiva = "all";
 
-    // Normalizar texto
-    function normalizar(txt = "") {
-      return String(txt).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    async function cargarRepuestos() {
+      try {
+        const res = await fetch("repuestos.json");
+        data = await res.json();
+
+        generarFiltros(data);
+        mostrarModelos(data);
+
+        document.getElementById("search").addEventListener("input", filtrar);
+      } catch (error) {
+        document.getElementById("content").innerHTML = "<p style='color:red;'>⚠️ Error cargando datos</p>";
+        console.error(error);
+      }
     }
 
-    // Fetch productos
-    fetch(DATA_FILE)
-      .then(r => r.json())
-      .then(data => {
-        repuestos = data || [];
-        fuse = new Fuse(repuestos, {
-          keys: ["marca", "modelo", "repuesto", "calidad"],
-          threshold: 0.35,
-          ignoreLocation: true,
-          minMatchCharLength: 2,
-        });
-        document.getElementById("spinner").style.display = "none";
-        mostrarRepuestos(repuestos);
-      })
-      .catch(err => {
-        console.error("No se pudo cargar repuestos.json:", err);
-        mostrarEmpty("Error cargando datos");
-      });
+    function generarFiltros(modelos) {
+      const filtros = document.getElementById("filters");
+      filtros.innerHTML = "";
 
-    function mostrarRepuestos(lista) {
-      const grid = document.getElementById("grid");
-      grid.innerHTML = "";
-      if (!lista || lista.length === 0) {
-        mostrarEmpty("No se encontraron resultados");
+      const marcas = ["all", ...new Set(modelos.map(m => m.marca))];
+
+      marcas.forEach(marca => {
+        const btn = document.createElement("button");
+        btn.className = "filter-btn" + (marca === "all" ? " active" : "");
+        btn.textContent = marca === "all" ? "Todos" : marca;
+        btn.onclick = () => {
+          marcaActiva = marca;
+          document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          filtrar();
+        };
+        filtros.appendChild(btn);
+      });
+    }
+
+    function filtrar() {
+      const filtroTexto = document.getElementById("search").value.toLowerCase();
+      let filtrados = data;
+
+      if (marcaActiva !== "all") {
+        filtrados = filtrados.filter(m => m.marca === marcaActiva);
+      }
+
+      if (filtroTexto !== "") {
+        filtrados = filtrados.filter(m =>
+          m.modelo.toLowerCase().includes(filtroTexto) ||
+          m.repuestos.some(r => r.nombre.toLowerCase().includes(filtroTexto))
+        );
+      }
+
+      mostrarModelos(filtrados);
+    }
+
+    function mostrarModelos(modelos) {
+      const cont = document.getElementById("content");
+      cont.innerHTML = "";
+
+      if (modelos.length === 0) {
+        cont.innerHTML = "<div class='empty'>No se encontraron resultados</div>";
         return;
       }
 
-      const frag = document.createDocumentFragment();
-      lista.forEach(item => {
-        const card = document.createElement("article");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="descripcion">${item.marca} ${item.modelo} - ${item.repuesto}</div>
-          <div class="codigo">${item.calidad}</div>
-          <div class="precio">$${Number(item.precio).toFixed(2)}</div>
+      modelos.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "modelo";
+        div.innerHTML = `
+          <h2>${m.marca} - ${m.modelo}</h2>
+          <table>
+            <thead><tr><th>Repuesto</th><th>Precio</th></tr></thead>
+            <tbody>
+              ${m.repuestos.map(r => `<tr><td>${r.nombre}</td><td>$${r.precio}</td></tr>`).join("")}
+            </tbody>
+          </table>
         `;
-        frag.appendChild(card);
+        cont.appendChild(div);
       });
-      grid.appendChild(frag);
     }
 
-    function mostrarEmpty(mensaje) {
-      document.getElementById("grid").innerHTML = `
-        <div class="empty">
-          <div class="icon">❌</div>
-          <div>${mensaje}</div>
-        </div>
-      `;
-    }
-
-    // Buscador con debounce
-    let debounce;
-    document.getElementById("search").addEventListener("input", () => {
-      clearTimeout(debounce);
-      debounce = setTimeout(() => {
-        const texto = document.getElementById("search").value.trim();
-        if (texto !== "" && fuse) {
-          const resultados = fuse.search(normalizar(texto));
-          mostrarRepuestos(resultados.map(r => r.item));
-        } else {
-          mostrarRepuestos(repuestos);
-        }
-      }, 200);
-    });
+    cargarRepuestos();
   </script>
 </body>
 </html>
