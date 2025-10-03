@@ -2,234 +2,238 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Orange Store - Repuestos</title>
   <link rel="icon" href="logopeq.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #fff7ed;
-      color: #1f2937;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
+      color:#223;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
     }
 
     /* Header */
     header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 20px;
-      background: linear-gradient(90deg, #f97316, #ea580c);
-      color: white;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      background: linear-gradient(90deg,#f97316,#ea580c);
+      color:#fff;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
     }
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
     }
-    header img {
-      height: 45px;
+    .logo img { height:40px; display:block; }
+    .logo span { font-weight:600; font-size:18px; }
+
+    /* Search */
+    .search-area {
+      margin-left:auto;
+      width: min(620px, 58%);
     }
-    header h1 {
-      font-size: 20px;
-      margin: 0;
-      font-weight: 700;
-    }
-    .menu-btn {
-      font-size: 26px;
-      cursor: pointer;
-      background: none;
+    .search-area input {
+      width:100%;
+      padding:10px 16px;
+      border-radius:999px;
       border: none;
-      color: white;
+      font-size:15px;
+      outline:none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
 
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 220px;
-      height: 100%;
-      background: #fff;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.15);
-      padding: 20px;
-      transition: left 0.3s;
-      z-index: 1000;
+    /* Grid */
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+      gap:20px;
+      padding:18px;
+      max-width:1150px;
+      margin:0 auto 40px;
+      width:100%;
+      align-items:start;
+      min-height:260px;
     }
-    .sidebar.active {
-      left: 0;
+    .card {
+      background:#fff;
+      border-radius:14px;
+      padding:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      transition:transform .18s, box-shadow .18s;
+      cursor:pointer;
     }
-    .sidebar h2 {
-      margin-bottom: 20px;
-      font-size: 18px;
-      color: #ea580c;
-    }
-    .sidebar a {
-      display: block;
-      text-decoration: none;
-      color: #374151;
-      margin: 12px 0;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-    .sidebar a:hover {
-      color: #ea580c;
-    }
+    .card:hover { transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.12); }
 
-    /* Buscador */
-    .search-container {
-      margin: 20px auto;
-      max-width: 500px;
-      width: 90%;
-      display: flex;
-      gap: 10px;
+    .modelo { font-weight:700; color:#f97316; font-size:16px; margin-bottom:6px; }
+    .repuesto { font-weight:600; color:#243; font-size:15px; margin-bottom:6px; }
+    .calidad { font-size:13px; color:#667; margin-bottom:6px; }
+    .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
+
+    /* Empty message */
+    .empty {
+      grid-column: 1 / -1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      color:#b06e6e;
+      font-size:16px;
+      min-height:220px;
+      text-align:center;
     }
-    .search-container input {
-      flex: 1;
-      padding: 12px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      font-size: 15px;
-    }
-    .search-container button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #f97316, #ea580c);
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .search-container button:hover {
-      background: linear-gradient(90deg, #ea580c, #c2410c);
-    }
+    .empty .icon { font-size:36px; margin-bottom:10px; }
 
     /* Spinner */
     .spinner {
-      display: none;
-      margin: 30px auto;
-      border: 6px solid #f3f3f3;
-      border-top: 6px solid #f97316;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:200px;
+      grid-column:1 / -1;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    .spinner div {
+      width:40px;
+      height:40px;
+      border:4px solid #ff7a2a;
+      border-top-color:transparent;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
     }
-
-    /* Lista de repuestos */
-    .results {
-      margin: 20px auto;
-      max-width: 900px;
-      width: 90%;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .item {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .item h3 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #ea580c;
-    }
-    .item p {
-      font-size: 14px;
-      color: #555;
-    }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
     footer {
-      text-align: center;
-      padding: 15px;
-      font-size: 13px;
-      background: #fff7ed;
-      color: #6b7280;
-      margin-top: auto;
+      margin-top:auto;
+      text-align:center;
+      padding:12px 10px;
+      font-size:13px;
+      color:#555;
+      background:#fff3ea;
+    }
+
+    @media(max-width:720px){
+      .search-area { width:100%; margin-left:0; order:2; }
+      header { flex-wrap:wrap; gap:10px; padding:12px; }
+      .grid { padding:12px; gap:14px; }
+      .card { padding:12px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="header-left">
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      <img src="logo.png" alt="Logo Orange Store">
-      <h1>Orange Store</h1>
+    <div class="logo" onclick="window.location.href='index.html'">
+      <img src="logo.png" alt="Orange Store">
+      <span>Orange Store</span>
+    </div>
+    <div class="search-area">
+      <input id="search" type="text" placeholder="Buscar repuesto..." aria-label="Buscar repuestos">
     </div>
   </header>
 
-  <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
-    <h2>Menú</h2>
-    <a href="index.html">🏠 Menú Principal</a>
-    <a href="accesorios.html">📱 Accesorios</a>
-    <a href="repuestos.html">🔧 Repuestos</a>
-    <a href="#" onclick="cerrarSesion()">🚪 Cerrar Sesión</a>
-  </div>
-
-  <!-- Buscador -->
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Buscar repuesto por modelo o nombre...">
-    <button onclick="buscar()">Buscar</button>
-  </div>
-
-  <!-- Spinner -->
-  <div class="spinner" id="spinner"></div>
-
-  <!-- Resultados -->
-  <div class="results" id="results"></div>
+  <main class="grid" id="grid" aria-live="polite">
+    <!-- Spinner inicial -->
+    <div class="spinner" id="spinner"><div></div></div>
+  </main>
 
   <footer>
     © 2025 Orange Store. Todos los derechos reservados.
   </footer>
 
+  <!-- Fuse.js -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script>
-    // ✅ Verificación de sesión
+    const DATA_FILE = "repuestos.json"; // tu JSON exportado
+    let repuestos = [];
+    let fuse = null;
+
+    // Cargar JSON
+    fetch(DATA_FILE)
+      .then(r => r.json())
+      .then(data => {
+        repuestos = data;
+        fuse = new Fuse(repuestos, {
+          keys: ["MODELO","REPUESTO","CALIDAD"],
+          threshold: 0.35,
+          ignoreLocation: true,
+          minMatchCharLength: 2,
+        });
+        document.getElementById("spinner").style.display = "none";
+        mostrarRepuestos(repuestos);
+      })
+      .catch(err => {
+        console.error("No se pudo cargar repuestos.json:", err);
+        mostrarEmpty("Error cargando datos");
+      });
+
+    function mostrarRepuestos(lista) {
+      const grid = document.getElementById("grid");
+      grid.innerHTML = "";
+      if (!lista || lista.length === 0) {
+        mostrarEmpty("No se encontraron resultados");
+        return;
+      }
+      const frag = document.createDocumentFragment();
+      lista.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="modelo">${item.MODELO}</div>
+          <div class="repuesto">${item.REPUESTO}</div>
+          <div class="calidad">Calidad: ${item.CALIDAD}</div>
+          <div class="precio">Precio: $${item.PRECIO}</div>
+        `;
+        frag.appendChild(card);
+      });
+      grid.appendChild(frag);
+    }
+
+    function mostrarEmpty(mensaje) {
+      document.getElementById("grid").innerHTML = `
+        <div class="empty" role="status">
+          <div class="icon">❌</div>
+          <div>${mensaje}</div>
+        </div>
+      `;
+    }
+
+    // Search con debounce
+    let debounce;
+    document.getElementById("search").addEventListener("input", () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => {
+        const texto = document.getElementById("search").value.trim();
+        if (texto !== "" && fuse) {
+          const resultados = fuse.search(texto);
+          mostrarRepuestos(resultados.map(r => r.item));
+        } else {
+          mostrarRepuestos(repuestos);
+        }
+      }, 180);
+    });
+
+    // Login check
     (function checkLogin(){
       if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
       }
     })();
 
-    // Sidebar
-    function toggleMenu() {
-      document.getElementById("sidebar").classList.toggle("active");
-    }
-
-    // Cerrar sesión
-    function cerrarSesion() {
+    function logout() {
       sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
-    }
-
-    // Buscador (esperando JSON)
-    function buscar() {
-      const query = document.getElementById("searchInput").value.trim().toLowerCase();
-      const resultsDiv = document.getElementById("results");
-      const spinner = document.getElementById("spinner");
-
-      resultsDiv.innerHTML = "";
-      spinner.style.display = "block";
-
-      // 🚨 Cuando carguemos el JSON de repuestos,
-      // BORRAR todo este setTimeout y poner la lógica real de búsqueda
-      setTimeout(() => {
-        spinner.style.display = "none";
-        resultsDiv.innerHTML = "<p style='text-align:center; width:100%'>[Aquí aparecerán los repuestos filtrados del JSON]</p>";
-      }, 1000);
     }
   </script>
 </body>
