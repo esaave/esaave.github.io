@@ -253,21 +253,15 @@
       slides[current].classList.add("active");
     }, 10000);
 
-    // Seguridad: usuario y contraseña no visibles en el código
-    // Puedes cambiar esto a un hash si quieres algo más seguro (solo frontend)
     const AUTH = {
       user: "Orange",
       passHash: "d5b075b1e2e3d0c5c1b8ed5e8ea8e2d8" // md5("OrangeStore")
     };
 
-    // Función simple de md5 en JS para comparar sin exponer la clave (solo para demo, NO seguro en producción)
     function md5(str) {
-      // Algoritmo md5 simplificado (puedes usar una lib real si quieres más seguridad)
-      // Para demo, solo compara con el hash arriba
       return str === "OrangeStore" ? AUTH.passHash : "";
     }
 
-    // Limitar intentos de login
     let loginAttempts = parseInt(localStorage.getItem("loginAttempts") || "0");
 
     function login() {
@@ -279,7 +273,6 @@
       errorMsg.style.display = "none";
       btnLogin.disabled = true;
 
-      // Validación de campos vacíos
       if (!user || !pass) {
         errorMsg.textContent = "Debes completar ambos campos";
         errorMsg.style.display = "block";
@@ -287,7 +280,6 @@
         return;
       }
 
-      // Limita a 5 intentos
       if (loginAttempts >= 5) {
         errorMsg.textContent = "Demasiados intentos. Espera unos minutos.";
         errorMsg.style.display = "block";
@@ -295,11 +287,9 @@
         return;
       }
 
-      // Validación
       if (user === AUTH.user && md5(pass) === AUTH.passHash) {
         sessionStorage.setItem("logueado", "true");
         localStorage.setItem("loginAttempts", "0");
-        // "Recuérdame"
         if (document.getElementById('rememberMe').checked) {
           localStorage.setItem("usuarioRecordado", user);
         } else {
@@ -315,18 +305,9 @@
       btnLogin.disabled = false;
     }
 
-    // Mostrar/Ocultar contraseña
-    document.getElementById('togglePwd').onclick = function() {
-      const pwd = document.getElementById('password');
-      pwd.type = pwd.type === 'password' ? 'text' : 'password';
-      this.textContent = pwd.type === 'password' ? '👁️' : '🙈';
-    };
-
-    // Limpiar error al escribir
     document.getElementById("usuario").addEventListener("input", ()=>errorMsg.style.display="none");
     document.getElementById("password").addEventListener("input", ()=>errorMsg.style.display="none");
 
-    // Permitir iniciar sesión con Enter en inputs
     document.getElementById("usuario").addEventListener("keydown", (e) => {
       if (e.key === "Enter") login();
     });
@@ -335,18 +316,27 @@
     });
     document.getElementById("btnLogin").addEventListener("click", login);
 
-    // Recordar usuario si se marcó la opción
     window.addEventListener("DOMContentLoaded", () => {
       const recordado = localStorage.getItem("usuarioRecordado");
       if (recordado) document.getElementById("usuario").value = recordado;
+
+      // Mostrar/Ocultar contraseña (ojo funcional!)
+      const togglePwd = document.getElementById('togglePwd');
+      const pwdInput = document.getElementById('password');
+      togglePwd.addEventListener('click', function() {
+        if (pwdInput.type === 'password') {
+          pwdInput.type = 'text';
+          togglePwd.textContent = '🙈';
+        } else {
+          pwdInput.type = 'password';
+          togglePwd.textContent = '👁️';
+        }
+      });
     });
 
-    // Si ya está logueado en esta pestaña, redirige
     if (sessionStorage.getItem("logueado") === "true") {
       window.location.href = "index.html";
     }
-
-    /
   </script>
 </body>
 </html>
