@@ -21,7 +21,7 @@
       flex-direction:column;
     }
 
-    /* Header */
+    /* HEADER */
     header {
       background: linear-gradient(90deg,#f97316,#ea580c);
       color:#fff;
@@ -34,6 +34,11 @@
       z-index:1000;
       box-shadow:0 4px 12px rgba(0,0,0,0.12);
     }
+    .menu-toggle {
+      font-size:24px;
+      cursor:pointer;
+      margin-right:10px;
+    }
     .logo {
       display:flex;
       align-items:center;
@@ -43,13 +48,7 @@
     .logo img { height:40px; display:block; }
     .logo span { font-weight:600; font-size:18px; }
 
-    .menu-toggle {
-      font-size:24px;
-      cursor:pointer;
-      margin-right:10px;
-    }
-
-    /* Sidebar */
+    /* Sidebar Styles */
     .sidebar {
       height:100%;
       width:0;
@@ -103,6 +102,8 @@
     .rate-bar {
       text-align:center;
       padding: 10px 0;
+      background: #fff7ed; /* Color de fondo ligero para que destaque */
+      border-bottom: 1px solid #ffeedd;
     }
     .rate-bar label {
       font-weight:600;
@@ -174,7 +175,7 @@
     .descripcion { font-weight:600; color:#243; font-size:15px; margin-bottom:6px; }
     .codigo { font-size:12px; color:#667; margin-bottom:6px; }
     .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
-    .precio .bs { font-size:13px; color:#333; font-weight:400; display:block; } /* Estilo para el precio en Bs */
+    .precio .bs { font-size:13px; color:#333; font-weight:400; display:block; }
     .unidad { font-size:13px; color:#556; margin-top:auto; }
 
     .tag {
@@ -190,9 +191,11 @@
       box-shadow:0 3px 8px rgba(0,0,0,0.04);
     }
 
-    /* Empty message */
-    .empty {
+    /* Empty message / Spinner */
+    .empty, .spinner {
       grid-column: 1 / -1;
+    }
+    .empty {
       display:flex;
       align-items:center;
       justify-content:center;
@@ -203,6 +206,21 @@
       text-align:center;
     }
     .empty .icon { font-size:36px; margin-bottom:10px; }
+    .spinner {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:200px;
+    }
+    .spinner div {
+      width:40px;
+      height:40px;
+      border:4px solid #ff7a2a;
+      border-top-color:transparent;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
     /* Modal */
     .modal {
@@ -236,30 +254,10 @@
       color:#333;
     }
     /* Modal Precios */
-    #m-price1 { color: #22c55e; } /* Precio 1 en verde */
-    #m-price2 { color: #f97316; } /* Precio 2 en naranja */
-    #m-price3 { color: #333; font-size: 14px; font-weight: 500;} /* Precio en Bs */
+    #m-price1 { color: #22c55e; }
+    #m-price2 { color: #f97316; }
+    #m-price3 { color: #333; font-size: 14px; font-weight: 500;}
 
-
-    /* Spinner */
-    .spinner {
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:200px;
-      grid-column:1 / -1;
-    }
-    .spinner div {
-      width:40px;
-      height:40px;
-      border:4px solid #ff7a2a;
-      border-top-color:transparent;
-      border-radius:50%;
-      animation:spin 1s linear infinite;
-    }
-    @keyframes spin {
-      to { transform:rotate(360deg); }
-    }
 
     /* Responsive */
     @media(max-width:720px){
@@ -268,6 +266,8 @@
       .filters { padding-top:10px; gap:8px; }
       .grid { padding:12px; gap:14px; }
       .card { padding:12px; }
+      .rate-bar { font-size: 14px; }
+      .rate-bar input { max-width: 80px; padding: 4px 8px; font-size: 13px; }
     }
   </style>
 </head>
@@ -307,7 +307,7 @@
   </div>
 
   <main class="grid" id="grid" aria-live="polite">
-        <div class="spinner" id="spinner"><div></div></div>
+    <div class="spinner" id="spinner"><div></div></div>
   </main>
 
     <div id="modal" class="modal" role="dialog" aria-hidden="true">
@@ -317,9 +317,14 @@
       <p id="m-code" class="codigo"></p>
       <p id="m-price1" class="precio"></p>
       <p id="m-price2" class="precio"></p>
-      <p id="m-price3" class="precio"></p>       <p id="m-unit" class="unidad"></p>
+      <p id="m-price3" class="precio"></p>
+      <p id="m-unit" class="unidad"></p>
     </div>
   </div>
+
+    <footer>
+    © 2025 Orange Store. Todos los derechos reservados.
+  </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
@@ -376,14 +381,14 @@
         return;
       }
 
-      const tasa = parseFloat(localStorage.getItem("tasaBS")) || 0; // Obtener la tasa
+      const tasa = parseFloat(localStorage.getItem("tasaBS")) || 0;
       const frag = document.createDocumentFragment();
 
       lista.forEach(item => {
         const cat = detectarCategoria(item.descripcion);
         const card = document.createElement("article");
         const precio2 = Number(item.precio) * FACTOR_PRECIO2;
-        const precio2bs = (precio2 > 0 && tasa > 0) ? `<span class="bs">(${formatMoney(precio2 * tasa)} Bs)</span>` : ''; // Cálculo en Bs
+        const precio2bs = (precio2 > 0 && tasa > 0) ? `<span class="bs">(${formatMoney(precio2 * tasa)} Bs)</span>` : '';
 
         card.className = "card";
         card.tabIndex = 0;
@@ -396,7 +401,7 @@
         `;
         card.querySelector(".descripcion").textContent = item.descripcion;
         card.querySelector(".codigo").textContent = "Código: " + (item.codigo || "");
-        card.querySelector(".precio").innerHTML = "$" + formatMoney(precio2) + precio2bs; // Mostrar Precio 2 + Bs
+        card.querySelector(".precio").innerHTML = "$" + formatMoney(precio2) + precio2bs;
         card.querySelector(".unidad").textContent = item.unidad || "";
         card.querySelector(".tag").textContent = cat.label;
         card.addEventListener("click", () => verDetalle(item));
@@ -447,7 +452,7 @@
       document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
       document.getElementById("m-price1").textContent = "Precio 1: $" + formatMoney(Number(item.precio));
       document.getElementById("m-price2").textContent = "Precio 2: $" + formatMoney(precio2);
-      document.getElementById("m-price3").textContent = precio2bs; // NUEVO: Precio en Bs
+      document.getElementById("m-price3").textContent = precio2bs;
       document.getElementById("m-unit").textContent = "Unidad: " + (item.unidad || "");
       
       const modal = document.getElementById("modal");
@@ -475,9 +480,9 @@
     }
     window.openMenu = openMenu;
     window.closeMenu = closeMenu;
-    window.filtrar = filtrar; // Exportar filtrar para que el input de tasa lo use
+    window.filtrar = filtrar;
     
-    /* Funcionalidad Tasa BS (NUEVO) */
+    /* Funcionalidad Tasa BS */
     const tasaInput=document.getElementById("tasaInput");
     if(tasaInput){
       const guardada=localStorage.getItem("tasaBS");
@@ -486,7 +491,7 @@
         const val=parseFloat(tasaInput.value);
         if(!isNaN(val)&&val>0){
           localStorage.setItem("tasaBS",val);
-          filtrar(filtroActivo); /* Re-filtrar para actualizar precios */
+          filtrar(filtroActivo);
         }
       });
     }
@@ -496,7 +501,7 @@
       sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
-    window.logout = logout; // Exportar logout
+    window.logout = logout;
     
 
     (function checkLogin(){
