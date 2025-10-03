@@ -1,384 +1,296 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Orange Store - Repuestos</title>
-
-  <!-- Favicon -->
   <link rel="icon" href="logopeq.png" type="image/png">
-
-  <!-- Tipografía -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
-      color:#223;
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(135deg,#fff7ed,#ffe5d0);
+      color:#1f2937;
       min-height:100vh;
       display:flex;
       flex-direction:column;
     }
 
     header {
-      background: linear-gradient(90deg,#f97316,#ea580c);
+      background:linear-gradient(90deg,#f97316,#ea580c);
       color:#fff;
-      padding:12px 18px;
+      padding:12px 20px;
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:10px;
       position:sticky;
       top:0;
       z-index:1000;
-      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
     }
     header img { height:40px; cursor:pointer; }
-    header h1 { margin:0; font-size:18px; font-weight:700; }
+    header h1 { font-size:20px; margin:0; font-weight:600; }
 
-    .topbar {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px 18px;
+    .rate-bar {
+      text-align:center;
+      margin:10px 0;
+    }
+    .rate-bar label {
+      font-weight:600;
+      color:#ea580c;
+      margin-right:6px;
+    }
+    .rate-bar input {
+      padding:6px 10px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      max-width:100px;
+    }
+
+    .search-area {
+      text-align:center;
+      margin:14px;
+    }
+    .search-area input {
+      width:min(500px,90%);
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid #ddd;
+      font-size:15px;
+      outline:none;
+      box-shadow:0 2px 6px rgba(0,0,0,0.08);
     }
 
     .filters {
       display:flex;
       gap:10px;
-      flex-wrap:wrap;
-      padding: 10px 18px;
-      align-items:center;
       justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:16px;
     }
-
     .filter-btn {
       border:2px solid #f97316;
-      color:#f97316;
       background:#fff;
-      padding:8px 14px;
+      color:#f97316;
+      padding:6px 14px;
       border-radius:999px;
-      cursor:pointer;
       font-weight:600;
-      transition:all .15s;
+      cursor:pointer;
+      font-size:14px;
+      transition:all .2s;
     }
-    .filter-btn.active {
-      background: linear-gradient(90deg,#f97316,#ea580c);
+    .filter-btn.active,
+    .filter-btn:hover {
+      background:linear-gradient(90deg,#f97316,#ea580c);
       color:#fff;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
     }
 
-    .search-bar {
-      display:flex;
-      justify-content:center;
-      padding: 6px 18px 14px;
-    }
-    .search-bar input {
-      width: min(720px, 92%);
-      max-width:720px;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid rgba(0,0,0,0.08);
-      font-size:15px;
-      outline:none;
-    }
-
-    .container {
-      max-width:1150px;
-      margin: 12px auto 48px;
-      padding: 0 18px;
+    .grid {
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 14px 40px;
       width:100%;
     }
 
-    .modelo {
-      background: #fff;
-      border-radius:12px;
-      padding:14px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-      margin-bottom:16px;
+    .card {
+      background:#fff;
+      border-radius:14px;
+      margin-bottom:18px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      overflow:hidden;
     }
-    .modelo h2 {
-      margin:0 0 8px;
-      color:#0f172a;
-      font-size:16px;
+    .card-header {
+      background:#ffedd5;
+      padding:12px 16px;
+      font-weight:600;
+      color:#ea580c;
     }
-
     table {
       width:100%;
       border-collapse:collapse;
+    }
+    th,td {
+      padding:10px 12px;
+      border-bottom:1px solid #f1f1f1;
       font-size:14px;
     }
-    th, td {
-      padding:10px 8px;
-      border-bottom:1px solid #eee;
-      text-align:left;
-    }
     th {
-      background:#fff8f1;
-      color:#f97316;
-      font-weight:700;
+      background:#fafafa;
+      text-align:left;
+      color:#374151;
     }
+    td { color:#222; }
 
     .spinner {
-      text-align:center;
-      padding:40px 0;
-      color:#ea580c;
-      font-weight:600;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:200px;
     }
-
-    .empty {
-      text-align:center;
-      padding:30px 0;
-      color:#9aa3a6;
+    .spinner div {
+      width:40px;
+      height:40px;
+      border:4px solid #f97316;
+      border-top-color:transparent;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
     }
+    @keyframes spin { to { transform:rotate(360deg); } }
 
     footer {
       text-align:center;
-      padding:14px;
+      padding:12px;
+      font-size:13px;
+      margin-top:auto;
       background:#fff7ed;
       color:#6b7280;
-      margin-top:auto;
     }
 
-    @media (max-width:720px) {
-      .filters { padding:8px 12px; }
-      .search-bar input { width: 96%; }
-      th, td { font-size:13px; padding:8px 6px; }
+    @media(max-width:720px){
+      th,td{ font-size:13px; padding:8px; }
+      header h1{ font-size:18px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.png" alt="Orange Store" onclick="window.location.href='index.html'">
+    <img src="logo.png" alt="Logo" onclick="window.location.href='index.html'">
     <h1>Orange Store - Repuestos</h1>
   </header>
 
-  <div class="topbar">
-    <div style="flex:1"></div>
-    <div style="text-align:right; font-size:13px; color:#fff; padding-right:18px;">Cargando: <span id="totalCount">0</span> modelos</div>
+  <div class="rate-bar">
+    <label for="tasaInput">Tasa Bs/$:</label>
+    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00">
   </div>
 
-  <div class="filters" id="filters">
-    <!-- botones dinámicos -->
+  <div class="search-area">
+    <input id="search" type="text" placeholder="Buscar repuesto o modelo...">
   </div>
 
-  <div class="search-bar">
-    <input id="search" type="search" placeholder="Buscar por modelo o repuesto (ej. 'bateria a05')" aria-label="Buscar repuestos">
+  <div class="filters">
+    <button class="filter-btn active" data-cat="all" onclick="filtrar('all',event)">Todos</button>
+    <button class="filter-btn" data-cat="apple" onclick="filtrar('apple',event)">Apple</button>
+    <button class="filter-btn" data-cat="samsung" onclick="filtrar('samsung',event)">Samsung</button>
   </div>
 
-  <div class="container" id="content">
-    <div class="spinner">⏳ Cargando repuestos...</div>
-  </div>
+  <main class="grid" id="grid">
+    <div class="spinner" id="spinner"><div></div></div>
+  </main>
 
   <footer>
     © 2025 Orange Store. Todos los derechos reservados.
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script>
+    const DATA_FILE = "repuestos.json";
     const FACTOR_PRECIO2 = 1.7;
-    let data = [];            // array de modelos { marca, modelo, repuestos: [{nombre, precio}, ...] }
-    let marcaActiva = "all";
-    let debounceTimer = null;
+    let productos = [];
+    let fuse = null;
+    let filtroActivo = "all";
 
-    // normaliza texto: quita tildes, caracteres no alfanuméricos, convierte a minúsculas
-    function norm(s) {
-      if (s == null) return "";
-      return String(s)
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')   // quitar tildes
-        .replace(/[^a-z0-9\s]/gi, ' ')                     // dejar letras/números/espacio
-        .toLowerCase()
-        .replace(/\s+/g, ' ').trim();
+    function escapeHtml(str=""){ return str.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }
+    function parsePrice(val){ return parseFloat((val||"").toString().replace(",",".").replace(/[^0-9.]/g,"")); }
+    function formatMoney(n){ return isNaN(n)?"-":n.toFixed(2); }
+
+    function detectarMarca(modelo=""){
+      const m = modelo.toLowerCase();
+      if(m.includes("iphone")||m.includes("apple")) return "apple";
+      if(m.includes("samsung")||m.startsWith("a")||m.startsWith("j")||m.startsWith("s")) return "samsung";
+      return "otros";
     }
 
-    // parsea precios con cierto robustez
-    function parsePrice(v) {
-      if (v == null) return NaN;
-      let s = String(v).trim();
-      // si tiene ambos '.' y ',', asumimos que '.' son miles y ',' decimal
-      if (s.indexOf('.') > -1 && s.indexOf(',') > -1) {
-        s = s.replace(/\./g,'').replace(',', '.');
-      } else {
-        // si solo coma -> coma como decimal
-        if (s.indexOf(',') > -1 && s.indexOf('.') === -1) {
-          s = s.replace(',', '.');
-        }
-        // si solo puntos -> ok
-      }
-      // eliminar cualquier caracter extraño
-      s = s.replace(/[^0-9.-]/g, '');
-      const n = parseFloat(s);
-      return isNaN(n) ? NaN : n;
-    }
-
-    function formatMoney(n) {
-      if (isNaN(n)) return '-';
-      return Number(n).toFixed(2);
-    }
-
-    async function cargarRepuestos() {
-      try {
-        const res = await fetch('repuestos.json', {cache: "no-store"});
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        data = await res.json();
-
-        // normalizar estructura mínima: aseguramos que cada item tenga marca, modelo, repuestos[]
-        data = data.map(item => {
-          return {
-            marca: item.marca || detectMarcaFromModelo(item.modelo || ''),
-            modelo: (item.modelo || '').toString(),
-            repuestos: Array.isArray(item.repuestos) ? item.repuestos.map(r => ({
-              nombre: r.nombre || (r.repuesto || r.REPUESTO || ''),
-              precio: r.precio ?? r.PRECIO ?? r.price ?? r.PRICE ?? ''
-            })) : []
-          };
+    fetch(DATA_FILE)
+      .then(r=>r.json())
+      .then(data=>{
+        productos = data || [];
+        fuse = new Fuse(productos, {
+          keys:["modelo","repuestos.nombre"],
+          threshold:0.3,
+          ignoreLocation:true,
+          minMatchCharLength:2,
         });
-
-        generarFiltros(data);
-        filtrar(); // muestra todo
-        document.getElementById('search').addEventListener('input', () => {
-          clearTimeout(debounceTimer);
-          debounceTimer = setTimeout(filtrar, 200);
-        });
-      } catch (err) {
-        document.getElementById('content').innerHTML = "<div class='empty' style='color:red;'>⚠️ Error cargando datos: " + err.message + "</div>";
-        console.error(err);
-      }
-    }
-
-    // detecta marca básica desde el nombre del modelo (simple heurística)
-    function detectMarcaFromModelo(modelo) {
-      const s = norm(modelo);
-      if (!s) return 'Otros';
-      if (s.includes('iphone') || s.includes('ipho') || s.includes('apple')) return 'Apple';
-      if (s.includes('samsung') || s.includes('galaxy') || s.includes('a0') || s.includes('j') || s.includes('note')) return 'Samsung';
-      if (s.includes('xiaomi') || s.includes('redmi') || s.includes('poco') ) return 'Xiaomi';
-      if (s.includes('huawei') ) return 'Huawei';
-      // agrega más reglas si hace falta
-      return 'Otros';
-    }
-
-    function generarFiltros(lista) {
-      const filtrosEl = document.getElementById('filters');
-      const marcas = Array.from(new Set(lista.map(m => (m.marca || 'Otros')))).sort((a,b) => {
-        // priorizar Apple y Samsung arriba
-        const rank = x => x === 'Apple' ? -2 : x === 'Samsung' ? -1 : 0;
-        const ra = rank(a), rb = rank(b);
-        if (ra !== rb) return ra - rb;
-        return a.localeCompare(b);
+        document.getElementById("spinner").style.display="none";
+        mostrarProductos(productos);
+      })
+      .catch(err=>{
+        console.error("Error cargando datos:",err);
+        document.getElementById("grid").innerHTML="<p style='text-align:center;color:#b91c1c;'>Error cargando datos.</p>";
       });
-      filtrosEl.innerHTML = '';
-      // botón Todos
-      const btnAll = document.createElement('button');
-      btnAll.className = 'filter-btn' + (marcaActiva === 'all' ? ' active' : '');
-      btnAll.textContent = 'Todos';
-      btnAll.onclick = () => { marcaActiva = 'all'; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btnAll.classList.add('active'); filtrar(); };
-      filtrosEl.appendChild(btnAll);
 
-      marcas.forEach(marca => {
-        const b = document.createElement('button');
-        b.className = 'filter-btn' + (marcaActiva === marca ? ' active' : '');
-        b.textContent = marca;
-        b.onclick = () => {
-          marcaActiva = marca;
-          document.querySelectorAll('.filter-btn').forEach(b2 => b2.classList.remove('active'));
-          b.classList.add('active');
-          filtrar();
-        };
-        filtrosEl.appendChild(b);
+    function mostrarProductos(lista){
+      const grid=document.getElementById("grid");
+      grid.innerHTML="";
+      if(!lista||lista.length===0){
+        grid.innerHTML="<p style='text-align:center;color:#666;'>No se encontraron resultados</p>";
+        return;
+      }
+
+      const tasa = parseFloat(localStorage.getItem("tasaBS")) || 0;
+
+      lista.forEach(item=>{
+        const card=document.createElement("div");
+        card.className="card";
+        card.innerHTML=`<div class="card-header">${escapeHtml(item.modelo||"")}</div>`;
+        const table=document.createElement("table");
+        table.innerHTML=`<thead>
+            <tr><th>Repuesto</th><th>Precio 1</th><th>Precio 2</th></tr>
+          </thead><tbody></tbody>`;
+        const tbody=table.querySelector("tbody");
+
+        (item.repuestos||[]).forEach(r=>{
+          const precio=parsePrice(r.precio);
+          const precio2=precio*FACTOR_PRECIO2;
+          const precio2bs = (!isNaN(precio2)&&tasa>0) ? ` (Bs ${formatMoney(precio2*tasa)})` : "";
+          const tr=document.createElement("tr");
+          tr.innerHTML=`<td>${escapeHtml(r.nombre||"")}</td>
+                        <td>$${formatMoney(precio)}</td>
+                        <td>$${formatMoney(precio2)}${precio2bs}</td>`;
+          tbody.appendChild(tr);
+        });
+
+        card.appendChild(table);
+        grid.appendChild(card);
       });
     }
 
-    function filtrar() {
-      const q = norm(document.getElementById('search').value || '');
-      const tokens = q ? q.split(' ').filter(Boolean) : [];
+    function filtrar(cat="all",ev){
+      filtroActivo=cat;
+      document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+      if(ev&&ev.target) ev.target.classList.add("active");
 
-      // 1) aplicar filtro por marca
-      let modelos = data;
-      if (marcaActiva !== 'all') {
-        modelos = modelos.filter(m => (m.marca || '').toString() === marcaActiva);
+      let lista=productos;
+      const texto=document.getElementById("search").value.trim();
+      if(texto!==""&&fuse){
+        const resultados=fuse.search(texto);
+        lista=resultados.map(r=>r.item);
       }
+      if(cat!=="all"){
+        lista=lista.filter(p=>detectarMarca(p.modelo)===cat);
+      }
+      mostrarProductos(lista);
+    }
 
-      // 2) si hay tokens, filtrar repuestos por token (cada token debe estar en la combinación marca+modelo+repuesto)
-      const resultados = [];
-      modelos.forEach(m => {
-        // para cada repuesto, verificamos si cumple
-        const matchedRepuestos = m.repuestos.filter(r => {
-          if (!r || !r.nombre) return false;
-          const searchStr = norm((m.marca || '') + ' ' + (m.modelo || '') + ' ' + (r.nombre || ''));
-          // todos los tokens deben estar en searchStr
-          return tokens.every(t => searchStr.indexOf(t) !== -1);
-        });
+    let debounce;
+    document.getElementById("search").addEventListener("input",()=>{
+      clearTimeout(debounce);
+      debounce=setTimeout(()=>filtrar(filtroActivo),200);
+    });
 
-        // Si no hay tokens: mostramos todos los repuestos
-        const repuestosToShow = tokens.length ? matchedRepuestos : m.repuestos.slice();
-
-        if (repuestosToShow && repuestosToShow.length > 0) {
-          resultados.push({
-            marca: m.marca,
-            modelo: m.modelo,
-            repuestos: repuestosToShow
-          });
+    const tasaInput=document.getElementById("tasaInput");
+    if(tasaInput){
+      const guardada=localStorage.getItem("tasaBS");
+      if(guardada) tasaInput.value=guardada;
+      tasaInput.addEventListener("input",()=>{
+        const val=parseFloat(tasaInput.value);
+        if(!isNaN(val)&&val>0){
+          localStorage.setItem("tasaBS",val);
+          filtrar(filtroActivo);
         }
       });
-
-      // actualizar conteo
-      document.getElementById('totalCount').textContent = resultados.length;
-
-      // mostrar
-      if (resultados.length === 0) {
-        document.getElementById('content').innerHTML = "<div class='empty'>No se encontraron resultados</div>";
-      } else {
-        mostrarModelos(resultados);
-      }
     }
-
-    function mostrarModelos(lista) {
-      const cont = document.getElementById('content');
-      cont.innerHTML = '';
-      lista.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'modelo';
-        // Construir filas
-        const rows = item.repuestos.map(r => {
-          const precio = parsePrice(r.precio);
-          const precio2 = isNaN(precio) ? NaN : precio * FACTOR_PRECIO2;
-          return `<tr>
-            <td>${escapeHtml(r.nombre || '')}</td>
-            <td>$${formatMoney(precio)}</td>
-            <td>$${formatMoney(precio2)}</td>
-          </tr>`;
-        }).join('');
-        div.innerHTML = `
-          <h2>${escapeHtml(item.marca || 'Otros')} — ${escapeHtml(item.modelo || '')}</h2>
-          <table aria-live="polite">
-            <thead>
-              <tr><th>Repuesto</th><th>Precio</th><th>Precio 2 (x${FACTOR_PRECIO2})</th></tr>
-            </thead>
-            <tbody>
-              ${rows}
-            </tbody>
-          </table>
-        `;
-        cont.appendChild(div);
-      });
-    }
-
-    // small helper to avoid XSS on inserted text
-    function escapeHtml(text) {
-      if (text == null) return '';
-      return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-    // Iniciar
-    cargarRepuestos();
   </script>
 </body>
 </html>
