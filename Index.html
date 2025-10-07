@@ -168,7 +168,73 @@
       }
     })();
   </script>
+  <!-- 🟧 Botón Instalar App (solo aparece en index) -->
+<button id="installBtn" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  cursor: pointer;
+  display: none;
+  z-index: 2000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+">
+📲 Instalar App
+</button>
+
+<script>
+// --- Registro del Service Worker (necesario para la PWA) ---
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then(() => console.log('✅ Service Worker registrado'))
+    .catch(err => console.log('❌ Error registrando Service Worker:', err));
+}
+
+// --- Lógica del botón de instalación PWA ---
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    console.log('✅ App instalada');
+    installBtn.style.display = 'none';
+  } else {
+    console.log('❌ Instalación cancelada');
+  }
+  deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+  console.log('✅ PWA completamente instalada');
+  installBtn.style.display = 'none';
+});
+
+installBtn.addEventListener('mouseenter', () => {
+  installBtn.style.transform = 'translateY(-4px)';
+});
+installBtn.addEventListener('mouseleave', () => {
+  installBtn.style.transform = 'translateY(0)';
+});
+</script>
+
 </body>
 </html>
+
 
 
