@@ -3500,11 +3500,12 @@
   },
   {
     "codigo": "A03000",
-    "descripcion": "CABLE WAKE USB A LIGHTNING",
+    "descripcion": "CABLE WAKE USB C A LIGHTNING",
     "unidad": "UNIDAD",
     "precio": 15.00
-  },
+  }
 ]
+
 
 
 
