@@ -5,6 +5,7 @@
     "unidad": "UNIDAD",
     "precio": 2.0
   },
+  
   {
     "codigo": "A00068",
     "descripcion": "CABLE WAKE MICRO 6.5 2M",
@@ -3497,4 +3498,12 @@
     "unidad": "UNIDAD",
     "precio": 20.0
   }
+  [
+  {
+    "codigo": "A03000",
+    "descripcion": "CABLE WAKE USB A LIGHTNING",
+    "unidad": "UNIDAD",
+    "precio": 15.00
+  },
 ]
+
