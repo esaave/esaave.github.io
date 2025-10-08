@@ -9,45 +9,125 @@
   <link rel="icon" href="logopeq.png" type="image/png">
 
   <!-- Tipografía -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --color-principal: #f97316;
+      --header-height: 72px;
+    }
     * { box-sizing: border-box; }
+    html,body { height:100%; }
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       color:#223;
       min-height:100vh;
       display:flex;
       flex-direction:column;
+      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
     }
 
+    /* ---------------- Header (igual a index, desktop) ---------------- */
     header {
-      background: linear-gradient(90deg,#f97316,#ea580c);
-      color:#fff;
-      padding:10px 18px;
-      display:flex;
-      align-items:center;
-      gap:16px;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      z-index: 1100;
     }
-    .logo {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      user-select:none;
-    }
-    .logo img { height:40px; display:block; }
-    .logo span { font-weight:600; font-size:18px; }
+    .brand { display:flex; align-items:center; gap:10px; }
+    .brand img { height:40px; width:auto; cursor:pointer; display:block; }
+    .brand h1 { font-size:20px; margin:0; font-weight:700; color:#fff; white-space:nowrap; }
 
-    .menu-toggle {
-      font-size:24px;
-      cursor:pointer;
-      margin-right:10px;
+    /* Desktop nav */
+    nav.desktop {
+      margin-left: 20px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    nav.desktop a {
+      text-decoration:none;
+      color:#fff;
+      background: rgba(255,255,255,0.12);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:14px;
+      display:inline-block;
+    }
+    nav.desktop a:hover { background: rgba(255,255,255,0.28); }
+
+    /* Menu toggle (mobile) */
+    #menuToggle {
+      display: none;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Mobile dropdown */
+    #headerDropdown {
+      display: none;
+      position: fixed;
+      top: calc(var(--header-height) + 8px);
+      left: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.98);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      overflow: hidden;
+      z-index: 1090;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height .28s ease, opacity .22s ease;
+    }
+    #headerDropdown.open { display:block; max-height: 420px; opacity:1; }
+    #headerDropdown a {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 16px;
+      color:#222;
+      text-decoration:none;
+      font-weight:700;
+      border-bottom:1px solid rgba(0,0,0,0.04);
+      background: transparent;
+    }
+    #headerDropdown a:last-child { border-bottom:none; }
+    #headerDropdown a.active::after {
+      content: "➤";
+      color: var(--color-principal);
+      margin-left: 8px;
+      font-weight:900;
+    }
+
+    /* ---------------- Search area + rest (original) ---------------- */
+    .search-area {
+      margin-left:auto;
+      width: min(520px, 44%);
+    }
+    .search-area input {
+      width:100%;
+      padding:10px 16px;
+      border-radius:999px;
+      border: none;
+      font-size:15px;
+      outline:none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
 
     .rate-bar {
@@ -64,7 +144,7 @@
     }
     .rate-bar label {
       font-weight:600;
-      color:#ea580c;
+      color:var(--color-principal);
       margin-right:6px;
     }
     .rate-bar input {
@@ -89,7 +169,7 @@
     .rate-bar .tooltip {
       font-size:13px;
       color:#8a4f08;
-      border-bottom:1px dotted #ea580c;
+      border-bottom:1px dotted var(--color-principal);
       cursor:help;
       margin-left:7px;
       background: #fff8eb;
@@ -97,53 +177,7 @@
       padding: 2px 7px;
     }
 
-    .sidebar {
-      height:100%;
-      width:0;
-      position:fixed;
-      top:0;
-      left:0;
-      background:#fff;
-      overflow-x:hidden;
-      transition:0.3s;
-      box-shadow:0 4px 20px rgba(0,0,0,0.2);
-      z-index:2000;
-      padding-top:60px;
-    }
-    .sidebar a {
-      display:block;
-      padding:14px 20px;
-      text-decoration:none;
-      font-size:16px;
-      color:#222;
-      font-weight:600;
-      transition:0.2s;
-    }
-    .sidebar a:hover {
-      background:#ffe9e0;
-    }
-    .sidebar .closebtn {
-      position:absolute;
-      top:12px;
-      right:20px;
-      font-size:28px;
-      cursor:pointer;
-      color:#333;
-    }
-
-    .search-area {
-      margin-left:auto;
-      width: min(620px, 58%);
-    }
-    .search-area input {
-      width:100%;
-      padding:10px 16px;
-      border-radius:999px;
-      border: none;
-      font-size:15px;
-      outline:none;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    }
+    /* removed sidebar: not used (we use dropdown mobile) */
 
     .filters {
       display:flex;
@@ -261,44 +295,79 @@
 
     .modal .bs-row { font-size:15px; color:#ea580c; margin-bottom:8px;}
     .precio-bs { color:#ea580c; font-size:15px;}
-    @media(max-width:720px){
-      .search-area { width:100%; margin-left:0; order:2; }
-      header { flex-wrap:wrap; gap:10px; padding:12px; }
+
+    footer {
+      text-align:center;
+      padding:12px;
+      font-size:13px;
+      margin-top:auto;
+      background:#fff7ed;
+      color:#6b7280;
+    }
+
+    /* Responsive tweaks: desktop shows nav, mobile shows hamburger */
+    @media (max-width: 720px) {
+      nav.desktop { display: none; }
+      #menuToggle { display: inline-block; }
+      header { padding: 10px 14px; }
+      :root { --header-height: 64px; }
+      .search-area { width:100%; order:2; margin-left:0; }
       .filters { padding-top:10px; gap:8px; }
       .grid { padding:12px; gap:14px; }
       .card { padding:12px; }
     }
+    @media (min-width: 721px) {
+      #headerDropdown { display: none !important; }
+    }
+
+    /* active link visual */
+    #headerDropdown a.active, nav.desktop a.active {
+      background: rgba(249,115,22,0.14);
+      color: #111827;
+    }
   </style>
 </head>
 <body>
+  <!-- ------------------ HEADER (igual a index en desktop) ------------------ -->
   <header>
-    <span class="menu-toggle" onclick="openMenu()">☰</span>
-    <div class="logo">
-      <img src="logo.png" alt="logo">
-      <span>Orange Store</span>
+    <div class="brand" aria-label="Orange Store">
+      <img src="logo.png" alt="Orange Store" onclick="location.href='index.html'">
+      <h1>Orange Store</h1>
     </div>
 
-    <div class="search-area">
-      <input id="search" type="text" placeholder="Buscar accesorios..." aria-label="Buscar accesorios">
+    <nav class="desktop" aria-label="Navegación principal">
+      <a href="index.html">🏠 Inicio</a>
+      <a href="accesorios.html" class="active">🎧 Accesorios</a>
+      <a href="repuestos.html">🛠 Repuestos</a>
+      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="search-area" style="width:min(420px,40vw);">
+        <input id="search" type="text" placeholder="Buscar accesorios..." aria-label="Buscar accesorios">
+      </div>
+      <button id="menuToggle" aria-controls="headerDropdown" aria-expanded="false" aria-label="Abrir menú">☰</button>
     </div>
   </header>
 
+  <!-- mobile dropdown (hamburger) -->
+  <div id="headerDropdown" aria-hidden="true">
+    <a href="index.html">🏠 Inicio</a>
+    <a href="accesorios.html">🎧 Accesorios</a>
+    <a href="repuestos.html">🛠 Repuestos</a>
+    <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+  </div>
+
+  <!-- ------------------ RATE / CONTROLS ------------------ -->
   <div class="rate-bar">
     <label for="tasaInput">Tasa Bs/$:</label>
-    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00">
+    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00" aria-label="Tasa Bs/$">
     <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares">¿Para qué sirve?</span>
     <button onclick="borrarTasa()">Borrar tasa</button>
     <span id="ultimaTasa" style="margin-left:10px;color:#888;font-size:13px;"></span>
   </div>
 
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <span class="closebtn" onclick="closeMenu()">×</span>
-    <a href="index.html">🏠 Volver al menú principal</a>
-    <a href="repuestos.html">🛠 Repuestos</a>
-    <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-  </div>
-
+  <!-- ------------------ FILTROS ------------------ -->
   <div class="filters" role="toolbar" aria-label="Filtros">
     <button class="filter-btn active" data-cat="all" onclick="filtrar('all', event)">Todos</button>
     <button class="filter-btn" data-cat="cables" onclick="filtrar('cables', event)">Cables</button>
@@ -309,12 +378,13 @@
     <button class="filter-btn" data-cat="camara" onclick="filtrar('camara', event)">Protector de Cámara</button>
   </div>
 
+  <!-- ------------------ MAIN GRID ------------------ -->
   <main class="grid" id="grid" aria-live="polite">
     <!-- Spinner inicial -->
     <div class="spinner" id="spinner"><div></div></div>
   </main>
 
-  <!-- Modal -->
+  <!-- ------------------ MODAL ------------------ -->
   <div id="modal" class="modal" role="dialog" aria-hidden="true">
     <div class="content" role="document">
       <button class="close-modal" onclick="cerrarModal()">×</button>
@@ -328,10 +398,102 @@
     </div>
   </div>
 
-  <!-- Fuse.js -->
+  <footer>© 2012-2025 Orange Store. Todos los derechos reservados. By Javier Esaa.</footer>
+
+  <!-- Fuse.js (search) -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
+  <!-- ------------------ SCRIPTS (unificados) ------------------ -->
   <script>
+    /*********************
+     * Menu / active link
+     *********************/
+    const menuToggle = document.getElementById('menuToggle');
+    const headerDropdown = document.getElementById('headerDropdown');
+
+    function markActiveLinks() {
+      const desktopLinks = document.querySelectorAll('nav.desktop a');
+      const mobileLinks = document.querySelectorAll('#headerDropdown a');
+      const currentPath = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+      const mark = (nodeList) => {
+        nodeList.forEach(a => {
+          try {
+            const href = (a.getAttribute('href') || '').toLowerCase();
+            if (!href) return;
+            const normHref = (href === '' || href === '/') ? 'index.html' : href.split('/').pop();
+            if (normHref === currentPath) a.classList.add('active');
+            else a.classList.remove('active');
+          } catch(e) { /* ignore */ }
+        });
+      };
+      mark(desktopLinks);
+      mark(mobileLinks);
+    }
+
+    // menu toggle (mobile)
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        headerDropdown.classList.toggle('open');
+        const expanded = headerDropdown.classList.contains('open');
+        menuToggle.setAttribute('aria-expanded', String(expanded));
+        headerDropdown.setAttribute('aria-hidden', String(!expanded));
+      });
+    }
+
+    // close mobile dropdown on outside click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('header') && !e.target.closest('#headerDropdown')) {
+        headerDropdown.classList.remove('open');
+        headerDropdown.setAttribute('aria-hidden', 'true');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // close dropdown when link clicked (mobile)
+    document.addEventListener('click', (e) => {
+      if (e.target && e.target.matches && e.target.matches('#headerDropdown a')) {
+        headerDropdown.classList.remove('open');
+        headerDropdown.setAttribute('aria-hidden', 'true');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    /*********************
+     * Tasa / sesión / util
+     *********************/
+    function obtenerTasa() {
+      const val = parseFloat(localStorage.getItem("tasaBS"));
+      return (!isNaN(val) && val > 0) ? val : 0;
+    }
+    function mostrarUltimaTasa() {
+      const tasa = obtenerTasa();
+      const node = document.getElementById("ultimaTasa");
+      if (node) node.textContent = tasa ? `Última tasa: Bs ${tasa}` : "";
+    }
+    function borrarTasa() {
+      try { localStorage.removeItem("tasaBS"); } catch(e){}
+      const inp = document.getElementById("tasaInput");
+      if (inp) inp.value = "";
+      mostrarUltimaTasa();
+      try { filtrar(filtroActivo); } catch(e) {}
+    }
+    function logout(){
+      try { sessionStorage.removeItem('logueado'); } catch(e) {}
+      location.href = 'login.html';
+    }
+    (function checkLogin(){
+      try {
+        if (sessionStorage.getItem('logueado') !== 'true') {
+          location.href = 'login.html';
+        }
+      } catch(e){ /* ignore in dev */ }
+    })();
+
+    /*********************
+     * Productos / UI
+     *********************/
     const DATA_FILE = "precios.json";
     const FACTOR_PRECIO2 = 1.7;
     let productos = [];
@@ -343,45 +505,32 @@
     }
 
     function detectarCategoria(desc = "") {
-      const d = normalizar(desc);
-
+      const d = normalizar(desc || "");
       if (d.includes("cable")) return { key: "cables", label: "Cables" };
       if (d.includes("vidrio") || d.includes("templado") || d.includes("glass")) return { key: "vidrios", label: "Vidrio Templado" };
       if (d.includes("cargador") || d.includes("taco cargador") || d.includes("tacos cargador")) return { key: "cargadores", label: "Cargadores" };
       if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
       if (d.includes("protector de camara") || d.includes("camara")) return { key: "camara", label: "Protector de Cámara" };
       if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
-
       return { key: "otros", label: "Otros" };
     }
 
-    function obtenerTasa() {
-      const val = parseFloat(localStorage.getItem("tasaBS"));
-      return (!isNaN(val) && val > 0) ? val : 0;
-    }
-    function mostrarUltimaTasa() {
-      const tasa = obtenerTasa();
-      document.getElementById("ultimaTasa").textContent = tasa ? `Última tasa: Bs ${tasa}` : "";
-    }
-    function borrarTasa() {
-      localStorage.removeItem("tasaBS");
-      document.getElementById("tasaInput").value = "";
-      mostrarUltimaTasa();
-      filtrar(filtroActivo);
-    }
-
-    // Fetch productos
+    // fetch productos
     fetch(DATA_FILE)
       .then(r => r.json())
       .then(data => {
         productos = data || [];
-        fuse = new Fuse(productos, {
-          keys: ["descripcion", "codigo"],
-          threshold: 0.35,
-          ignoreLocation: true,
-          minMatchCharLength: 2,
-        });
-        document.getElementById("spinner").style.display = "none";
+        // init Fuse only if there are items
+        if (productos.length) {
+          fuse = new Fuse(productos, {
+            keys: ["descripcion", "codigo"],
+            threshold: 0.35,
+            ignoreLocation: true,
+            minMatchCharLength: 2,
+          });
+        }
+        const spinner = document.getElementById("spinner");
+        if (spinner) spinner.style.display = "none";
         mostrarProductos(productos);
       })
       .catch(err => {
@@ -391,6 +540,7 @@
 
     function mostrarProductos(lista) {
       const grid = document.getElementById("grid");
+      if (!grid) return;
       grid.innerHTML = "";
       if (!lista || lista.length === 0) {
         mostrarEmpty("No se encontraron resultados");
@@ -410,9 +560,11 @@
           <div class="unidad"></div>
           <div class="tag"></div>
         `;
-        card.querySelector(".descripcion").textContent = item.descripcion;
+        card.querySelector(".descripcion").textContent = item.descripcion || "";
         card.querySelector(".codigo").textContent = "Código: " + (item.codigo || "");
-        card.querySelector(".precio").textContent = "$" + Number(item.precio).toFixed(2);
+        let precioNum = Number(item.precio);
+        if (isNaN(precioNum)) precioNum = 0;
+        card.querySelector(".precio").textContent = "$" + precioNum.toFixed(2);
         card.querySelector(".unidad").textContent = item.unidad || "";
         card.querySelector(".tag").textContent = cat.label;
         card.addEventListener("click", () => verDetalle(item));
@@ -422,7 +574,9 @@
     }
 
     function mostrarEmpty(mensaje) {
-      document.getElementById("grid").innerHTML = `
+      const grid = document.getElementById("grid");
+      if (!grid) return;
+      grid.innerHTML = `
         <div class="empty" role="status">
           <div class="icon">❌</div>
           <div>${mensaje}</div>
@@ -435,37 +589,46 @@
       document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
       if (ev && ev.target) ev.target.classList.add("active");
 
-      let lista = productos;
-      const texto = document.getElementById("search").value.trim();
+      let lista = productos.slice();
+      const texto = (document.getElementById("search") ? document.getElementById("search").value.trim() : "").toLowerCase();
+
       if (texto !== "" && fuse) {
         const resultados = fuse.search(normalizar(texto));
         lista = resultados.map(r => r.item);
+      } else if (texto !== "" && !fuse) {
+        // fallback simple filter if fuse not available
+        lista = lista.filter(p => (p.descripcion || "").toLowerCase().includes(texto) || (p.codigo || "").toLowerCase().includes(texto));
       }
+
       if (categoria !== "all") {
         lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
       }
+
       mostrarProductos(lista);
     }
 
-    // Search debounce
+    // debounce search
     let debounce;
-    document.getElementById("search").addEventListener("input", () => {
-      clearTimeout(debounce);
-      debounce = setTimeout(() => filtrar(filtroActivo), 180);
-    });
+    const searchInput = document.getElementById("search");
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        clearTimeout(debounce);
+        debounce = setTimeout(() => filtrar(filtroActivo), 180);
+      });
+    }
 
+    // Modal
     function verDetalle(item) {
-      document.getElementById("m-name").textContent = item.descripcion;
+      document.getElementById("m-name").textContent = item.descripcion || "";
       document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
-      document.getElementById("m-price1").textContent = "Precio 1: $" + Number(item.precio).toFixed(2);
+      document.getElementById("m-price1").textContent = "Precio 1: $" + (Number(item.precio) ? Number(item.precio).toFixed(2) : "-");
 
-      // Precio 2
-      const precio2 = Number(item.precio) * FACTOR_PRECIO2;
-      document.getElementById("m-price2").textContent = "Precio 2: $" + precio2.toFixed(2);
+      const precioNum = Number(item.precio) || 0;
+      const precio2 = precioNum * FACTOR_PRECIO2;
+      document.getElementById("m-price2").textContent = "Precio 2: $" + (precio2 ? precio2.toFixed(2) : "-");
 
-      // Tasa y precio2 en Bs
       const tasa = obtenerTasa();
-      if (tasa > 0) {
+      if (tasa > 0 && precio2) {
         document.getElementById("m-tasa").textContent = `Tasa actual: Bs ${tasa}`;
         document.getElementById("m-price2bs").textContent = "Precio 2 en Bs: " + (precio2 * tasa).toFixed(2);
       } else {
@@ -483,34 +646,11 @@
       modal.style.display = "none";
       modal.setAttribute("aria-hidden","true");
     }
-
     document.getElementById("modal").addEventListener("click", function(e) {
-      if (e.target === this) {
-        cerrarModal();
-      }
+      if (e.target === this) cerrarModal();
     });
 
-    function openMenu() {
-      document.getElementById("sidebar").style.width = "250px";
-    }
-    function closeMenu() {
-      document.getElementById("sidebar").style.width = "0";
-    }
-
-    function logout() {
-      sessionStorage.removeItem("logueado");
-      window.location.href = "login.html";
-    }
-
-    (function checkLogin(){
-      if (sessionStorage.getItem("logueado") !== "true") {
-        window.location.href = "login.html";
-      }
-    })();
-
-    // Mostrar tasa a la carga
-    mostrarUltimaTasa();
-    // Input tasa
+    // tasa input handling
     const tasaInput = document.getElementById("tasaInput");
     if (tasaInput) {
       const guardada = localStorage.getItem("tasaBS");
@@ -523,6 +663,12 @@
         }
       });
     }
+
+    // init on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      markActiveLinks();
+      mostrarUltimaTasa();
+    });
   </script>
 </body>
 </html>
