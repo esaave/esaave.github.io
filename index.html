@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Orange Store</title>
 
-  <!-- Favicon -->
+  <!-- Favicon / PWA -->
   <link rel="icon" href="logopeq.png" type="image/png">
-
-  <!-- PWA CONFIG -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#f97316">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,75 +18,89 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root { --color-principal: #f97316; --modal-width: 420px; }
+    :root {
+      --color-principal: #f97316;
+      --header-height: 72px;
+      --modal-width: 460px;
+    }
     * { box-sizing: border-box; }
+    html,body { height: 100%; }
 
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
       color: #1f2937;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
       overflow-x: hidden;
       background: #fff;
     }
 
-    /* Fondo animado */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url('fondo1.jpg') no-repeat center center/cover;
+    /* Background animated */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background: url('fondo1.jpg') no-repeat center/cover;
       filter: blur(8px) brightness(0.78);
-      z-index: -3;
+      z-index:-3;
       animation: changeBg 40s infinite linear;
     }
     @keyframes changeBg {
-      0%   { background-image: url('fondo1.jpg'); }
-      25%  { background-image: url('fondo2.jpg'); }
-      50%  { background-image: url('fondo3.jpg'); }
-      75%  { background-image: url('fondo4.jpg'); }
-      100% { background-image: url('fondo1.jpg'); }
+      0%   { background-image:url('fondo1.jpg'); }
+      25%  { background-image:url('fondo2.jpg'); }
+      50%  { background-image:url('fondo3.jpg'); }
+      75%  { background-image:url('fondo4.jpg'); }
+      100% { background-image:url('fondo1.jpg'); }
     }
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
       background: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.26));
-      z-index: -2;
+      z-index:-2;
+      pointer-events:none;
     }
 
     /* Header */
     header {
-      background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
-      color: white;
+      position: fixed;
+      top: 0; left: 0; right: 0;
       display: flex;
+      gap: 12px;
       align-items: center;
       justify-content: space-between;
       padding: 12px 18px;
+      background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
+      color: #fff;
       box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-      position: fixed;
-      top: 0; left: 0; right: 0;
       z-index: 1100;
     }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    header img { height: 40px; cursor: pointer; display:block; }
-    header h1 { font-size: 20px; margin: 0; font-weight:700; color:#fff; }
+    .brand { display:flex; align-items:center; gap:10px; }
+    .brand img { height:40px; width:auto; cursor:pointer; display:block; }
+    .brand h1 { font-size:20px; margin:0; font-weight:700; color:#fff; white-space:nowrap; }
 
-    nav a {
-      background: rgba(255,255,255,0.12);
-      padding: 8px 14px;
-      border-radius: 999px;
-      text-decoration: none;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background 0.2s;
-      margin-left: 5px;
+    /* Desktop nav */
+    nav.desktop {
+      margin-left: 20px;
+      display:flex;
+      gap:8px;
+      align-items:center;
     }
-    nav a:hover { background: rgba(255,255,255,0.28); }
+    nav.desktop a {
+      text-decoration:none;
+      color:#fff;
+      background: rgba(255,255,255,0.12);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:14px;
+      display:inline-block;
+    }
+    nav.desktop a:hover { background: rgba(255,255,255,0.28); }
 
+    /* Menu toggle (mobile) */
     #menuToggle {
       display: none;
       background: rgba(255,255,255,0.12);
@@ -100,166 +112,174 @@
       cursor: pointer;
     }
 
-    /* Dropdown */
+    /* Mobile dropdown */
     #headerDropdown {
       display: none;
-      flex-direction: column;
+      position: fixed;
+      top: calc(var(--header-height) + 8px);
+      left: 10px;
+      right: 10px;
       background: rgba(255,255,255,0.98);
-      position: relative;
-      top: 64px;
-      margin: 0 14px;
-      border-radius: 10px;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      transition: all 0.3s ease;
-      opacity: 0;
+      z-index: 1090;
       max-height: 0;
+      opacity: 0;
+      transition: max-height .28s ease, opacity .22s ease;
     }
-    #headerDropdown.open { display: flex; opacity: 1; max-height: 400px; }
+    #headerDropdown.open { display:block; max-height: 420px; opacity:1; }
     #headerDropdown a {
-      padding: 12px 16px;
-      color: #222;
-      text-decoration: none;
-      font-weight: 700;
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-      display: flex; justify-content: space-between; align-items: center;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 16px;
+      color:#222;
+      text-decoration:none;
+      font-weight:700;
+      border-bottom:1px solid rgba(0,0,0,0.04);
+      background: transparent;
     }
+    #headerDropdown a:last-child { border-bottom:none; }
     #headerDropdown a.active::after {
       content: "➤";
       color: var(--color-principal);
-      font-weight: bold;
+      margin-left: 8px;
+      font-weight:900;
     }
 
-    main { padding-top: 90px; }
+    /* Page content */
+    main.page-content {
+      padding-top: calc(var(--header-height) + 18px);
+      flex:1;
+    }
 
-    .welcome { text-align: center; margin: 20px auto; max-width: 860px; padding: 0 18px; color: #fff; }
-    .welcome h2 { font-size: 30px; margin-bottom: 12px; font-weight: 700; text-shadow: 0 3px 10px rgba(0,0,0,0.45); }
-    .welcome p { font-size: 15px; line-height: 1.6; color: #f3f4f6; }
+    .welcome {
+      text-align:center;
+      margin: 16px auto;
+      max-width: 860px;
+      padding: 0 18px;
+      color: #fff;
+    }
+    .welcome h2 { font-size:30px; margin-bottom:12px; font-weight:700; text-shadow: 0 3px 10px rgba(0,0,0,0.45); }
+    .welcome p { font-size:15px; line-height:1.6; color:#f3f4f6; margin:0; }
 
     .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap:20px;
       max-width: 1000px;
-      margin: 20px auto 48px;
+      margin: 18px auto 48px;
       padding: 0 20px;
     }
     .card {
       background: rgba(255,255,255,0.92);
       border-radius: 18px;
-      padding: 22px 18px;
-      text-align: center;
+      padding: 22px;
+      text-align:center;
       box-shadow: 0 10px 28px rgba(0,0,0,0.14);
-      transition: transform 0.28s, box-shadow 0.28s;
-      cursor: pointer;
+      transition: transform .28s, box-shadow .28s;
+      cursor:pointer;
     }
     .card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 14px 40px rgba(0,0,0,0.22); }
-    .card h3 { color: var(--color-principal); margin: 12px 0 8px; font-size: 18px; font-weight:700; }
-    .card p { color: #374151; font-size: 14px; }
-    .icon { font-size: 42px; color: var(--color-principal); }
+    .card h3 { color: var(--color-principal); margin:12px 0 8px; font-size:18px; font-weight:700; }
+    .card p { color:#374151; margin:0; font-size:14px; }
+    .icon { font-size:42px; color:var(--color-principal); }
 
     footer {
-      margin-top: auto;
-      text-align: center;
-      padding: 14px;
-      font-size: 13px;
-      color: #f3f4f6;
+      padding: 12px 10px;
+      text-align:center;
+      font-size:13px;
+      color:#f3f4f6;
       background: rgba(0,0,0,0.18);
       backdrop-filter: blur(6px);
     }
 
-    /* Install button (floating) */
+    /* Install button floating */
     #installButtonFixed {
-      position: fixed; bottom: 20px; right: 20px;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
       background: var(--color-principal);
       color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 60px; height: 60px;
-      font-size: 26px; cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      display: none; z-index: 1500;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-    }
-    #installButtonFixed:hover { transform: scale(1.08); }
-
-    @media (max-width: 720px) {
-      #menuToggle { display: inline-block; }
-      nav { display: none; }
-      header h1 { font-size: 18px; }
+      font-size: 26px;
+      cursor:pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+      display:none;
+      z-index:1500;
     }
 
-    /* ===== MODAL COMUNICADO (hidden by default) ===== */
+    /* Modal comunicado */
     .com-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.64);
       display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2200;
-      backdrop-filter: blur(3px);
+      align-items:center;
+      justify-content:center;
+      background: rgba(0,0,0,0.68);
+      z-index: 3000;
+      backdrop-filter: blur(4px);
     }
     .com-modal {
+      width: min(var(--modal-width), calc(100% - 40px));
       background: #fff;
-      border-radius: 16px;
-      max-width: var(--modal-width);
-      width: calc(100% - 40px);
+      border-radius: 18px;
       padding: 22px;
-      text-align: center;
-      box-shadow: 0 12px 48px rgba(0,0,0,0.28);
-      transform: translateY(6px);
-      animation: comPop 360ms cubic-bezier(.16,.9,.35,1);
+      text-align:left;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      animation: popIn .36s cubic-bezier(.16,.9,.35,1);
     }
-    .com-title {
-      font-size: 20px;
-      margin: 0 0 10px 0;
-      color: var(--color-principal);
-      font-weight: 700;
+    @keyframes popIn { from { opacity:0; transform: translateY(12px) scale(.98); } to { opacity:1; transform: translateY(0) scale(1); } }
+    .com-title { font-size:20px; margin:0 0 12px 0; color:var(--color-principal); font-weight:700; text-align:center; }
+    .com-body { color:#334155; font-size:15px; line-height:1.55; margin-bottom:18px; text-align:left; white-space:pre-wrap; }
+    .com-actions { display:flex; gap:10px; justify-content:center; }
+    .com-btn { padding:10px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
+    .com-btn.primary { background:var(--color-principal); color:#fff; }
+    .com-btn.ghost { background:#f3f4f6; color:#111827; border: none; }
+
+    /* Responsive tweaks */
+    @media (max-width: 720px) {
+      nav.desktop { display: none; }
+      #menuToggle { display: inline-block; }
+      header { padding: 10px 14px; }
+      :root { --header-height: 64px; }
+      .com-modal { padding:18px; }
     }
-    .com-body {
-      color: #334155;
-      font-size: 15px;
-      line-height: 1.45;
-      margin-bottom: 18px;
-      text-align: left;
-      max-height: 45vh;
-      overflow: auto;
+    @media (min-width: 721px) {
+      #headerDropdown { display: none !important; }
     }
-    .com-actions { display:flex; gap:12px; justify-content:center; }
-    .com-btn {
-      padding: 10px 18px;
-      border-radius: 10px;
-      border: none;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .com-btn.primary {
-      background: var(--color-principal);
-      color: #fff;
-    }
-    .com-btn.ghost {
-      background: transparent;
-      border: 2px solid rgba(17,24,39,0.06);
+
+    /* active link visual */
+    #headerDropdown a.active, nav.desktop a.active {
+      background: rgba(249,115,22,0.14);
       color: #111827;
     }
-    @keyframes comPop { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <img src="logo.png" alt="Orange Store" onclick="window.location.href='index.html'">
+    <div class="brand" aria-label="Orange Store">
+      <img src="logo.png" alt="Orange Store" onclick="location.href='index.html'">
       <h1>Orange Store</h1>
     </div>
 
-    <button id="menuToggle" aria-label="Abrir menú">☰</button>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <nav class="desktop" aria-label="Navegación principal">
+        <a href="index.html">🏠 Inicio</a>
+        <a href="accesorios.html">🎧 Accesorios</a>
+        <a href="repuestos.html">🛠 Repuestos</a>
+        <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+      </nav>
 
-    <nav>
-      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-    </nav>
+      <button id="menuToggle" aria-controls="headerDropdown" aria-expanded="false" aria-label="Abrir menú">☰</button>
+    </div>
   </header>
 
+  <!-- mobile dropdown -->
   <div id="headerDropdown" aria-hidden="true">
     <a href="index.html">🏠 Inicio</a>
     <a href="accesorios.html">🎧 Accesorios</a>
@@ -267,20 +287,20 @@
     <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
   </div>
 
-  <main>
+  <main class="page-content" role="main">
     <section class="welcome" role="region" aria-label="Bienvenida">
       <h2>Bienvenidos a Orange Store</h2>
-      <p>Explora de manera rápida y sencilla los precios de nuestros productos. Encuentra accesorios y repuestos organizados en una interfaz moderna y atractiva.</p>
+      <p>Explora precios de accesorios y repuestos en una interfaz moderna y rápida.</p>
     </section>
 
     <section class="cards" role="navigation" aria-label="Accesos principales">
-      <div class="card" onclick="window.location.href='accesorios.html'">
+      <div class="card" onclick="location.href='accesorios.html'">
         <div class="icon" aria-hidden="true">🎧</div>
         <h3>Accesorios</h3>
         <p>Explora nuestro catálogo de accesorios para smartphones.</p>
       </div>
 
-      <div class="card" onclick="window.location.href='repuestos.html'">
+      <div class="card" onclick="location.href='repuestos.html'">
         <div class="icon" aria-hidden="true">🔧</div>
         <h3>Repuestos</h3>
         <p>Encuentra pantallas, flex, pines de carga y más repuestos.</p>
@@ -290,13 +310,15 @@
 
   <footer>© 2012 - 2025 Orange Store. Todos los derechos reservados. By Javier Esaa.</footer>
 
-  <!-- Floating install button -->
-  <button id="installButtonFixed" title="Instalar App" aria-hidden="true">📲</button>
+  <!-- install button (floating) -->
+  <button id="installButtonFixed" title="Instalar app" aria-hidden="true">📲</button>
 
-  <!-- Modal comunicado (DOM ready, hidden) -->
+  <!-- Comunicado modal -->
   <div id="comunicadoOverlay" class="com-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="com-modal" role="document" aria-labelledby="comTitle">
-      <h3 id="comTitle" class="com-title"></h3>
+    <div class="com-modal" role="document" aria-labelledby="comTitle" aria-describedby="comBody">
+      <div style="text-align:center;">
+        <h3 id="comTitle" class="com-title"></h3>
+      </div>
       <div id="comBody" class="com-body"></div>
       <div class="com-actions">
         <button id="comClose" class="com-btn primary">Entendido 💪</button>
@@ -306,183 +328,240 @@
   </div>
 
   <script>
-    // ---------------- Menu toggle & highlight ----------------
+    /* ----------------- Utility & initial setup ----------------- */
     const menuToggle = document.getElementById('menuToggle');
-    const dropdown = document.getElementById('headerDropdown');
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const headerDropdown = document.getElementById('headerDropdown');
+    const desktopLinks = document.querySelectorAll('nav.desktop a');
+    const mobileLinks = document.querySelectorAll('#headerDropdown a');
 
-    // mark active link (safe)
-    Array.from(dropdown.querySelectorAll('a')).forEach(a => {
-      try {
-        if (a.getAttribute('href') === currentPath) a.classList.add('active');
-      } catch(e) {}
+    // Active link detection (works when serving index.html at '/' or '/index.html')
+    const currentPath = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    const markActive = (nodeList) => {
+      nodeList.forEach(a => {
+        try {
+          const href = (a.getAttribute('href') || '').toLowerCase();
+          if (!href) return;
+          // normalize: treat '/' or '' as index.html
+          const normHref = (href === '' || href === '/') ? 'index.html' : href.split('/').pop();
+          if (normHref === currentPath) a.classList.add('active');
+        } catch(e){ /* ignore */ }
+      });
+    };
+    markActive(desktopLinks);
+    markActive(mobileLinks);
+
+    // Menu toggle (mobile)
+    menuToggle.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      headerDropdown.classList.toggle('open');
+      const expanded = headerDropdown.classList.contains('open');
+      menuToggle.setAttribute('aria-expanded', String(expanded));
+      headerDropdown.setAttribute('aria-hidden', String(!expanded));
     });
-
-    menuToggle.addEventListener('click', () => {
-      dropdown.classList.toggle('open');
-      dropdown.setAttribute('aria-hidden', dropdown.classList.contains('open') ? 'false' : 'true');
-    });
-
+    // close mobile dropdown on outside click
     document.addEventListener('click', (e) => {
       if (!e.target.closest('header') && !e.target.closest('#headerDropdown')) {
-        dropdown.classList.remove('open');
-        dropdown.setAttribute('aria-hidden', 'true');
+        headerDropdown.classList.remove('open');
+        headerDropdown.setAttribute('aria-hidden', 'true');
+        menuToggle.setAttribute('aria-expanded', 'false');
       }
     });
 
-    // ---------------- Login (session) ----------------
+    // close dropdown when link clicked (mobile)
+    mobileLinks.forEach(a => a.addEventListener('click', () => {
+      headerDropdown.classList.remove('open');
+      headerDropdown.setAttribute('aria-hidden', 'true');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }));
+
+    /* ----------------- Session / logout ----------------- */
     (function checkLogin(){
-      if (sessionStorage.getItem("logueado") !== "true") {
-        window.location.href = "login.html";
+      try {
+        if (sessionStorage.getItem('logueado') !== 'true') {
+          // if user is not logged, redirect to login
+          location.href = 'login.html';
+        }
+      } catch(e) {
+        console.warn('checkLogin error', e);
       }
     })();
 
-    function logout() {
-      sessionStorage.removeItem("logueado");
-      window.location.href = "login.html";
+    function logout(){
+      try { sessionStorage.removeItem('logueado'); } catch(e){}
+      location.href = 'login.html';
     }
 
-    // ---------------- PWA install button ----------------
+    /* ----------------- PWA install button ----------------- */
     let deferredPrompt = null;
-    const installButtonFixed = document.getElementById('installButtonFixed');
+    const installBtn = document.getElementById('installButtonFixed');
 
     window.addEventListener('beforeinstallprompt', (e) => {
+      // prevent the automatic mini-infobar
       e.preventDefault();
       deferredPrompt = e;
-      installButtonFixed.style.display = 'block';
-      installButtonFixed.setAttribute('aria-hidden', 'false');
+      installBtn.style.display = 'block';
+      installBtn.setAttribute('aria-hidden', 'false');
     });
 
-    installButtonFixed.addEventListener('click', async () => {
+    installBtn.addEventListener('click', async () => {
       if (!deferredPrompt) return;
       deferredPrompt.prompt();
       const choice = await deferredPrompt.userChoice;
       if (choice.outcome === 'accepted') {
-        console.log('Usuario instaló la PWA');
-        installButtonFixed.style.display = 'none';
+        console.log('PWA: usuario aceptó instalar');
+        installBtn.style.display = 'none';
+      } else {
+        console.log('PWA: usuario canceló instalación');
       }
       deferredPrompt = null;
     });
 
     window.addEventListener('appinstalled', () => {
-      installButtonFixed.style.display = 'none';
+      installBtn.style.display = 'none';
     });
 
-    // ---------------- Service Worker ----------------
+    /* ----------------- Service Worker registration & update flow ----------------- */
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').then(reg => {
-          console.log('✅ SW registrado:', reg.scope);
-          // detect new SW
+          console.log('Service Worker registrado en:', reg.scope);
+
+          // When a new SW is found, offer to update
           reg.addEventListener('updatefound', () => {
             const newWorker = reg.installing;
+            if (!newWorker) return;
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // nueva versión disponible
-                if (confirm('Nueva versión disponible. ¿Actualizar ahora?')) {
+                // new content available
+                if (confirm('Hay una nueva versión disponible. ¿Deseas actualizar ahora?')) {
                   newWorker.postMessage({ type: 'SKIP_WAITING' });
                 }
               }
             });
           });
-        }).catch(err => console.error('❌ Error registrando SW:', err));
+        }).catch(err => console.error('Error registrando SW:', err));
       });
 
-      // listen for controlling worker changing to reload
+      // reload when new SW takes control
       navigator.serviceWorker.addEventListener && navigator.serviceWorker.addEventListener('controllerchange', () => {
         window.location.reload();
       });
     }
 
-    // ---------------- Comunicado desde comunicado.json ----------------
-    // comunicado.json expected fields:
-    // { "activo": true, "titulo": "...", "mensaje": "...", "fechaInicio": "YYYY-MM-DD", "fechaFin": "YYYY-MM-DD", "color": "#hex" }
-
-    async function cargarYMostrarComunicado() {
+    /* ----------------- Comunicado: load from comunicado.json and show -----------------
+       expected structure:
+       {
+         "activo": true,
+         "titulo": "Título",
+         "mensaje": "HTML ok, use <br> or <p>",
+         "fechaInicio": "YYYY-MM-DD",
+         "fechaFin": "YYYY-MM-DD",
+         "color": "#hex" (optional)
+       }
+    ---------------------------------------------------------------------------*/
+    async function fetchComunicadoWithFallback() {
+      const url = 'comunicado.json?_=' + Date.now();
+      // First attempt: network (no-store)
       try {
-        const res = await fetch('comunicado.json?_=' + Date.now(), { cache: 'no-store' });
-        if (!res.ok) return;
-        const data = await res.json();
-
-        if (!data || !data.activo) return;
-
-        // parse dates (support 'fecha' single date for backward compat)
-        const hoy = new Date(); hoy.setHours(0,0,0,0);
-        const inicioStr = data.fechaInicio || data.fecha || null;
-        const finStr = data.fechaFin || data.fecha || null;
-        if (!inicioStr || !finStr) return; // no hay fechas válidas
-
-        const inicio = new Date(inicioStr + 'T00:00:00');
-        const fin = new Date(finStr + 'T23:59:59');
-
-        // si hoy está fuera del rango, no mostrar
-        if (hoy < inicio || hoy > fin) return;
-
-        // key único para evitar mostrar más de una vez por dispositivo
-        const key = `comunicadoShown_${inicioStr}_${finStr}`;
-        if (localStorage.getItem(key)) return;
-
-        mostrarComunicado(data, key);
+        const r = await fetch(url, { cache: 'no-store', headers: { 'Cache-Control': 'no-cache' } });
+        if (r.ok) return await r.json();
       } catch (err) {
-        console.warn('No se pudo cargar comunicado.json:', err);
+        // network failed, we'll try caches
+        console.warn('Fetch comunicado falló, intentando cache...', err);
       }
+
+      // Fallback: try SW cache (if available)
+      try {
+        if ('caches' in window) {
+          const cached = await caches.match('comunicado.json');
+          if (cached) {
+            try {
+              return await cached.json();
+            } catch(e) { /* ignore parse error */ }
+          }
+        }
+      } catch(e) {
+        console.warn('Error comprobando caches:', e);
+      }
+      return null;
     }
 
-    function mostrarComunicado(data, storageKey) {
+    function isDateInRange(now, inicioStr, finStr) {
+      try {
+        const inicio = new Date(inicioStr + 'T00:00:00');
+        const fin = new Date(finStr + 'T23:59:59');
+        // normalize day
+        const n = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        return !isNaN(inicio) && !isNaN(fin) && (n >= inicio && n <= fin);
+      } catch (e) { return false; }
+    }
+
+    async function cargarYMostrarComunicado() {
+      const data = await fetchComunicadoWithFallback();
+      if (!data) return;
+      if (!data.activo) return;
+
+      // support older single "fecha" property for backward compatibility
+      const inicioStr = data.fechaInicio || data.fecha || null;
+      const finStr = data.fechaFin || data.fecha || null;
+      if (!inicioStr || !finStr) return;
+
+      const hoy = new Date();
+      if (!isDateInRange(hoy, inicioStr, finStr)) return;
+
+      const key = `comunicadoShown_${inicioStr}_${finStr}`;
+      if (localStorage.getItem(key)) return;
+
+      // fill modal
       const overlay = document.getElementById('comunicadoOverlay');
       const titleEl = document.getElementById('comTitle');
       const bodyEl = document.getElementById('comBody');
-      const btnClose = document.getElementById('comClose');
-      const btnLater = document.getElementById('comLater');
+      const closeBtn = document.getElementById('comClose');
+      const laterBtn = document.getElementById('comLater');
 
-      // set title (text) and body (HTML allowed)
       titleEl.textContent = data.titulo || 'Comunicado';
+      // allow HTML in mensaje (trusted by you)
       bodyEl.innerHTML = data.mensaje || '';
 
-      // set color (if provided)
       if (data.color) {
-        overlay.style.setProperty('--color-principal', data.color);
-        // also update title color directly (fallback)
-        titleEl.style.color = data.color;
-      } else {
-        titleEl.style.color = getComputedStyle(document.documentElement).getPropertyValue('--color-principal') || '#f97316';
+        document.documentElement.style.setProperty('--color-principal', data.color);
       }
 
-      // show overlay and set ARIA
       overlay.style.display = 'flex';
       overlay.setAttribute('aria-hidden', 'false');
 
-      // focus management: focus close button
-      btnClose.focus();
+      // focus for accessibility
+      closeBtn.focus();
 
-      // close action: mark showed (per device)
       const cerrar = () => {
         overlay.style.display = 'none';
         overlay.setAttribute('aria-hidden', 'true');
-        try { localStorage.setItem(storageKey, 'true'); } catch(e){ /* ignore */ }
+        try { localStorage.setItem(key, 'true'); } catch (e) { /* ignore */ }
       };
 
-      btnClose.onclick = cerrar;
-      btnLater.onclick = cerrar;
+      closeBtn.onclick = cerrar;
+      laterBtn.onclick = cerrar;
 
-      // allow Esc to close
-      const escListener = (e) => { if (e.key === 'Escape') cerrar(); };
-      document.addEventListener('keydown', escListener);
+      // allow ESC to close
+      const escHandler = (e) => { if (e.key === 'Escape') cerrar(); };
+      document.addEventListener('keydown', escHandler);
 
-      // remove handlers when closed
-      const observer = new MutationObserver(() => {
+      // cleanup when hidden
+      const obs = new MutationObserver(() => {
         if (overlay.style.display === 'none') {
-          document.removeEventListener('keydown', escListener);
-          observer.disconnect();
+          document.removeEventListener('keydown', escHandler);
+          obs.disconnect();
         }
       });
-      observer.observe(overlay, { attributes: true, attributeFilter: ['style'] });
+      obs.observe(overlay, { attributes: true, attributeFilter: ['style'] });
     }
 
-    // run after DOM ready
+    // Run on load
     document.addEventListener('DOMContentLoaded', () => {
-      cargarYMostrarComunicado();
+      // small delay to ensure service worker can intercept first fetch if needed
+      setTimeout(() => cargarYMostrarComunicado(), 120);
     });
+
   </script>
 </body>
 </html>
