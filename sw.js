@@ -17,6 +17,7 @@ const urlsToCache = [
   '/fondo4.jpg',
   '/repuestos.json',
   '/precios.json',
+  '/offline.html',
   '/manifest.json'
   // Añade aquí tus archivos JS o CSS si existen
 ];
