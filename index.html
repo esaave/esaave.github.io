@@ -20,11 +20,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --color-principal: #f97316;
-    }
-
+    :root { --color-principal: #f97316; }
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -62,7 +60,6 @@
       z-index: -2;
     }
 
-    /* ===== Header ===== */
     header {
       background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
       color: white;
@@ -72,18 +69,11 @@
       padding: 12px 18px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.18);
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 1100;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .brand { display: flex; align-items: center; gap: 10px; }
     header img { height: 40px; cursor: pointer; display:block; }
     header h1 { font-size: 20px; margin: 0; font-weight:700; color:#fff; }
 
@@ -98,7 +88,6 @@
       transition: background 0.2s;
       margin-left: 5px;
     }
-
     nav a:hover { background: rgba(255,255,255,0.28); }
 
     #menuToggle {
@@ -126,7 +115,6 @@
       opacity: 0;
       max-height: 0;
     }
-
     #headerDropdown.open {
       display: flex;
       opacity: 1;
@@ -143,32 +131,15 @@
       justify-content: space-between;
       align-items: center;
     }
-
     #headerDropdown a.active::after {
       content: "➤";
       color: var(--color-principal);
       font-weight: bold;
     }
 
-    main {
-      padding-top: 90px;
-    }
-
-    .welcome {
-      text-align: center;
-      margin: 20px auto;
-      max-width: 860px;
-      padding: 0 18px;
-      color: #fff;
-    }
-
-    .welcome h2 {
-      font-size: 30px;
-      margin-bottom: 12px;
-      font-weight: 700;
-      text-shadow: 0 3px 10px rgba(0,0,0,0.45);
-    }
-
+    main { padding-top: 90px; }
+    .welcome { text-align: center; margin: 20px auto; max-width: 860px; padding: 0 18px; color: #fff; }
+    .welcome h2 { font-size: 30px; margin-bottom: 12px; font-weight: 700; text-shadow: 0 3px 10px rgba(0,0,0,0.45); }
     .welcome p { font-size: 15px; line-height: 1.6; color: #f3f4f6; }
 
     .cards {
@@ -179,7 +150,6 @@
       margin: 20px auto 48px;
       padding: 0 20px;
     }
-
     .card {
       background: rgba(255,255,255,0.92);
       border-radius: 18px;
@@ -189,15 +159,9 @@
       transition: transform 0.28s, box-shadow 0.28s;
       cursor: pointer;
     }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
-    }
-
+    .card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 14px 40px rgba(0,0,0,0.22); }
     .card h3 { color: var(--color-principal); margin: 12px 0 8px; font-size: 18px; font-weight:700; }
     .card p { color: #374151; font-size: 14px; }
-
     .icon { font-size: 42px; color: var(--color-principal); }
 
     footer {
@@ -210,17 +174,14 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Botón flotante instalar app */
     #installButtonFixed {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 20px; right: 20px;
       background: var(--color-principal);
       color: #fff;
       border: none;
       border-radius: 50%;
-      width: 60px;
-      height: 60px;
+      width: 60px; height: 60px;
       font-size: 26px;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
@@ -228,14 +189,47 @@
       z-index: 1500;
       transition: transform 0.25s ease, opacity 0.25s ease;
     }
-    #installButtonFixed:hover {
-      transform: scale(1.08);
-    }
+    #installButtonFixed:hover { transform: scale(1.08); }
 
     @media (max-width: 720px) {
       #menuToggle { display: inline-block; }
       nav { display: none; }
       header h1 { font-size: 18px; }
+    }
+
+    /* ==== MODAL COMUNICADO ==== */
+    #comunicadoOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+    }
+    #comunicadoBox {
+      background: #fff;
+      border-radius: 20px;
+      max-width: 400px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      animation: fadeIn 0.3s ease;
+    }
+    #comunicadoBox h2 { margin-bottom: 12px; }
+    #comunicadoBox p { margin-bottom: 20px; color: #333; }
+    #cerrarComunicado {
+      background: #f97316;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
@@ -248,9 +242,7 @@
 
     <button id="menuToggle" aria-label="Abrir menú">☰</button>
 
-    <nav>
-      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-    </nav>
+    <nav><a href="#" onclick="logout()">🚪 Cerrar sesión</a></nav>
   </header>
 
   <div id="headerDropdown">
@@ -281,23 +273,28 @@
     </section>
   </main>
 
-  <footer>
-    © 2012 - 2025 Orange Store. Todos los derechos reservados. By Javier Esaa.
-  </footer>
+  <footer>© 2012 - 2025 Orange Store. Todos los derechos reservados. By Javier Esaa.</footer>
 
   <!-- Botón flotante para instalar la app -->
   <button id="installButtonFixed" title="Instalar App">📲</button>
 
+  <!-- Modal Comunicado -->
+  <div id="comunicadoOverlay">
+    <div id="comunicadoBox">
+      <h2 id="comunicadoTitulo"></h2>
+      <p id="comunicadoTexto"></p>
+      <button id="cerrarComunicado">Cerrar</button>
+    </div>
+  </div>
+
   <script>
-    // ---- MENÚ HAMBURGUESA ----
+    // ---- MENÚ ----
     const menuToggle = document.getElementById('menuToggle');
     const dropdown = document.getElementById('headerDropdown');
     const currentPath = window.location.pathname.split("/").pop();
-
     dropdown.querySelectorAll("a").forEach(a => {
       if (a.getAttribute("href") === currentPath) a.classList.add("active");
     });
-
     menuToggle.addEventListener('click', () => dropdown.classList.toggle('open'));
     document.addEventListener('click', e => {
       if (!e.target.closest('header') && !e.target.closest('#headerDropdown')) {
@@ -311,7 +308,6 @@
         window.location.href = "login.html";
       }
     })();
-
     function logout() {
       sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
@@ -320,13 +316,11 @@
     // ---- PWA INSTALL ----
     let deferredPrompt;
     const installButtonFixed = document.getElementById('installButtonFixed');
-
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       installButtonFixed.style.display = 'block';
     });
-
     installButtonFixed.addEventListener('click', async () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
@@ -335,34 +329,49 @@
         deferredPrompt = null;
       }
     });
-
-    window.addEventListener('appinstalled', () => {
-      installButtonFixed.style.display = 'none';
-    });
+    window.addEventListener('appinstalled', () => installButtonFixed.style.display = 'none');
 
     // ---- SERVICE WORKER ----
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(registration => {
-            console.log('✅ Service Worker registrado con éxito:', registration.scope);
-
-            // Detectar nuevas versiones
-            registration.addEventListener('updatefound', () => {
-              const newWorker = registration.installing;
-              newWorker.addEventListener('statechange', () => {
-                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                  if (confirm('Hay una nueva versión disponible. ¿Actualizar ahora?')) {
-                    newWorker.postMessage({ type: 'SKIP_WAITING' });
-                    window.location.reload();
-                  }
+        navigator.serviceWorker.register('/sw.js').then(registration => {
+          console.log('✅ SW registrado:', registration.scope);
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                if (confirm('Hay una nueva versión disponible. ¿Actualizar ahora?')) {
+                  newWorker.postMessage({ type: 'SKIP_WAITING' });
+                  window.location.reload();
                 }
-              });
+              }
             });
-          })
-          .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
+          });
+        }).catch(err => console.error('❌ Error SW:', err));
       });
     }
+
+    // ---- COMUNICADO ----
+    async function mostrarComunicado() {
+      try {
+        const res = await fetch('comunicado.json', { cache: 'no-store' });
+        const data = await res.json();
+        const hoy = new Date().toISOString().split('T')[0];
+        if (!data.activo || data.fecha !== hoy) return;
+        if (localStorage.getItem('comunicadoMostrado_' + data.fecha)) return;
+        document.getElementById('comunicadoTitulo').textContent = data.titulo;
+        document.getElementById('comunicadoTexto').textContent = data.mensaje;
+        document.getElementById('cerrarComunicado').style.background = data.color || '#f97316';
+        document.getElementById('comunicadoOverlay').style.display = 'flex';
+        localStorage.setItem('comunicadoMostrado_' + data.fecha, 'true');
+        document.getElementById('cerrarComunicado').addEventListener('click', () => {
+          document.getElementById('comunicadoOverlay').style.display = 'none';
+        });
+      } catch (err) {
+        console.warn('⚠ No se pudo cargar el comunicado:', err);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', mostrarComunicado);
   </script>
 </body>
 </html>
