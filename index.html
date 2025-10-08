@@ -294,16 +294,12 @@
     const dropdown = document.getElementById('headerDropdown');
     const currentPath = window.location.pathname.split("/").pop();
 
-    // Marca activa en el menú
     dropdown.querySelectorAll("a").forEach(a => {
       if (a.getAttribute("href") === currentPath) a.classList.add("active");
     });
 
-    menuToggle.addEventListener('click', () => {
-      dropdown.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (e) => {
+    menuToggle.addEventListener('click', () => dropdown.classList.toggle('open'));
+    document.addEventListener('click', e => {
       if (!e.target.closest('header') && !e.target.closest('#headerDropdown')) {
         dropdown.classList.remove('open');
       }
@@ -335,7 +331,7 @@
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') console.log('PWA instalada');
+        if (outcome === 'accepted') console.log('✅ PWA instalada');
         deferredPrompt = null;
       }
     });
@@ -347,9 +343,24 @@
     // ---- SERVICE WORKER ----
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('✅ Service Worker registrado en:', reg.scope))
-          .catch(err => console.error('❌ Error al registrar SW:', err));
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('✅ Service Worker registrado con éxito:', registration.scope);
+
+            // Detectar nuevas versiones
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  if (confirm('Hay una nueva versión disponible. ¿Actualizar ahora?')) {
+                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                    window.location.reload();
+                  }
+                }
+              });
+            });
+          })
+          .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
       });
     }
   </script>
