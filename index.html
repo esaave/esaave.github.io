@@ -253,10 +253,14 @@
     </div>
 
     <!-- menu toggle visible solo en móvil -->
-    <div style="display:flex; align-items:center; gap:8px;">
-      <button id="menuToggle" aria-expanded="false" aria-controls="headerDropdown" title="Abrir menú">☰</button>
-      <nav aria-label="Navegación principal">
-        <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+   <div style="display:flex; align-items:center; gap:8px;">
+      <button id="menuToggle" aria-expanded="false" aria-controls="headerDropdown" title="Abrir menú">☰</button>
+      
+      <nav aria-label="Navegación principal">
+        <a id="installButton" style="display:none; cursor:pointer;" title="Instalar App">📲 Instalar App</a>
+        <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+      </nav>
+    </div>
       </nav>
     </div>
   </header>
