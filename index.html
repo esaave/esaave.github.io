@@ -21,8 +21,7 @@
 
   <style>
     :root {
-      --header-height: 72px;
-      --dropdown-height: 0px;
+      --color-principal: #f97316;
     }
 
     * { box-sizing: border-box; }
@@ -37,7 +36,6 @@
       background: #fff;
     }
 
-    /* Fondo con animación */
     body::before {
       content: "";
       position: fixed;
@@ -45,9 +43,9 @@
       background: url('fondo1.jpg') no-repeat center center/cover;
       filter: blur(8px) brightness(0.78);
       z-index: -3;
-      transition: background-image 1s linear;
       animation: changeBg 40s infinite linear;
     }
+
     @keyframes changeBg {
       0%   { background-image: url('fondo1.jpg'); }
       25%  { background-image: url('fondo2.jpg'); }
@@ -62,7 +60,6 @@
       inset: 0;
       background: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.26));
       z-index: -2;
-      pointer-events: none;
     }
 
     /* ===== Header ===== */
@@ -72,10 +69,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
       padding: 12px 18px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-      border-bottom: 1px solid rgba(255,255,255,0.12);
       position: fixed;
       top: 0;
       left: 0;
@@ -101,8 +96,9 @@
       font-size: 14px;
       font-weight: 600;
       transition: background 0.2s;
-      display:inline-block;
+      margin-left: 5px;
     }
+
     nav a:hover { background: rgba(255,255,255,0.28); }
 
     #menuToggle {
@@ -126,7 +122,7 @@
       border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      transition: max-height 0.3s ease, opacity 0.3s ease;
+      transition: all 0.3s ease;
       opacity: 0;
       max-height: 0;
     }
@@ -143,9 +139,16 @@
       text-decoration: none;
       font-weight: 700;
       border-bottom: 1px solid rgba(0,0,0,0.04);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    #headerDropdown a:last-child { border-bottom: none; }
+    #headerDropdown a.active::after {
+      content: "➤";
+      color: var(--color-principal);
+      font-weight: bold;
+    }
 
     main {
       padding-top: 90px;
@@ -192,10 +195,10 @@
       box-shadow: 0 14px 40px rgba(0,0,0,0.22);
     }
 
-    .card h3 { color: #f97316; margin: 12px 0 8px; font-size: 18px; font-weight:700; }
+    .card h3 { color: var(--color-principal); margin: 12px 0 8px; font-size: 18px; font-weight:700; }
     .card p { color: #374151; font-size: 14px; }
 
-    .icon { font-size: 42px; color: #f97316; }
+    .icon { font-size: 42px; color: var(--color-principal); }
 
     footer {
       margin-top: auto;
@@ -205,6 +208,28 @@
       color: #f3f4f6;
       background: rgba(0,0,0,0.18);
       backdrop-filter: blur(6px);
+    }
+
+    /* Botón flotante instalar app */
+    #installButtonFixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--color-principal);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 26px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      display: none;
+      z-index: 1500;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    #installButtonFixed:hover {
+      transform: scale(1.08);
     }
 
     @media (max-width: 720px) {
@@ -224,13 +249,12 @@
     <button id="menuToggle" aria-label="Abrir menú">☰</button>
 
     <nav>
-      <a id="installButton" title="Instalar App">📲 Instalar App</a>
       <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
     </nav>
   </header>
 
   <div id="headerDropdown">
-    <a href="index.html">🏠 Inicio</a>
+    <a href="index.html" class="active">🏠 Inicio</a>
     <a href="accesorios.html">🎧 Accesorios</a>
     <a href="repuestos.html">🛠 Repuestos</a>
     <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
@@ -261,10 +285,19 @@
     © 2012 - 2025 Orange Store. Todos los derechos reservados. By Javier Esaa.
   </footer>
 
+  <!-- Botón flotante para instalar la app -->
+  <button id="installButtonFixed" title="Instalar App">📲</button>
+
   <script>
-    // ---------------- MENÚ HAMBURGUESA ----------------
+    // ---- MENÚ HAMBURGUESA ----
     const menuToggle = document.getElementById('menuToggle');
     const dropdown = document.getElementById('headerDropdown');
+    const currentPath = window.location.pathname.split("/").pop();
+
+    // Marca activa en el menú
+    dropdown.querySelectorAll("a").forEach(a => {
+      if (a.getAttribute("href") === currentPath) a.classList.add("active");
+    });
 
     menuToggle.addEventListener('click', () => {
       dropdown.classList.toggle('open');
@@ -276,7 +309,7 @@
       }
     });
 
-    // ---------------- LOGIN ----------------
+    // ---- LOGIN ----
     (function checkLogin(){
       if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
@@ -288,37 +321,35 @@
       window.location.href = "login.html";
     }
 
-    // ---------------- PWA INSTALL BUTTON ----------------
+    // ---- PWA INSTALL ----
     let deferredPrompt;
-    const installButton = document.getElementById('installButton');
+    const installButtonFixed = document.getElementById('installButtonFixed');
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      installButton.style.display = 'inline-block';
+      installButtonFixed.style.display = 'block';
     });
 
-    installButton.addEventListener('click', async () => {
+    installButtonFixed.addEventListener('click', async () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') console.log('App instalada');
+        if (outcome === 'accepted') console.log('PWA instalada');
         deferredPrompt = null;
       }
     });
 
     window.addEventListener('appinstalled', () => {
-      installButton.style.display = 'none';
+      installButtonFixed.style.display = 'none';
     });
 
-    // ---------------- SERVICE WORKER ----------------
+    // ---- SERVICE WORKER ----
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(registration => {
-            console.log('✅ Service Worker registrado en:', registration.scope);
-          })
-          .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
+          .then(reg => console.log('✅ Service Worker registrado en:', reg.scope))
+          .catch(err => console.error('❌ Error al registrar SW:', err));
       });
     }
   </script>
