@@ -1,506 +1,504 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Orange Store</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Orange Store</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="logopeq.png" type="image/png">
+    <link rel="icon" href="logopeq.png" type="image/png">
 
-  <!-- 🟧 CONFIGURACIÓN PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#f97316">
+    <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#f97316">
 
-  <!-- Fuente -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --header-height: 72px;
-      --dropdown-height: 0px;
-    }
+  <style>
+    :root {
+      --header-height: 72px;
+      --dropdown-height: 0px;
+    }
 
-    /* ===== Global ===== */
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      color: #1f2937;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-x: hidden;
-      background: #fff;
-    }
+    /* ===== Global ===== */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      color: #1f2937;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: #fff;
+    }
 
-    /* Background con cambio de imagen (difuminado) */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url('fondo1.jpg') no-repeat center center/cover;
-      filter: blur(8px) brightness(0.78);
-      z-index: -3;
-      transition: background-image 1s linear;
-      animation: changeBg 40s infinite linear;
-    }
-    @keyframes changeBg {
-      0%   { background-image: url('fondo1.jpg'); }
-      25%  { background-image: url('fondo2.jpg'); }
-      50%  { background-image: url('fondo3.jpg'); }
-      75%  { background-image: url('fondo4.jpg'); }
-      100% { background-image: url('fondo1.jpg'); }
-    }
+    /* Background con cambio de imagen (difuminado) */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url('fondo1.jpg') no-repeat center center/cover;
+      filter: blur(8px) brightness(0.78);
+      z-index: -3;
+      transition: background-image 1s linear;
+      animation: changeBg 40s infinite linear;
+    }
+    @keyframes changeBg {
+      0%   { background-image: url('fondo1.jpg'); }
+      25%  { background-image: url('fondo2.jpg'); }
+      50%  { background-image: url('fondo3.jpg'); }
+      75%  { background-image: url('fondo4.jpg'); }
+      100% { background-image: url('fondo1.jpg'); }
+    }
 
-    body::after{
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.26));
-      z-index: -2;
-      pointer-events: none;
-    }
+    body::after{
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.26));
+      z-index: -2;
+      pointer-events: none;
+    }
 
-    /* ===== Header ===== */
-    header {
-      background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 18px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-      flex-wrap: nowrap;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      position: relative;
-      z-index: 1100;
-    }
-    header .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    header img { height: 40px; cursor: pointer; display:block; }
-    header h1 { font-size: 20px; margin: 0; font-weight:700; white-space:nowrap; color:#fff; }
+    /* ===== Header ===== */
+    header {
+      background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      flex-wrap: nowrap;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      position: relative;
+      z-index: 1100;
+    }
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header img { height: 40px; cursor: pointer; display:block; }
+    header h1 { font-size: 20px; margin: 0; font-weight:700; white-space:nowrap; color:#fff; }
 
-    /* nav (desktop) */
-    header nav { margin-left: auto; }
-    header nav a {
-      background: rgba(255,255,255,0.12);
-      padding: 8px 14px;
-      border-radius: 999px;
-      text-decoration: none;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background 0.2s;
-      display:inline-block;
-    }
-    header nav a:hover { background: rgba(255,255,255,0.28); }
+    /* nav (desktop) */
+    header nav { margin-left: auto; }
+    header nav a {
+      background: rgba(255,255,255,0.12);
+      padding: 8px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background 0.2s;
+      display:inline-block;
+    }
+    header nav a:hover { background: rgba(255,255,255,0.28); }
 
-    /* Mobile menu toggle (hidden on desktop) */
-    #menuToggle {
-      display: none;
-      background: rgba(255,255,255,0.12);
-      color: #fff;
-      border: none;
-      padding: 8px 10px;
-      border-radius: 10px;
-      font-size: 18px;
-      cursor: pointer;
-    }
+    /* Mobile menu toggle (hidden on desktop) */
+    #menuToggle {
+      display: none;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+    }
 
-    /* Header dropdown (inserted after header in DOM) */
-    #headerDropdown {
-      display: none;            /* toggled by JS */
-      max-height: 0;           /* animamos max-height + opacity */
-      opacity: 0;
-      width: calc(100% - 28px);
-      margin: 0 14px;
-      background: rgba(255,255,255,0.98);
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-      overflow: hidden;
-      z-index: 1050;
-      transition: max-height 260ms ease, opacity 200ms ease;
-      will-change: max-height, opacity;
-    }
-    #headerDropdown a {
-      display: block;
-      padding: 12px 16px;
-      color: #222;
-      text-decoration: none;
-      font-weight: 700;
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-    }
-    #headerDropdown a:last-child { border-bottom: none; }
+    /* Header dropdown (inserted after header in DOM) */
+    #headerDropdown {
+      display: none;            /* toggled by JS */
+      max-height: 0;           /* animamos max-height + opacity */
+      opacity: 0;
+      width: calc(100% - 28px);
+      margin: 0 14px;
+      background: rgba(255,255,255,0.98);
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      overflow: hidden;
+      z-index: 1050;
+      transition: max-height 260ms ease, opacity 200ms ease;
+      will-change: max-height, opacity;
+    }
+    #headerDropdown a {
+      display: block;
+      padding: 12px 16px;
+      color: #222;
+      text-decoration: none;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    #headerDropdown a:last-child { border-bottom: none; }
 
-    /* ===== Main content wrapper - moved down by header height */
-    .page-content {
-      padding-top: calc(var(--header-height) + 12px);
-      transition: transform 0.22s ease;
-    }
-    /* when menu opens we push content down by dropdown height */
-    body.menu-open .page-content {
-      transform: translateY(var(--dropdown-height));
-    }
+    /* ===== Main content wrapper - moved down by header height */
+    .page-content {
+      padding-top: calc(var(--header-height) + 12px);
+      transition: transform 0.22s ease;
+    }
+    /* when menu opens we push content down by dropdown height */
+    body.menu-open .page-content {
+      transform: translateY(var(--dropdown-height));
+    }
 
-    /* ===== Bienvenida ===== */
-    .welcome {
-      text-align: center;
-      margin: 20px auto 18px;
-      max-width: 860px;
-      padding: 0 18px;
-      color: #fff;
-    }
-    .welcome h2 {
-      font-size: 30px;
-      margin-bottom: 12px;
-      font-weight: 700;
-      text-shadow: 0 3px 10px rgba(0,0,0,0.45);
-    }
-    .welcome p { font-size: 15px; line-height: 1.6; color: #f3f4f6; margin:0; }
+    /* ===== Bienvenida ===== */
+    .welcome {
+      text-align: center;
+      margin: 20px auto 18px;
+      max-width: 860px;
+      padding: 0 18px;
+      color: #fff;
+    }
+    .welcome h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.45);
+    }
+    .welcome p { font-size: 15px; line-height: 1.6; color: #f3f4f6; margin:0; }
 
-    /* ===== Cards ===== */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: 20px auto 48px;
-      padding: 0 20px;
-    }
-    .card {
-      background: rgba(255,255,255,0.92);
-      border-radius: 18px;
-      padding: 22px 18px;
-      text-align: center;
-      box-shadow: 0 10px 28px rgba(0,0,0,0.14);
-      backdrop-filter: blur(8px);
-      transition: transform 0.28s, box-shadow 0.28s;
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
-    }
-    .card h3 { color: #f97316; margin: 12px 0 8px; font-size: 18px; font-weight:700; }
-    .card p { color: #374151; font-size: 14px; margin:0; }
-    .icon { font-size: 42px; color: #f97316; }
+    /* ===== Cards ===== */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 20px auto 48px;
+      padding: 0 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.92);
+      border-radius: 18px;
+      padding: 22px 18px;
+      text-align: center;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+      backdrop-filter: blur(8px);
+      transition: transform 0.28s, box-shadow 0.28s;
+      cursor: pointer;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+    }
+    .card h3 { color: #f97316; margin: 12px 0 8px; font-size: 18px; font-weight:700; }
+    .card p { color: #374151; font-size: 14px; margin:0; }
+    .icon { font-size: 42px; color: #f97316; }
 
-    /* ===== Footer ===== */
-    footer {
-      margin-top: auto;
-      text-align: center;
-      padding: 12px 10px;
-      font-size: 13px;
-      color: #f3f4f6;
-      background: rgba(0,0,0,0.18);
-      backdrop-filter: blur(6px);
-      padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    }
+    /* ===== Footer ===== */
+    footer {
+      margin-top: auto;
+      text-align: center;
+      padding: 12px 10px;
+      font-size: 13px;
+      color: #f3f4f6;
+      background: rgba(0,0,0,0.18);
+      backdrop-filter: blur(6px);
+      padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    }
 
-    /* ===== Responsive tweaks (mobile specific) ===== */
-    @media (max-width: 720px) {
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        --h: 64px;
-        height: auto;
-        padding: 10px 14px;
-      }
+    /* ===== Responsive tweaks (mobile specific) ===== */
+    @media (max-width: 720px) {
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        --h: 64px;
+        height: auto;
+        padding: 10px 14px;
+      }
 
-      #menuToggle { display: inline-block; margin-left: 8px; }
-      header nav { display: none; }
+      #menuToggle { display: inline-block; margin-left: 8px; }
+      header nav { display: none; }
 
-      .brand { gap:8px; }
-      header h1 { font-size: 18px; }
+      .brand { gap:8px; }
+      header h1 { font-size: 18px; }
 
-      .welcome { margin: 14px auto 12px; padding: 0 14px; }
-      .welcome h2 { font-size: 22px; }
+      .welcome { margin: 14px auto 12px; padding: 0 14px; }
+      .welcome h2 { font-size: 22px; }
 
-      .cards {
-        grid-template-columns: 1fr;
-        gap: 14px;
-        margin: 12px auto 36px;
-        padding: 0 14px;
-      }
-      .card { padding: 16px; border-radius: 14px; }
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin: 12px auto 36px;
+        padding: 0 14px;
+      }
+      .card { padding: 16px; border-radius: 14px; }
 
-      #headerDropdown {
-        position: relative;
-        margin-top: 8px;
-        width: calc(100% - 28px);
-      }
+      #headerDropdown {
+        position: relative;
+        margin-top: 8px;
+        width: calc(100% - 28px);
+      }
 
-      footer {
-        font-size: 12px;
-        padding: 10px 8px;
-        background: rgba(0,0,0,0.12);
-      }
-    }
-  </style>
+      footer {
+        font-size: 12px;
+        padding: 10px 8px;
+        background: rgba(0,0,0,0.12);
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="brand" aria-label="Orange Store">
-      <img src="logo.png" alt="Orange Store" onclick="window.location.href='index.html'">
-      <h1>Orange Store</h1>
-    </div>
+  <header>
+    <div class="brand" aria-label="Orange Store">
+      <img src="logo.png" alt="Orange Store" onclick="window.location.href='index.html'">
+      <h1>Orange Store</h1>
+    </div>
 
-    <!-- menu toggle visible solo en móvil -->
-    <div style="display:flex; align-items:center; gap:8px;">
-      <button id="menuToggle" aria-expanded="false" aria-controls="headerDropdown" title="Abrir menú">☰</button>
-      <nav aria-label="Navegación principal">
-        <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-      </nav>
-    </div>
-  </header>
+        <div style="display:flex; align-items:center; gap:8px;">
+      <button id="menuToggle" aria-expanded="false" aria-controls="headerDropdown" title="Abrir menú">☰</button>
+      <nav aria-label="Navegación principal">
+        <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+      </nav>
+    </div>
+  </header>
 
-  <!-- Dropdown que empuja contenido cuando se abre en móvil -->
-  <div id="headerDropdown" aria-hidden="true">
-    <a href="index.html">🏠 Volver al menú principal</a>
-    <a href="accesorios.html">🎧 Accesorios</a>
-    <a href="repuestos.html">🛠 Repuestos</a>
-    <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-  </div>
+    <div id="headerDropdown" aria-hidden="true">
+    <a href="index.html">🏠 Volver al menú principal</a>
+    <a href="accesorios.html">🎧 Accesorios</a>
+    <a href="repuestos.html">🛠 Repuestos</a>
+    <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+  </div>
 
-  <!-- Contenido principal: se moverá/compensará por header fixed en mobile -->
-  <main class="page-content" id="pageContent">
-    <section class="welcome" role="region" aria-label="Bienvenida">
-      <h2>Bienvenidos a Orange Store</h2>
-      <p>Explora de manera rápida y sencilla los precios de nuestros productos. Encuentra accesorios y repuestos organizados en una interfaz moderna y atractiva.</p>
-    </section>
+    <main class="page-content" id="pageContent">
+    <section class="welcome" role="region" aria-label="Bienvenida">
+      <h2>Bienvenidos a Orange Store</h2>
+      <p>Explora de manera rápida y sencilla los precios de nuestros productos. Encuentra accesorios y repuestos organizados en una interfaz moderna y atractiva.</p>
+    </section>
 
-    <section class="cards" role="navigation" aria-label="Accesos principales">
-      <div class="card" onclick="window.location.href='accesorios.html'">
-        <div class="icon" aria-hidden="true">🎧</div>
-        <h3>Accesorios</h3>
-        <p>Explora nuestro catálogo de accesorios para smartphones.</p>
-      </div>
+    <section class="cards" role="navigation" aria-label="Accesos principales">
+      <div class="card" onclick="window.location.href='accesorios.html'">
+        <div class="icon" aria-hidden="true">🎧</div>
+        <h3>Accesorios</h3>
+        <p>Explora nuestro catálogo de accesorios para smartphones.</p>
+      </div>
 
-      <div class="card" onclick="window.location.href='repuestos.html'">
-        <div class="icon" aria-hidden="true">🔧</div>
-        <h3>Repuestos</h3>
-        <p>Encuentra pantallas, flex, pines de carga y más repuestos.</p>
-      </div>
-    </section>
-  </main>
+      <div class="card" onclick="window.location.href='repuestos.html'">
+        <div class="icon" aria-hidden="true">🔧</div>
+        <h3>Repuestos</h3>
+        <p>Encuentra pantallas, flex, pines de carga y más repuestos.</p>
+      </div>
+    </section>
+  </main>
 
-  <footer>
-    © 2012 - 2025 Orange Store. Todos los derechos reservados. By Javier Esaa.
-  </footer>
+  <footer>
+    © 2012 - 2025 Orange Store. Todos los derechos reservados. By Javier Esaa.
+  </footer>
 
-  <script>
-    // Detect mobile: touch + narrow screen
-    function detectMobile() {
-      const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-      const smallScreen = window.matchMedia("(max-width: 720px)").matches;
-      return isTouch && smallScreen;
-    }
+  <script>
+    // Detect mobile: touch + narrow screen
+    function detectMobile() {
+      const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+      const smallScreen = window.matchMedia("(max-width: 720px)").matches;
+      return isTouch && smallScreen;
+    }
 
-    const bodyEl = document.body;
-    const headerEl = document.querySelector("header");
-    const pageContent = document.getElementById("pageContent");
-    const dropdown = document.getElementById("headerDropdown");
-    const menuToggle = document.getElementById("menuToggle");
+    const bodyEl = document.body;
+    const headerEl = document.querySelector("header");
+    const pageContent = document.getElementById("pageContent");
+    const dropdown = document.getElementById("headerDropdown");
+    const menuToggle = document.getElementById("menuToggle");
 
-    let lastDropdownHeight = 0;
-    let animationLock = false; // evita toggles rápidos que puedan causar flicker
-    let resizeTimer = null;
+    let lastDropdownHeight = 0;
+    let animationLock = false; // evita toggles rápidos que puedan causar flicker
+    let resizeTimer = null;
 
-    function applyDeviceClass() {
-      if (detectMobile()) {
-        bodyEl.classList.add("mobile");
-      } else {
-        bodyEl.classList.remove("mobile");
-      }
-    }
+    function applyDeviceClass() {
+      if (detectMobile()) {
+        bodyEl.classList.add("mobile");
+      } else {
+        bodyEl.classList.remove("mobile");
+      }
+    }
 
-    function updateHeaderHeight() {
-      const h = headerEl.offsetHeight || 72;
-      document.documentElement.style.setProperty('--header-height', `${h}px`);
-    }
+    function updateHeaderHeight() {
+      const h = headerEl.offsetHeight || 72;
+      document.documentElement.style.setProperty('--header-height', `${h}px`);
+    }
 
-    // Toggle dropdown abierto/cerrado con animación suave y sin jank
-    function toggleDropdown(force) {
-      if (!menuToggle) return;
-      if (animationLock) return; // prevenir spam rápido
-      const isOpen = bodyEl.classList.contains('menu-open');
-      const shouldOpen = (typeof force === 'boolean') ? force : !isOpen;
+    // Toggle dropdown abierto/cerrado con animación suave y sin jank
+    function toggleDropdown(force) {
+      if (!menuToggle) return;
+      if (animationLock) return; // prevenir spam rápido
+      const isOpen = bodyEl.classList.contains('menu-open');
+      const shouldOpen = (typeof force === 'boolean') ? force : !isOpen;
 
-      // Si no es mobile, forzamos cerrado
-      if (!bodyEl.classList.contains('mobile')) {
-        // asegurarse cerrado y retorno
-        closeDropdownImmediate();
-        return;
-      }
+      // Si no es mobile, forzamos cerrado
+      if (!bodyEl.classList.contains('mobile')) {
+        // asegurarse cerrado y retorno
+        closeDropdownImmediate();
+        return;
+      }
 
-      animationLock = true;
-      menuToggle.disabled = true;
+      animationLock = true;
+      menuToggle.disabled = true;
 
-      if (shouldOpen) {
-        // mostrar para poder medir
-        dropdown.style.display = 'block';
-        dropdown.style.opacity = '0';
-        dropdown.style.maxHeight = '0px';
-        dropdown.setAttribute('aria-hidden', 'false');
+      if (shouldOpen) {
+        // mostrar para poder medir
+        dropdown.style.display = 'block';
+        dropdown.style.opacity = '0';
+        dropdown.style.maxHeight = '0px';
+        dropdown.setAttribute('aria-hidden', 'false');
 
-        // medir en el siguiente frame
-        requestAnimationFrame(() => {
-          const dh = dropdown.scrollHeight || 0;
-          lastDropdownHeight = dh;
-          // aplicar valores para animación
-          dropdown.style.maxHeight = dh + 'px';
-          dropdown.style.opacity = '1';
-          // actualizar variable CSS para empujar contenido
-          document.documentElement.style.setProperty('--dropdown-height', `${dh}px`);
-          bodyEl.classList.add('menu-open');
-          menuToggle.setAttribute('aria-expanded', 'true');
+        // medir en el siguiente frame
+        requestAnimationFrame(() => {
+          const dh = dropdown.scrollHeight || 0;
+          lastDropdownHeight = dh;
+          // aplicar valores para animación
+          dropdown.style.maxHeight = dh + 'px';
+          dropdown.style.opacity = '1';
+          // actualizar variable CSS para empujar contenido
+          document.documentElement.style.setProperty('--dropdown-height', `${dh}px`);
+          bodyEl.classList.add('menu-open');
+          menuToggle.setAttribute('aria-expanded', 'true');
 
-          // esperar a que termine la transición (usar transitionend)
-          const onEnd = (e) => {
-            if (e.propertyName === 'max-height' || e.propertyName === 'opacity') {
-              dropdown.removeEventListener('transitionend', onEnd);
-              animationLock = false;
-              menuToggle.disabled = false;
-            }
-          };
-          dropdown.addEventListener('transitionend', onEnd);
-          // fallback timeout (en caso de que no dispare transitionend)
-          setTimeout(() => {
-            if (animationLock) {
-              animationLock = false;
-              menuToggle.disabled = false;
-            }
-          }, 360);
-        });
+          // esperar a que termine la transición (usar transitionend)
+          const onEnd = (e) => {
+            if (e.propertyName === 'max-height' || e.propertyName === 'opacity') {
+              dropdown.removeEventListener('transitionend', onEnd);
+              animationLock = false;
+              menuToggle.disabled = false;
+            }
+          };
+          dropdown.addEventListener('transitionend', onEnd);
+          // fallback timeout (en caso de que no dispare transitionend)
+          setTimeout(() => {
+            if (animationLock) {
+              animationLock = false;
+              menuToggle.disabled = false;
+            }
+          }, 360);
+        });
 
-      } else {
-        // cerrar: animar maxHeight -> 0 y opacity -> 0
-        dropdown.style.maxHeight = (dropdown.scrollHeight || lastDropdownHeight || 200) + 'px';
-        // force reflow to ensure transition
-        dropdown.getBoundingClientRect();
-        dropdown.style.opacity = '0';
-        dropdown.style.maxHeight = '0px';
-        bodyEl.classList.remove('menu-open');
-        menuToggle.setAttribute('aria-expanded', 'false');
+      } else {
+        // cerrar: animar maxHeight -> 0 y opacity -> 0
+        dropdown.style.maxHeight = (dropdown.scrollHeight || lastDropdownHeight || 200) + 'px';
+        // force reflow to ensure transition
+        dropdown.getBoundingClientRect();
+        dropdown.style.opacity = '0';
+        dropdown.style.maxHeight = '0px';
+        bodyEl.classList.remove('menu-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
 
-        const onEndClose = (e) => {
-          if (e.propertyName === 'max-height' || e.propertyName === 'opacity') {
-            dropdown.removeEventListener('transitionend', onEndClose);
-            dropdown.style.display = 'none';
-            dropdown.setAttribute('aria-hidden', 'true');
-            document.documentElement.style.setProperty('--dropdown-height', `0px`);
-            animationLock = false;
-            menuToggle.disabled = false;
-          }
-        };
-        dropdown.addEventListener('transitionend', onEndClose);
+        const onEndClose = (e) => {
+          if (e.propertyName === 'max-height' || e.propertyName === 'opacity') {
+            dropdown.removeEventListener('transitionend', onEndClose);
+            dropdown.style.display = 'none';
+            dropdown.setAttribute('aria-hidden', 'true');
+            document.documentElement.style.setProperty('--dropdown-height', `0px`);
+            animationLock = false;
+            menuToggle.disabled = false;
+          }
+        };
+        dropdown.addEventListener('transitionend', onEndClose);
 
-        // fallback
-        setTimeout(() => {
-          if (animationLock) {
-            dropdown.style.display = 'none';
-            dropdown.setAttribute('aria-hidden', 'true');
-            document.documentElement.style.setProperty('--dropdown-height', `0px`);
-            animationLock = false;
-            menuToggle.disabled = false;
-          }
-        }, 360);
-      }
-    }
+        // fallback
+        setTimeout(() => {
+          if (animationLock) {
+            dropdown.style.display = 'none';
+            dropdown.setAttribute('aria-hidden', 'true');
+            document.documentElement.style.setProperty('--dropdown-height', `0px`);
+            animationLock = false;
+            menuToggle.disabled = false;
+          }
+        }, 360);
+      }
+    }
 
-    function closeDropdownImmediate() {
-      dropdown.style.display = 'none';
-      dropdown.style.opacity = '0';
-      dropdown.style.maxHeight = '0px';
-      dropdown.setAttribute('aria-hidden', 'true');
-      bodyEl.classList.remove('menu-open');
-      document.documentElement.style.setProperty('--dropdown-height', `0px`);
-      menuToggle.setAttribute('aria-expanded', 'false');
-    }
+    function closeDropdownImmediate() {
+      dropdown.style.display = 'none';
+      dropdown.style.opacity = '0';
+      dropdown.style.maxHeight = '0px';
+      dropdown.setAttribute('aria-hidden', 'true');
+      bodyEl.classList.remove('menu-open');
+      document.documentElement.style.setProperty('--dropdown-height', `0px`);
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
 
-    // Cerrar dropdown si clic afuera (solo en mobile)
-    document.addEventListener('click', (e) => {
-      if (!bodyEl.classList.contains('mobile')) return;
-      if (e.target.closest('header') || e.target.closest('#headerDropdown') || e.target.closest('#menuToggle')) return;
-      toggleDropdown(false);
-    });
+    // Cerrar dropdown si clic afuera (solo en mobile)
+    document.addEventListener('click', (e) => {
+      if (!bodyEl.classList.contains('mobile')) return;
+      if (e.target.closest('header') || e.target.closest('#headerDropdown') || e.target.closest('#menuToggle')) return;
+      toggleDropdown(false);
+    });
 
-    // menú toggle click
-    if (menuToggle) {
-      menuToggle.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        toggleDropdown();
-      });
+    // menú toggle click
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        toggleDropdown();
+      });
 
-      // keyboard
-      menuToggle.addEventListener('keydown', (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggleDropdown();
-        }
-      });
-    }
+      // keyboard
+      menuToggle.addEventListener('keydown', (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleDropdown();
+        }
+      });
+    }
 
-    // Debounced resize/orientation handler
-    function onResizeDebounced() {
-      if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        applyDeviceClass();
-        updateHeaderHeight();
-        if (!bodyEl.classList.contains('mobile')) {
-          closeDropdownImmediate();
-        } else {
-          // si está abierto, recalcular altura
-          if (bodyEl.classList.contains('menu-open')) {
-            const dh = dropdown.scrollHeight || 0;
-            document.documentElement.style.setProperty('--dropdown-height', `${dh}px`);
-            dropdown.style.maxHeight = dh + 'px';
-          }
-        }
-      }, 120);
-    }
-    window.addEventListener('resize', onResizeDebounced);
-    window.addEventListener('orientationchange', onResizeDebounced);
+    // Debounced resize/orientation handler
+    function onResizeDebounced() {
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        applyDeviceClass();
+        updateHeaderHeight();
+        if (!bodyEl.classList.contains('mobile')) {
+          closeDropdownImmediate();
+        } else {
+          // si está abierto, recalcular altura
+          if (bodyEl.classList.contains('menu-open')) {
+            const dh = dropdown.scrollHeight || 0;
+            document.documentElement.style.setProperty('--dropdown-height', `${dh}px`);
+            dropdown.style.maxHeight = dh + 'px';
+          }
+        }
+      }, 120);
+    }
+    window.addEventListener('resize', onResizeDebounced);
+    window.addEventListener('orientationchange', onResizeDebounced);
 
-    // Inicial
-    applyDeviceClass();
-    setTimeout(() => {
-      updateHeaderHeight();
-      if (!bodyEl.classList.contains('mobile')) {
-        closeDropdownImmediate();
-      }
-    }, 80);
+    // Inicial
+    applyDeviceClass();
+    setTimeout(() => {
+      updateHeaderHeight();
+      if (!bodyEl.classList.contains('mobile')) {
+        closeDropdownImmediate();
+      }
+    }, 80);
 
-    // ---------- Login protection ----------
+    // ---------- Login protection ----------
 
-    (function checkLogin(){
-      // ahora usamos sessionStorage: válida solo mientras la pestaña esté abierta
-      if (sessionStorage.getItem("logueado") !== "true") {
-        window.location.href = "login.html";
-      }
-    })();
+    (function checkLogin(){
+      // ahora usamos sessionStorage: válida solo mientras la pestaña esté abierta
+      if (sessionStorage.getItem("logueado") !== "true") {
+        window.location.href = "login.html";
+      }
+    })();
 
-    function logout() {
-      // quitar sessionStorage en lugar de localStorage (sesión por pestaña)
-      sessionStorage.removeItem("logueado");
-      window.location.href = "login.html";
-    }
+    function logout() {
+      // quitar sessionStorage en lugar de localStorage (sesión por pestaña)
+      sessionStorage.removeItem("logueado");
+      window.location.href = "login.html";
+    }
 
-      <!-- 🟧 REGISTRO DEL SERVICE WORKER (para modo offline e instalación PWA) -->
+    // Función global para que el botón de cerrar sesión la encuentre
+    window.logout = logout; 
+  </script>
+
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('✅ Service Worker registrado correctamente'))
-        .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('✅ Service Worker registrado correctamente en:', reg.scope))
+          .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
+      });
     }
   </script>
 </body>
 </html>
-
