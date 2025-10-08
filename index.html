@@ -20,7 +20,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root { --color-principal: #f97316; }
+    :root { --color-principal: #f97316; --modal-width: 420px; }
     * { box-sizing: border-box; }
 
     body {
@@ -34,6 +34,7 @@
       background: #fff;
     }
 
+    /* Fondo animado */
     body::before {
       content: "";
       position: fixed;
@@ -43,7 +44,6 @@
       z-index: -3;
       animation: changeBg 40s infinite linear;
     }
-
     @keyframes changeBg {
       0%   { background-image: url('fondo1.jpg'); }
       25%  { background-image: url('fondo2.jpg'); }
@@ -51,7 +51,6 @@
       75%  { background-image: url('fondo4.jpg'); }
       100% { background-image: url('fondo1.jpg'); }
     }
-
     body::after {
       content: "";
       position: fixed;
@@ -60,6 +59,7 @@
       z-index: -2;
     }
 
+    /* Header */
     header {
       background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
       color: white;
@@ -72,7 +72,6 @@
       top: 0; left: 0; right: 0;
       z-index: 1100;
     }
-
     .brand { display: flex; align-items: center; gap: 10px; }
     header img { height: 40px; cursor: pointer; display:block; }
     header h1 { font-size: 20px; margin: 0; font-weight:700; color:#fff; }
@@ -101,6 +100,7 @@
       cursor: pointer;
     }
 
+    /* Dropdown */
     #headerDropdown {
       display: none;
       flex-direction: column;
@@ -115,21 +115,14 @@
       opacity: 0;
       max-height: 0;
     }
-    #headerDropdown.open {
-      display: flex;
-      opacity: 1;
-      max-height: 400px;
-    }
-
+    #headerDropdown.open { display: flex; opacity: 1; max-height: 400px; }
     #headerDropdown a {
       padding: 12px 16px;
       color: #222;
       text-decoration: none;
       font-weight: 700;
       border-bottom: 1px solid rgba(0,0,0,0.04);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      display: flex; justify-content: space-between; align-items: center;
     }
     #headerDropdown a.active::after {
       content: "➤";
@@ -138,6 +131,7 @@
     }
 
     main { padding-top: 90px; }
+
     .welcome { text-align: center; margin: 20px auto; max-width: 860px; padding: 0 18px; color: #fff; }
     .welcome h2 { font-size: 30px; margin-bottom: 12px; font-weight: 700; text-shadow: 0 3px 10px rgba(0,0,0,0.45); }
     .welcome p { font-size: 15px; line-height: 1.6; color: #f3f4f6; }
@@ -174,19 +168,17 @@
       backdrop-filter: blur(6px);
     }
 
+    /* Install button (floating) */
     #installButtonFixed {
-      position: fixed;
-      bottom: 20px; right: 20px;
+      position: fixed; bottom: 20px; right: 20px;
       background: var(--color-principal);
       color: #fff;
       border: none;
       border-radius: 50%;
       width: 60px; height: 60px;
-      font-size: 26px;
-      cursor: pointer;
+      font-size: 26px; cursor: pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      display: none;
-      z-index: 1500;
+      display: none; z-index: 1500;
       transition: transform 0.25s ease, opacity 0.25s ease;
     }
     #installButtonFixed:hover { transform: scale(1.08); }
@@ -197,40 +189,61 @@
       header h1 { font-size: 18px; }
     }
 
-    /* ==== MODAL COMUNICADO ==== */
-    #comunicadoOverlay {
-      display: none;
+    /* ===== MODAL COMUNICADO (hidden by default) ===== */
+    .com-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 3000;
+      background: rgba(0,0,0,0.64);
+      display: none;
       align-items: center;
       justify-content: center;
+      z-index: 2200;
+      backdrop-filter: blur(3px);
     }
-    #comunicadoBox {
+    .com-modal {
       background: #fff;
-      border-radius: 20px;
-      max-width: 400px;
-      padding: 24px;
+      border-radius: 16px;
+      max-width: var(--modal-width);
+      width: calc(100% - 40px);
+      padding: 22px;
       text-align: center;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
-      animation: fadeIn 0.3s ease;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.28);
+      transform: translateY(6px);
+      animation: comPop 360ms cubic-bezier(.16,.9,.35,1);
     }
-    #comunicadoBox h2 { margin-bottom: 12px; }
-    #comunicadoBox p { margin-bottom: 20px; color: #333; }
-    #cerrarComunicado {
-      background: #f97316;
-      color: white;
-      border: none;
+    .com-title {
+      font-size: 20px;
+      margin: 0 0 10px 0;
+      color: var(--color-principal);
+      font-weight: 700;
+    }
+    .com-body {
+      color: #334155;
+      font-size: 15px;
+      line-height: 1.45;
+      margin-bottom: 18px;
+      text-align: left;
+      max-height: 45vh;
+      overflow: auto;
+    }
+    .com-actions { display:flex; gap:12px; justify-content:center; }
+    .com-btn {
+      padding: 10px 18px;
       border-radius: 10px;
-      padding: 10px 20px;
-      font-weight: 600;
+      border: none;
+      font-weight: 700;
       cursor: pointer;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    .com-btn.primary {
+      background: var(--color-principal);
+      color: #fff;
     }
+    .com-btn.ghost {
+      background: transparent;
+      border: 2px solid rgba(17,24,39,0.06);
+      color: #111827;
+    }
+    @keyframes comPop { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
   </style>
 </head>
 <body>
@@ -242,31 +255,33 @@
 
     <button id="menuToggle" aria-label="Abrir menú">☰</button>
 
-    <nav><a href="#" onclick="logout()">🚪 Cerrar sesión</a></nav>
+    <nav>
+      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+    </nav>
   </header>
 
-  <div id="headerDropdown">
-    <a href="index.html" class="active">🏠 Inicio</a>
+  <div id="headerDropdown" aria-hidden="true">
+    <a href="index.html">🏠 Inicio</a>
     <a href="accesorios.html">🎧 Accesorios</a>
     <a href="repuestos.html">🛠 Repuestos</a>
     <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
   </div>
 
   <main>
-    <section class="welcome">
+    <section class="welcome" role="region" aria-label="Bienvenida">
       <h2>Bienvenidos a Orange Store</h2>
       <p>Explora de manera rápida y sencilla los precios de nuestros productos. Encuentra accesorios y repuestos organizados en una interfaz moderna y atractiva.</p>
     </section>
 
-    <section class="cards">
+    <section class="cards" role="navigation" aria-label="Accesos principales">
       <div class="card" onclick="window.location.href='accesorios.html'">
-        <div class="icon">🎧</div>
+        <div class="icon" aria-hidden="true">🎧</div>
         <h3>Accesorios</h3>
         <p>Explora nuestro catálogo de accesorios para smartphones.</p>
       </div>
 
       <div class="card" onclick="window.location.href='repuestos.html'">
-        <div class="icon">🔧</div>
+        <div class="icon" aria-hidden="true">🔧</div>
         <h3>Repuestos</h3>
         <p>Encuentra pantallas, flex, pines de carga y más repuestos.</p>
       </div>
@@ -275,103 +290,199 @@
 
   <footer>© 2012 - 2025 Orange Store. Todos los derechos reservados. By Javier Esaa.</footer>
 
-  <!-- Botón flotante para instalar la app -->
-  <button id="installButtonFixed" title="Instalar App">📲</button>
+  <!-- Floating install button -->
+  <button id="installButtonFixed" title="Instalar App" aria-hidden="true">📲</button>
 
-  <!-- Modal Comunicado -->
-  <div id="comunicadoOverlay">
-    <div id="comunicadoBox">
-      <h2 id="comunicadoTitulo"></h2>
-      <p id="comunicadoTexto"></p>
-      <button id="cerrarComunicado">Cerrar</button>
+  <!-- Modal comunicado (DOM ready, hidden) -->
+  <div id="comunicadoOverlay" class="com-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="com-modal" role="document" aria-labelledby="comTitle">
+      <h3 id="comTitle" class="com-title"></h3>
+      <div id="comBody" class="com-body"></div>
+      <div class="com-actions">
+        <button id="comClose" class="com-btn primary">Entendido 💪</button>
+        <button id="comLater" class="com-btn ghost">Cerrar</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // ---- MENÚ ----
+    // ---------------- Menu toggle & highlight ----------------
     const menuToggle = document.getElementById('menuToggle');
     const dropdown = document.getElementById('headerDropdown');
-    const currentPath = window.location.pathname.split("/").pop();
-    dropdown.querySelectorAll("a").forEach(a => {
-      if (a.getAttribute("href") === currentPath) a.classList.add("active");
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+
+    // mark active link (safe)
+    Array.from(dropdown.querySelectorAll('a')).forEach(a => {
+      try {
+        if (a.getAttribute('href') === currentPath) a.classList.add('active');
+      } catch(e) {}
     });
-    menuToggle.addEventListener('click', () => dropdown.classList.toggle('open'));
-    document.addEventListener('click', e => {
+
+    menuToggle.addEventListener('click', () => {
+      dropdown.classList.toggle('open');
+      dropdown.setAttribute('aria-hidden', dropdown.classList.contains('open') ? 'false' : 'true');
+    });
+
+    document.addEventListener('click', (e) => {
       if (!e.target.closest('header') && !e.target.closest('#headerDropdown')) {
         dropdown.classList.remove('open');
+        dropdown.setAttribute('aria-hidden', 'true');
       }
     });
 
-    // ---- LOGIN ----
+    // ---------------- Login (session) ----------------
     (function checkLogin(){
       if (sessionStorage.getItem("logueado") !== "true") {
         window.location.href = "login.html";
       }
     })();
+
     function logout() {
       sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
 
-    // ---- PWA INSTALL ----
-    let deferredPrompt;
+    // ---------------- PWA install button ----------------
+    let deferredPrompt = null;
     const installButtonFixed = document.getElementById('installButtonFixed');
+
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       installButtonFixed.style.display = 'block';
+      installButtonFixed.setAttribute('aria-hidden', 'false');
     });
-    installButtonFixed.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') console.log('✅ PWA instalada');
-        deferredPrompt = null;
-      }
-    });
-    window.addEventListener('appinstalled', () => installButtonFixed.style.display = 'none');
 
-    // ---- SERVICE WORKER ----
+    installButtonFixed.addEventListener('click', async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        console.log('Usuario instaló la PWA');
+        installButtonFixed.style.display = 'none';
+      }
+      deferredPrompt = null;
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installButtonFixed.style.display = 'none';
+    });
+
+    // ---------------- Service Worker ----------------
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(registration => {
-          console.log('✅ SW registrado:', registration.scope);
-          registration.addEventListener('updatefound', () => {
-            const newWorker = registration.installing;
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+          console.log('✅ SW registrado:', reg.scope);
+          // detect new SW
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                if (confirm('Hay una nueva versión disponible. ¿Actualizar ahora?')) {
+                // nueva versión disponible
+                if (confirm('Nueva versión disponible. ¿Actualizar ahora?')) {
                   newWorker.postMessage({ type: 'SKIP_WAITING' });
-                  window.location.reload();
                 }
               }
             });
           });
-        }).catch(err => console.error('❌ Error SW:', err));
+        }).catch(err => console.error('❌ Error registrando SW:', err));
+      });
+
+      // listen for controlling worker changing to reload
+      navigator.serviceWorker.addEventListener && navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
       });
     }
 
-    // ---- COMUNICADO ----
-    async function mostrarComunicado() {
+    // ---------------- Comunicado desde comunicado.json ----------------
+    // comunicado.json expected fields:
+    // { "activo": true, "titulo": "...", "mensaje": "...", "fechaInicio": "YYYY-MM-DD", "fechaFin": "YYYY-MM-DD", "color": "#hex" }
+
+    async function cargarYMostrarComunicado() {
       try {
-        const res = await fetch('comunicado.json', { cache: 'no-store' });
+        const res = await fetch('comunicado.json?_=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return;
         const data = await res.json();
-        const hoy = new Date().toISOString().split('T')[0];
-        if (!data.activo || data.fecha !== hoy) return;
-        if (localStorage.getItem('comunicadoMostrado_' + data.fecha)) return;
-        document.getElementById('comunicadoTitulo').textContent = data.titulo;
-        document.getElementById('comunicadoTexto').textContent = data.mensaje;
-        document.getElementById('cerrarComunicado').style.background = data.color || '#f97316';
-        document.getElementById('comunicadoOverlay').style.display = 'flex';
-        localStorage.setItem('comunicadoMostrado_' + data.fecha, 'true');
-        document.getElementById('cerrarComunicado').addEventListener('click', () => {
-          document.getElementById('comunicadoOverlay').style.display = 'none';
-        });
+
+        if (!data || !data.activo) return;
+
+        // parse dates (support 'fecha' single date for backward compat)
+        const hoy = new Date(); hoy.setHours(0,0,0,0);
+        const inicioStr = data.fechaInicio || data.fecha || null;
+        const finStr = data.fechaFin || data.fecha || null;
+        if (!inicioStr || !finStr) return; // no hay fechas válidas
+
+        const inicio = new Date(inicioStr + 'T00:00:00');
+        const fin = new Date(finStr + 'T23:59:59');
+
+        // si hoy está fuera del rango, no mostrar
+        if (hoy < inicio || hoy > fin) return;
+
+        // key único para evitar mostrar más de una vez por dispositivo
+        const key = `comunicadoShown_${inicioStr}_${finStr}`;
+        if (localStorage.getItem(key)) return;
+
+        mostrarComunicado(data, key);
       } catch (err) {
-        console.warn('⚠ No se pudo cargar el comunicado:', err);
+        console.warn('No se pudo cargar comunicado.json:', err);
       }
     }
-    document.addEventListener('DOMContentLoaded', mostrarComunicado);
+
+    function mostrarComunicado(data, storageKey) {
+      const overlay = document.getElementById('comunicadoOverlay');
+      const titleEl = document.getElementById('comTitle');
+      const bodyEl = document.getElementById('comBody');
+      const btnClose = document.getElementById('comClose');
+      const btnLater = document.getElementById('comLater');
+
+      // set title (text) and body (HTML allowed)
+      titleEl.textContent = data.titulo || 'Comunicado';
+      bodyEl.innerHTML = data.mensaje || '';
+
+      // set color (if provided)
+      if (data.color) {
+        overlay.style.setProperty('--color-principal', data.color);
+        // also update title color directly (fallback)
+        titleEl.style.color = data.color;
+      } else {
+        titleEl.style.color = getComputedStyle(document.documentElement).getPropertyValue('--color-principal') || '#f97316';
+      }
+
+      // show overlay and set ARIA
+      overlay.style.display = 'flex';
+      overlay.setAttribute('aria-hidden', 'false');
+
+      // focus management: focus close button
+      btnClose.focus();
+
+      // close action: mark showed (per device)
+      const cerrar = () => {
+        overlay.style.display = 'none';
+        overlay.setAttribute('aria-hidden', 'true');
+        try { localStorage.setItem(storageKey, 'true'); } catch(e){ /* ignore */ }
+      };
+
+      btnClose.onclick = cerrar;
+      btnLater.onclick = cerrar;
+
+      // allow Esc to close
+      const escListener = (e) => { if (e.key === 'Escape') cerrar(); };
+      document.addEventListener('keydown', escListener);
+
+      // remove handlers when closed
+      const observer = new MutationObserver(() => {
+        if (overlay.style.display === 'none') {
+          document.removeEventListener('keydown', escListener);
+          observer.disconnect();
+        }
+      });
+      observer.observe(overlay, { attributes: true, attributeFilter: ['style'] });
+    }
+
+    // run after DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      cargarYMostrarComunicado();
+    });
   </script>
 </body>
 </html>
