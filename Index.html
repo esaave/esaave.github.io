@@ -478,7 +478,7 @@
       }
     }, 80);
 
-    // ---------- Login protection ----------
+  // ---------- Login protection ----------
 
     (function checkLogin(){
       // ahora usamos sessionStorage: válida solo mientras la pestaña esté abierta
@@ -493,7 +493,12 @@
       window.location.href = "login.html";
     }
 
-   <script>
+    // Hacemos la función 'logout' accesible globalmente para los botones HTML
+    window.logout = logout;
+    
+  </script>
+
+  <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         // Asegúrate de que tu Service Worker se llama 'sw.js' y está en la raíz.
@@ -502,7 +507,6 @@
           .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
       });
     }
-  </script>
+  </script>
 </body>
 </html>
-
