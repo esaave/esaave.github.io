@@ -296,6 +296,55 @@
   </footer>
 
   <script>
+
+    // -------------------- PWA Install Button Logic --------------------
+
+    let deferredPrompt;
+    const installButton = document.getElementById('installButton');
+
+    // 1. CAPTURAR el evento que el navegador dispara cuando la app es instalable
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Previene que aparezca el prompt del navegador por defecto
+      e.preventDefault();
+      // Guarda el evento para poder dispararlo con el botón
+      deferredPrompt = e;
+      // Muestra el botón de instalación en la interfaz
+      if (installButton) {
+        installButton.style.display = 'inline-block';
+      }
+    });
+
+    // 2. DISPARAR el proceso de instalación cuando el usuario hace clic en el botón
+    if (installButton) {
+        installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+            // Muestra el prompt de instalación guardado
+            deferredPrompt.prompt();
+
+            // Espera a que el usuario responda
+            deferredPrompt.userChoice.then((choiceResult) => {
+            // Oculta el botón si el usuario instaló o canceló
+            installButton.style.display = 'none';
+            deferredPrompt = null; 
+
+            if (choiceResult.outcome === 'accepted') {
+                console.log('El usuario aceptó instalar la PWA');
+            } else {
+                console.log('El usuario canceló la instalación de la PWA');
+            }
+            });
+        }
+      });
+    }
+
+    // 3. OCULTAR el botón si la app ya fue instalada
+    window.addEventListener('appinstalled', () => {
+        if (installButton) {
+            installButton.style.display = 'none';
+        }
+    });
+
+    // ------------------------------------------------------------------
     // Detect mobile: touch + narrow screen
     function detectMobile() {
       const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
