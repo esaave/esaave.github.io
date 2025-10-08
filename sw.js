@@ -1,4 +1,4 @@
-const CACHE_NAME = 'orange-store-v3.1';
+const CACHE_NAME = 'orange-store-v3.1.1';
 const urlsToCache = [
   '/',                     // La URL raíz de tu PWA (ej: https://user.github.io/repo/)
   '/index.html',           // Archivo principal
