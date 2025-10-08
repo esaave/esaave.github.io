@@ -1,7 +1,11 @@
-const CACHE_NAME = 'orange-store-v3.1.1';
+// ======================================================
+// 🌐 Orange Store PWA - Service Worker (versión v3.2)
+// ======================================================
+
+const CACHE_NAME = 'orange-store-v3.2';
 const urlsToCache = [
-  '/',                     // La URL raíz de tu PWA (ej: https://user.github.io/repo/)
-  '/index.html',           // Archivo principal
+  '/',                     
+  '/index.html',           
   '/login.html',
   '/accesorios.html',
   '/repuestos.html',
@@ -12,80 +16,81 @@ const urlsToCache = [
   '/fondo3.jpg',
   '/fondo4.jpg',
   '/repuestos.json',
-  '/precios.json'
-  // IMPORTANTE: Si tienes archivos CSS o JS, inclúyelos aquí también, por ejemplo:
-  // '/style.css',
-  // '/app.js'
+  '/precios.json',
+  '/manifest.json'
+  // Añade aquí tus archivos JS o CSS si existen
 ];
 
-// Instalar y cachear recursos
+// ======================================================
+// 🧱 INSTALACIÓN: Cachea todos los recursos necesarios
+// ======================================================
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(urlsToCache))
+      .then(() => self.skipWaiting()) // toma control inmediato
   );
-  self.skipWaiting();
 });
 
-// Activar y eliminar versiones viejas
+// ======================================================
+// ♻️ ACTIVACIÓN: Limpia versiones viejas de caché
+// ======================================================
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(k => !cacheWhitelist.includes(k)).map(k => caches.delete(k))
-    ))
+    caches.keys().then(keys => 
+      Promise.all(keys.map(key => {
+        if (key !== CACHE_NAME) {
+          console.log('🧹 Eliminando caché vieja:', key);
+          return caches.delete(key);
+        }
+      }))
+    )
   );
-  self.clients.claim();
+  self.clients.claim(); // controla todas las páginas abiertas
 });
 
-// ----------------------------------------------------
-// RESPONDER DESDE CACHÉ O RED (Estrategia Cache-First con Fallback)
-// ----------------------------------------------------
+// ======================================================
+// ⚡ FETCH: Estrategia Cache-First con fallback a red
+// ======================================================
 self.addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
 
-  // Solo aplica la lógica a los recursos de tu mismo origen.
+  // Solo procesamos peticiones del mismo dominio
   if (url.origin !== location.origin) return;
 
   event.respondWith(
-    caches.match(request).then(response => {
-      // 1. Cache-First: Devuelve la respuesta si está en la caché
-      if (response) {
-        return response;
-      }
+    caches.match(request)
+      .then(response => {
+        // 1️⃣ Devuelve desde caché si existe
+        if (response) {
+          return response;
+        }
 
-      // 2. Si no está en caché, va a la red
-      return fetch(request)
-        .then(res => {
-          // Verifica si la respuesta es válida para cachear
-          if (!res || res.status !== 200 || res.type !== 'basic') {
+        // 2️⃣ Si no, busca en la red y guarda en caché dinámico
+        return fetch(request)
+          .then(res => {
+            if (!res || res.status !== 200 || res.type !== 'basic') {
+              return res;
+            }
+
+            const responseToCache = res.clone();
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(request, responseToCache);
+            });
+
             return res;
-          }
+          })
+          .catch(() => {
+            // 3️⃣ Fallback offline: devolver index.html si es navegación
+            if (request.mode === 'navigate' || 
+                (request.headers.get('accept') && request.headers.get('accept').includes('text/html'))) {
+              return caches.match('/index.html');
+            }
 
-          // service-worker.js
-          // 🚨 CAMBIA ESTE VALOR CADA VEZ QUE QUIERAS UNA ACTUALIZACIÓN 🚨
-          const CACHE_NAME = 'orange-store-v1.3'; 
-
-
-          // Cachea el recurso (solo si viene de la red)
-          const responseToCache = res.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(request, responseToCache);
+            // Para otros recursos, devolvemos respuesta vacía
+            return new Response('Offline', { status: 503, statusText: 'Sin conexión' });
           });
-          
-          return res;
-        })
-        .catch(err => {
-          // 3. Fallo de red: Si es una solicitud de navegación (HTML), devuelve la página principal
-          if (request.mode === 'navigate' || 
-              (request.headers.get('accept') && request.headers.get('accept').includes('text/html'))) {
-            // Devuelve la página de inicio cacheada
-            return caches.match('/index.html');
-          }
-          
-          // Para otros recursos (imágenes, json), devuelve una respuesta de error para evitar fallos.
-          return new Response(null, { status: 503, statusText: 'Offline' });
-        });
-    })
+      })
   );
 });
