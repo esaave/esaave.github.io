@@ -61,6 +61,11 @@ self.addEventListener('fetch', event => {
             return res;
           }
 
+          // service-worker.js
+          // 🚨 CAMBIA ESTE VALOR CADA VEZ QUE QUIERAS UNA ACTUALIZACIÓN 🚨
+          const CACHE_NAME = 'orange-store-v1.3'; 
+
+
           // Cachea el recurso (solo si viene de la red)
           const responseToCache = res.clone();
           caches.open(CACHE_NAME).then(cache => {
