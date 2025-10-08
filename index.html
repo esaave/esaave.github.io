@@ -488,6 +488,37 @@
       sessionStorage.removeItem("logueado");
       window.location.href = "login.html";
     }
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // Asegúrate de que esta ruta coincida con el nombre de tu archivo (ej. '/sw.js' o '/service-worker.js')
+        navigator.serviceWorker.register('/sw.js') 
+          .then(registration => {
+            console.log('✅ Service Worker registrado en:', registration.scope);
+
+            // Escuchamos actualizaciones (updatefound)
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                // Si el nuevo worker está instalado y esperando, notificamos al usuario.
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // Muestra una ventana de confirmación al usuario
+                  if (confirm('🎉 Nueva versión de la aplicación disponible. ¿Quieres actualizar y recargar ahora?')) {
+                    // Si acepta, enviamos un mensaje al worker para que se active inmediatamente.
+                    newWorker.postMessage({ type: 'SKIP_WAITING' });
+                    window.location.reload();
+                  }
+                }
+              });
+            });
+          })
+          .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
+      });
+    }
+  </script>
+</body>
+</html>
   </script>
 </body>
 </html>
