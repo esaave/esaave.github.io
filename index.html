@@ -496,8 +496,8 @@
       <!-- 🟧 REGISTRO DEL SERVICE WORKER (para modo offline e instalación PWA) -->
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log('✅ Service Worker registrado correctamente'))
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('✅ Service Worker registrado correctamente en:', reg.scope))
         .catch(err => console.error('❌ Error al registrar el Service Worker:', err));
     }
   </script>
