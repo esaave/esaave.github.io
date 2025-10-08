@@ -11,6 +11,7 @@ const urlsToCache = [
   '/fondo2.jpg',
   '/fondo3.jpg',
   '/fondo4.jpg',
+  '/repuestos.json',
   '/precios.json'
   // IMPORTANTE: Si tienes archivos CSS o JS, inclúyelos aquí también, por ejemplo:
   // '/style.css',
