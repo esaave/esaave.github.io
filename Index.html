@@ -5,15 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Orange Store</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="logopeq.png" type="image/png">
+    <link rel="icon" href="logopeq.png" type="image/png">
 
-  <!-- 🟧 CONFIGURACIÓN PWA -->
-  <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#f97316">
 
-  <!-- Fuente -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -252,8 +249,7 @@
       <h1>Orange Store</h1>
     </div>
 
-    <!-- menu toggle visible solo en móvil -->
-    <div style="display:flex; align-items:center; gap:8px;">
+        <div style="display:flex; align-items:center; gap:8px;">
       <button id="menuToggle" aria-expanded="false" aria-controls="headerDropdown" title="Abrir menú">☰</button>
       <nav aria-label="Navegación principal">
         <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
@@ -261,16 +257,14 @@
     </div>
   </header>
 
-  <!-- Dropdown que empuja contenido cuando se abre en móvil -->
-  <div id="headerDropdown" aria-hidden="true">
+    <div id="headerDropdown" aria-hidden="true">
     <a href="index.html">🏠 Volver al menú principal</a>
     <a href="accesorios.html">🎧 Accesorios</a>
     <a href="repuestos.html">🛠 Repuestos</a>
     <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
   </div>
 
-  <!-- Contenido principal: se moverá/compensará por header fixed en mobile -->
-  <main class="page-content" id="pageContent">
+    <main class="page-content" id="pageContent">
     <section class="welcome" role="region" aria-label="Bienvenida">
       <h2>Bienvenidos a Orange Store</h2>
       <p>Explora de manera rápida y sencilla los precios de nuestros productos. Encuentra accesorios y repuestos organizados en una interfaz moderna y atractiva.</p>
@@ -478,7 +472,7 @@
       }
     }, 80);
 
-  // ---------- Login protection ----------
+    // ---------- Login protection ----------
 
     (function checkLogin(){
       // ahora usamos sessionStorage: válida solo mientras la pestaña esté abierta
@@ -493,7 +487,7 @@
       window.location.href = "login.html";
     }
 
-    // Hacemos la función 'logout' accesible globalmente para los botones HTML
+    // 🔑 Hacemos la función 'logout' accesible globalmente para los botones HTML
     window.logout = logout;
     
   </script>
