@@ -3499,11 +3499,18 @@
     "precio": 20.0
   },
   {
+    "codigo": "A027058",
+    "descripcion": "TACO APPLE IPHONE 20W ORIGINAL",
+    "unidad": "UNIDAD",
+    "precio": 50.0
+  },
+  {
     "codigo": "A03000",
     "descripcion": "CABLE WAKE CARGA RAPIDA USB C A LIGHTNING",
     "unidad": "UNIDAD",
     "precio": 15.0
   }]
+
 
 
 
