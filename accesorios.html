@@ -538,37 +538,36 @@
       });
 
     function mostrarProductos(lista) {
-  const grid = document.getElementById("grid");
-  if (!grid) return;
-  grid.innerHTML = "";
-  if (!lista || lista.length === 0) {
-    mostrarEmpty("No se encontraron resultados");
-    return;
-  }
-  const frag = document.createDocumentFragment();
-  lista.forEach(item => {
-    const cat = detectarCategoria(item.descripcion);
-    const card = document.createElement("article");
-    card.className = "card";
-    card.tabIndex = 0;
-    const precioNum = Number(item.precio) || 0;
-    const precioFinal = precioNum * 1.7;
-    const tasa = obtenerTasa();
-    let precioBs = "";
-    if (tasa > 0) {
-      precioBs = "Bs " + (precioFinal * tasa).toFixed(2).replace(".", ",");
-    }
-    card.innerHTML = `
-      <div class="descripcion">${item.descripcion || ""}</div>
-      <div class="codigo">Código: ${item.codigo || ""}</div>
-      <div class="precio">Precio: $${precioFinal.toFixed(2)}<br><small>${precioBs}</small></div>
-      <div class="unidad">${item.unidad || ""}</div>
-      <div class="tag">${cat.label}</div>
-    `;
-    card.addEventListener("click", () => verDetalle(item));
-    frag.appendChild(card);
-  });
-  grid.appendChild(frag);
+    const grid = document.getElementById("grid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      if (!lista || lista.length === 0) {
+        mostrarEmpty("No se encontraron resultados");
+        return;
+      }
+
+      const frag = document.createDocumentFragment();
+      lista.forEach(item => {
+        const cat = detectarCategoria(item.descripcion);
+        const card = document.createElement("article");
+        card.className = "card";
+        card.tabIndex = 0;
+        card.innerHTML = `
+          <div class="descripcion"></div>
+          <div class="codigo"></div>
+          <div class="precio"></div>
+          <div class="unidad"></div>
+          <div class="tag"></div>
+        `;
+        card.querySelector(".descripcion").textContent = item.descripcion || "";
+        card.querySelector(".codigo").textContent = "Código: " + (item.codigo || "");
+        let precioNum = Number(item.precio);
+        if (isNaN(precioNum)) precioNum = 0;
+        const precioFinal = precioNum * 1.7;
+const tasa = obtenerTasa();
+let precioBs = "";
+if (tasa > 0) {
+  precioBs = "Bs " + (precioFinal * tasa).toFixed(2).replace(".", ",");
 }
 
     function mostrarEmpty(mensaje) {
