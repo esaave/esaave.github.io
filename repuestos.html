@@ -359,14 +359,13 @@
       <div class="bs-row" id="m-tasa"></div>
       <div id="m-repuesto"></div>
       <p id="m-price1" class="precio"></p>
-      <p id="m-price2" class="precio"></p>
-      <p id="m-price2bs" class="precio-bs"></p>
+            <p id="m-price2bs" class="precio-bs"></p>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
   <script>
     const DATA_FILE = "repuestos.json";
-    const FACTOR_PRECIO2 = 1.7;
+    
     let productos = [];
     let fuse = null;
     let filtroActivo = "all";
@@ -469,7 +468,7 @@
         const table=document.createElement("table");
         table.className = "card-table";
         table.innerHTML=`<thead>
-            <tr><th>Repuesto</th><th>Precio 1 ($)</th></tr>
+            <tr><th>Repuesto</th><th>Precio ($ / Bs)</th></tr>
           </thead><tbody></tbody>`;
         const tbody=table.querySelector("tbody");
         (item.repuestos||[]).forEach(r=>{
@@ -511,10 +510,16 @@
       document.getElementById("m-marca").textContent = marca.charAt(0).toUpperCase()+marca.slice(1);
       document.getElementById("m-tasa").textContent = obtenerTasa() ? `Tasa actual: Bs ${obtenerTasa()}` : "";
       document.getElementById("m-repuesto").textContent = escapeHtml(repuesto.nombre || "");
-      document.getElementById("m-price1").textContent = "Precio 1: $" + (isNaN(precio)?"-":precio.toFixed(2));
-      // Precio 2 ($) y su conversión a Bs
-      const precio2 = precio * FACTOR_PRECIO2;
-      document.getElementById("m-price2").textContent = "Precio 2: $" + (isNaN(precio2)?"-":precio2.toFixed(2));
+      const precioFinal = precio * 1.7;
+document.getElementById("m-price1").textContent = "Precio: $" + precioFinal.toFixed(2);
+const tasa = obtenerTasa();
+if (tasa > 0) {
+  document.getElementById("m-tasa").textContent = `Tasa actual: Bs ${tasa}`;
+  document.getElementById("m-price2bs").textContent = "Precio en Bs: Bs " + (precioFinal * tasa).toFixed(2).replace(".", ",");
+} else {
+  document.getElementById("m-tasa").textContent = "";
+  document.getElementById("m-price2bs").textContent = "";
+}
       if (obtenerTasa() > 0 && !isNaN(precio2)) {
         document.getElementById("m-price2bs").textContent = "Precio 2 en Bs: " + (precio2 * obtenerTasa()).toFixed(2);
       } else {
