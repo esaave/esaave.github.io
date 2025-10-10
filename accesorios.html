@@ -392,8 +392,7 @@
       <p id="m-code" class="codigo"></p>
       <div class="bs-row" id="m-tasa"></div>
       <p id="m-price1" class="precio"></p>
-      <p id="m-price2" class="precio"></p>
-      <p id="m-price2bs" class="precio-bs"></p>
+            <p id="m-price2bs" class="precio-bs"></p>
       <p id="m-unit" class="unidad"></p>
     </div>
   </div>
@@ -495,7 +494,7 @@
      * Productos / UI
      *********************/
     const DATA_FILE = "precios.json";
-    const FACTOR_PRECIO2 = 1.7;
+    
     let productos = [];
     let fuse = null;
     let filtroActivo = "all";
@@ -564,7 +563,13 @@
         card.querySelector(".codigo").textContent = "Código: " + (item.codigo || "");
         let precioNum = Number(item.precio);
         if (isNaN(precioNum)) precioNum = 0;
-        card.querySelector(".precio").textContent = "$" + precioNum.toFixed(2);
+        const precioFinal = precioNum * 1.7;
+const tasa = obtenerTasa();
+let precioBs = "";
+if (tasa > 0) {
+  precioBs = "Bs " + (precioFinal * tasa).toFixed(2).replace(".", ",");
+}
+card.querySelector(".precio").innerHTML = `Precio: $${precioFinal.toFixed(2)}<br><small>${precioBs}</small>`;
         card.querySelector(".unidad").textContent = item.unidad || "";
         card.querySelector(".tag").textContent = cat.label;
         card.addEventListener("click", () => verDetalle(item));
@@ -621,11 +626,17 @@
     function verDetalle(item) {
       document.getElementById("m-name").textContent = item.descripcion || "";
       document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
-      document.getElementById("m-price1").textContent = "Precio 1: $" + (Number(item.precio) ? Number(item.precio).toFixed(2) : "-");
-
       const precioNum = Number(item.precio) || 0;
-      const precio2 = precioNum * FACTOR_PRECIO2;
-      document.getElementById("m-price2").textContent = "Precio 2: $" + (precio2 ? precio2.toFixed(2) : "-");
+const precioFinal = precioNum * 1.7;
+document.getElementById("m-price1").textContent = "Precio: $" + precioFinal.toFixed(2);
+const tasa = obtenerTasa();
+if (tasa > 0) {
+  document.getElementById("m-tasa").textContent = `Tasa actual: Bs ${tasa}`;
+  document.getElementById("m-price2bs").textContent = "Precio en Bs: Bs " + (precioFinal * tasa).toFixed(2).replace(".", ",");
+} else {
+  document.getElementById("m-tasa").textContent = "";
+  document.getElementById("m-price2bs").textContent = "";
+}
 
       const tasa = obtenerTasa();
       if (tasa > 0 && precio2) {
