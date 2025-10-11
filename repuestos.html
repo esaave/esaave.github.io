@@ -1,47 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Orange Store - Repuestos</title>
   <link rel="icon" href="logopeq.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --color-principal: #f97316;
+      --header-height: 72px;
+      --accent: #ea580c;
+      --muted: #667085;
+    }
     * { box-sizing: border-box; }
+    html,body { height:100%; }
     body {
       margin:0;
-      font-family:'Poppins',sans-serif;
+      font-family:'Poppins',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
       background:linear-gradient(135deg,#fff7ed,#ffe5d0);
       color:#1f2937;
       min-height:100vh;
       display:flex;
       flex-direction:column;
     }
+    /* Header (same style as accesorios) */
     header {
-      background:linear-gradient(90deg,#f97316,#ea580c);
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      z-index: 1100;
+    }
+    .brand { display:flex; align-items:center; gap:10px; }
+    .brand img { height:40px; width:auto; cursor:pointer; display:block; }
+    .brand h1 { font-size:20px; margin:0; font-weight:700; color:#fff; white-space:nowrap; }
+
+    nav.desktop {
+      margin-left: 20px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    nav.desktop a {
+      text-decoration:none;
       color:#fff;
-      padding:10px 18px;
+      background: rgba(255,255,255,0.12);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:14px;
+      display:inline-block;
+    }
+    nav.desktop a:hover { background: rgba(255,255,255,0.28); }
+
+    #menuToggle {
+      display: none;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    #headerDropdown {
+      display: none;
+      position: fixed;
+      top: calc(var(--header-height) + 8px);
+      left: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.98);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      overflow: hidden;
+      z-index: 1090;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height .28s ease, opacity .22s ease;
+    }
+    #headerDropdown.open { display:block; max-height: 420px; opacity:1; }
+    #headerDropdown a {
       display:flex;
       align-items:center;
-      gap:16px;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+      justify-content:space-between;
+      padding:12px 16px;
+      color:#222;
+      text-decoration:none;
+      font-weight:700;
+      border-bottom:1px solid rgba(0,0,0,0.04);
+      background: transparent;
     }
-    .logo {
-      display:flex;
-      align-items:center;
-      gap:10px;
-      user-select:none;
+
+    /* search and controls */
+    .search-area { margin-left:auto; width: min(520px, 44%); }
+    .search-area input {
+      width:100%; padding:10px 16px; border-radius:999px; border:none; font-size:15px; outline:none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
-    .logo img { height:40px; display:block; }
-    .logo span { font-weight:600; font-size:18px; }
-    .menu-toggle {
-      font-size:24px;
-      cursor:pointer;
-      margin-right:10px;
-    }
+
     .rate-bar {
       text-align:center;
       margin:12px 0 2px;
@@ -54,86 +120,35 @@
       align-items: center;
       flex-wrap: wrap;
     }
-    .rate-bar label {
-      font-weight:600;
-      color:#ea580c;
-      margin-right:6px;
-    }
+    .rate-bar label { font-weight:600; color:var(--color-principal); margin-right:6px; }
     .rate-bar input {
       padding:6px 10px;
       border:1px solid #ccc;
       border-radius:6px;
-      max-width:100px;
+      max-width:120px;
       font-size:15px;
     }
     .rate-bar button {
       background: #fff;
-      border: 1px solid #ff7a2a;
-      color: #ff7a2a;
+      border: 1px solid var(--color-principal);
+      color: var(--color-principal);
       border-radius: 8px;
       padding: 4px 10px;
       cursor: pointer;
       font-size:13px;
       margin-left: 8px;
-      transition: background .16s;
     }
-    .rate-bar button:hover { background: #ffe9e0; }
     .rate-bar .tooltip {
       font-size:13px;
       color:#8a4f08;
-      border-bottom:1px dotted #ea580c;
+      border-bottom:1px dotted var(--color-principal);
       cursor:help;
       margin-left:7px;
       background: #fff8eb;
       border-radius: 6px;
       padding: 2px 7px;
     }
-    .sidebar {
-      height:100%;
-      width:0;
-      position:fixed;
-      top:0;
-      left:0;
-      background:#fff;
-      overflow-x:hidden;
-      transition:0.3s;
-      box-shadow:0 4px 20px rgba(0,0,0,0.2);
-      z-index:2000;
-      padding-top:60px;
-    }
-    .sidebar a {
-      display:block;
-      padding:14px 20px;
-      text-decoration:none;
-      font-size:16px;
-      color:#222;
-      font-weight:600;
-      transition:0.2s;
-    }
-    .sidebar a:hover {
-      background:#ffe9e0;
-    }
-    .sidebar .closebtn {
-      position:absolute;
-      top:12px;
-      right:20px;
-      font-size:28px;
-      cursor:pointer;
-      color:#333;
-    }
-    .search-area {
-      margin-left:auto;
-      width: min(620px, 58%);
-    }
-    .search-area input {
-      width:100%;
-      padding:10px 16px;
-      border-radius:999px;
-      border: none;
-      font-size:15px;
-      outline:none;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    }
+
     .filters {
       display:flex;
       gap:10px;
@@ -142,9 +157,9 @@
       flex-wrap:wrap;
     }
     .filter-btn {
-      border:2px solid #f97316;
+      border:2px solid var(--color-principal);
       background:#fff;
-      color:#f97316;
+      color:var(--color-principal);
       padding:8px 16px;
       border-radius:999px;
       font-weight:600;
@@ -153,11 +168,12 @@
       transition:all .18s;
     }
     .filter-btn.active {
-      background:linear-gradient(90deg,#f97316,#ea580c);
+      background:linear-gradient(90deg,var(--color-principal),#e85b07);
       color:#fff;
       box-shadow:0 6px 18px rgba(232, 88, 12, 0.18);
       transform:none;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -171,173 +187,103 @@
     .card {
       background: #fff;
       border-radius: 18px;
-      padding: 16px 16px 12px 16px;
+      padding: 16px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
       transition: box-shadow .16s;
-      min-height: 320px;
-      max-height: 370px;
+      min-height: 140px;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       word-break: break-word;
     }
-    .card:hover {
-      box-shadow: 0 14px 38px rgba(0,0,0,0.15);
-    }
     .card-header {
       background: #ffedd5;
       padding: 10px 14px;
-      font-weight: 600;
+      font-weight: 700;
       color: #ea580c;
       border-radius: 10px;
       margin-bottom: 10px;
       font-size: 16px;
-      word-break: break-word;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    .card-table-wrap {
-      flex: 1 1 auto;
-      min-height: 60px;
-      max-height: 180px;
-      overflow-y: auto;
-      margin-bottom: 8px;
-    }
-    .card-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .card-table th, .card-table td {
-      padding: 7px 10px;
-      border-bottom: 1px solid #f1f1f1;
-      font-size: 14px;
-      word-break: break-word;
-    }
-    .card-table th {
-      background: #fafafa;
-      color: #374151;
-      text-align: left;
-      position: sticky;
-      top: 0;
-      z-index: 1;
-    }
-    .card-table td {
-      color: #222;
-      cursor: pointer;
-    }
-    .tag {
-      background: #ffeddc;
-      color: #d95300;
-      padding: 5px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-left: 8px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.04);
-      white-space: nowrap;
-    }
-    .spinner {
       display:flex;
       align-items:center;
-      justify-content:center;
-      min-height:200px;
-      grid-column:1 / -1;
+      justify-content:space-between;
+      gap:8px;
     }
-    .spinner div {
-      width:40px;
-      height:40px;
-      border:4px solid #f97316;
-      border-top-color:transparent;
-      border-radius:50%;
-      animation:spin 1s linear infinite;
-    }
+    .card-table-wrap { flex:1 1 auto; min-height:60px; max-height:220px; overflow:auto; margin-bottom:8px; }
+    .card-table { width:100%; border-collapse:collapse; }
+    .card-table th, .card-table td { padding:8px 10px; border-bottom:1px solid #f1f1f1; font-size:14px; }
+    .card-table th { background:#fafafa; color:#374151; text-align:left; position:sticky; top:0; z-index:1; }
+    .card-table td { color:#222; cursor:pointer; }
+    .tag { background:#ffeddc; color:#d95300; padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px; white-space:nowrap; }
+    .empty { grid-column: 1 / -1; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#b06e6e; font-size:16px; min-height:220px; text-align:center; }
+    .spinner { display:flex; align-items:center; justify-content:center; min-height:200px; grid-column:1 / -1; }
+    .spinner div { width:40px; height:40px; border:4px solid var(--color-principal); border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
-    .empty {
-      grid-column: 1 / -1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      color:#b06e6e;
-      font-size:16px;
-      min-height:220px;
-      text-align:center;
-    }
-    .empty .icon { font-size:36px; margin-bottom:10px; }
-    .modal {
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.5);
-      align-items:center;
-      justify-content:center;
-      z-index:2000;
-    }
-    .modal .content {
-      width: min(420px,92%);
-      background:#fff;
-      border-radius:12px;
-      padding:18px;
-      text-align:center;
-      box-shadow:0 10px 30px rgba(0,0,0,0.2);
-      position:relative;
-    }
-    .modal h3 { color:#ff6b00; margin:4px 0 8px; }
-    .modal p { margin:6px 0; color:#333; }
-    .close-modal {
-      position:absolute;
-      top:14px;
-      right:18px;
-      background:transparent;
-      border:none;
-      font-size:22px;
-      cursor:pointer;
-      color:#333;
-    }
-    .modal .bs-row { font-size:15px; color:#ea580c; margin-bottom:8px; }
-    .precio-bs { color:#ea580c; font-size:15px;}
-    footer {
-      text-align:center;
-      padding:12px;
-      font-size:13px;
-      margin-top:auto;
-      background:#fff7ed;
-      color:#6b7280;
-    }
-    @media(max-width:720px){
-      .grid { padding:12px; gap:14px; }
-      .card { padding:11px; min-height: 210px; max-height: 300px; }
-      .card-header { font-size: 15px; }
+
+    /* Modal */
+    .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; z-index:2000; backdrop-filter:blur(3px); }
+    .modal.open { display:flex; animation:modalIn .22s ease; }
+    .modal .content { width: min(520px,92%); background:#fff; border-radius:12px; padding:18px; text-align:left; box-shadow:0 10px 30px rgba(0,0,0,0.2); position:relative; }
+    .modal h3 { color:#0f172a; margin:6px 0 8px; font-size:18px; }
+    .modal .tag { margin-left:0; display:inline-block; }
+    .modal .bs-row { font-size:14px; color:#ea580c; margin:6px 0; }
+    .modal .precio { font-size:20px; margin:8px 0; color:#ff6b00; font-weight:800; }
+    .modal .precio-bs { font-size:16px; color:#c2410c; margin-bottom:6px; font-weight:700; }
+    .close-modal { position:absolute; top:10px; right:12px; background:transparent; border:none; font-size:22px; cursor:pointer; color:#333; }
+
+    footer { text-align:center; padding:12px; font-size:13px; margin-top:auto; background:#fff7ed; color:#6b7280; }
+
+    @keyframes modalIn { from { opacity:0; transform: translateY(6px) scale(.99); } to { opacity:1; transform: translateY(0) scale(1); } }
+
+    @media (max-width: 720px) {
+      nav.desktop { display:none; }
+      #menuToggle { display:inline-block; }
+      .search-area { width:100%; order:2; margin-left:0; }
+      .grid { padding:12px; gap:14px; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); }
+      .card { padding:12px; }
+      .modal .content { padding:16px; width:94%; }
     }
   </style>
 </head>
 <body>
   <header>
-    <span class="menu-toggle" onclick="openMenu()">☰</span>
-    <div class="logo">
-      <img src="logo.png" alt="logo">
-      <span>Orange Store</span>
+    <div class="brand" aria-label="Orange Store">
+      <img src="logo.png" alt="Orange Store" onclick="location.href='index.html'">
+      <h1>Orange Store</h1>
     </div>
-    <div class="search-area">
-      <input id="search" type="text" placeholder="Buscar repuesto o modelo...">
+
+    <nav class="desktop" aria-label="Navegación principal">
+      <a href="index.html">🏠 Inicio</a>
+      <a href="accesorios1.html">🎧 Accesorios</a>
+      <a href="repuestos1.html" class="active">🛠 Repuestos</a>
+      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="search-area" style="width:min(420px,40vw);">
+        <input id="search" type="text" placeholder="Buscar repuesto o modelo..." aria-label="Buscar repuesto">
+      </div>
+      <button id="menuToggle" aria-controls="headerDropdown" aria-expanded="false" aria-label="Abrir menú">☰</button>
     </div>
   </header>
-  <div class="rate-bar">
-    <label for="tasaInput">Tasa Bs/$:</label>
-    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00" title="Ingresa la tasa de cambio para ver los precios en bolívares">
-    <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares"></span>
-    <button onclick="borrarTasa()">Borrar tasa</button>
-    <span id="ultimaTasa" style="margin-left:10px;color:#888;font-size:13px;"></span>
-  </div>
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <span class="closebtn" onclick="closeMenu()">×</span>
-    <a href="index.html">🏠 Volver al menú principal</a>
-    <a href="accesorios.html">🔌 Accesorios</a>
+
+  <div id="headerDropdown" aria-hidden="true">
+    <a href="index.html">🏠 Inicio</a>
+    <a href="accesorios1.html">🎧 Accesorios</a>
+    <a href="repuestos1.html">🛠 Repuestos</a>
     <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
   </div>
+
+  <!-- RATE -->
+  <div class="rate-bar" role="region" aria-label="Tasa BCV">
+    <label for="tasaInput">Tasa (Bs/$):</label>
+    <input type="text" id="tasaInput" placeholder="Ej: 36,00 o 36.00" aria-label="Tasa BCV">
+    <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares">¿Para qué sirve?</span>
+    <button id="btnClearTasa" type="button">Borrar tasa</button>
+    <span id="ultimaTasa" style="margin-left:10px;color:#888;font-size:13px;"></span>
+  </div>
+
+  <!-- FILTERS (keep as original) -->
   <div class="filters" role="toolbar" aria-label="Filtros">
     <button class="filter-btn active" data-cat="all" onclick="filtrar('all',event)">Todos</button>
     <button class="filter-btn" data-cat="apple" onclick="filtrar('apple',event)">Apple</button>
@@ -347,88 +293,222 @@
     <button class="filter-btn" data-cat="conector" onclick="filtrar('conector',event)">Conector</button>
     <button class="filter-btn" data-cat="otros" onclick="filtrar('otros',event)">Otros</button>
   </div>
-  <main class="grid" id="grid">
+
+  <main class="grid" id="grid" aria-live="polite">
     <div class="spinner" id="spinner"><div></div></div>
   </main>
+
   <!-- Modal -->
   <div id="modal" class="modal" role="dialog" aria-hidden="true">
     <div class="content" role="document">
-      <button class="close-modal" onclick="cerrarModal()">×</button>
-      <h3 id="m-modelo"></h3>
-      <p id="m-marca" class="tag"></p>
-      <div class="bs-row" id="m-tasa"></div>
-      <div id="m-repuesto"></div>
-      <p id="m-price1" class="precio"></p>
-            <p id="m-price2bs" class="precio-bs"></p>
+      <button class="close-modal" id="closeModalBtn" aria-label="Cerrar">×</button>
+      <h3 id="m-modelo">Modelo</h3>
+      <div style="margin-bottom:6px;"><span id="m-marca" class="tag">Marca</span></div>
+      <div id="m-tasa" class="bs-row"></div>
+      <div id="m-repuesto" style="font-weight:700; margin:6px 0;"></div>
+      <p id="m-price" class="precio">$0.00</p>
+      <p id="m-price2bs" class="precio-bs"></p>
     </div>
   </div>
+
+  <footer>© 2012-2025 Orange Store. Todos los derechos reservados. By Javier Esaa</footer>
+
+  <!-- Fuse -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+  <!-- SCRIPT 1 — Menú / util -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const headerDropdown = document.getElementById('headerDropdown');
+
+    function markActiveLinks() {
+      const desktopLinks = document.querySelectorAll('nav.desktop a');
+      const mobileLinks = document.querySelectorAll('#headerDropdown a');
+      const currentPath = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+      const mark = (nodeList) => {
+        nodeList.forEach(a => {
+          try {
+            const href = (a.getAttribute('href') || '').toLowerCase();
+            if (!href) return;
+            const normHref = (href === '' || href === '/') ? 'index.html' : href.split('/').pop();
+            if (normHref === currentPath) a.classList.add('active');
+            else a.classList.remove('active');
+          } catch(e) {}
+        });
+      };
+      mark(desktopLinks);
+      mark(mobileLinks);
+    }
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        headerDropdown.classList.toggle('open');
+        const expanded = headerDropdown.classList.contains('open');
+        menuToggle.setAttribute('aria-expanded', String(expanded));
+        headerDropdown.setAttribute('aria-hidden', String(!expanded));
+      });
+    }
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('header') && !e.target.closest('#headerDropdown')) {
+        headerDropdown.classList.remove('open');
+        headerDropdown.setAttribute('aria-hidden', 'true');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    function logout(){
+      try { sessionStorage.removeItem('logueado'); } catch(e){}
+      location.href = 'login.html';
+    }
+
+    (function checkLogin(){
+      try {
+        if (sessionStorage.getItem('logueado') !== 'true') {
+          // location.href = 'login.html';
+        }
+      } catch(e){}
+    })();
+  </script>
+
+  <!-- SCRIPT 2 — Datos y render -->
   <script>
     const DATA_FILE = "repuestos.json";
-    
     let productos = [];
     let fuse = null;
     let filtroActivo = "all";
+
     function escapeHtml(str=""){ 
       return String(str).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
     }
     function detectarMarca(modelo=""){
-      const m = modelo.toLowerCase();
+      const m = (modelo||"").toLowerCase();
       if(m.includes("iphone")||m.includes("apple")) return "apple";
       if(m.includes("samsung")||m.startsWith("a")||m.startsWith("j")||m.startsWith("s")) return "samsung";
       return "otros";
     }
     function detectarTipo(nombre=""){
-      const n = nombre.toLowerCase();
+      const n = (nombre||"").toLowerCase();
       if(n.includes("pantalla")) return "pantalla";
       if(n.includes("bateria")) return "bateria";
       if(n.includes("conector")||n.includes("carga")) return "conector";
       return "otros";
     }
+
     function obtenerTasa() {
-      const val = parseFloat(localStorage.getItem("tasaBS"));
-      return (!isNaN(val) && val > 0) ? val : 0;
+      try {
+        const raw = localStorage.getItem("tasaBCV") || localStorage.getItem("tasaBS");
+        const v = raw ? parseFloat(String(raw).replace(",", ".")) : NaN;
+        return (!isNaN(v) && v > 0) ? v : 0;
+      } catch(e){ return 0; }
     }
-    function mostrarUltimaTasa() {
+    function mostrarUltimaTasa(){
       const tasa = obtenerTasa();
-      document.getElementById("ultimaTasa").textContent = tasa ? `Última tasa: Bs ${tasa}` : "";
+      const node = document.getElementById("ultimaTasa");
+      if (node) node.textContent = tasa ? `Última tasa: Bs ${tasa}` : "";
     }
-    function borrarTasa() {
-      localStorage.removeItem("tasaBS");
-      document.getElementById("tasaInput").value = "";
-      mostrarUltimaTasa();
-      filtrar(filtroActivo);
-    }
+
+    // cargar datos
     fetch(DATA_FILE)
-      .then(r=>r.json())
-      .then(data=>{
-        productos = data || [];
-        fuse = new Fuse(productos, {
-          keys:["modelo","repuestos.nombre"],
-          threshold:0.3,
-          ignoreLocation:true,
-          minMatchCharLength:2,
-        });
-        document.getElementById("spinner").style.display="none";
+      .then(r => r.json())
+      .then(data => {
+        productos = Array.isArray(data) ? data : [];
+        if (productos.length) {
+          fuse = new Fuse(productos, {
+            keys: ["modelo", "repuestos.nombre"],
+            threshold: 0.3,
+            ignoreLocation: true,
+            minMatchCharLength: 2,
+          });
+        }
+        const spinner = document.getElementById("spinner");
+        if (spinner) spinner.style.display = "none";
         mostrarProductos(productos);
+        mostrarUltimaTasa();
       })
-      .catch(err=>{
+      .catch(err => {
         console.error("Error cargando datos:",err);
-        document.getElementById("grid").innerHTML="<div class='empty'><div class='icon'>❌</div>Error cargando datos</div>";
+        document.getElementById("grid").innerHTML = "<div class='empty'><div class='icon'>❌</div>Error cargando datos</div>";
       });
-    // FILTRO Y BUSCADOR CORREGIDO
+
+    function mostrarProductos(lista){
+      const grid = document.getElementById("grid");
+      if(!grid) return;
+      grid.innerHTML = "";
+      if(!lista || lista.length === 0){
+        grid.innerHTML = "<div class='empty'><div class='icon'>🔍</div>No se encontraron resultados</div>";
+        return;
+      }
+
+      const frag = document.createDocumentFragment();
+      lista.forEach(item => {
+        const marca = detectarMarca(item.modelo);
+        const card = document.createElement("article");
+        card.className = "card";
+        card.tabIndex = 0;
+
+        // header
+        const headerDiv = document.createElement("div");
+        headerDiv.className = "card-header";
+        headerDiv.innerHTML = `${escapeHtml(item.modelo||"").trim()}<span class="tag">${marca.charAt(0).toUpperCase()+marca.slice(1)}</span>`;
+
+        const tableWrap = document.createElement("div");
+        tableWrap.className = "card-table-wrap";
+        const table = document.createElement("table");
+        table.className = "card-table";
+        table.innerHTML = `<thead><tr><th>Repuesto</th><th>Precio ($)</th></tr></thead><tbody></tbody>`;
+        const tbody = table.querySelector("tbody");
+
+        (item.repuestos || []).forEach(r => {
+          const precioRaw = String(r.precio || "").replace(",", ".").replace(/[^0-9.]/g,"");
+          let precio = parseFloat(precioRaw);
+          if (isNaN(precio)) precio = 0;
+          const precioMultiplicado = precio * 1.7;
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${escapeHtml(r.nombre || "")}</td><td>$${isNaN(precio)? "-": precioMultiplicado.toFixed(2)}</td>`;
+          tr.addEventListener("click", () => abrirModal(item.modelo, marca, r, precioMultiplicado));
+          tbody.appendChild(tr);
+        });
+
+        tableWrap.appendChild(table);
+        card.appendChild(headerDiv);
+        card.appendChild(tableWrap);
+        frag.appendChild(card);
+      });
+
+      grid.appendChild(frag);
+    }
+  </script>
+
+  <!-- SCRIPT 3 — Buscador y filtros -->
+  <script>
+    // Debounce
+    function debounceFn(fn, wait = 180) {
+      let t;
+      return function(...args) {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+
+    const searchInput = document.getElementById("search");
+    if (searchInput) {
+      searchInput.addEventListener("input", debounceFn(() => {
+        filtrar(filtroActivo);
+      }, 200));
+    }
+
     function filtrar(cat = "all", ev) {
       filtroActivo = cat;
       document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
       if (ev && ev.target) ev.target.classList.add("active");
 
-      const texto = document.getElementById("search").value.trim().toLowerCase();
+      const texto = (document.getElementById("search") ? document.getElementById("search").value.trim().toLowerCase() : "");
+      // construir lista filtrada por texto (manteniendo estructura prod -> repuestos)
       let lista = productos.map(prod => {
         if (texto !== "") {
-          const modeloMatch = prod.modelo.toLowerCase().includes(texto);
-          const repuestosFiltrados = (prod.repuestos || []).filter(r =>
-            r.nombre.toLowerCase().includes(texto)
-          );
+          const modeloMatch = (prod.modelo || "").toLowerCase().includes(texto);
+          const repuestosFiltrados = (prod.repuestos || []).filter(r => (r.nombre || "").toLowerCase().includes(texto));
           if (modeloMatch || repuestosFiltrados.length > 0) {
             return {
               ...prod,
@@ -441,7 +521,7 @@
         }
       }).filter(e => e && e.repuestos && e.repuestos.length > 0);
 
-      // Filtro de categoría/marca o tipo de repuesto
+      // aplicar filtro por categoria/marca
       if (cat === "apple" || cat === "samsung" || cat === "otros") {
         lista = lista.filter(p => detectarMarca(p.modelo) === cat);
       } else if (cat !== "all") {
@@ -450,111 +530,83 @@
 
       mostrarProductos(lista);
     }
-    function mostrarProductos(lista){
-      const grid=document.getElementById("grid");
-      grid.innerHTML="";
-      if(!lista||lista.length===0){
-        grid.innerHTML="<div class='empty'><div class='icon'>🔍</div>No se encontraron resultados</div>";
-        return;
-      }
-      lista.forEach(item=>{
-        const marca = detectarMarca(item.modelo);
-        const card=document.createElement("div");
-        card.className="card";
-        card.tabIndex=0;
-        card.innerHTML=`<div class="card-header">${escapeHtml(item.modelo||"")}<span class="tag">${marca.charAt(0).toUpperCase()+marca.slice(1)}</span></div>`;
-        const tableWrap=document.createElement("div");
-        tableWrap.className = "card-table-wrap";
-        const table=document.createElement("table");
-        table.className = "card-table";
-        table.innerHTML=`<thead>
-            <tr><th>Repuesto</th><th>Precio ($ / Bs)</th></tr>
-          </thead><tbody></tbody>`;
-        const tbody=table.querySelector("tbody");
-        (item.repuestos||[]).forEach(r=>{
-          const precio = parseFloat((r.precio||"").toString().replace(",",".").replace(/[^0-9.]/g,""));
-          const tr=document.createElement("tr");
-          tr.innerHTML=`<td>${escapeHtml(r.nombre||"")}</td>
-                        <td>$${isNaN(precio)?"-":precio.toFixed(2)}</td>`;
-          tr.addEventListener("click", () => verDetalle(item.modelo, marca, r, precio));
-          tbody.appendChild(tr);
-        });
-        tableWrap.appendChild(table);
-        card.appendChild(tableWrap);
-        grid.appendChild(card);
-      });
-    }
-    let debounce;
-    document.getElementById("search").addEventListener("input",()=>{
-      clearTimeout(debounce);
-      debounce=setTimeout(()=>filtrar(filtroActivo),200);
-    });
-    const tasaInput=document.getElementById("tasaInput");
-    if(tasaInput){
-      const guardada=localStorage.getItem("tasaBS");
-      if(guardada) tasaInput.value=guardada;
-      tasaInput.addEventListener("input",()=>{
-        const val=parseFloat(tasaInput.value);
-        if(!isNaN(val)&&val>0){
-          localStorage.setItem("tasaBS",val);
-          mostrarUltimaTasa();
-          filtrar(filtroActivo);
-        }
-      });
-    }
-    mostrarUltimaTasa();
+  </script>
 
-    // Modal: muestra precio 1 ($), precio 2 ($), precio 2 en Bs
-    function verDetalle(modelo, marca, repuesto, precio){
-      document.getElementById("m-modelo").textContent = escapeHtml(modelo);
-      document.getElementById("m-marca").textContent = marca.charAt(0).toUpperCase()+marca.slice(1);
-      document.getElementById("m-tasa").textContent = obtenerTasa() ? `Tasa actual: Bs ${obtenerTasa()}` : "";
-      document.getElementById("m-repuesto").textContent = escapeHtml(repuesto.nombre || "");
-      const precioFinal = precio * 1.7;
-document.getElementById("m-price1").textContent = "Precio: $" + precioFinal.toFixed(2);
-const tasa = obtenerTasa();
-if (tasa > 0) {
-  document.getElementById("m-tasa").textContent = `Tasa actual: Bs ${tasa}`;
-  document.getElementById("m-price2bs").textContent = "Precio en Bs: Bs " + (precioFinal * tasa).toFixed(2).replace(".", ",");
-} else {
-  document.getElementById("m-tasa").textContent = "";
-  document.getElementById("m-price2bs").textContent = "";
-}
-      if (obtenerTasa() > 0 && !isNaN(precio2)) {
-        document.getElementById("m-price2bs").textContent = "Precio 2 en Bs: " + (precio2 * obtenerTasa()).toFixed(2);
+  <!-- SCRIPT 4 — Modal y tasa (separado) -->
+  <script>
+    const modal = document.getElementById("modal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const tasaInput = document.getElementById("tasaInput");
+    const btnClearTasa = document.getElementById("btnClearTasa");
+
+    function mostrarUltimaTasaNode() {
+      const node = document.getElementById("ultimaTasa");
+      const tasa = obtenerTasa();
+      if (node) node.textContent = tasa ? `Última tasa: Bs ${tasa}` : "";
+      if (tasaInput && tasa) tasaInput.value = tasa;
+    }
+
+    // manejar input de tasa (acepta coma o punto)
+    function tasaInputHandler() {
+      if (!tasaInput) return;
+      const raw = tasaInput.value.trim().replace(",", ".");
+      const num = parseFloat(raw);
+      if (!isNaN(num) && num > 0) {
+        try { localStorage.setItem("tasaBCV", num); } catch(e){}
+        mostrarUltimaTasaNode();
+        filtrar(filtroActivo);
+      }
+    }
+
+    if (tasaInput) {
+      const saved = localStorage.getItem("tasaBCV") || localStorage.getItem("tasaBS");
+      if (saved) tasaInput.value = String(saved).replace(".", ",");
+      tasaInput.addEventListener("input", debounceFn(tasaInputHandler, 250));
+      tasaInput.addEventListener("change", tasaInputHandler);
+    }
+    if (btnClearTasa) {
+      btnClearTasa.addEventListener("click", () => {
+        try { localStorage.removeItem("tasaBCV"); localStorage.removeItem("tasaBS"); } catch(e){}
+        if (tasaInput) tasaInput.value = "";
+        mostrarUltimaTasaNode();
+        filtrar(filtroActivo);
+      });
+    }
+
+    function abrirModal(modelo, marca, repuesto, precioMultiplicado) {
+      document.getElementById("m-modelo").textContent = modelo || "";
+      document.getElementById("m-marca").textContent = marca.charAt(0).toUpperCase() + marca.slice(1);
+      const tasa = obtenerTasa();
+      if (tasa > 0) {
+        document.getElementById("m-tasa").textContent = `Tasa actual: Bs ${tasa}`;
+        document.getElementById("m-price2bs").textContent = "Precio en Bs: Bs " + (precioMultiplicado * tasa).toFixed(2).replace(".", ",");
       } else {
+        document.getElementById("m-tasa").textContent = "";
         document.getElementById("m-price2bs").textContent = "";
       }
-      const modal = document.getElementById("modal");
-      modal.style.display = "flex";
-      modal.setAttribute("aria-hidden","false");
+      document.getElementById("m-repuesto").textContent = repuesto.nombre || "";
+      document.getElementById("m-price").textContent = "$" + Number(precioMultiplicado || 0).toFixed(2);
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
     }
-    function cerrarModal() {
-      const modal = document.getElementById("modal");
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden","true");
+
+    function cerrarModal(){
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
     }
-    document.getElementById("modal").addEventListener("click", function(e) {
-      if (e.target === this) cerrarModal();
+    if (closeModalBtn) closeModalBtn.addEventListener("click", cerrarModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) cerrarModal(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") cerrarModal(); });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      markActiveLinks();
+      mostrarUltimaTasaNode();
     });
-    function openMenu() {
-      document.getElementById("sidebar").style.width = "250px";
-    }
-    function closeMenu() {
-      document.getElementById("sidebar").style.width = "0";
-    }
-    function logout() {
-      sessionStorage.removeItem("logueado");
-      window.location.href = "login.html";
-    }
-    (function checkLogin(){
-      if (sessionStorage.getItem("logueado") !== "true") {
-        window.location.href = "login.html";
-      }
-    })();
   </script>
-  <footer>
-    © 2012-2025 Orange Store. Todos los derechos reservados. By Javier Esaa
-  </footer>
+
+  <!-- SCRIPT 5 — Extras / polyfills (vacío por ahora) -->
+  <script>
+    // espacio para funciones adicionales si quieres añadir luego
+  </script>
 </body>
 </html>
