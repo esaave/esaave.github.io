@@ -1,260 +1,722 @@
 <!DOCTYPE html>
 <html lang="es">
-   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
-      <title>Orange Store - Accesorios</title>
-      <link rel="icon" href="logopeq.png" type="image/png">
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-      <style>
-         :root {
-         --color-principal: #f97316;
-         --header-height: 72px;
-         }
-         * { box-sizing: border-box; }
-         html,body { height:100%; }
-         body {
-         margin: 0;
-         font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-         color:#223;
-         min-height:100vh;
-         display:flex;
-         flex-direction:column;
-         background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
-         }
-         header {
-         position: sticky;
-         top: 0; left: 0; right: 0;
-         display: flex; gap: 12px;
-         align-items: center; justify-content: space-between;
-         padding: 12px 18px;
-         background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
-         color: #fff;
-         box-shadow: 0 4px 12px rgba(0,0,0,0.18);
-         z-index: 1100;
-         }
-         .brand { display:flex; align-items:center; gap:10px; }
-         .brand img { height:40px; width:auto; cursor:pointer; display:block; }
-         .brand h1 { font-size:20px; margin:0; font-weight:700; color:#fff; white-space:nowrap; }
-         nav.desktop {
-         margin-left: 20px;
-         display:flex; gap:8px; align-items:center;
-         }
-         nav.desktop a {
-         text-decoration:none; color:#fff;
-         background: rgba(255,255,255,0.12);
-         padding:8px 14px; border-radius:999px;
-         font-weight:600; font-size:14px; display:inline-block;
-         }
-         nav.desktop a:hover { background: rgba(255,255,255,0.28); }
-         #menuToggle {
-         display: none;
-         background: rgba(255,255,255,0.12);
-         color: #fff;
-         border: none;
-         padding: 8px 10px;
-         border-radius: 10px;
-         font-size: 20px;
-         cursor: pointer;
-         }
-         #headerDropdown {
-         display: none;
-         position: fixed;
-         top: calc(var(--header-height) + 8px);
-         left: 10px; right: 10px;
-         background: rgba(255,255,255,0.98);
-         border-radius: 12px;
-         box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-         overflow: hidden;
-         z-index: 1090;
-         max-height: 0;
-         opacity: 0;
-         transition: max-height .28s ease, opacity .22s ease;
-         }
-         #headerDropdown.open { display:block; max-height: 420px; opacity:1; }
-         #headerDropdown a {
-         display:flex; align-items:center; justify-content:space-between;
-         padding:12px 16px; color:#222; text-decoration:none;
-         font-weight:700; border-bottom:1px solid rgba(0,0,0,0.04);
-         }
-         #headerDropdown a:last-child { border-bottom:none; }
-         #headerDropdown a.active::after {
-         content: "➤"; color: var(--color-principal);
-         margin-left: 8px; font-weight:900;
-         }
-         .search-area { margin-left:auto; width: min(520px, 44%); }
-         .search-area input {
-         width:100%; padding:10px 16px;
-         border-radius:999px; border:none;
-         font-size:15px; outline:none;
-         box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-         }
-         .rate-bar {
-         text-align:center; margin:12px 0 2px;
-         background:#fff7ed; padding:8px 0;
-         box-shadow:0 1px 4px rgba(0,0,0,0.05);
-         display:flex; gap:12px; justify-content:center; align-items:center;
-         flex-wrap:wrap;
-         }
-         .rate-bar label { font-weight:600; color:var(--color-principal); margin-right:6px; }
-         .rate-bar input { padding:6px 10px; border:1px solid #ccc; border-radius:6px; max-width:100px; font-size:15px; }
-         .rate-bar button {
-         background:#fff; border:1px solid #ff7a2a; color:#ff7a2a;
-         border-radius:8px; padding:4px 10px; cursor:pointer; font-size:13px; margin-left:8px;
-         }
-         .rate-bar button:hover { background:#ffe9e0; }
-         .filters {
-         display:flex; gap:10px; justify-content:center;
-         padding:18px 16px 6px; flex-wrap:wrap;
-         }
-         .filter-btn {
-         border:2px solid #ff7a2a; color:#ff7a2a; background:#fff;
-         padding:8px 16px; border-radius:999px; cursor:pointer;
-         font-weight:600; font-size:14px; transition:all .18s;
-         }
-         .filter-btn:hover { transform:translateY(-3px); }
-         .filter-btn.active {
-         background:linear-gradient(90deg,#ff7a2a,#e85b07);
-         color:#fff; box-shadow:0 6px 18px rgba(232,88,12,0.18);
-         }
-         .grid {
-         display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
-         gap:20px; padding:18px; max-width:1150px;
-         margin:0 auto 40px; width:100%; align-items:start; min-height:260px;
-         }
-         .card {
-         background:#fff; border-radius:14px; padding:14px;
-         box-shadow:0 6px 18px rgba(0,0,0,0.06);
-         transition:transform .18s, box-shadow .18s;
-         position:relative; cursor:pointer; display:flex; flex-direction:column;
-         }
-         .card:hover { transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.12); }
-         .descripcion { font-weight:600; color:#243; font-size:15px; margin-bottom:6px; }
-         .codigo { font-size:12px; color:#667; margin-bottom:6px; }
-         .precio { font-weight:700; color:#ff6b00; font-size:16px; margin-top:6px; }
-         .precio-bs { font-size:14px; color:#e85b07; margin-top:4px; }
-         .unidad { font-size:13px; color:#556; margin-top:auto; }
-         .tag {
-         position:absolute; right:10px; bottom:10px;
-         background:#ffeddc; color:#d95300;
-         padding:6px 10px; border-radius:999px;
-         font-size:12px; font-weight:700;
-         box-shadow:0 3px 8px rgba(0,0,0,0.04);
-         }
-         .empty { grid-column:1 / -1; display:flex; align-items:center; justify-content:center; flex-direction:column; color:#b06e6e; font-size:16px; min-height:220px; text-align:center; }
-         .empty .icon { font-size:36px; margin-bottom:10px; }
-         footer {
-         text-align:center; padding:12px; font-size:13px;
-         margin-top:auto; background:#fff7ed; color:#6b7280;
-         }
-         @media (max-width: 720px) {
-         nav.desktop { display:none; }
-         #menuToggle { display:inline-block; }
-         header { padding:10px 14px; }
-         .search-area { width:100%; order:2; margin-left:0; }
-         .filters { padding-top:10px; gap:8px; }
-         .grid { padding:12px; gap:14px; }
-         .card { padding:12px; }
-         }
-         @media (min-width: 721px) {
-         #headerDropdown { display:none !important; }
-         }
-         #headerDropdown a.active, nav.desktop a.active {
-         background: rgba(249,115,22,0.14);
-         color: #111827;
-         }
-      </style>
-   </head>
-   <body>
-      <header>
-         <div class="brand">
-            <img src="logo.png" alt="Orange Store" onclick="location.href='index.html'">
-            <h1>Orange Store</h1>
-         </div>
-         <nav class="desktop">
-            <a href="index.html">🏠 Inicio</a>
-            <a href="accesorios.html" class="active">🎧 Accesorios</a>
-            <a href="repuestos.html">🛠 Repuestos</a>
-            <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-         </nav>
-         <div style="display:flex;align-items:center;gap:8px;">
-            <div class="search-area" style="width:min(420px,40vw);">
-               <input id="search" type="text" placeholder="Buscar accesorios...">
-            </div>
-            <button id="menuToggle">☰</button>
-         </div>
-      </header>
-      <div id="headerDropdown">
-         <a href="index.html">🏠 Inicio</a>
-         <a href="accesorios.html">🎧 Accesorios</a>
-         <a href="repuestos.html">🛠 Repuestos</a>
-         <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
-      </div>
-      <div class="rate-bar">
-         <label for="tasaInput">Tasa Bs/$:</label>
-         <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00">
-         <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares">¿Para qué sirve?</span>
-         <button onclick="borrarTasa()">Borrar tasa</button>
-         <span id="ultimaTasa" style="margin-left:10px;color:#888;font-size:13px;"></span>
-      </div>
-      <div class="filters">
-         <button class="filter-btn active" data-cat="all" onclick="filtrar('all', event)">Todos</button>
-         <button class="filter-btn" data-cat="cables" onclick="filtrar('cables', event)">Cables</button>
-         <button class="filter-btn" data-cat="cargadores" onclick="filtrar('cargadores', event)">Cargadores</button>
-         <button class="filter-btn" data-cat="audifonos" onclick="filtrar('audifonos', event)">Audífonos</button>
-         <button class="filter-btn" data-cat="forros" onclick="filtrar('forros', event)">Forros</button>
-         <button class="filter-btn" data-cat="vidrios" onclick="filtrar('vidrios', event)">Vidrios Templados</button>
-         <button class="filter-btn" data-cat="camara" onclick="filtrar('camara', event)">Protector de Cámara</button>
-      </div>
-      <main class="grid" id="grid">
-         <div class="spinner" id="spinner">
-            <div></div>
-         </div>
-      </main>
-      <div id="modal" class="modal">
-         <div class="content">
-            <button class="close-modal" onclick="cerrarModal()">×</button>
-            <h3 id="m-name"></h3>
-            <p id="m-code" class="codigo"></p>
-            <div class="bs-row" id="m-tasa"></div>
-            <p id="m-price" class="precio"></p>
-            <p id="m-price2bs" class="precio-bs"></p>
-            <p id="m-unit" class="unidad"></p>
-         </div>
-      </div>
-      <footer>© 2012-2025 Orange Store. Todos los derechos reservados. By Javier Esaa.</footer>
-      <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
-      <script>
-         const menuToggle=document.getElementById('menuToggle'),headerDropdown=document.getElementById('headerDropdown');
-         function markActiveLinks(){const e=(location.pathname.split('/').pop()||'index.html').toLowerCase();document.querySelectorAll('nav.desktop a,#headerDropdown a').forEach(t=>{const a=(t.getAttribute('href')||'').toLowerCase();if(a){const n='index.html'===a||'/'===a?'index.html':a.split('/').pop();n===e?t.classList.add('active'):t.classList.remove('active')}})}
-         menuToggle&&menuToggle.addEventListener('click',e=>{e.stopPropagation(),headerDropdown.classList.toggle('open');const t=headerDropdown.classList.contains('open');menuToggle.setAttribute('aria-expanded',String(t)),headerDropdown.setAttribute('aria-hidden',String(!t))});
-         document.addEventListener('click',e=>{e.target.closest('header')||e.target.closest('#headerDropdown')||(headerDropdown.classList.remove('open'),headerDropdown.setAttribute('aria-hidden','true'),menuToggle&&menuToggle.setAttribute('aria-expanded','false'))});
-         document.addEventListener('click',e=>{e.target&&e.target.matches&&e.target.matches('#headerDropdown a')&&(headerDropdown.classList.remove('open'),headerDropdown.setAttribute('aria-hidden','true'),menuToggle&&menuToggle.setAttribute('aria-expanded','false'))});
-         function obtenerTasa(){const e=parseFloat(localStorage.getItem("tasaBS"));return!isNaN(e)&&e>0?e:0}
-         function mostrarUltimaTasa(){const e=obtenerTasa(),t=document.getElementById("ultimaTasa");t&&(t.textContent=e?`Última tasa: Bs ${e}`:"")}
-         function borrarTasa(){try{localStorage.removeItem("tasaBS")}catch(e){}const e=document.getElementById("tasaInput");e&&(e.value=""),mostrarUltimaTasa();try{filtrar(filtroActivo)}catch(e){}}
-         function logout(){try{sessionStorage.removeItem('logueado')}catch(e){}location.href='login.html'}
-         !function(){try{"true"!==sessionStorage.getItem('logueado')&&(location.href='login.html')}catch(e){}}();
-         const DATA_FILE="precios.json";let productos=[],fuse=null,filtroActivo="all";
-         function normalizar(e=""){return String(e).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
-         function detectarCategoria(e=""){const t=normalizar(e);return t.includes("cable")?{key:"cables",label:"Cables"}:t.includes("vidrio")||t.includes("templado")||t.includes("glass")?{key:"vidrios",label:"Vidrio Templado"}:t.includes("cargador")||t.includes("taco cargador")?{key:"cargadores",label:"Cargadores"}:t.includes("audifono")||t.includes("auricular")||t.includes("headset")||t.includes("manos libres")?{key:"audifonos",label:"Audífonos"}:t.includes("protector de camara")||t.includes("camara")?{key:"camara",label:"Protector de Cámara"}:t.includes("forro")||t.includes("funda")||t.includes("protector")?{key:"forros",label:"Forros"}:{key:"otros",label:"Otros"}}
-         fetch(DATA_FILE).then(e=>e.json()).then(e=>{productos=e||[],productos.length&&(fuse=new Fuse(productos,{keys:["descripcion","codigo"],threshold:.35,ignoreLocation:!0,minMatchCharLength:2}));const t=document.getElementById("spinner");t&&(t.style.display="none"),mostrarProductos(productos)}).catch(e=>{console.error("No se pudo cargar precios.json:",e),mostrarEmpty("Error cargando datos")});
-         function mostrarProductos(e){const t=document.getElementById("grid");if(!t)return;t.innerHTML="";if(!e||0===e.length)return void mostrarEmpty("No se encontraron resultados");const a=document.createDocumentFragment();e.forEach(e=>{const t=detectarCategoria(e.descripcion),n=document.createElement("article");n.className="card",n.tabIndex=0;let r=Number(e.precio);isNaN(r)&&(r=0);const o=r*1.7,i=obtenerTasa(),s=i>0?"Bs "+(o*i).toFixed(2).replace(".",","):"";n.innerHTML=`
-           <div class="descripcion">${e.descripcion||""}</div>
-           <div class="codigo">Código: ${e.codigo||""}</div>
-           <div class="precio">$${o.toFixed(2)}</div>
-           ${s?`<div class="precio-bs">${s}</div>`:""}
-           <div class="unidad">${e.unidad||""}</div>
-           <span class="tag">${t.label}</span>
-         `,n.addEventListener("click",()=>abrirModal(e,o,i)),a.appendChild(n)}),t.appendChild(a)}
-         function mostrarEmpty(e){const t=document.getElementById("grid");t&&(t.innerHTML=`<div class="empty"><div class="icon">🛒</div>${e}</div>`)}
-         function abrirModal(e,t,a){const n=document.getElementById("modal");document.getElementById("m-name").textContent=e.descripcion||"",document.getElementById("m-code").textContent="Código: "+(e.codigo||""),document.getElementById("m-price").textContent="$"+t.toFixed(2);const r=a>0?"Bs "+(t*a).toFixed(2).replace(".",","):"";document.getElementById("m-price2bs").textContent=r,document.getElementById("m-unit").textContent=e.unidad||"",n.classList.add("open")}
-         function cerrarModal(){document.getElementById("modal").classList.remove("open")}
-         document.getElementById("tasaInput").addEventListener("change",function(){const e=parseFloat(this.value);!isNaN(e)&&e>0?(localStorage.setItem("tasaBS",e),mostrarUltimaTasa(),filtrar(filtroActivo)):alert("Ingrese una tasa válida")});
-         document.getElementById("search").addEventListener("input",function(){const e=this.value.trim();if(!fuse||!productos.length)return;const t=filtroActivo&&"all"!==filtroActivo?productos.filter(e=>detectarCategoria(e.descripcion).key===filtroActivo):productos;const a=e.length<2?t:fuse.search(e).map(e=>e.item).filter(e=>t.includes(e));mostrarProductos(a)});
-         function filtrar(e,t){t&&(document.querySelectorAll(".filter-btn").forEach(e=>e.classList.remove("active")),t.target.classList.add("active")),filtroActivo=e;const a=document.getElementById("search").value.trim();let n="all"===e?productos:productos.filter(t=>detectarCategoria(t.descripcion).key===e);if(a.length>=2&&fuse){const e=fuse.search(a).map(e=>e.item);n=n.filter(t=>e.includes(t))}mostrarProductos(n)}
-         document.addEventListener("DOMContentLoaded",()=>{markActiveLinks(),mostrarUltimaTasa()});
-      </script>
-   </body>
-</html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Orange Store - Accesorios</title>
 
+  <!-- Favicon -->
+  <link rel="icon" href="logopeq.png" type="image/png">
+
+  <!-- Tipografía -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-principal: #f97316;
+      --header-height: 72px;
+      --card-bg: #fff;
+      --muted: #667085;
+      --accent: #ff7a2a;
+    }
+    * { box-sizing: border-box; }
+    html,body { height:100%; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#223;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      background: linear-gradient(135deg,#fffaf5 0%,#ffe9e0 100%);
+    }
+
+    /* ---------------- Header ---------------- */
+    header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: linear-gradient(90deg, rgba(249,115,22,0.95), rgba(234,88,12,0.95));
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+      z-index: 1100;
+    }
+    .brand { display:flex; align-items:center; gap:10px; }
+    .brand img { height:40px; width:auto; cursor:pointer; display:block; }
+    .brand h1 { font-size:20px; margin:0; font-weight:700; color:#fff; white-space:nowrap; }
+
+    nav.desktop {
+      margin-left: 20px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
+    nav.desktop a {
+      text-decoration:none;
+      color:#fff;
+      background: rgba(255,255,255,0.12);
+      padding:8px 14px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:14px;
+      display:inline-block;
+    }
+    nav.desktop a:hover { background: rgba(255,255,255,0.28); }
+
+    #menuToggle {
+      display: none;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    #headerDropdown {
+      display: none;
+      position: fixed;
+      top: calc(var(--header-height) + 8px);
+      left: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.98);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      overflow: hidden;
+      z-index: 1090;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height .28s ease, opacity .22s ease;
+    }
+    #headerDropdown.open { display:block; max-height: 420px; opacity:1; }
+    #headerDropdown a {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 16px;
+      color:#222;
+      text-decoration:none;
+      font-weight:700;
+      border-bottom:1px solid rgba(0,0,0,0.04);
+      background: transparent;
+    }
+
+    /* ---------------- Search area + rest ---------------- */
+    .search-area {
+      margin-left:auto;
+      width: min(520px, 44%);
+    }
+    .search-area input {
+      width:100%;
+      padding:10px 16px;
+      border-radius:999px;
+      border: none;
+      font-size:15px;
+      outline:none;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    .rate-bar {
+      text-align:center;
+      margin:12px 0 2px;
+      background: #fff7ed;
+      padding: 8px 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .rate-bar label {
+      font-weight:600;
+      color:var(--color-principal);
+      margin-right:6px;
+    }
+    .rate-bar input {
+      padding:6px 10px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      max-width:100px;
+      font-size:15px;
+    }
+    .rate-bar button {
+      background: #fff;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 8px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size:13px;
+      margin-left: 8px;
+      transition: background .16s;
+    }
+    .rate-bar .tooltip {
+      font-size:13px;
+      color:#8a4f08;
+      border-bottom:1px dotted var(--color-principal);
+      cursor:help;
+      margin-left:7px;
+      background: #fff8eb;
+      border-radius: 6px;
+      padding: 2px 7px;
+    }
+
+    .filters {
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      padding:18px 16px 6px;
+      flex-wrap:wrap;
+    }
+    .filter-btn {
+      border:2px solid var(--accent);
+      color:var(--accent);
+      background:#fff;
+      padding:8px 16px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .18s;
+      font-size:14px;
+    }
+    .filter-btn:hover { transform:translateY(-3px); }
+    .filter-btn.active {
+      background:linear-gradient(90deg,var(--accent),#e85b07);
+      color:#fff;
+      box-shadow:0 6px 18px rgba(232, 88, 12, 0.18);
+      transform:none;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+      gap:20px;
+      padding:18px;
+      max-width:1150px;
+      margin:0 auto 40px;
+      width:100%;
+      align-items:start;
+      min-height:260px;
+    }
+
+    .card {
+      background:var(--card-bg);
+      border-radius:14px;
+      padding:14px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      transition:transform .18s, box-shadow .18s;
+      position:relative;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+    }
+    .card:hover { transform:translateY(-6px); box-shadow:0 14px 30px rgba(0,0,0,0.12); }
+
+    .descripcion { font-weight:700; color:#243; font-size:15px; margin-bottom:6px; }
+    .codigo { font-size:12px; color:var(--muted); margin-bottom:6px; }
+    .precio { font-weight:800; color:#ff6b00; font-size:18px; margin-top:6px; }
+    .precio-bs { font-size:14px; color:#e85b07; margin-top:6px; font-weight:700; }
+    .unidad { font-size:13px; color:#556; margin-top:auto; }
+
+    .tag {
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      background:#ffeddc;
+      color:#d95300;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      box-shadow:0 3px 8px rgba(0,0,0,0.04);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      color:#b06e6e;
+      font-size:16px;
+      min-height:220px;
+      text-align:center;
+    }
+    .empty .icon { font-size:36px; margin-bottom:10px; }
+
+    footer {
+      text-align:center;
+      padding:12px;
+      font-size:13px;
+      margin-top:auto;
+      background:#fff7ed;
+      color:#6b7280;
+    }
+
+    /* ==== Modal styles ==== */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      backdrop-filter: blur(3px);
+    }
+    .modal.open { display: flex; animation: modalIn .22s ease; }
+    .modal .content {
+      width: min(520px, 92%);
+      background: #fff;
+      border-radius:12px;
+      padding:20px;
+      text-align:left;
+      box-shadow:0 10px 30px rgba(0,0,0,0.22);
+      position:relative;
+    }
+    .modal h3 { color:#0f172a; margin:6px 0 8px; font-size:18px; }
+    .modal .codigo { color:var(--muted); margin-bottom:6px; }
+    .modal .bs-row { font-size:14px; color:#ea580c; margin:6px 0; }
+    .modal .precio { font-size:20px; margin:8px 0; }
+    .modal .precio-bs { font-size:16px; color:#c2410c; margin-bottom:6px; }
+    .close-modal {
+      position:absolute;
+      top:10px;
+      right:12px;
+      background:transparent;
+      border:none;
+      font-size:22px;
+      cursor:pointer;
+      color:#333;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(6px) scale(.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 720px) {
+      nav.desktop { display: none; }
+      #menuToggle { display: inline-block; }
+      header { padding: 10px 14px; }
+      :root { --header-height: 64px; }
+      .search-area { width:100%; order:2; margin-left:0; }
+      .filters { padding-top:10px; gap:8px; }
+      .grid { padding:12px; gap:14px; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); }
+      .card { padding:12px; }
+      .modal .content { padding:16px; width: 94%; }
+    }
+    @media (min-width: 721px) {
+      #headerDropdown { display: none !important; }
+    }
+
+    #headerDropdown a.active, nav.desktop a.active {
+      background: rgba(249,115,22,0.14);
+      color: #111827;
+    }
+  </style>
+</head>
+<body>
+  <!-- ------------------ HEADER ---------------- -->
+  <header>
+    <div class="brand" aria-label="Orange Store">
+      <img src="logo.png" alt="Orange Store" onclick="location.href='index.html'">
+      <h1>Orange Store</h1>
+    </div>
+
+    <nav class="desktop" aria-label="Navegación principal">
+      <a href="index.html">🏠 Inicio</a>
+      <a href="accesorios1.html" class="active">🎧 Accesorios</a>
+      <a href="repuestos.html">🛠 Repuestos</a>
+      <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="search-area" style="width:min(420px,40vw);">
+        <input id="search" type="text" placeholder="Buscar accesorios..." aria-label="Buscar accesorios">
+      </div>
+      <button id="menuToggle" aria-controls="headerDropdown" aria-expanded="false" aria-label="Abrir menú">☰</button>
+    </div>
+  </header>
+
+  <div id="headerDropdown" aria-hidden="true">
+    <a href="index.html">🏠 Inicio</a>
+    <a href="accesorios1.html">🎧 Accesorios</a>
+    <a href="repuestos.html">🛠 Repuestos</a>
+    <a href="#" onclick="logout()">🚪 Cerrar sesión</a>
+  </div>
+
+  <!-- ------------------ RATE / CONTROLS ------------------ -->
+  <div class="rate-bar" role="region" aria-label="Tasa BCV">
+    <label for="tasaInput">Tasa BCV (Bs/$):</label>
+    <input type="number" id="tasaInput" step="0.01" placeholder="Ej: 36.00" aria-label="Tasa BCV">
+    <span class="tooltip" title="La tasa se guarda localmente y permite ver precios en bolívares">¿Para qué sirve?</span>
+    <button id="btnClearTasa" type="button">Borrar tasa</button>
+    <span id="ultimaTasa" style="margin-left:10px;color:#888;font-size:13px;"></span>
+  </div>
+
+  <!-- ------------------ FILTROS ------------------ -->
+  <div class="filters" role="toolbar" aria-label="Filtros">
+    <button class="filter-btn active" data-cat="all" onclick="filtrar('all', event)">Todos</button>
+    <button class="filter-btn" data-cat="cables" onclick="filtrar('cables', event)">Cables</button>
+    <button class="filter-btn" data-cat="cargadores" onclick="filtrar('cargadores', event)">Cargadores</button>
+    <button class="filter-btn" data-cat="audifonos" onclick="filtrar('audifonos', event)">Audífonos</button>
+    <button class="filter-btn" data-cat="forros" onclick="filtrar('forros', event)">Forros</button>
+    <button class="filter-btn" data-cat="vidrios" onclick="filtrar('vidrios', event)">Vidrios Templados</button>
+    <button class="filter-btn" data-cat="camara" onclick="filtrar('camara', event)">Protector de Cámara</button>
+  </div>
+
+  <!-- ------------------ MAIN GRID ------------------ -->
+  <main class="grid" id="grid" aria-live="polite">
+    <div class="spinner" id="spinner"><div></div></div>
+  </main>
+
+  <!-- ------------------ MODAL ------------------ -->
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="content" role="document">
+      <button class="close-modal" id="closeModalBtn" aria-label="Cerrar">×</button>
+      <h3 id="m-name">Nombre del producto</h3>
+      <p id="m-code" class="codigo">Código: ---</p>
+      <div id="m-tasa" class="bs-row"></div>
+      <p id="m-price" class="precio">$0.00</p>
+      <p id="m-price2bs" class="precio-bs"></p>
+      <p id="m-unit" class="unidad"></p>
+    </div>
+  </div>
+
+  <footer>© 2012-2025 Orange Store. Todos los derechos reservados. By Javier Esaa.</footer>
+
+  <!-- Fuse.js (search) -->
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+  <!-- ===========================
+       SCRIPT 1 — Menú / enlaces / util
+       (funciones pequeñas, activación de links)
+       =========================== -->
+  <script>
+    // Menu / active link + utilities
+    const menuToggle = document.getElementById('menuToggle');
+    const headerDropdown = document.getElementById('headerDropdown');
+
+    function markActiveLinks() {
+      const desktopLinks = document.querySelectorAll('nav.desktop a');
+      const mobileLinks = document.querySelectorAll('#headerDropdown a');
+      const currentPath = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+      const mark = (nodeList) => {
+        nodeList.forEach(a => {
+          try {
+            const href = (a.getAttribute('href') || '').toLowerCase();
+            if (!href) return;
+            const normHref = (href === '' || href === '/') ? 'index.html' : href.split('/').pop();
+            if (normHref === currentPath) a.classList.add('active');
+            else a.classList.remove('active');
+          } catch(e) { /* ignore */ }
+        });
+      };
+      mark(desktopLinks);
+      mark(mobileLinks);
+    }
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        headerDropdown.classList.toggle('open');
+        const expanded = headerDropdown.classList.contains('open');
+        menuToggle.setAttribute('aria-expanded', String(expanded));
+        headerDropdown.setAttribute('aria-hidden', String(!expanded));
+      });
+    }
+
+    // close dropdown on outside click
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('header') && !e.target.closest('#headerDropdown')) {
+        headerDropdown.classList.remove('open');
+        headerDropdown.setAttribute('aria-hidden', 'true');
+        if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    function logout(){
+      try { sessionStorage.removeItem('logueado'); } catch(e){}
+      // redirect
+      location.href = 'login.html';
+    }
+
+    // quick login check (fallback safe)
+    (function checkLogin(){
+      try {
+        if (sessionStorage.getItem('logueado') !== 'true') {
+          // If you want to skip redirect while testing locally, comment the next line
+          // location.href = 'login.html';
+        }
+      } catch(e){ /* ignore */ }
+    })();
+  </script>
+
+  <!-- ===========================
+       SCRIPT 2 — Datos, Fuse init y renderizado de productos
+       =========================== -->
+  <script>
+    const DATA_FILE = "precios.json"; // archivo JSON en la misma carpeta
+    let productos = [];
+    let fuse = null;
+    let filtroActivo = "all";
+
+    function normalizar(txt = "") {
+      return String(txt).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    function detectarCategoria(desc = "") {
+      const d = normalizar(desc || "");
+      if (d.includes("cable")) return { key: "cables", label: "Cables" };
+      if (d.includes("vidrio") || d.includes("templado") || d.includes("glass")) return { key: "vidrios", label: "Vidrio Templado" };
+      if (d.includes("cargador") || d.includes("taco cargador") || d.includes("tacos cargador")) return { key: "cargadores", label: "Cargadores" };
+      if (d.includes("audifono") || d.includes("auricular") || d.includes("headset") || d.includes("manos libres")) return { key: "audifonos", label: "Audífonos" };
+      if (d.includes("protector de camara") || d.includes("camara")) return { key: "camara", label: "Protector de Cámara" };
+      if (d.includes("forro") || d.includes("funda") || d.includes("protector")) return { key: "forros", label: "Forros" };
+      return { key: "otros", label: "Otros" };
+    }
+
+    // Carga datos
+    fetch(DATA_FILE)
+      .then(r => r.json())
+      .then(data => {
+        productos = Array.isArray(data) ? data : [];
+        if (productos.length) {
+          fuse = new Fuse(productos, {
+            keys: ["descripcion", "codigo"],
+            threshold: 0.35,
+            ignoreLocation: true,
+            minMatchCharLength: 2,
+          });
+        }
+        const spinner = document.getElementById("spinner");
+        if (spinner) spinner.style.display = "none";
+        mostrarProductos(productos);
+      })
+      .catch(err => {
+        console.error("No se pudo cargar precios.json:", err);
+        mostrarEmpty("Error cargando datos");
+      });
+
+    // render
+    function mostrarProductos(lista) {
+      const grid = document.getElementById("grid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      if (!lista || lista.length === 0) {
+        mostrarEmpty("No se encontraron resultados");
+        return;
+      }
+
+      const frag = document.createDocumentFragment();
+      lista.forEach(item => {
+        const cat = detectarCategoria(item.descripcion);
+        const card = document.createElement("article");
+        card.className = "card";
+        card.tabIndex = 0;
+
+        // precio original y multiplicado por 1.7
+        let precioNum = Number(item.precio);
+        if (isNaN(precioNum)) precioNum = 0;
+        const precioFinal = precioNum * 1.7;
+
+        // obtener tasa para mostrar bs si existe
+        const tasa = obtenerTasa();
+        const precioBs = tasa > 0 ? "Bs " + (precioFinal * tasa).toFixed(2).replace(".", ",") : "";
+
+        card.innerHTML = `
+          <div class="descripcion">${item.descripcion || ""}</div>
+          <div class="codigo">Código: ${item.codigo || ""}</div>
+          <div class="precio">$${precioFinal.toFixed(2)}</div>
+          ${precioBs ? `<div class="precio-bs">${precioBs}</div>` : ""}
+          <div class="unidad">${item.unidad || ""}</div>
+          <span class="tag">${cat.label}</span>
+        `;
+
+        // abrir modal con detalle cuando se hace click o ENTER
+        card.addEventListener("click", () => abrirModal(item, precioFinal));
+        card.addEventListener("keydown", (ev) => {
+          if (ev.key === "Enter" || ev.key === " ") {
+            ev.preventDefault();
+            abrirModal(item, precioFinal);
+          }
+        });
+
+        frag.appendChild(card);
+      });
+
+      grid.appendChild(frag);
+    }
+
+    function mostrarEmpty(mensaje) {
+      const grid = document.getElementById("grid");
+      if (!grid) return;
+      grid.innerHTML = `
+        <div class="empty" role="status">
+          <div class="icon">❌</div>
+          <div>${mensaje}</div>
+        </div>
+      `;
+    }
+  </script>
+
+  <!-- ===========================
+       SCRIPT 3 — Búsqueda y filtros (separado)
+       =========================== -->
+  <script>
+    // Debounce helper
+    function debounceFn(fn, wait = 180) {
+      let t;
+      return function(...args) {
+        clearTimeout(t);
+        t = setTimeout(() => fn.apply(this, args), wait);
+      };
+    }
+
+    // Search handling
+    const searchInput = document.getElementById("search");
+    if (searchInput) {
+      searchInput.addEventListener("input", debounceFn(() => {
+        filtrar(filtroActivo);
+      }, 180));
+    }
+
+    // Filtrar
+    function filtrar(categoria, ev) {
+      filtroActivo = categoria;
+      // active button styles
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      if (ev && ev.target) ev.target.classList.add("active");
+
+      let lista = productos.slice();
+      const texto = (document.getElementById("search") ? document.getElementById("search").value.trim() : "").toLowerCase();
+
+      if (texto !== "") {
+        if (fuse) {
+          const resultados = fuse.search(normalizar(texto));
+          lista = resultados.map(r => r.item);
+        } else {
+          lista = lista.filter(p => (p.descripcion || "").toLowerCase().includes(texto) || (p.codigo || "").toLowerCase().includes(texto));
+        }
+      }
+
+      if (categoria !== "all") {
+        lista = lista.filter(p => detectarCategoria(p.descripcion).key === categoria);
+      }
+
+      mostrarProductos(lista);
+    }
+  </script>
+
+  <!-- ===========================
+       SCRIPT 4 — Modal y manejo de tasa (separado)
+       =========================== -->
+  <script>
+    const modal = document.getElementById("modal");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const ultimaTasaNode = document.getElementById("ultimaTasa");
+    const tasaInput = document.getElementById("tasaInput");
+    const btnClearTasa = document.getElementById("btnClearTasa");
+
+    // obtener tasa desde localStorage
+    function obtenerTasa() {
+      try {
+        const v = parseFloat(localStorage.getItem("tasaBCV") || localStorage.getItem("tasaBS"));
+        return (!isNaN(v) && v > 0) ? v : 0;
+      } catch(e) { return 0; }
+    }
+
+    function mostrarUltimaTasa() {
+      const tasa = obtenerTasa();
+      if (ultimaTasaNode) ultimaTasaNode.textContent = tasa ? `Última tasa: Bs ${tasa}` : "";
+      if (tasaInput && tasa) tasaInput.value = tasa;
+    }
+
+    btnClearTasa.addEventListener("click", () => {
+      try { localStorage.removeItem("tasaBCV"); localStorage.removeItem("tasaBS"); } catch(e){}
+      if (tasaInput) tasaInput.value = "";
+      mostrarUltimaTasa();
+      filtrar(filtroActivo);
+    });
+
+    // cuando user cambia la tasa
+    taxaInputHandler = function() {
+      const val = parseFloat(tasaInput.value);
+      if (!isNaN(val) && val > 0) {
+        try { localStorage.setItem("tasaBCV", val); } catch(e){}
+        mostrarUltimaTasa();
+        filtrar(filtroActivo);
+      }
+    };
+
+    if (tasaInput) {
+      // cargar guardada si hay
+      const saved = obtenerTasa();
+      if (saved) tasaInput.value = saved;
+      tasaInput.addEventListener("change", taxaInputHandler);
+      tasaInput.addEventListener("input", taxaInputHandler);
+    }
+
+    // abrir modal con item y precio ya multiplicado
+    function abrirModal(item, precioMultiplicado) {
+      if (!item) return;
+      document.getElementById("m-name").textContent = item.descripcion || "";
+      document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
+      document.getElementById("m-price").textContent = "$" + Number(precioMultiplicado || 0).toFixed(2);
+
+      const tasa = obtenerTasa();
+      if (tasa > 0) {
+        document.getElementById("m-tasa").textContent = `Tasa BCV: Bs ${tasa}`;
+        document.getElementById("m-price2bs").textContent = "Bs " + (precioMultiplicado * tasa).toFixed(2).replace(".", ",");
+      } else {
+        document.getElementById("m-tasa").textContent = "";
+        document.getElementById("m-price2bs").textContent = "";
+      }
+
+      document.getElementById("m-unit").textContent = "UNIDAD: " + (item.unidad || "");
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function cerrarModal() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    // listeners para cerrar
+    closeModalBtn.addEventListener("click", cerrarModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) cerrarModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") cerrarModal();
+    });
+
+    // inicializar tasa y links al cargar DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      markActiveLinks();
+      mostrarUltimaTasa();
+    });
+  </script>
+
+  <!-- ===========================
+       SCRIPT 5 — pequeño polyfills / extras (si necesitas)
+       =========================== -->
+  <script>
+    // Si deseas, aquí puedes añadir pequeñas funciones utilitarias adicionales
+    // por ejemplo, formateo numérico o helper para exportar CSV.
+    // De momento lo dejo vacío para que el archivo se mantenga claro.
+  </script>
+</body>
+</html>
