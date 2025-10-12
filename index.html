@@ -345,13 +345,14 @@
 
           <!-- Input Bs -->
           <div id="rowBs" class="calc-row">
-            <label for="montoBs">Monto en Bolívares (Bs):</label>
+            <label for="montoBs">Monto en Bolívares (Bs) — TOTAL (incluye IVA):</label>
             <input id="montoBs" class="calc-input" type="number" step="0.01" placeholder="Ej: 1000.00" inputmode="decimal" aria-label="Monto en bolívares">
+            <p id="tasaInfo" style="font-size:13px;margin-top:6px;color:#6b7280;"></p>
           </div>
 
           <!-- Input Divisas -->
           <div id="rowDiv" class="calc-row" style="display:none;">
-            <label for="montoDiv">Monto en Divisas / Cripto (unidad del precio):</label>
+            <label for="montoDiv">Monto en Divisas / Cripto (base, sin IGTF):</label>
             <input id="montoDiv" class="calc-input" type="number" step="0.01" placeholder="Ej: 100.00" inputmode="decimal" aria-label="Monto en divisas">
             <div style="font-size:13px; margin-top:6px; color:#6b7280;">
               Nota: IGTF (3%) se aplica únicamente sobre este monto en divisas.
@@ -359,11 +360,18 @@
           </div>
 
           <div class="results" aria-live="polite" aria-atomic="true">
+            <p><strong>Base imponible (Bs):</strong> <span id="baseBs">0.00</span> Bs</p>
             <p><strong>IVA (16%) sobre Bs:</strong> <span id="ivaMonto">0.00</span> Bs</p>
-            <p><strong>IGTF (3%) sobre Divisas:</strong> <span id="igtfMonto">0.00</span> (misma unidad que el monto en divisas)</p>
-            <hr style="border:none; border-top:1px solid #ddd; margin:10px 0;">
             <p><strong>Total en Bs (base + IVA):</strong> <span id="totalBs">0.00</span> Bs</p>
+
+            <hr style="border:none; border-top:1px solid #ddd; margin:10px 0;">
+
+            <p><strong>Base (Divisas):</strong> <span id="baseDiv">0.00</span></p>
+            <p><strong>IGTF (3%) sobre Divisas:</strong> <span id="igtfMonto">0.00</span></p>
             <p><strong>Total en Divisas (base + IGTF):</strong> <span id="totalDiv">0.00</span></p>
+
+            <hr style="border:none; border-top:1px solid #ddd; margin:10px 0;">
+
             <p id="combinedSummary" style="color:#f97316; font-weight:700; margin-top:8px;">Resumen: 0.00 Bs · 0.00 Div</p>
           </div>
 
@@ -401,14 +409,31 @@
       const montoBs = document.getElementById('montoBs');
       const montoDiv = document.getElementById('montoDiv');
 
+      const baseBsEl = document.getElementById('baseBs');
       const ivaMontoEl = document.getElementById('ivaMonto');
-      const igtfMontoEl = document.getElementById('igtfMonto');
       const totalBsEl = document.getElementById('totalBs');
+
+      const baseDivEl = document.getElementById('baseDiv');
+      const igtfMontoEl = document.getElementById('igtfMonto');
       const totalDivEl = document.getElementById('totalDiv');
+
       const combinedSummary = document.getElementById('combinedSummary');
+      const tasaInfo = document.getElementById('tasaInfo');
 
       const copyBtn = document.getElementById('copyBtn');
       const clearBtn = document.getElementById('clearBtn');
+
+      // Obtener tasa desde localStorage (tasaBCV)
+      function obtenerTasa() {
+        try {
+          const raw = localStorage.getItem("tasaBCV") || localStorage.getItem("tasaBS");
+          if (!raw) return 0;
+          const v = parseFloat(String(raw).replace(",", "."));
+          return (!isNaN(v) && v > 0) ? v : 0;
+        } catch (e) {
+          return 0;
+        }
+      }
 
       // Formatea números de forma legible (2 decimales)
       function fmt(n) {
@@ -421,12 +446,21 @@
         }
       }
 
+      function mostrarTasaInfo() {
+        const tasa = obtenerTasa();
+        if (tasa > 0) {
+          tasaInfo.textContent = `Tasa guardada: Bs ${fmt(tasa)} por USD (usada para equivalencias).`;
+        } else {
+          tasaInfo.textContent = `No hay tasa guardada (localStorage: 'tasaBCV'). Si la configuras en otra página, se usarán las equivalencias.`;
+        }
+      }
+
       function actualizarVisibilidad() {
         const tipo = tipoOperacion.value;
         if (tipo === 'bs') {
           rowBs.style.display = 'block';
           rowDiv.style.display = 'none';
-          montoDiv.value = '';
+          if (montoDiv) montoDiv.value = '';
         } else if (tipo === 'divisas') {
           rowBs.style.display = 'none';
           rowDiv.style.display = 'block';
@@ -440,31 +474,69 @@
 
       function calcular() {
         const tipo = tipoOperacion.value;
-        const baseBs = parseFloat(montoBs.value) || 0;
-        const baseDiv = parseFloat(montoDiv ? montoDiv.value : 0) || 0;
+        const tasa = obtenerTasa();
 
-        let iva = 0, igtf = 0;
+        // Lecturas
+        const inputTotalBs = parseFloat(montoBs.value) || 0; // NOTE: treated as TOTAL including IVA
+        const inputBaseDiv = parseFloat(montoDiv ? montoDiv.value : 0) || 0; // treated as base (sin IGTF)
+
+        // Variables resultantes
+        let baseBs = 0, iva = 0, totalBs = 0;
+        let baseDiv = 0, igtf = 0, totalDiv = 0;
+
         if (tipo === 'bs') {
-          iva = baseBs * IVA_RATE;
-          igtf = 0;
+          // Here the user inputs the TOTAL in Bs (includes IVA). We must split:
+          totalBs = inputTotalBs;
+          baseBs = totalBs / (1 + IVA_RATE); // total / 1.16
+          iva = totalBs - baseBs;
+          // Divisas zero
+          baseDiv = 0; igtf = 0; totalDiv = 0;
         } else if (tipo === 'divisas') {
-          iva = 0;
+          // For divisas we treat input as BASE (no IGTF included)
+          baseDiv = inputBaseDiv;
           igtf = baseDiv * IGTF_RATE;
+          totalDiv = baseDiv + igtf;
+          // Bs zero
+          baseBs = 0; iva = 0; totalBs = 0;
         } else { // mixto
-          iva = baseBs * IVA_RATE;
+          // Bs part: user inputs TOTAL (includes IVA)
+          totalBs = inputTotalBs;
+          baseBs = totalBs / (1 + IVA_RATE);
+          iva = totalBs - baseBs;
+          // Div part as base
+          baseDiv = inputBaseDiv;
           igtf = baseDiv * IGTF_RATE;
+          totalDiv = baseDiv + igtf;
         }
 
-        const totalBs = baseBs + iva;
-        const totalDiv = baseDiv + igtf;
-
+        // Mostrar en UI (format)
+        baseBsEl.textContent = fmt(baseBs);
         ivaMontoEl.textContent = fmt(iva);
-        igtfMontoEl.textContent = fmt(igtf);
         totalBsEl.textContent = fmt(totalBs);
+
+        baseDivEl.textContent = fmt(baseDiv);
+        igtfMontoEl.textContent = fmt(igtf);
         totalDivEl.textContent = fmt(totalDiv);
 
-        // Resumen combinado (mostramos por separado las dos monedas)
-        combinedSummary.textContent = `Resumen → Bs: ${fmt(totalBs)} · Divisas: ${fmt(totalDiv)}`;
+        // Combined summary
+        let summary = `Resumen → Bs: ${fmt(totalBs)} · Divisas: ${fmt(totalDiv)}`;
+        // Si hay tasa guardada, añadir equivalencias
+        if (tasa > 0) {
+          // convertir Bs -> USD (usar base/iva/total Bs -> USD)
+          const baseBsToUSD = baseBs / tasa;
+          const ivaBsToUSD = iva / tasa;
+          const totalBsToUSD = totalBs / tasa;
+
+          // convertir Divisas -> Bs (para mostrar equivalente bolívar)
+          const baseDivToBs = baseDiv * tasa;
+          const igtfDivToBs = igtf * tasa;
+          const totalDivToBs = totalDiv * tasa;
+
+          summary += ` | (Equiv USD de Bs) Base: ${fmt(baseBsToUSD)}, IVA: ${fmt(ivaBsToUSD)}, Total: ${fmt(totalBsToUSD)} USD`;
+          summary += ` | (Equiv Bs de Divisas) Base: ${fmt(baseDivToBs)} Bs, IGTF: ${fmt(igtfDivToBs)} Bs, Total: ${fmt(totalDivToBs)} Bs`;
+        }
+
+        combinedSummary.textContent = summary;
       }
 
       tipoOperacion.addEventListener('change', actualizarVisibilidad);
@@ -479,22 +551,31 @@
       });
 
       copyBtn.addEventListener('click', async () => {
-        const texto = `Resultados calculadora:\nTipo: ${tipoOperacion.options[tipoOperacion.selectedIndex].text}\n` +
-          `IVA (16%) = ${ivaMontoEl.textContent} Bs\nIGTF (3%) = ${igtfMontoEl.textContent}\n` +
-          `Total Bs (base+IVA) = ${totalBsEl.textContent} Bs\nTotal Divisas (base+IGTF) = ${totalDivEl.textContent}\n` +
-          `(${combinedSummary.textContent})`;
+        const tipoText = tipoOperacion.options[tipoOperacion.selectedIndex].text;
+        const texto = `Resultados calculadora:\nTipo: ${tipoText}\n` +
+          `Base (Bs): ${baseBsEl.textContent} Bs\nIVA (16%): ${ivaMontoEl.textContent} Bs\nTotal Bs: ${totalBsEl.textContent} Bs\n\n` +
+          `Base (Div): ${baseDivEl.textContent}\nIGTF (3%): ${igtfMontoEl.textContent}\nTotal Div: ${totalDivEl.textContent}\n\n` +
+          `${combinedSummary.textContent}`;
         try {
           await navigator.clipboard.writeText(texto);
           copyBtn.textContent = 'Copiado ✓';
           setTimeout(() => copyBtn.textContent = 'Copiar resultados', 1500);
         } catch (e) {
-          // Fallback: seleccionar texto en prompt
           window.prompt("Copia los resultados (Ctrl+C / Cmd+C):", texto);
         }
       });
 
       // Inicial
+      mostrarTasaInfo();
       actualizarVisibilidad();
+
+      // Si la tasa cambia en otra pestaña, actualizamos (opcional)
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'tasaBCV' || e.key === 'tasaBS') {
+          mostrarTasaInfo();
+          calcular();
+        }
+      });
     })();
   </script>
 
