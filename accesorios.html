@@ -298,6 +298,18 @@
       color:#333;
     }
 
+    /* 💄 Estilo del desglose */
+    .desglose div {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed #f3f4f6;
+      padding: 3px 0;
+    }
+    .desglose strong {
+      color: #ea580c;
+      font-weight: 600;
+    }
+
     @keyframes modalIn {
       from { opacity: 0; transform: translateY(6px) scale(.99); }
       to { opacity: 1; transform: translateY(0) scale(1); }
@@ -389,7 +401,7 @@
       <div id="m-tasa" class="bs-row"></div>
       <p id="m-price" class="precio">$0.00</p>
       <p id="m-price2bs" class="precio-bs"></p>
-      <div id="m-desglose" class="desglose" style="margin-top:10px;font-size:14px;color:#374151;">
+      <div id="m-desglose" class="desglose" style="margin-top:10px;font-size:14px;color:#374151;"></div>
       <p id="m-unit" class="unidad"></p>
     </div>
   </div>
