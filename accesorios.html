@@ -300,15 +300,12 @@
 
     /* 💄 Estilo del desglose */
     .desglose div {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px dashed #f3f4f6;
-      padding: 3px 0;
+      display:flex;
+      justify-content:space-between;
+      border-bottom:1px dashed #f3f4f6;
+      padding:3px 0;
     }
-    .desglose strong {
-      color: #ea580c;
-      font-weight: 600;
-    }
+    .desglose strong { color:#ea580c; font-weight:600; }
 
     @keyframes modalIn {
       from { opacity: 0; transform: translateY(6px) scale(.99); }
@@ -403,6 +400,7 @@
       <p id="m-price2bs" class="precio-bs"></p>
       <div id="m-desglose" class="desglose" style="margin-top:10px;font-size:14px;color:#374151;"></div>
       <p id="m-unit" class="unidad"></p>
+      <button class="close-modal" id="dummyClose" style="display:none;">close</button>
     </div>
   </div>
 
@@ -413,10 +411,8 @@
 
   <!-- ===========================
        SCRIPT 1 — Menú / enlaces / util
-       (funciones pequeñas, activación de links)
        =========================== -->
   <script>
-    // Menu / active link + utilities
     const menuToggle = document.getElementById('menuToggle');
     const headerDropdown = document.getElementById('headerDropdown');
 
@@ -461,15 +457,12 @@
 
     function logout(){
       try { sessionStorage.removeItem('logueado'); } catch(e){}
-      // redirect
       location.href = 'login.html';
     }
 
-    // quick login check (fallback safe)
     (function checkLogin(){
       try {
         if (sessionStorage.getItem('logueado') !== 'true') {
-          // If you want to skip redirect while testing locally, comment the next line
           // location.href = 'login.html';
         }
       } catch(e){ /* ignore */ }
@@ -585,7 +578,7 @@
   </script>
 
   <!-- ===========================
-       SCRIPT 3 — Búsqueda y filtros (separado)
+       SCRIPT 3 — Búsqueda y filtros
        =========================== -->
   <script>
     // Debounce helper
@@ -633,7 +626,7 @@
   </script>
 
   <!-- ===========================
-       SCRIPT 4 — Modal y manejo de tasa (separado)
+       SCRIPT 4 — Modal y manejo de tasa
        =========================== -->
   <script>
     const modal = document.getElementById("modal");
@@ -656,15 +649,18 @@
       if (tasaInput && tasa) tasaInput.value = tasa;
     }
 
-    btnClearTasa.addEventListener("click", () => {
-      try { localStorage.removeItem("tasaBCV"); localStorage.removeItem("tasaBS"); } catch(e){}
-      if (tasaInput) tasaInput.value = "";
-      mostrarUltimaTasa();
-      filtrar(filtroActivo);
-    });
+    if (btnClearTasa) {
+      btnClearTasa.addEventListener("click", () => {
+        try { localStorage.removeItem("tasaBCV"); localStorage.removeItem("tasaBS"); } catch(e){}
+        if (tasaInput) tasaInput.value = "";
+        mostrarUltimaTasa();
+        filtrar(filtroActivo);
+      });
+    }
 
     // cuando user cambia la tasa
-    tasaInputHandler = function() {
+    const tasaInputHandler = function() {
+      if (!tasaInput) return;
       const val = parseFloat(tasaInput.value);
       if (!isNaN(val) && val > 0) {
         try { localStorage.setItem("tasaBCV", val); } catch(e){}
@@ -683,68 +679,64 @@
 
     // abrir modal con item y precio ya multiplicado
     function abrirModal(item, precioMultiplicado) {
-  if (!item) return;
+      if (!item) return;
+      document.getElementById("m-name").textContent = item.descripcion || "";
+      document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
+      document.getElementById("m-price").textContent = "$" + Number(precioMultiplicado || 0).toFixed(2);
 
-  document.getElementById("m-name").textContent = item.descripcion || "";
-  document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
-  document.getElementById("m-price").textContent = "$" + Number(precioMultiplicado || 0).toFixed(2);
+      const tasa = obtenerTasa();
+      let desgloseHTML = "";
 
-  const tasa = obtenerTasa();
-  let desgloseHTML = "";
+      // cálculos
+      const precioConIVA = Number(precioMultiplicado || 0);
+      const baseUSD = precioConIVA / 1.16;
+      const ivaUSD = precioConIVA - baseUSD;
 
-  if (tasa > 0) {
-    // mostrar tasa y precio en Bs
-    document.getElementById("m-tasa").textContent = `Tasa BCV: Bs ${tasa}`;
-    document.getElementById("m-price2bs").textContent =
-      "Bs " + (precioMultiplicado * tasa).toFixed(2).replace(".", ",");
+      if (tasa > 0) {
+        // mostrar tasa y precio en Bs
+        document.getElementById("m-tasa").textContent = `Tasa BCV: Bs ${tasa}`;
+        document.getElementById("m-price2bs").textContent =
+          "Bs " + (precioConIVA * tasa).toFixed(2).replace(".", ",");
 
-    // --- Cálculos del desglose ---
-    const precioConIVA = Number(precioMultiplicado || 0);
-    const baseUSD = precioConIVA / 1.16;
-    const ivaUSD = precioConIVA - baseUSD;
+        const baseBs = baseUSD * tasa;
+        const ivaBs = ivaUSD * tasa;
+        const totalBs = precioConIVA * tasa;
 
-    const baseBs = baseUSD * tasa;
-    const ivaBs = ivaUSD * tasa;
-    const totalBs = precioConIVA * tasa;
+        desgloseHTML = `
+          <div><strong>Base imponible:</strong> $${baseUSD.toFixed(2)}  |  Bs ${baseBs.toFixed(2).replace(".", ",")}</div>
+          <div><strong>IVA (16%):</strong> $${ivaUSD.toFixed(2)}  |  Bs ${ivaBs.toFixed(2).replace(".", ",")}</div>
+          <div><strong>Total:</strong> $${precioConIVA.toFixed(2)}  |  Bs ${totalBs.toFixed(2).replace(".", ",")}</div>
+        `;
+      } else {
+        document.getElementById("m-tasa").textContent = "";
+        document.getElementById("m-price2bs").textContent = "";
 
-    desgloseHTML = `
-      <div><strong>Base imponible:</strong> $${baseUSD.toFixed(2)}  |  Bs ${baseBs.toFixed(2).replace(".", ",")}</div>
-      <div><strong>IVA (16%):</strong> $${ivaUSD.toFixed(2)}  |  Bs ${ivaBs.toFixed(2).replace(".", ",")}</div>
-      <div><strong>Total:</strong> $${precioConIVA.toFixed(2)}  |  Bs ${totalBs.toFixed(2).replace(".", ",")}</div>
-    `;
-  } else {
-    // si no hay tasa guardada
-    document.getElementById("m-tasa").textContent = "";
-    document.getElementById("m-price2bs").textContent = "";
+        desgloseHTML = `
+          <div><strong>Base imponible:</strong> $${baseUSD.toFixed(2)}</div>
+          <div><strong>IVA (16%):</strong> $${ivaUSD.toFixed(2)}</div>
+          <div><strong>Total:</strong> $${precioConIVA.toFixed(2)}</div>
+        `;
+      }
 
-    // --- Desglose solo en dólares ---
-    const precioConIVA = Number(precioMultiplicado || 0);
-    const baseUSD = precioConIVA / 1.16;
-    const ivaUSD = precioConIVA - baseUSD;
+      document.getElementById("m-desglose").innerHTML = desgloseHTML;
+      document.getElementById("m-unit").textContent = "UNIDAD: " + (item.unidad || "");
 
-    desgloseHTML = `
-      <div><strong>Base imponible:</strong> $${baseUSD.toFixed(2)}</div>
-      <div><strong>IVA (16%):</strong> $${ivaUSD.toFixed(2)}</div>
-      <div><strong>Total:</strong> $${precioConIVA.toFixed(2)}</div>
-    `;
-  }
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+    }
 
-  document.getElementById("m-desglose").innerHTML = desgloseHTML;
-  document.getElementById("m-unit").textContent = "UNIDAD: " + (item.unidad || "");
-
-  modal.classList.add("open");
-  modal.setAttribute("aria-hidden", "false");
-}
     function cerrarModal() {
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden", "true");
     }
 
     // listeners para cerrar
-    closeModalBtn.addEventListener("click", cerrarModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) cerrarModal();
-    });
+    if (closeModalBtn) closeModalBtn.addEventListener("click", cerrarModal);
+    if (modal) {
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) cerrarModal();
+      });
+    }
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") cerrarModal();
     });
@@ -757,12 +749,10 @@
   </script>
 
   <!-- ===========================
-       SCRIPT 5 — pequeño polyfills / extras (si necesitas)
+       SCRIPT 5 — pequeños extras
        =========================== -->
   <script>
-    // Si deseas, aquí puedes añadir pequeñas funciones utilitarias adicionales
-    // por ejemplo, formateo numérico o helper para exportar CSV.
-    // De momento lo dejo vacío para que el archivo se mantenga claro.
+    // Puedes añadir utilitarios aquí si los necesitas más adelante.
   </script>
 </body>
 </html>
