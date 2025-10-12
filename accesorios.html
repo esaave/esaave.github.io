@@ -651,7 +651,7 @@
     });
 
     // cuando user cambia la tasa
-    taxaInputHandler = function() {
+    tasaInputHandler = function() {
       const val = parseFloat(tasaInput.value);
       if (!isNaN(val) && val > 0) {
         try { localStorage.setItem("tasaBCV", val); } catch(e){}
@@ -664,8 +664,8 @@
       // cargar guardada si hay
       const saved = obtenerTasa();
       if (saved) tasaInput.value = saved;
-      tasaInput.addEventListener("change", taxaInputHandler);
-      tasaInput.addEventListener("input", taxaInputHandler);
+      tasaInput.addEventListener("change", tasaInputHandler);
+      tasaInput.addEventListener("input", tasaInputHandler);
     }
 
     // abrir modal con item y precio ya multiplicado
