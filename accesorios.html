@@ -389,6 +389,7 @@
       <div id="m-tasa" class="bs-row"></div>
       <p id="m-price" class="precio">$0.00</p>
       <p id="m-price2bs" class="precio-bs"></p>
+      <div id="m-desglose" class="desglose" style="margin-top:10px;font-size:14px;color:#374151;">
       <p id="m-unit" class="unidad"></p>
     </div>
   </div>
@@ -670,25 +671,58 @@
 
     // abrir modal con item y precio ya multiplicado
     function abrirModal(item, precioMultiplicado) {
-      if (!item) return;
-      document.getElementById("m-name").textContent = item.descripcion || "";
-      document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
-      document.getElementById("m-price").textContent = "$" + Number(precioMultiplicado || 0).toFixed(2);
+  if (!item) return;
 
-      const tasa = obtenerTasa();
-      if (tasa > 0) {
-        document.getElementById("m-tasa").textContent = `Tasa BCV: Bs ${tasa}`;
-        document.getElementById("m-price2bs").textContent = "Bs " + (precioMultiplicado * tasa).toFixed(2).replace(".", ",");
-      } else {
-        document.getElementById("m-tasa").textContent = "";
-        document.getElementById("m-price2bs").textContent = "";
-      }
+  document.getElementById("m-name").textContent = item.descripcion || "";
+  document.getElementById("m-code").textContent = "Código: " + (item.codigo || "");
+  document.getElementById("m-price").textContent = "$" + Number(precioMultiplicado || 0).toFixed(2);
 
-      document.getElementById("m-unit").textContent = "UNIDAD: " + (item.unidad || "");
-      modal.classList.add("open");
-      modal.setAttribute("aria-hidden", "false");
-    }
+  const tasa = obtenerTasa();
+  let desgloseHTML = "";
 
+  if (tasa > 0) {
+    // mostrar tasa y precio en Bs
+    document.getElementById("m-tasa").textContent = `Tasa BCV: Bs ${tasa}`;
+    document.getElementById("m-price2bs").textContent =
+      "Bs " + (precioMultiplicado * tasa).toFixed(2).replace(".", ",");
+
+    // --- Cálculos del desglose ---
+    const precioConIVA = Number(precioMultiplicado || 0);
+    const baseUSD = precioConIVA / 1.16;
+    const ivaUSD = precioConIVA - baseUSD;
+
+    const baseBs = baseUSD * tasa;
+    const ivaBs = ivaUSD * tasa;
+    const totalBs = precioConIVA * tasa;
+
+    desgloseHTML = `
+      <div><strong>Base imponible:</strong> $${baseUSD.toFixed(2)}  |  Bs ${baseBs.toFixed(2).replace(".", ",")}</div>
+      <div><strong>IVA (16%):</strong> $${ivaUSD.toFixed(2)}  |  Bs ${ivaBs.toFixed(2).replace(".", ",")}</div>
+      <div><strong>Total:</strong> $${precioConIVA.toFixed(2)}  |  Bs ${totalBs.toFixed(2).replace(".", ",")}</div>
+    `;
+  } else {
+    // si no hay tasa guardada
+    document.getElementById("m-tasa").textContent = "";
+    document.getElementById("m-price2bs").textContent = "";
+
+    // --- Desglose solo en dólares ---
+    const precioConIVA = Number(precioMultiplicado || 0);
+    const baseUSD = precioConIVA / 1.16;
+    const ivaUSD = precioConIVA - baseUSD;
+
+    desgloseHTML = `
+      <div><strong>Base imponible:</strong> $${baseUSD.toFixed(2)}</div>
+      <div><strong>IVA (16%):</strong> $${ivaUSD.toFixed(2)}</div>
+      <div><strong>Total:</strong> $${precioConIVA.toFixed(2)}</div>
+    `;
+  }
+
+  document.getElementById("m-desglose").innerHTML = desgloseHTML;
+  document.getElementById("m-unit").textContent = "UNIDAD: " + (item.unidad || "");
+
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+}
     function cerrarModal() {
       modal.classList.remove("open");
       modal.setAttribute("aria-hidden", "true");
