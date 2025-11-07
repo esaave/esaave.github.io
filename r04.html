@@ -7,293 +7,247 @@
 <link rel="icon" href="logopeq.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --orange:#ea580c; --orange-dark:#c2410c; --bg:#fff7ed; --muted:#6b7280; }
-  body{ font-family:'Poppins',sans-serif; margin:0; background:var(--bg); color:#0f172a; }
-  header{ background:var(--orange); color:#fff; padding:14px; text-align:center; font-weight:600; }
-  main{ max-width:980px; margin:18px auto; padding:16px; }
-  .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-  label{ font-size:13px; color:var(--muted); display:block; margin-bottom:6px; }
-  input, select, textarea{ width:100%; padding:10px; border-radius:8px; border:1px solid #e6e9ef; box-sizing:border-box; }
+  :root{
+    --accent: #ea580c;
+    --accent-2: #f97316;
+    --muted: #6b7280;
+    --card:#ffffff;
+  }
+  html,body{ height:100%; margin:0; font-family:'Poppins',sans-serif; color:#0f172a; }
+  body{
+    background: linear-gradient(180deg, #fff7f0 0%, #fffaf5 50%, #f3f7fb 100%);
+    display:flex; align-items:flex-start; justify-content:center; padding:28px;
+  }
+  .wrap{ width:100%; max-width:1040px; }
+  header{ display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  header img{ height:44px; }
+  .title{ font-weight:600; color:var(--accent); font-size:20px; }
+  .layout{ display:grid; grid-template-columns: 1fr 420px; gap:18px; }
+  .card{ background:var(--card); border-radius:12px; padding:14px; box-shadow:0 10px 30px rgba(15,23,42,0.06); }
+  form .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  label{ font-size:13px; color:var(--muted); margin-bottom:6px; display:block; }
+  input, select, textarea{ width:100%; padding:10px; border-radius:8px; border:1px solid #eef2f6; box-sizing:border-box; font-size:14px; }
   .full{ grid-column:1 / -1; }
-  .btn{ background:var(--orange-dark); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600; }
-  .btn.secondary{ background:#0ea5a4; }
-  .actions{ display:flex; gap:8px; align-items:center; margin-top:8px; }
-  .table-container{ margin-top:18px; overflow:auto; background:#fff; border-radius:10px; padding:8px; box-shadow:0 6px 18px rgba(15,23,42,0.04); }
-  table{ width:100%; border-collapse:collapse; font-size:14px; }
-  th,td{ text-align:left; padding:8px; border-bottom:1px solid #eef2f6; }
-  th{ background:var(--orange); color:#fff; position:sticky; top:0; }
-  .note{ font-size:13px; color:var(--muted); margin-top:6px; }
-  .msg{ padding:8px 12px; border-radius:8px; margin-bottom:10px; display:none; }
-  .msg.success{ background:#ecfccb; color:#14532d; border:1px solid #dbeeba; }
-  .msg.error{ background:#fee2e2; color:#7f1d1d; border:1px solid #fecaca; }
-  @media (max-width:820px){ .grid{ grid-template-columns:1fr; } }
+  .actions{ display:flex; gap:8px; margin-top:10px; }
+  .btn{ background:var(--accent); color:white; padding:10px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
+  .btn.ghost{ background:transparent; border:1px solid rgba(15,23,42,0.06); color:#0f172a; font-weight:600; }
+  .small-btn{ background:var(--accent-2); color:#fff; border-radius:8px; padding:8px 10px; border:none; cursor:pointer; }
+  .table-wrap{ max-height:420px; overflow:auto; margin-top:12px; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th,td{ padding:10px 8px; border-bottom:1px solid #f1f5f9; text-align:left; }
+  th{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; position:sticky; top:0; }
+  .hidden{ display:none!important; }
+  @media (max-width:980px){ .layout{ grid-template-columns:1fr; } }
 </style>
-<!-- Firebase (opcional). Añade firebase-config.js que haga firebase.initializeApp({...}) si quieres usar Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-<header id="headerTitle">Tienda — Registro de Ventas</header>
-<main>
-  <div id="msg" class="msg"></div>
-  <form id="formVenta" onsubmit="return false;">
-    <div class="grid">
-      <div>
-        <label>Fecha</label>
-        <input type="date" id="fecha" required />
-      </div>
-      <div>
-        <label>Cashea</label>
-        <select id="cashea">
-          <option value="true">Sí</option>
-          <option value="false">No</option>
-        </select>
-      </div>
-      <div style="grid-column:1 / -1;">
-        <label>Cédula cliente</label>
-        <div style="display:flex; gap:8px;">
-          <select id="tipoCedula" style="width:110px;">
-            <option value="V">V</option>
-            <option value="E">E</option>
-            <option value="J">J</option>
-          </select>
-          <input type="text" id="cedula" placeholder="Número de cédula o RIF" />
+<div class="wrap">
+  <header>
+    <img src="logopeq.png" alt="logo">
+    <div class="title">Tienda <span id="storeLabel">R04</span></div>
+  </header>
+
+  <div class="layout">
+    <div class="card">
+      <form id="formVenta" onsubmit="return false;">
+        <div class="grid">
+          <div>
+            <label>Fecha</label>
+            <input type="date" id="fecha" required />
+          </div>
+          <div>
+            <label>Cashea</label>
+            <select id="cashea"><option value="true">Sí</option><option value="false">No</option></select>
+          </div>
+
+          <div class="full">
+            <label>Cédula</label>
+            <div style="display:flex; gap:8px;">
+              <select id="tipoCedula" style="width:110px;"><option>V</option><option>E</option><option>J</option></select>
+              <input type="text" id="cedula" placeholder="Número" />
+            </div>
+          </div>
+
+          <div>
+            <label>Cliente</label>
+            <input type="text" id="cliente" />
+          </div>
+          <div>
+            <label>Teléfono</label>
+            <input type="tel" id="telefono" />
+          </div>
+
+          <div class="full">
+            <label>Concepto</label>
+            <input type="text" id="concepto" />
+          </div>
+
+          <div>
+            <label>Orden</label>
+            <input type="text" id="ordenRecepcion" />
+          </div>
+          <div>
+            <label>Vendedor</label>
+            <input type="text" id="vendedor" />
+          </div>
+
+          <div>
+            <label>Técnico</label>
+            <input type="text" id="tecnico" />
+          </div>
+          <div>
+            <label>Mano $</label>
+            <input type="number" id="manoObraUsd" step="0.01" min="0" value="0" />
+          </div>
+
+          <div>
+            <label>Tipo pago</label>
+            <select id="tipoPago">
+              <option>PMF</option><option>PMB</option><option>PUNTO</option>
+              <option>EFECTIVO</option><option>ZELLE</option><option>BINANCE</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Lote</label>
+            <input type="text" id="lotePuntoVenta" />
+          </div>
+
+          <div id="bsFields">
+            <div>
+              <label>Tasa</label>
+              <input type="number" id="tasa" step="0.01" min="0" />
+            </div>
+
+            <div style="display:flex; gap:8px; align-items:center;">
+              <div style="flex:1">
+                <label>Total (Bs)</label>
+                <input type="number" id="totalBs" step="0.01" min="0" />
+              </div>
+              <div style="width:120px; display:flex; align-items:flex-end;">
+                <button id="btnCalcUsd" type="button" class="small-btn">Calcular</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label>Monto $</label>
+            <input type="number" id="montoUsd" step="0.01" min="0" required />
+          </div>
+
+          <div class="full">
+            <label>Comentarios</label>
+            <textarea id="comentarios" rows="2"></textarea>
+          </div>
+
+          <div class="full actions">
+            <button id="btnGuardar" class="btn">Guardar</button>
+            <button id="btnExport" type="button" class="btn ghost">Exportar</button>
+            <button id="btnLimpiar" type="button" class="btn ghost">Limpiar</button>
+          </div>
         </div>
-      </div>
+      </form>
+    </div>
 
-      <div>
-        <label>Cliente</label>
-        <input type="text" id="cliente" placeholder="Nombre del cliente" />
+    <div class="card">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <div style="font-weight:600">Mis ventas</div>
+        <div style="color:var(--muted)" id="countLabel">0</div>
       </div>
-
-      <div>
-        <label>Teléfono</label>
-        <input type="tel" id="telefono" placeholder="(opcional)" />
-      </div>
-
-      <div class="full">
-        <label>Concepto</label>
-        <input type="text" id="concepto" placeholder="Descripción / concepto" />
-      </div>
-
-      <div>
-        <label>Orden recepción</label>
-        <input type="text" id="ordenRecepcion" placeholder="Nro. orden (opcional)" />
-      </div>
-
-      <div>
-        <label>Vendedor</label>
-        <input type="text" id="vendedor" placeholder="Nombre del vendedor" />
-      </div>
-
-      <div>
-        <label>Técnico</label>
-        <input type="text" id="tecnico" placeholder="Nombre del técnico" />
-      </div>
-
-      <!-- MANO DE OBRA EN USD (COMISIÓN) -->
-      <div>
-        <label>Mano de obra ($) — comisión técnico</label>
-        <input type="number" id="manoObraUsd" step="0.01" min="0" value="0" />
-      </div>
-
-      <div>
-        <label>Tipo de pago</label>
-        <select id="tipoPago">
-          <option>PMF</option>
-          <option>PMB</option>
-          <option>PUNTO</option>
-          <option>EFECTIVO</option>
-          <option>ZELLE</option>
-          <option>BINANCE</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Lote de punto de venta</label>
-        <input type="text" id="lotePuntoVenta" placeholder="Lote / terminal" />
-      </div>
-
-      <div>
-        <label>Tasa BCV (del día) — sólo relevante si la venta está en Bs</label>
-        <input type="number" id="tasa" step="0.01" min="0" />
-      </div>
-
-      <!-- TOTALS: puede introducirse en BS (si tipoPago en PMF/PMB/PUNTO) o directamente en USD -->
-      <div>
-        <label>Total (Bs) — habilitado sólo para PMF/PMB/PUNTO</label>
-        <input type="number" id="totalBs" step="0.01" min="0" />
-      </div>
-
-      <div>
-        <label>Total $ (venta) — usado cuando el pago NO es en Bs (EFECTIVO/ZELLE/BINANCE) o como campo alternativo</label>
-        <input type="number" id="totalUsdVenta" step="0.01" min="0" />
-      </div>
-
-      <div>
-        <label>Monto $ (resultado de la venta, EXCLUYE mano de obra)</label>
-        <input type="text" id="montoUsd" readonly />
-      </div>
-
-      <div class="full">
-        <label>Comentarios</label>
-        <textarea id="comentarios" rows="2" placeholder="Comentarios (opcional)"></textarea>
-      </div>
-
-      <div class="full actions">
-        <button id="btnGuardar" class="btn">Registrar Venta</button>
-        <button id="btnExport" type="button" class="btn secondary">Exportar mis ventas (CSV)</button>
-        <button id="btnLimpiar" type="button" class="btn" style="background:#64748b">Limpiar formulario</button>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Fecha</th><th>Cliente</th><th>Vendedor</th><th>Mano $</th><th>Total $</th></tr></thead>
+          <tbody id="tablaVentas"></tbody>
+        </table>
       </div>
     </div>
-  </form>
-
-  <div class="table-container" style="margin-top:18px;">
-    <h3 style="margin:8px 0 6px;">Mis ventas (últimas 200)</h3>
-    <table>
-      <thead>
-        <tr><th>Fecha</th><th>Cliente</th><th>Concepto</th><th>Vendedor</th><th>Mano $</th><th>Total $ (venta)</th></tr>
-      </thead>
-      <tbody id="tablaVentas"></tbody>
-    </table>
   </div>
-
-  <div class="note">Nota: mano de obra = comisión en $. El campo Total Bs solo activo para PMF/PMB/PUNTO.</div>
-</main>
+</div>
 
 <script>
-  // Config
-  const DEFAULT_TASA = 1;
   const SALES_KEY = 'ventas';
   const urlParams = new URLSearchParams(location.search);
   const STORE_PARAM = urlParams.get('store');
   const DEFAULT_STORE = STORE_PARAM || 'R04';
-  document.getElementById('headerTitle').textContent = `Tienda ${DEFAULT_STORE} — Registro de Ventas`;
+  document.getElementById('storeLabel').textContent = DEFAULT_STORE;
 
   const $ = id => document.getElementById(id);
   const hasFirebase = (window.firebase && firebase.firestore);
   const db = hasFirebase ? firebase.firestore() : null;
   const auth = hasFirebase ? firebase.auth() : null;
+  const DEFAULT_TASA = 1;
 
-  const formatMoney = v => Number(v || 0).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
-  function showMsg(txt, type='success') {
-    const m = $('msg'); m.className = 'msg ' + (type==='success' ? 'success' : 'error'); m.innerText = txt; m.style.display = 'block';
-    setTimeout(()=> m.style.display = 'none', 3500);
-  }
-
-  (function setDefaultDate(){
+  // Init date & tasa
+  (function init(){
     const hoy = new Date().toISOString().slice(0,10);
     if (!$('fecha').value) $('fecha').value = hoy;
+    (async ()=>{
+      if (hasFirebase) {
+        try {
+          const id = new Date().toISOString().slice(0,10);
+          const doc = await db.collection('rates').doc(id).get();
+          if (doc.exists) $('tasa').value = doc.data().tasa;
+          else $('tasa').value = DEFAULT_TASA;
+        } catch { $('tasa').value = DEFAULT_TASA; }
+      } else $('tasa').value = DEFAULT_TASA;
+    })();
+    handleTipoPagoChange();
+    cargarTabla();
   })();
 
-  async function loadTasaDelDia(){
-    if (!hasFirebase) return null;
-    try {
-      const id = new Date().toISOString().slice(0,10);
-      const doc = await db.collection('rates').doc(id).get();
-      if (doc.exists) return doc.data().tasa;
-      const snap = await db.collection('rates').orderBy('createdAt','desc').limit(1).get();
-      if (!snap.empty) return snap.docs[0].data().tasa;
-      return null;
-    } catch (e) {
-      console.warn('No pudo cargar tasa:', e); return null;
-    }
-  }
+  function showMsg(txt){ const m = $('msg'); if(!m) return; m.textContent = txt; m.style.display='block'; setTimeout(()=>m.style.display='none',2500); }
 
-  (async function initTasa(){
-    const tasaField = $('tasa');
-    let tasa = null;
-    if (hasFirebase) tasa = await loadTasaDelDia();
-    if (!tasa) tasa = DEFAULT_TASA;
-    tasaField.value = tasa;
-    handleTipoPagoChange(); // ajustar habilitación inicial
-    recalcularMonto();
-  })();
-
-  // Habilitar/deshabilitar campos según tipo de pago
   function handleTipoPagoChange(){
     const tipo = $('tipoPago').value;
-    const enableBs = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
-    $('totalBs').disabled = !enableBs;
-    $('tasa').disabled = !enableBs;
-    $('totalUsdVenta').disabled = enableBs;
-    // Si deshabilitamos Bs, dejamos totalBs en 0
-    if (!enableBs) $('totalBs').value = '';
-    else $('totalUsdVenta').value = '';
-    recalcularMonto();
+    const enabled = (tipo==='PMF'||tipo==='PMB'||tipo==='PUNTO');
+    const bs = $('bsFields');
+    if (enabled) bs.classList.remove('hidden'); else { bs.classList.add('hidden'); $('totalBs').value=''; $('tasa').value=''; }
   }
   $('tipoPago').addEventListener('change', handleTipoPagoChange);
 
-  // Recalculo: montoVentaUsd (excluye mano de obra), mano de obra por separado
-  function recalcularMonto(){
+  $('btnCalcUsd').addEventListener('click', ()=>{
+    const totalBs = parseFloat($('totalBs').value||0);
+    const tasa = parseFloat($('tasa').value||0) || DEFAULT_TASA;
+    if (!totalBs){ showMsg('Introduce Bs'); return; }
+    if (!tasa){ showMsg('Introduce tasa'); return; }
+    const usd = +(totalBs / tasa).toFixed(2);
+    if (confirm(`Sugerencia: $${usd}. ¿Copiar a Monto $?`)) $('montoUsd').value = usd;
+  });
+
+  async function guardarVenta(){
+    if(!$('fecha').value){ showMsg('Fecha requerida'); return; }
     const tipo = $('tipoPago').value;
-    const enableBs = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
-    const tasa = parseFloat($('tasa').value || 0) || DEFAULT_TASA;
-    let montoVentaUsd = 0;
-    if (enableBs) {
-      const totalBs = parseFloat($('totalBs').value || 0);
-      montoVentaUsd = tasa > 0 ? totalBs / tasa : 0;
-    } else {
-      montoVentaUsd = parseFloat($('totalUsdVenta').value || 0);
-    }
-    $('montoUsd').value = formatMoney(montoVentaUsd);
-  }
-  $('totalBs').addEventListener('input', recalcularMonto);
-  $('tasa').addEventListener('input', recalcularMonto);
-  $('totalUsdVenta').addEventListener('input', recalcularMonto);
-  $('manoObraUsd').addEventListener('input', () => {/* mano de obra no altera montoVenta */});
-
-  // Guardar venta (montoVentaUsd excluye mano de obra)
-  async function guardarVenta() {
-    if (!$('fecha').value) { showMsg('Fecha es obligatoria.', 'error'); return; }
-
-    const tipo = $('tipoPago').value;
-    const enableBs = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
-    const tasa = parseFloat($('tasa').value || DEFAULT_TASA) || DEFAULT_TASA;
-    const totalBs = parseFloat($('totalBs').value || 0);
-    const totalUsdVenta = parseFloat($('totalUsdVenta').value || 0);
-    const manoUsd = parseFloat($('manoObraUsd').value || 0);
-
-    let montoVentaUsd = 0;
-    if (enableBs) {
-      if (!totalBs || totalBs <= 0) { showMsg('Total Bs es obligatorio para pagos en Bs.', 'error'); return; }
-      montoVentaUsd = tasa > 0 ? (totalBs / tasa) : 0;
-    } else {
-      if (!totalUsdVenta || totalUsdVenta <= 0) { showMsg('Total $ (venta) es obligatorio para este tipo de pago.', 'error'); return; }
-      montoVentaUsd = totalUsdVenta;
-    }
-
-    const manoBs = parseFloat((manoUsd * tasa).toFixed(2));
-    const totalBsIncluyeMano = parseFloat((totalBs + (manoBs || 0)).toFixed(2));
+    const enableBs = (tipo==='PMF'||tipo==='PMB'||tipo==='PUNTO');
+    const tasa = parseFloat($('tasa').value||DEFAULT_TASA) || DEFAULT_TASA;
+    const totalBs = parseFloat($('totalBs').value||0);
+    const manoUsd = parseFloat($('manoObraUsd').value||0);
+    const montoUsdInput = parseFloat($('montoUsd').value);
+    if (!montoUsdInput || montoUsdInput<=0){ showMsg('Monto $ requerido'); return; }
+    const manoBs = (enableBs && $('tasa').value) ? +(manoUsd * tasa).toFixed(2) : 0;
+    const totalBsIncluyeMano = +( (enableBs ? totalBs : 0) + manoBs ).toFixed(2);
 
     const venta = {
       date: new Date($('fecha').value),
       fecha: $('fecha').value,
-      nroFacturaFiscalManual: '',
-      nroFacturaProfit: '',
-      cashea: $('cashea').value === 'true',
-      cedulaCliente: ($('tipoCedula').value || '') + '-' + ($('cedula').value || ''),
-      cliente: $('cliente').value || '',
-      telefonoCliente: $('telefono').value || '',
-      concepto: $('concepto').value || '',
-      ordenRecepcion: $('ordenRecepcion').value || '',
-      vendedor: $('vendedor').value || '',
-      tecnico: $('tecnico').value || '',
-      // mano de obra = comisión en USD, guardada por separado
+      cashea: $('cashea').value==='true',
+      cedulaCliente: ($('tipoCedula').value||'') + '-' + ($('cedula').value||''),
+      cliente: $('cliente').value||'',
+      telefonoCliente: $('telefono').value||'',
+      concepto: $('concepto').value||'',
+      ordenRecepcion: $('ordenRecepcion').value||'',
+      vendedor: $('vendedor').value||'',
+      tecnico: $('tecnico').value||'',
       manoDeObraUsd: manoUsd,
       manoDeObraBs: manoBs,
-      tipoPago: tipo || '',
-      lotePuntoVenta: $('lotePuntoVenta').value || '',
-      // venta en Bs (si aplica)
+      tipoPago: tipo,
+      lotePuntoVenta: $('lotePuntoVenta').value||'',
       totalBs: enableBs ? totalBs : 0,
       totalBsIncluyeMano: totalBsIncluyeMano,
-      tasa: tasa,
-      // montoVentaUsd = venta sin mano de obra (la mano de obra no afecta el total de la venta)
-      montoVentaUsd: parseFloat(montoVentaUsd.toFixed(2)),
-      comentarios: $('comentarios').value || '',
+      tasa: enableBs ? tasa : null,
+      montoVentaUsd: +montoUsdInput.toFixed(2),
+      montoUsd: +montoUsdInput.toFixed(2),
+      comentarios: $('comentarios').value||'',
       storeId: DEFAULT_STORE,
-      createdBy: hasFirebase && auth && auth.currentUser ? auth.currentUser.uid : null,
       createdAt: new Date().toISOString()
     };
 
@@ -301,158 +255,55 @@
       if (hasFirebase) {
         await db.collection('sales').add({
           date: firebase.firestore.Timestamp.fromDate(new Date(venta.fecha)),
-          nroFacturaFiscalManual: venta.nroFacturaFiscalManual,
-          nroFacturaProfit: venta.nroFacturaProfit,
-          cashea: venta.cashea,
-          cedulaCliente: venta.cedulaCliente,
-          cliente: venta.cliente,
-          telefonoCliente: venta.telefonoCliente,
-          concepto: venta.concepto,
-          ordenRecepcion: venta.ordenRecepcion,
-          vendedor: venta.vendedor,
-          tecnico: venta.tecnico,
-          manoDeObraUsd: venta.manoDeObraUsd,
-          manoDeObraBs: venta.manoDeObraBs,
-          tipoPago: venta.tipoPago,
-          lotePuntoVenta: venta.lotePuntoVenta,
-          totalBs: venta.totalBs,
-          totalBsIncluyeMano: venta.totalBsIncluyeMano,
-          tasa: venta.tasa,
-          montoVentaUsd: venta.montoVentaUsd,
-          montoUsd: venta.montoVentaUsd, // compatibilidad anterior
-          comentarios: venta.comentarios,
-          storeId: venta.storeId,
-          createdBy: venta.createdBy,
+          ...venta,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        showMsg('Venta guardada en Firestore.', 'success');
+        showMsg('Guardado');
       } else {
-        const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+        const arr = JSON.parse(localStorage.getItem(SALES_KEY)||'[]');
         arr.push(venta);
         localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-        showMsg('Venta guardada localmente (localStorage).', 'success');
+        showMsg('Guardado local');
       }
-      cargarTabla();
-      limpiarFormulario();
-    } catch (e) {
-      console.error(e);
-      showMsg('Error al guardar la venta: ' + (e.message || e), 'error');
-    }
+      cargarTabla(); limpiarFormulario();
+    } catch (e){ console.error(e); showMsg('Error'); }
   }
 
-  // Cargar tabla (últimas 200 ventas de esta tienda)
   async function cargarTabla(){
     try {
       let ventas = [];
-      if (hasFirebase) {
+      if (hasFirebase){
         const q = db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(200);
         const snap = await q.get();
-        ventas = snap.docs.map(d=>{
-          const s = d.data();
-          return {
-            fecha: s.date ? (s.date.seconds ? new Date(s.date.seconds * 1000).toISOString().slice(0,10) : new Date(s.date).toISOString().slice(0,10)) : '',
-            cliente: s.cliente || '',
-            concepto: s.concepto || '',
-            vendedor: s.vendedor || '',
-            manoDeObraUsd: Number(s.manoDeObraUsd || 0),
-            montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0)
-          };
-        });
+        ventas = snap.docs.map(d=>{ const s=d.data(); return { fecha: s.date ? (s.date.seconds ? new Date(s.date.seconds*1000).toISOString().slice(0,10) : new Date(s.date).toISOString().slice(0,10)) : '', cliente: s.cliente||'', concepto: s.concepto||'', vendedor: s.vendedor||'', manoDeObraUsd: Number(s.manoDeObraUsd||0), montoVentaUsd: Number(s.montoVentaUsd||s.montoUsd||0) }; });
       } else {
-        const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-        ventas = arr.filter(v=>v.storeId === DEFAULT_STORE).slice(-200).reverse().map(v=>({
-          fecha: v.fecha || (v.date ? new Date(v.date).toISOString().slice(0,10) : ''),
-          cliente: v.cliente,
-          concepto: v.concepto,
-          vendedor: v.vendedor,
-          manoDeObraUsd: Number(v.manoDeObraUsd || 0),
-          montoVentaUsd: Number(v.montoVentaUsd || v.montoUsd || 0)
-        }));
+        const arr = JSON.parse(localStorage.getItem(SALES_KEY)||'[]');
+        ventas = arr.filter(v=>v.storeId===DEFAULT_STORE).slice(-200).reverse().map(v=>({ fecha: v.fecha|| (v.date? new Date(v.date).toISOString().slice(0,10):''), cliente: v.cliente, concepto: v.concepto, vendedor: v.vendedor, manoDeObraUsd: Number(v.manoDeObraUsd||0), montoVentaUsd: Number(v.montoVentaUsd||v.montoUsd||0) }));
       }
-
-      const tbody = $('tablaVentas');
-      tbody.innerHTML = ventas.map(v=>`
-        <tr>
-          <td>${v.fecha}</td>
-          <td>${escapeHtml(v.cliente)}</td>
-          <td>${escapeHtml(v.concepto)}</td>
-          <td>${escapeHtml(v.vendedor)}</td>
-          <td>$${formatMoney(v.manoDeObraUsd)}</td>
-          <td>$${formatMoney(v.montoVentaUsd)}</td>
-        </tr>
-      `).join('');
-    } catch (e) {
-      console.error('Error cargando tabla', e);
-    }
+      $('tablaVentas').innerHTML = ventas.map(v=>`<tr><td>${v.fecha}</td><td>${escapeHtml(v.cliente)}</td><td>${escapeHtml(v.vendedor)}</td><td>$${formatMoney(v.manoDeObraUsd)}</td><td>$${formatMoney(v.montoVentaUsd)}</td></tr>`).join('');
+      $('countLabel').textContent = ventas.length;
+    } catch(e){ console.error(e); }
   }
 
-  // Export CSV sólo de esta tienda (incluye manoDeObra separado)
-  async function exportMisVentasCSV(){
-    let ventas = [];
-    if (hasFirebase) {
-      const q = db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000);
-      const snap = await q.get();
-      ventas = snap.docs.map(d => {
-        const s = d.data();
-        return {
-          fecha: s.date ? (s.date.seconds ? new Date(s.date.seconds * 1000).toISOString().slice(0,10) : new Date(s.date).toISOString().slice(0,10)) : '',
-          nroFiscal: s.nroFacturaFiscalManual || '',
-          nroProfit: s.nroFacturaProfit || '',
-          cashea: s.cashea || '',
-          cedulaCliente: s.cedulaCliente || '',
-          cliente: s.cliente || '',
-          telefonoCliente: s.telefonoCliente || '',
-          concepto: s.concepto || '',
-          ordenRecepcion: s.ordenRecepcion || '',
-          vendedor: s.vendedor || '',
-          tecnico: s.tecnico || '',
-          manoDeObraUsd: s.manoDeObraUsd || 0,
-          manoDeObraBs: s.manoDeObraBs || 0,
-          tipoPago: s.tipoPago || '',
-          lotePuntoVenta: s.lotePuntoVenta || '',
-          totalBs: s.totalBs || 0,
-          totalBsIncluyeMano: s.totalBsIncluyeMano || 0,
-          tasa: s.tasa || '',
-          montoVentaUsd: s.montoVentaUsd || s.montoUsd || 0,
-          comentarios: s.comentarios || ''
-        };
-      });
-    } else {
-      ventas = JSON.parse(localStorage.getItem(SALES_KEY) || '[]').filter(v => v.storeId === DEFAULT_STORE);
-    }
-
-    if (!ventas.length) { showMsg('No hay ventas para exportar.', 'error'); return; }
-
-    const keys = ['fecha','nroFiscal','nroProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','vendedor','tecnico','manoDeObraUsd','manoDeObraBs','tipoPago','lotePuntoVenta','totalBs','totalBsIncluyeMano','tasa','montoVentaUsd','comentarios'];
-    const header = keys.join(',');
-    const lines = ventas.map(it => keys.map(k=>{
-      let val = it[k] === undefined || it[k] === null ? '' : String(it[k]);
-      val = val.replace(/"/g,'""');
-      return `"${val}"`;
-    }).join(','));
-    const csv = [header, ...lines].join('\n');
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `ventas_${DEFAULT_STORE}_${new Date().toISOString().slice(0,10)}.csv`;
-    link.click();
-  }
-
-  function limpiarFormulario(){
-    $('formVenta').reset();
-    const hoy = new Date().toISOString().slice(0,10);
-    $('fecha').value = hoy;
-    handleTipoPagoChange();
-    recalcularMonto();
-  }
-
+  function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function limpiarFormulario(){ $('formVenta').reset(); const hoy=new Date().toISOString().slice(0,10); $('fecha').value=hoy; handleTipoPagoChange(); }
 
   $('btnGuardar').addEventListener('click', guardarVenta);
-  $('btnExport').addEventListener('click', exportMisVentasCSV);
-  $('btnLimpiar').addEventListener('click', limpiarFormulario);
+  $('btnExport').addEventListener('click', async ()=> {
+    let ventas = JSON.parse(localStorage.getItem(SALES_KEY)||'[]').filter(v=>v.storeId===DEFAULT_STORE);
+    if (hasFirebase) {
+      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000).get();
+      ventas = q.docs.map(d=>d.data());
+    }
+    if (!ventas.length) return showMsg('No hay datos');
+    const keys = ['fecha','cliente','vendedor','tecnico','manoDeObraUsd','totalBs','tasa','montoVentaUsd','tipoPago','comentarios'];
+    const csv = [keys.join(',')].concat(ventas.map(it => keys.map(k=>`"${String((it[k]===undefined||it[k]===null)?'':it[k]).replace(/"/g,'""')}"`).join(','))).join('\n');
+    const blob=new Blob([csv],{type:'text/csv'}); const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download=`ventas_${DEFAULT_STORE}_${new Date().toISOString().slice(0,10)}.csv`; link.click();
+  });
 
-  cargarTabla();
+  // start
+  // cargarTabla is called on init
 </script>
 </body>
 </html>
