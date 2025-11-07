@@ -28,27 +28,21 @@
   .msg.error{ background:#fee2e2; color:#7f1d1d; border:1px solid #fecaca; }
   @media (max-width:820px){ .grid{ grid-template-columns:1fr; } }
 </style>
-
 <!-- Firebase (opcional). Añade firebase-config.js que haga firebase.initializeApp({...}) si quieres usar Firestore -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
 </head>
 <body>
 <header id="headerTitle">Tienda — Registro de Ventas</header>
-
 <main>
   <div id="msg" class="msg"></div>
-
   <form id="formVenta" onsubmit="return false;">
     <div class="grid">
-
       <div>
         <label>Fecha</label>
         <input type="date" id="fecha" required />
       </div>
-
       <div>
         <label>Cashea</label>
         <select id="cashea">
@@ -56,7 +50,6 @@
           <option value="false">No</option>
         </select>
       </div>
-
       <div style="grid-column:1 / -1;">
         <label>Cédula cliente</label>
         <div style="display:flex; gap:8px;">
@@ -99,9 +92,10 @@
         <input type="text" id="tecnico" placeholder="Nombre del técnico" />
       </div>
 
+      <!-- MANO DE OBRA EN USD (COMISIÓN) -->
       <div>
-        <label>Mano de obra (Bs)</label>
-        <input type="number" id="manoObra" step="0.01" min="0" />
+        <label>Mano de obra ($) — comisión técnico</label>
+        <input type="number" id="manoObraUsd" step="0.01" min="0" value="0" />
       </div>
 
       <div>
@@ -109,9 +103,9 @@
         <select id="tipoPago">
           <option>PMF</option>
           <option>PMB</option>
+          <option>PUNTO</option>
           <option>EFECTIVO</option>
           <option>ZELLE</option>
-          <option>PUNTO</option>
           <option>BINANCE</option>
         </select>
       </div>
@@ -122,17 +116,23 @@
       </div>
 
       <div>
-        <label>Tasa BCV (del día)</label>
+        <label>Tasa BCV (del día) — sólo relevante si la venta está en Bs</label>
         <input type="number" id="tasa" step="0.01" min="0" />
       </div>
 
+      <!-- TOTALS: puede introducirse en BS (si tipoPago en PMF/PMB/PUNTO) o directamente en USD -->
       <div>
-        <label>Total (Bs)</label>
-        <input type="number" id="totalBs" step="0.01" min="0" required />
+        <label>Total (Bs) — habilitado sólo para PMF/PMB/PUNTO</label>
+        <input type="number" id="totalBs" step="0.01" min="0" />
       </div>
 
       <div>
-        <label>Monto $ (calculado)</label>
+        <label>Total $ (venta) — usado cuando el pago NO es en Bs (EFECTIVO/ZELLE/BINANCE) o como campo alternativo</label>
+        <input type="number" id="totalUsdVenta" step="0.01" min="0" />
+      </div>
+
+      <div>
+        <label>Monto $ (resultado de la venta, EXCLUYE mano de obra)</label>
         <input type="text" id="montoUsd" readonly />
       </div>
 
@@ -153,90 +153,124 @@
     <h3 style="margin:8px 0 6px;">Mis ventas (últimas 200)</h3>
     <table>
       <thead>
-        <tr><th>Fecha</th><th>Cliente</th><th>Concepto</th><th>Vendedor</th><th>Total $</th></tr>
+        <tr><th>Fecha</th><th>Cliente</th><th>Concepto</th><th>Vendedor</th><th>Mano $</th><th>Total $ (venta)</th></tr>
       </thead>
       <tbody id="tablaVentas"></tbody>
     </table>
   </div>
 
-  <div class="note">Nota: este formulario puede funcionar offline con localStorage para pruebas. Cuando añadas firebase-config.js, pasará a guardar en Firestore automáticamente.</div>
+  <div class="note">Nota: mano de obra = comisión en $. El campo Total Bs solo activo para PMF/PMB/PUNTO.</div>
 </main>
 
 <script>
   // Config
   const DEFAULT_TASA = 1;
-  const SALES_KEY = 'ventas'; // fallback localStorage
+  const SALES_KEY = 'ventas';
   const urlParams = new URLSearchParams(location.search);
-  const STORE_PARAM = urlParams.get('store'); // permite tienda por query param
-  const DEFAULT_STORE = STORE_PARAM || (typeof TIENDA !== 'undefined' ? TIENDA : 'R04');
-  const HEADER = document.getElementById('headerTitle');
-  HEADER.textContent = `Tienda ${DEFAULT_STORE} — Registro de Ventas`;
+  const STORE_PARAM = urlParams.get('store');
+  const DEFAULT_STORE = STORE_PARAM || 'R04';
+  document.getElementById('headerTitle').textContent = `Tienda ${DEFAULT_STORE} — Registro de Ventas`;
 
   const $ = id => document.getElementById(id);
   const hasFirebase = (window.firebase && firebase.firestore);
   const db = hasFirebase ? firebase.firestore() : null;
   const auth = hasFirebase ? firebase.auth() : null;
 
-  // Util
   const formatMoney = v => Number(v || 0).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
   function showMsg(txt, type='success') {
     const m = $('msg'); m.className = 'msg ' + (type==='success' ? 'success' : 'error'); m.innerText = txt; m.style.display = 'block';
     setTimeout(()=> m.style.display = 'none', 3500);
   }
 
-  // Fecha por defecto hoy
   (function setDefaultDate(){
     const hoy = new Date().toISOString().slice(0,10);
     if (!$('fecha').value) $('fecha').value = hoy;
   })();
 
-  // Cargar tasa del día desde Firestore (si existe) --> doc id YYYY-MM-DD o fallback a campo 'latest'
   async function loadTasaDelDia(){
     if (!hasFirebase) return null;
     try {
       const id = new Date().toISOString().slice(0,10);
       const doc = await db.collection('rates').doc(id).get();
       if (doc.exists) return doc.data().tasa;
-      // fallback: buscar rates ordenado por createdAt desc
       const snap = await db.collection('rates').orderBy('createdAt','desc').limit(1).get();
       if (!snap.empty) return snap.docs[0].data().tasa;
       return null;
     } catch (e) {
-      console.warn('No pudo cargar tasa:', e);
-      return null;
+      console.warn('No pudo cargar tasa:', e); return null;
     }
   }
 
-  // Rellenar tasa al iniciar
   (async function initTasa(){
     const tasaField = $('tasa');
     let tasa = null;
     if (hasFirebase) tasa = await loadTasaDelDia();
     if (!tasa) tasa = DEFAULT_TASA;
     tasaField.value = tasa;
+    handleTipoPagoChange(); // ajustar habilitación inicial
+    recalcularMonto();
   })();
 
-  // Recalculo monto $
+  // Habilitar/deshabilitar campos según tipo de pago
+  function handleTipoPagoChange(){
+    const tipo = $('tipoPago').value;
+    const enableBs = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
+    $('totalBs').disabled = !enableBs;
+    $('tasa').disabled = !enableBs;
+    $('totalUsdVenta').disabled = enableBs;
+    // Si deshabilitamos Bs, dejamos totalBs en 0
+    if (!enableBs) $('totalBs').value = '';
+    else $('totalUsdVenta').value = '';
+    recalcularMonto();
+  }
+  $('tipoPago').addEventListener('change', handleTipoPagoChange);
+
+  // Recalculo: montoVentaUsd (excluye mano de obra), mano de obra por separado
   function recalcularMonto(){
-    const totalBs = parseFloat($('totalBs').value || 0);
+    const tipo = $('tipoPago').value;
+    const enableBs = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
     const tasa = parseFloat($('tasa').value || 0) || DEFAULT_TASA;
-    const monto = tasa > 0 ? (totalBs / tasa) : 0;
-    $('montoUsd').value = formatMoney(monto);
+    let montoVentaUsd = 0;
+    if (enableBs) {
+      const totalBs = parseFloat($('totalBs').value || 0);
+      montoVentaUsd = tasa > 0 ? totalBs / tasa : 0;
+    } else {
+      montoVentaUsd = parseFloat($('totalUsdVenta').value || 0);
+    }
+    $('montoUsd').value = formatMoney(montoVentaUsd);
   }
   $('totalBs').addEventListener('input', recalcularMonto);
   $('tasa').addEventListener('input', recalcularMonto);
+  $('totalUsdVenta').addEventListener('input', recalcularMonto);
+  $('manoObraUsd').addEventListener('input', () => {/* mano de obra no altera montoVenta */});
 
-  // Guardar venta (Firestore si está, sino localStorage)
+  // Guardar venta (montoVentaUsd excluye mano de obra)
   async function guardarVenta() {
-    // Validar
-    if (!$('fecha').value || !$('totalBs').value) {
-      showMsg('Fecha y Total (Bs) son obligatorios.', 'error'); return;
+    if (!$('fecha').value) { showMsg('Fecha es obligatoria.', 'error'); return; }
+
+    const tipo = $('tipoPago').value;
+    const enableBs = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
+    const tasa = parseFloat($('tasa').value || DEFAULT_TASA) || DEFAULT_TASA;
+    const totalBs = parseFloat($('totalBs').value || 0);
+    const totalUsdVenta = parseFloat($('totalUsdVenta').value || 0);
+    const manoUsd = parseFloat($('manoObraUsd').value || 0);
+
+    let montoVentaUsd = 0;
+    if (enableBs) {
+      if (!totalBs || totalBs <= 0) { showMsg('Total Bs es obligatorio para pagos en Bs.', 'error'); return; }
+      montoVentaUsd = tasa > 0 ? (totalBs / tasa) : 0;
+    } else {
+      if (!totalUsdVenta || totalUsdVenta <= 0) { showMsg('Total $ (venta) es obligatorio para este tipo de pago.', 'error'); return; }
+      montoVentaUsd = totalUsdVenta;
     }
 
+    const manoBs = parseFloat((manoUsd * tasa).toFixed(2));
+    const totalBsIncluyeMano = parseFloat((totalBs + (manoBs || 0)).toFixed(2));
+
     const venta = {
-      date: new Date($('fecha').value), // para localStorage
+      date: new Date($('fecha').value),
       fecha: $('fecha').value,
-      nroFacturaFiscalManual: '', // puedes añadir campos extra en UI si deseas
+      nroFacturaFiscalManual: '',
       nroFacturaProfit: '',
       cashea: $('cashea').value === 'true',
       cedulaCliente: ($('tipoCedula').value || '') + '-' + ($('cedula').value || ''),
@@ -246,12 +280,17 @@
       ordenRecepcion: $('ordenRecepcion').value || '',
       vendedor: $('vendedor').value || '',
       tecnico: $('tecnico').value || '',
-      manoDeObra: parseFloat($('manoObra').value || 0),
-      tipoPago: $('tipoPago').value || '',
+      // mano de obra = comisión en USD, guardada por separado
+      manoDeObraUsd: manoUsd,
+      manoDeObraBs: manoBs,
+      tipoPago: tipo || '',
       lotePuntoVenta: $('lotePuntoVenta').value || '',
-      totalBs: parseFloat($('totalBs').value || 0),
-      tasa: parseFloat($('tasa').value || 0) || DEFAULT_TASA,
-      montoUsd: parseFloat( (parseFloat($('totalBs').value || 0) / (parseFloat($('tasa').value || 0) || DEFAULT_TASA)).toFixed(2) ),
+      // venta en Bs (si aplica)
+      totalBs: enableBs ? totalBs : 0,
+      totalBsIncluyeMano: totalBsIncluyeMano,
+      tasa: tasa,
+      // montoVentaUsd = venta sin mano de obra (la mano de obra no afecta el total de la venta)
+      montoVentaUsd: parseFloat(montoVentaUsd.toFixed(2)),
       comentarios: $('comentarios').value || '',
       storeId: DEFAULT_STORE,
       createdBy: hasFirebase && auth && auth.currentUser ? auth.currentUser.uid : null,
@@ -260,8 +299,7 @@
 
     try {
       if (hasFirebase) {
-        // Guardar en Firestore con tipos adecuados
-        const docRef = await db.collection('sales').add({
+        await db.collection('sales').add({
           date: firebase.firestore.Timestamp.fromDate(new Date(venta.fecha)),
           nroFacturaFiscalManual: venta.nroFacturaFiscalManual,
           nroFacturaProfit: venta.nroFacturaProfit,
@@ -273,20 +311,22 @@
           ordenRecepcion: venta.ordenRecepcion,
           vendedor: venta.vendedor,
           tecnico: venta.tecnico,
-          manoDeObra: venta.manoDeObra,
+          manoDeObraUsd: venta.manoDeObraUsd,
+          manoDeObraBs: venta.manoDeObraBs,
           tipoPago: venta.tipoPago,
           lotePuntoVenta: venta.lotePuntoVenta,
           totalBs: venta.totalBs,
+          totalBsIncluyeMano: venta.totalBsIncluyeMano,
           tasa: venta.tasa,
-          montoUsd: venta.montoUsd,
+          montoVentaUsd: venta.montoVentaUsd,
+          montoUsd: venta.montoVentaUsd, // compatibilidad anterior
           comentarios: venta.comentarios,
           storeId: venta.storeId,
           createdBy: venta.createdBy,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        showMsg('Venta guardada en Firestore. ID: ' + docRef.id, 'success');
+        showMsg('Venta guardada en Firestore.', 'success');
       } else {
-        // localStorage
         const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
         arr.push(venta);
         localStorage.setItem(SALES_KEY, JSON.stringify(arr));
@@ -314,7 +354,8 @@
             cliente: s.cliente || '',
             concepto: s.concepto || '',
             vendedor: s.vendedor || '',
-            montoUsd: Number(s.montoUsd || 0)
+            manoDeObraUsd: Number(s.manoDeObraUsd || 0),
+            montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0)
           };
         });
       } else {
@@ -324,7 +365,8 @@
           cliente: v.cliente,
           concepto: v.concepto,
           vendedor: v.vendedor,
-          montoUsd: Number(v.montoUsd || 0)
+          manoDeObraUsd: Number(v.manoDeObraUsd || 0),
+          montoVentaUsd: Number(v.montoVentaUsd || v.montoUsd || 0)
         }));
       }
 
@@ -335,7 +377,8 @@
           <td>${escapeHtml(v.cliente)}</td>
           <td>${escapeHtml(v.concepto)}</td>
           <td>${escapeHtml(v.vendedor)}</td>
-          <td>$${formatMoney(v.montoUsd)}</td>
+          <td>$${formatMoney(v.manoDeObraUsd)}</td>
+          <td>$${formatMoney(v.montoVentaUsd)}</td>
         </tr>
       `).join('');
     } catch (e) {
@@ -343,7 +386,7 @@
     }
   }
 
-  // Export CSV sólo de esta tienda
+  // Export CSV sólo de esta tienda (incluye manoDeObra separado)
   async function exportMisVentasCSV(){
     let ventas = [];
     if (hasFirebase) {
@@ -363,12 +406,14 @@
           ordenRecepcion: s.ordenRecepcion || '',
           vendedor: s.vendedor || '',
           tecnico: s.tecnico || '',
-          manoDeObra: s.manoDeObra || 0,
+          manoDeObraUsd: s.manoDeObraUsd || 0,
+          manoDeObraBs: s.manoDeObraBs || 0,
           tipoPago: s.tipoPago || '',
           lotePuntoVenta: s.lotePuntoVenta || '',
           totalBs: s.totalBs || 0,
+          totalBsIncluyeMano: s.totalBsIncluyeMano || 0,
           tasa: s.tasa || '',
-          montoUsd: s.montoUsd || 0,
+          montoVentaUsd: s.montoVentaUsd || s.montoUsd || 0,
           comentarios: s.comentarios || ''
         };
       });
@@ -378,7 +423,7 @@
 
     if (!ventas.length) { showMsg('No hay ventas para exportar.', 'error'); return; }
 
-    const keys = ['fecha','nroFiscal','nroProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','vendedor','tecnico','manoDeObra','tipoPago','lotePuntoVenta','totalBs','tasa','montoUsd','comentarios'];
+    const keys = ['fecha','nroFiscal','nroProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','vendedor','tecnico','manoDeObraUsd','manoDeObraBs','tipoPago','lotePuntoVenta','totalBs','totalBsIncluyeMano','tasa','montoVentaUsd','comentarios'];
     const header = keys.join(',');
     const lines = ventas.map(it => keys.map(k=>{
       let val = it[k] === undefined || it[k] === null ? '' : String(it[k]);
@@ -397,21 +442,17 @@
     $('formVenta').reset();
     const hoy = new Date().toISOString().slice(0,10);
     $('fecha').value = hoy;
+    handleTipoPagoChange();
     recalcularMonto();
   }
 
   function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-  // Eventos
   $('btnGuardar').addEventListener('click', guardarVenta);
   $('btnExport').addEventListener('click', exportMisVentasCSV);
   $('btnLimpiar').addEventListener('click', limpiarFormulario);
 
-  // Inicializar tabla al cargar
   cargarTabla();
-
-  // Si usas autenticación y quieres forzar que sólo usuarios con claim storeId puedan usar esta página,
-  // se puede añadir un check de auth.currentUser y comparar custom claims. Dímelo y lo añado.
 </script>
 </body>
 </html>
