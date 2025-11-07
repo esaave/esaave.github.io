@@ -152,6 +152,7 @@
           <div class="full actions">
             <button id="btnGuardar" class="btn">Guardar</button>
             <button id="btnExport" type="button" class="btn ghost">Exportar</button>
+            <button id="btnExportHoy" type="button" class="btn ghost">Exportar hoy</button>
             <button id="btnLimpiar" type="button" class="btn ghost">Limpiar</button>
           </div>
         </div>
@@ -178,23 +179,105 @@
   </div>
 </div>
 
+<!-- SheetJS CDN -->
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
 <script>
-  // Config y utilidades
+/* Export functions (embedded) - creates sheets named ddMM (ej. 0111) */
+(function(global){
+  const EXCEL_HEADERS = [
+    'FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE',
+    'CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE DE PUNTO DE VENTA',
+    'TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'
+  ];
+  function pad2(n){ return String(n).padStart(2,'0'); }
+  function fechaToSheetName(f){
+    const d = (f instanceof Date) ? f : (typeof f === 'string' && f.length>=10 ? new Date(f.slice(0,10)) : new Date(f));
+    if (isNaN(d)) { const t=new Date(); return pad2(t.getDate())+pad2(t.getMonth()+1); }
+    return pad2(d.getDate()) + pad2(d.getMonth()+1);
+  }
+  function sanitize(name){ return String(name||'').replace(/[:\\\/\?\*\[\]]/g,'-').slice(0,31) || 'sheet'; }
+  function _row(s){
+    const fechaStr = s.fecha && typeof s.fecha==='string' ? s.fecha : (s.date && s.date.toDate ? s.date.toDate().toISOString().slice(0,10) : (s.fecha || (s.date ? new Date(s.date).toISOString().slice(0,10) : '')));
+    return [
+      fechaStr || '',
+      s.nroFacturaFiscalManual || '',
+      s.nroFacturaProfit || '',
+      (s.cashea===true || s.cashea==='true') ? 'Sí' : 'No',
+      s.cedulaCliente || '',
+      s.cliente || '',
+      s.telefonoCliente || '',
+      s.concepto || '',
+      s.ordenRecepcion ? s.ordenRecepcion.toString() : '',
+      s.storeId || s.sucursal || '',
+      s.vendedor || '',
+      s.tecnico || '',
+      (s.manoDeObraUsd!==undefined ? Number(s.manoDeObraUsd).toFixed(2) : ''),
+      s.tipoPago || '',
+      s.lotePuntoVenta || '',
+      (s.totalBs!==undefined && s.totalBs!==null) ? Number(s.totalBs).toFixed(2) : '',
+      (s.tasa!==undefined && s.tasa!==null) ? Number(s.tasa).toFixed(2) : '',
+      (s.montoVentaUsd!==undefined ? Number(s.montoVentaUsd).toFixed(2) : (s.montoUsd!==undefined ? Number(s.montoUsd).toFixed(2) : '')),
+      s.comentarios || ''
+    ];
+  }
+  function exportVentasXLSX(ventas, { filename } = {}){
+    if (!window.XLSX) throw new Error('SheetJS no cargado');
+    if (!Array.isArray(ventas) || ventas.length===0){ alert('No hay ventas para exportar'); return; }
+    const groups = {};
+    for (const v of ventas){
+      let f = v.fecha || v.date || v.createdAt;
+      if (f && typeof f === 'object' && f.toDate) f = f.toDate().toISOString().slice(0,10);
+      if (f && typeof f === 'string' && f.length>=10) f = f.slice(0,10);
+      if (!f) f = (new Date()).toISOString().slice(0,10);
+      if (!groups[f]) groups[f] = [];
+      groups[f].push(v);
+    }
+    const wb = XLSX.utils.book_new();
+    const fechas = Object.keys(groups).sort();
+    for (const fecha of fechas){
+      const rows = [EXCEL_HEADERS];
+      for (const s of groups[fecha]) rows.push(_row(s));
+      const ws = XLSX.utils.aoa_to_sheet(rows);
+      const sheetName = sanitize(fechaToSheetName(fecha));
+      XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    }
+    const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
+    const out = filename || `ventas_${ts}.xlsx`;
+    XLSX.writeFile(wb, out);
+  }
+  function exportVentasSingleDay(ventas, dateStr, { filename } = {}){
+    if (!Array.isArray(ventas) || ventas.length===0){ alert('No hay ventas para exportar'); return; }
+    if (!window.XLSX) throw new Error('SheetJS no cargado');
+    const wb = XLSX.utils.book_new();
+    const rows = [EXCEL_HEADERS];
+    for (const s of ventas) rows.push(_row(s));
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    const sheetName = sanitize(fechaToSheetName(dateStr));
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
+    const out = filename || `ventas_${sheetName}_${ts}.xlsx`;
+    XLSX.writeFile(wb, out);
+  }
+  global.exportsXLSX = { exportVentasXLSX, exportVentasSingleDay };
+})(window);
+</script>
+
+<script>
+  // Tienda JS (previa lógica incluida), con integracion export hoy/xlsx
   const SALES_KEY = 'ventas';
   const urlParams = new URLSearchParams(location.search);
   const STORE_PARAM = urlParams.get('store');
   const DEFAULT_STORE = STORE_PARAM || 'R04';
   document.getElementById('storeLabel').textContent = DEFAULT_STORE;
-
   const $ = id => document.getElementById(id);
   const hasFirebase = (window.firebase && firebase.firestore);
   const db = hasFirebase ? firebase.firestore() : null;
   const auth = hasFirebase ? firebase.auth() : null;
   const DEFAULT_TASA = 1;
-
   function idGen(){ return Date.now().toString() + '-' + Math.random().toString(36).slice(2,8); }
   function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-  function showMsg(txt, type='success'){ const m=$('msg'); m.className = 'msg ' + (type==='success'?'success':'error'); m.textContent = txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
+  function showMsg(txt, type='success'){ const m=$('msg'); m.className='msg '+(type==='success'?'success':'error'); m.textContent=txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
 
   (function init(){
     const hoy = new Date().toISOString().slice(0,10); if (!$('fecha').value) $('fecha').value = hoy;
@@ -211,7 +294,6 @@
     cargarTabla();
   })();
 
-  // comportamiento pago/BS
   function handleTipoPagoChange(){
     const tipo = $('tipoPago').value;
     const bsVisible = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
@@ -220,7 +302,6 @@
   }
   $('tipoPago').addEventListener('change', handleTipoPagoChange);
 
-  // boton calcular sugerencia USD
   $('btnCalcUsd').addEventListener('click', ()=> {
     const totalBs = parseFloat($('totalBs').value||0);
     const tasa = parseFloat($('tasa').value||0) || DEFAULT_TASA;
@@ -233,17 +314,13 @@
     } else showMsg('Sugerencia: $' + usd, 'success');
   });
 
-  // Validaciones y guardado
   async function guardarVenta(){
-    // validaciones
     const cliente = $('cliente').value.trim();
     const telefono = $('telefono').value.trim();
     const montoUsd = parseFloat($('montoUsd').value || 0);
     if (!cliente){ showMsg('Cliente obligatorio', 'error'); return; }
     if (!telefono){ showMsg('Teléfono obligatorio', 'error'); return; }
     if (!montoUsd || montoUsd <= 0){ showMsg('Monto $ obligatorio', 'error'); return; }
-
-    // preparar campos
     let orden = $('ordenRecepcion').value.trim();
     if (orden && !orden.startsWith('#')) orden = '#' + orden;
     const tipo = $('tipoPago').value;
@@ -253,8 +330,6 @@
     const manoUsd = parseFloat($('manoObraUsd').value || 0);
     const manoBs = (enableBs && $('tasa').value) ? +(manoUsd * tasa).toFixed(2) : 0;
     const totalBsIncluyeMano = +( (enableBs ? totalBs : 0) + manoBs ).toFixed(2);
-
-    // objeto venta
     const venta = {
       id: idGen(),
       date: new Date($('fecha').value),
@@ -282,8 +357,6 @@
       storeId: DEFAULT_STORE,
       createdAt: new Date().toISOString()
     };
-
-    // guardar en Firestore o localStorage
     try {
       if (hasFirebase) {
         const docRef = await db.collection('sales').add({
@@ -326,7 +399,6 @@
     }
   }
 
-  // Cargar tabla y borrar
   async function cargarTabla(){
     try {
       let ventas = [];
@@ -375,9 +447,8 @@
         </tr>
       `).join('');
 
-      // attach delete handlers
       Array.from(document.getElementsByClassName('btnDel')).forEach(b=>{
-        b.onclick = async (e) => {
+        b.onclick = async () => {
           const id = b.getAttribute('data-id');
           if (!id){ showMsg('Id no disponible', 'error'); return; }
           if (!confirm('Eliminar esta venta? Esta acción no se puede deshacer.')) return;
@@ -400,48 +471,50 @@
       });
 
       $('countLabel').textContent = ventas.length;
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) { console.error(e); }
   }
 
-  // Export CSV
-  async function exportMisVentasCSV(){
+  async function exportAllFiltered(){
+    // Reuse current store + date range? Here we export all sales for this store (could be limited later)
     let ventas = [];
-    if (hasFirebase){
+    if (hasFirebase) {
       const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000).get();
-      ventas = q.docs.map(d => ({ id:d.id, ...d.data() }));
+      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
     } else {
       ventas = JSON.parse(localStorage.getItem(SALES_KEY) || '[]').filter(v => v.storeId === DEFAULT_STORE);
     }
-    if (!ventas.length) { showMsg('No hay ventas', 'error'); return; }
-    const keys = ['fecha','nroFacturaFiscalManual','nroFacturaProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','vendedor','tecnico','manoDeObraUsd','tipoPago','lotePuntoVenta','totalBs','tasa','montoVentaUsd','comentarios','storeId'];
-    const header = keys.join(',');
-    const lines = ventas.map(it => keys.map(k => {
-      let val = it[k] === undefined || it[k] === null ? '' : String(it[k]);
-      val = val.replace(/"/g,'""');
-      return `"${val}"`;
-    }).join(',')).join('\n');
-    const csv = header + '\n' + lines;
-    const blob = new Blob([csv], { type:'text/csv' });
-    const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = `ventas_${DEFAULT_STORE}_${new Date().toISOString().slice(0,10)}.csv`; link.click();
+    if (!ventas.length){ showMsg('No hay ventas para exportar', 'error'); return; }
+    exportsXLSX.exportVentasXLSX(ventas, { filename: `ventas_${DEFAULT_STORE}_all.xlsx` });
   }
 
-  // limpiar
-  function limpiarFormulario(){
-    $('formVenta').reset();
-    const hoy = new Date().toISOString().slice(0,10); $('fecha').value = hoy;
-    handleTipoPagoChange();
-  }
+  $('btnExport').addEventListener('click', exportAllFiltered);
 
-  function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  // Exportar hoy (hoja única con fecha seleccionada)
+  $('btnExportHoy').addEventListener('click', async () => {
+    const fecha = $('fecha').value || new Date().toISOString().slice(0,10);
+    let ventas = [];
+    if (hasFirebase) {
+      const start = new Date(fecha); start.setHours(0,0,0,0);
+      const end = new Date(fecha); end.setHours(23,59,59,999);
+      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).where('date','>=', start).where('date','<=', end).get();
+      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
+    } else {
+      const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+      ventas = arr.filter(v => v.storeId === DEFAULT_STORE && (v.fecha === fecha || (v.date && new Date(v.date).toISOString().slice(0,10) === fecha)));
+    }
+    if (!ventas.length){ showMsg('No hay ventas para esa fecha', 'error'); return; }
+    exportsXLSX.exportVentasSingleDay(ventas, fecha, { filename: `ventas_${DEFAULT_STORE}_${fecha}.xlsx` });
+  });
 
-  // eventos
+  // Export CSV (legacy) and helpers
+  $('btnExport').addEventListener('click', exportAllFiltered);
+  $('btnLimpiar').addEventListener('click', ()=>{ $('formVenta').reset(); const hoy=new Date().toISOString().slice(0,10); $('fecha').value=hoy; handleTipoPagoChange(); });
+
+  // attach guardar
   $('btnGuardar').addEventListener('click', guardarVenta);
-  $('btnExport').addEventListener('click', exportMisVentasCSV);
-  $('btnLimpiar').addEventListener('click', limpiarFormulario);
 
-  // iniciar: cargarTabla ya es llamado en init()
+  // start
+  // cargarTabla() already called in init
 </script>
 </body>
 </html>
