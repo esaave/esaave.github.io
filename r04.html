@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Tienda — Registro de Ventas</title>
+<title>Tienda R04 — Registro de Ventas</title>
 <link rel="icon" href="logopeq.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
@@ -264,7 +264,7 @@
 </script>
 
 <script>
-  // Tienda JS (previa lógica incluida), con integracion export hoy/xlsx
+  // Tienda JS (previa lógica included), with escapeHtml and limpiarFormulario added
   const SALES_KEY = 'ventas';
   const urlParams = new URLSearchParams(location.search);
   const STORE_PARAM = urlParams.get('store');
@@ -275,8 +275,45 @@
   const db = hasFirebase ? firebase.firestore() : null;
   const auth = hasFirebase ? firebase.auth() : null;
   const DEFAULT_TASA = 1;
+
   function idGen(){ return Date.now().toString() + '-' + Math.random().toString(36).slice(2,8); }
   function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+  // Escapa HTML para evitar inyección y errores si hay caracteres especiales
+  function escapeHtml(s = '') {
+    return String(s).replace(/[&<>"']/g, function (m) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+    });
+  }
+
+  // Limpia el formulario y restablece valores por defecto (fecha hoy, ocultar campos BS según tipo de pago)
+  function limpiarFormulario() {
+    const form = document.getElementById('formVenta');
+    if (form) form.reset();
+
+    // Fecha por defecto hoy
+    const hoy = new Date().toISOString().slice(0, 10);
+    const fechaEl = document.getElementById('fecha');
+    if (fechaEl) fechaEl.value = hoy;
+
+    // Asegurarse de que los campos BS/tipo de pago vuelvan a su estado por defecto
+    try {
+      if (typeof handleTipoPagoChange === 'function') {
+        handleTipoPagoChange();
+      }
+    } catch (e) {
+      console.warn('handleTipoPagoChange no disponible al limpiar formulario:', e);
+    }
+
+    // Limpiar monto (mantener si prefieres)
+    const montoEl = document.getElementById('montoUsd');
+    if (montoEl) montoEl.value = '';
+
+    // Opcional: limpiar vendor/tech
+    // document.getElementById('vendedor').value = '';
+    // document.getElementById('tecnico').value = '';
+  }
+
   function showMsg(txt, type='success'){ const m=$('msg'); m.className='msg '+(type==='success'?'success':'error'); m.textContent=txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
 
   (function init(){
@@ -314,6 +351,7 @@
     } else showMsg('Sugerencia: $' + usd, 'success');
   });
 
+  // Guardar venta (con validación y fallback)
   async function guardarVenta(){
     const cliente = $('cliente').value.trim();
     const telefono = $('telefono').value.trim();
@@ -359,6 +397,9 @@
     };
     try {
       if (hasFirebase) {
+        // Basic checks
+        if (!firebase.apps || !firebase.apps.length) throw new Error('Firebase no inicializado.');
+        if (!auth || !auth.currentUser) throw new Error('No autenticado. Inicia sesión antes de guardar en Firestore.');
         const docRef = await db.collection('sales').add({
           date: firebase.firestore.Timestamp.fromDate(new Date(venta.fecha)),
           nroFacturaFiscalManual: venta.nroFacturaFiscalManual,
@@ -382,7 +423,8 @@
           montoUsd: venta.montoUsd,
           comentarios: venta.comentarios,
           storeId: venta.storeId,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          createdBy: auth.currentUser ? auth.currentUser.uid : null
         });
         showMsg('Venta guardada', 'success');
       } else {
@@ -394,8 +436,8 @@
       cargarTabla();
       limpiarFormulario();
     } catch (e) {
-      console.error(e);
-      showMsg('Error al guardar', 'error');
+      console.error('Error al guardar venta:', e);
+      alert('Error al guardar la venta: ' + (e.message || e));
     }
   }
 
@@ -475,7 +517,6 @@
   }
 
   async function exportAllFiltered(){
-    // Reuse current store + date range? Here we export all sales for this store (could be limited later)
     let ventas = [];
     if (hasFirebase) {
       const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000).get();
@@ -489,7 +530,6 @@
 
   $('btnExport').addEventListener('click', exportAllFiltered);
 
-  // Exportar hoy (hoja única con fecha seleccionada)
   $('btnExportHoy').addEventListener('click', async () => {
     const fecha = $('fecha').value || new Date().toISOString().slice(0,10);
     let ventas = [];
@@ -506,15 +546,11 @@
     exportsXLSX.exportVentasSingleDay(ventas, fecha, { filename: `ventas_${DEFAULT_STORE}_${fecha}.xlsx` });
   });
 
-  // Export CSV (legacy) and helpers
-  $('btnExport').addEventListener('click', exportAllFiltered);
-  $('btnLimpiar').addEventListener('click', ()=>{ $('formVenta').reset(); const hoy=new Date().toISOString().slice(0,10); $('fecha').value=hoy; handleTipoPagoChange(); });
+  $('btnLimpiar').addEventListener('click', ()=>{ limpiarFormulario(); });
 
-  // attach guardar
   $('btnGuardar').addEventListener('click', guardarVenta);
 
-  // start
-  // cargarTabla() already called in init
+  // start: cargarTabla was already invoked in init()
 </script>
 </body>
 </html>
