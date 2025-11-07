@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel Administración — Orange Store</title>
+  <link rel="icon" href="logopeq.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --orange:#ea580c;
+      --orange-dark:#d9480f;
+      --muted:#6b7280;
+      --card:#fff;
+      --bg:#f8fafc;
+    }
+    body{ font-family: 'Poppins', sans-serif; background:var(--bg); margin:0; padding:24px; color:#0f172a; }
+    .container{ max-width:1100px; margin:0 auto; }
+    header{ text-align:center; margin-bottom:18px; }
+    h1{ color:var(--orange); margin:6px 0 0; }
+    .controls{ display:flex; gap:12px; flex-wrap:wrap; align-items:end; margin-bottom:12px; }
+    .card{ background:var(--card); border-radius:10px; padding:14px; box-shadow: 0 6px 18px rgba(15,23,42,0.06); }
+    label{ font-size:13px; color:var(--muted); display:block; margin-bottom:6px; }
+    select,input{ padding:10px 12px; border-radius:8px; border:1px solid #e6e9ef; width:100%; box-sizing:border-box; }
+    .col{ flex:1 1 160px; min-width:140px; }
+    .row{ display:flex; gap:12px; }
+    .totals{ display:flex; gap:12px; margin:14px 0; flex-wrap:wrap; }
+    .total-box{ flex:1; padding:12px; border-radius:8px; background:linear-gradient(90deg, #fff 0%, #fff 100%); border:1px solid #f1f5f9; text-align:center; }
+    .total-box h3{ margin:0; color:var(--orange-dark); }
+    table{ width:100%; border-collapse:collapse; font-size:14px; margin-top:12px; }
+    th,td{ text-align:left; padding:10px 8px; border-bottom:1px solid #eef2f6; }
+    th{ background:var(--orange); color:#fff; font-weight:600; position:sticky; top:0; }
+    .small{ font-size:13px; color:var(--muted); }
+    .actions{ display:flex; gap:8px; align-items:center; }
+    button{ background:var(--orange); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; }
+    button.secondary{ background:#0ea5a4; }
+    .flex-right{ margin-left:auto; display:flex; gap:8px; }
+    .list-scroll{ max-height:420px; overflow:auto; }
+    @media (max-width:720px){
+      .controls{ flex-direction:column; align-items:stretch; }
+      .row{ flex-direction:column; }
+      th,td{ font-size:13px; padding:8px; }
+    }
+  </style>
+
+  <!-- Firebase compat (opcional) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <!-- Añade tu firebase-config.js si quieres usar Firestore -->
+  <script>
+    // firebase-config.js (opcional) debe definir firebase.initializeApp({...})
+    // Si no existe, el panel usará localStorage para pruebas.
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="logopeq.png" alt="logo" style="height:48px;">
+      <h1>Administración Orange Store</h1>
+      <div class="small">Resumen diario y desglose por vendedor, técnico y tienda</div>
+    </header>
+
+    <div class="card">
+      <div class="controls">
+        <div class="col">
+          <label>Filtrar por tienda</label>
+          <select id="filtroTienda">
+            <option value="ALL">Todas</option>
+            <option value="R04">R04</option>
+            <option value="B15">B15</option>
+            <option value="S04">S04</option>
+          </select>
+        </div>
+
+        <div class="col">
+          <label>Vendedor</label>
+          <select id="filtroVendedor"><option value="">Todos</option></select>
+        </div>
+
+        <div class="col">
+          <label>Desde</label>
+          <input type="date" id="fechaDesde">
+        </div>
+
+        <div class="col">
+          <label>Hasta</label>
+          <input type="date" id="fechaHasta">
+        </div>
+
+        <div style="display:flex; gap:8px; align-items:center;">
+          <button id="btnFiltrar">Filtrar</button>
+          <button id="btnExport" class="secondary">Exportar CSV</button>
+        </div>
+      </div>
+
+      <div class="totals">
+        <div class="total-box">
+          <div class="small">Total General (USD)</div>
+          <h3>$<span id="totalUsd">0.00</span></h3>
+        </div>
+        <div class="total-box">
+          <div class="small">Total General (BS)</div>
+          <h3><span id="totalBs">0.00</span> BS</h3>
+        </div>
+        <div class="total-box">
+          <div class="small">Ventas registradas</div>
+          <h3><span id="count">0</span></h3>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <div style="flex:1 1 320px;">
+          <h4 style="margin:8px 0 6px;">Resumen por Vendedor</h4>
+          <div id="tablaVendedores" class="card list-scroll"></div>
+        </div>
+
+        <div style="flex:1 1 320px;">
+          <h4 style="margin:8px 0 6px;">Resumen por Técnico</h4>
+          <div id="tablaTecnicos" class="card list-scroll"></div>
+        </div>
+      </div>
+
+      <h4 style="margin-top:14px;">Listado de ventas</h4>
+      <div id="tablaVentas" class="list-scroll card" style="padding:0 0 8px 0;"></div>
+    </div>
+  </div>
+
+  <script>
+    // Utilidades
+    const $ = id => document.getElementById(id);
+    const formatMoney = (v) => Number(v || 0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const SALES_KEY = 'ventas'; // fallback localStorage
+
+    // Detectar Firestore
+    const hasFirebase = (window.firebase && firebase.firestore);
+    const db = hasFirebase ? firebase.firestore() : null;
+
+    // Carga ventas desde Firestore si está disponible, sino desde localStorage
+    async function fetchVentas(filters = {}) {
+      if (hasFirebase) {
+        let q = db.collection('sales').orderBy('date','desc');
+        if (filters.store && filters.store !== 'ALL') q = q.where('storeId','==',filters.store);
+        if (filters.vendedor) q = q.where('vendedor','==',filters.vendedor);
+        if (filters.from) q = q.where('date', '>=', new Date(filters.from));
+        if (filters.to) {
+          const to = new Date(filters.to); to.setHours(23,59,59,999);
+          q = q.where('date', '<=', to);
+        }
+        const snap = await q.get();
+        const arr = snap.docs.map(d => {
+          const s = d.data();
+          // normalize fields used in the UI
+          return {
+            id: d.id,
+            tienda: s.storeId || s.store || 'UNKNOWN',
+            fecha: s.date ? (s.date.seconds ? new Date(s.date.seconds * 1000) : new Date(s.date)) : null,
+            cliente: s.cliente || s.client || '',
+            concepto: s.concepto || '',
+            montoUsd: s.montoUsd !== undefined ? Number(s.montoUsd) : (s.totalBs && s.tasa ? Number(s.totalBs)/Number(s.tasa) : 0),
+            totalBs: s.totalBs || 0,
+            vendedor: s.vendedor || '',
+            tecnico: s.tecnico || '',
+            manoDeObra: s.manoDeObra || 0,
+            tipoPago: s.tipoPago || '',
+            comentarios: s.comentarios || '',
+            nroFiscal: s.nroFacturaFiscalManual || '',
+            nroProfit: s.nroFacturaProfit || ''
+          };
+        });
+        return arr;
+      } else {
+        // localStorage fallback: espera array con objetos similares
+        const raw = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+        return raw.map(v => ({
+          ...v,
+          fecha: v.fecha ? new Date(v.fecha) : null,
+          montoUsd: Number(v.montoUsd || 0),
+          totalBs: Number(v.totalBs || 0)
+        })).filter(v=>{
+          if (filters.store && filters.store!=='ALL' && v.tienda!==filters.store) return false;
+          if (filters.vendedor && filters.vendedor!=='' && v.vendedor!==filters.vendedor) return false;
+          if (filters.from) if (!v.fecha || v.fecha < new Date(filters.from)) return false;
+          if (filters.to) { const to=new Date(filters.to); to.setHours(23,59,59,999); if (!v.fecha || v.fecha > to) return false; }
+          return true;
+        });
+      }
+    }
+
+    function buildVentasTable(ventas) {
+      if (!ventas.length) {
+        $('tablaVentas').innerHTML = '<div style="padding:14px;" class="small">No hay ventas para los criterios seleccionados.</div>';
+        return;
+      }
+      let html = '<table><thead><tr><th>Fecha</th><th>Tienda</th><th>Cliente</th><th>Concepto</th><th>Vendedor</th><th>Técnico</th><th>Total BS</th><th>Total $</th></tr></thead><tbody>';
+      for (const v of ventas) {
+        const fecha = v.fecha ? v.fecha.toISOString().slice(0,10) : '';
+        html += `<tr>
+          <td>${fecha}</td>
+          <td>${v.tienda}</td>
+          <td>${escapeHtml(v.cliente)}</td>
+          <td>${escapeHtml(v.concepto)}</td>
+          <td>${escapeHtml(v.vendedor)}</td>
+          <td>${escapeHtml(v.tecnico)}</td>
+          <td>${formatMoney(v.totalBs)}</td>
+          <td>$${formatMoney(v.montoUsd)}</td>
+        </tr>`;
+      }
+      html += '</tbody></table>';
+      $('tablaVentas').innerHTML = html;
+    }
+
+    function buildResumen(ventas) {
+      const byVendedor = {};
+      const byTecnico = {};
+      let totalUsd = 0;
+      let totalBs = 0;
+      for (const v of ventas) {
+        totalUsd += Number(v.montoUsd || 0);
+        totalBs += Number(v.totalBs || 0);
+        const ven = v.vendedor || 'SIN VENDEDOR';
+        const tec = v.tecnico || 'SIN TÉCNICO';
+        byVendedor[ven] = (byVendedor[ven]||0) + (Number(v.montoUsd||0));
+        byTecnico[tec] = (byTecnico[tec]||0) + (Number(v.montoUsd||0));
+      }
+
+      // vendedores
+      let htmlV = '<table><thead><tr><th>Vendedor</th><th>Total $</th></tr></thead><tbody>';
+      Object.keys(byVendedor).sort((a,b)=>byVendedor[b]-byVendedor[a]).forEach(k=>{
+        htmlV += `<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byVendedor[k])}</td></tr>`;
+      });
+      htmlV += '</tbody></table>';
+      $('tablaVendedores').innerHTML = htmlV;
+
+      // tecnicos
+      let htmlT = '<table><thead><tr><th>Técnico</th><th>Total $</th></tr></thead><tbody>';
+      Object.keys(byTecnico).sort((a,b)=>byTecnico[b]-byTecnico[a]).forEach(k=>{
+        htmlT += `<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byTecnico[k])}</td></tr>`;
+      });
+      htmlT += '</tbody></table>';
+      $('tablaTecnicos').innerHTML = htmlT;
+
+      $('totalUsd').innerText = formatMoney(totalUsd);
+      $('totalBs').innerText = formatMoney(totalBs);
+      $('count').innerText = ventas.length;
+    }
+
+    function escapeHtml(s='') {
+      return String(s).replace(/[&<>"']/g, (m)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    }
+
+    // Poblar select de vendedores con valores únicos (de todas las ventas sin filtros)
+    async function populateVendedores() {
+      const ventas = await fetchVentas({}); // all
+      const set = new Set(ventas.map(v=>v.vendedor).filter(Boolean));
+      const sel = $('filtroVendedor');
+      sel.innerHTML = '<option value="">Todos</option>';
+      Array.from(set).sort().forEach(v=>{
+        const opt = document.createElement('option');
+        opt.value = v; opt.textContent = v;
+        sel.appendChild(opt);
+      });
+    }
+
+    // Export CSV
+    function downloadCSV(items, filename='ventas_export.csv') {
+      if (!items.length) return alert('No hay datos para exportar.');
+      const keys = ['fecha','tienda','nroFiscal','nroProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','vendedor','tecnico','manoDeObra','tipoPago','lotePuntoVenta','totalBs','tasa','montoUsd','comentarios'];
+      const header = keys.join(',');
+      const lines = items.map(it => keys.map(k => {
+        let val = '';
+        if (k === 'fecha' && it.fecha) val = it.fecha.toISOString().slice(0,10);
+        else val = it[k] === undefined || it[k] === null ? '' : String(it[k]);
+        val = val.replace(/"/g,'""');
+        return `"${val}"`;
+      }).join(','));
+      const csv = [header, ...lines].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+    }
+
+    // Main load
+    async function cargar() {
+      const store = $('filtroTienda').value;
+      const vendedor = $('filtroVendedor').value;
+      const from = $('fechaDesde').value || null;
+      const to = $('fechaHasta').value || null;
+      // Firestore expects Date objects query; our fetchVentas handles it
+      const ventas = await fetchVentas({ store, vendedor, from, to });
+      buildVentasTable(ventas);
+      buildResumen(ventas);
+    }
+
+    // Eventos
+    $('btnFiltrar').addEventListener('click', cargar);
+    $('filtroTienda').addEventListener('change', async ()=>{
+      await populateVendedores();
+      cargar();
+    });
+    $('filtroVendedor').addEventListener('change', cargar);
+    $('btnExport').addEventListener('click', async ()=>{
+      const store = $('filtroTienda').value;
+      const vendedor = $('filtroVendedor').value;
+      const from = $('fechaDesde').value || null;
+      const to = $('fechaHasta').value || null;
+      const ventas = await fetchVentas({ store, vendedor, from, to });
+      // transformar a formato csv completo
+      const csvItems = ventas.map(v => ({
+        fecha: v.fecha ? v.fecha.toISOString().slice(0,10) : '',
+        tienda: v.tienda,
+        nroFiscal: v.nroFiscal || '',
+        nroProfit: v.nroProfit || '',
+        cashea: v.cashea || '',
+        cedulaCliente: v.cedulaCliente || '',
+        cliente: v.cliente || '',
+        telefonoCliente: v.telefonoCliente || '',
+        concepto: v.concepto || '',
+        ordenRecepcion: v.ordenRecepcion || '',
+        vendedor: v.vendedor || '',
+        tecnico: v.tecnico || '',
+        manoDeObra: v.manoDeObra || 0,
+        tipoPago: v.tipoPago || '',
+        lotePuntoVenta: v.lotePuntoVenta || '',
+        totalBs: v.totalBs || 0,
+        tasa: v.tasa || '',
+        montoUsd: v.montoUsd || 0,
+        comentarios: v.comentarios || ''
+      }));
+      downloadCSV(csvItems, `ventas_${store || 'ALL'}_${new Date().toISOString().slice(0,10)}.csv`);
+    });
+
+    // Inicialización
+    (async function init(){
+      // colocar fecha por defecto: hoy en rango hasta
+      const hoy = new Date().toISOString().slice(0,10);
+      $('fechaHasta').value = hoy;
+      // populate vendedores & cargar datos
+      await populateVendedores();
+      cargar();
+    })();
+  </script>
+</body>
+</html>
