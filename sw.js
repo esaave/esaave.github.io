@@ -2,7 +2,7 @@
 // 🌐 Orange Store PWA - Service Worker (versión v3.4.0)
 // ======================================================
 
-const CACHE_NAME = 'orange-store-v3.4.2';
+const CACHE_NAME = 'orange-store-v3.4.3';
 const urlsToCache = [
   '/',                     
   '/index.html',           
@@ -21,6 +21,8 @@ const urlsToCache = [
   '/comunicado.json',
   '/manifest.json'
   '/r04.html'
+  '/s04.html'
+  '/b15.html'
   '/administracion.html'
   // Añade aquí tus archivos JS o CSS si existen
 ];
