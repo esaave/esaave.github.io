@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel Administración — Orange Store</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Administración — Orange Store</title>
 <link rel="icon" href="logopeq.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --accent:#ea580c; --muted:#6b7280; --card:#fff; }
-  html,body{ margin:0; height:100%; font-family:'Poppins',sans-serif; color:#0f172a; background: linear-gradient(180deg, #fbf7f3 0%, #f3f7fb 100%); }
-  .wrap{ max-width:1200px; margin:24px auto; padding:12px; }
-  header{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  :root{ --accent:#ea580c; --accent-2:#f97316; --muted:#6b7280; --card:#fff; }
+  html,body{ height:100%; margin:0; font-family:'Poppins',sans-serif; background: linear-gradient(180deg,#fbf7f3 0%,#f3f7fb 100%); color:#0f172a; }
+  .wrap{ max-width:1200px; margin:24px auto; padding:14px; }
+  header{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
   header img{ height:44px; }
   h1{ margin:0; color:var(--accent); font-size:20px; }
-  .controls{ display:flex; gap:10px; align-items:end; flex-wrap:wrap; margin-bottom:12px; }
-  .card{ background:var(--card); border-radius:12px; padding:12px; box-shadow:0 10px 30px rgba(15,23,42,0.06); margin-bottom:12px; }
-  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .controls{ display:flex; gap:12px; align-items:end; flex-wrap:wrap; margin:12px 0; }
+  .card{ background:var(--card); border-radius:12px; padding:12px; box-shadow:0 10px 24px rgba(15,23,42,0.06); margin-bottom:12px; }
+  .tabs{ display:flex; gap:8px; margin-bottom:12px; }
+  .tab{ padding:8px 12px; border-radius:8px; background:transparent; border:1px solid transparent; cursor:pointer; }
+  .tab.active{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; }
+  .table-wrap{ max-height:420px; overflow:auto; }
   table{ width:100%; border-collapse:collapse; font-size:13px; }
   th,td{ padding:10px; border-bottom:1px solid #f1f5f9; text-align:left; }
-  th{ background:linear-gradient(90deg,var(--accent),#f97316); color:#fff; position:sticky; top:0; }
-  .summary{ display:flex; gap:12px; flex-wrap:wrap; }
-  .box{ flex:1; padding:10px; border-radius:8px; background:linear-gradient(180deg,#fff,#fff); border:1px solid #eef2f6; text-align:center; }
-  .small{ color:var(--muted); font-size:13px; }
+  th{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; position:sticky; top:0; }
+  .hidden{ display:none!important; }
   .btn{ background:var(--accent); color:#fff; padding:8px 10px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
-  @media (max-width:980px){ .grid3{ grid-template-columns:1fr; } .controls{ flex-direction:column; align-items:stretch; } }
+  .btn.danger{ background:#ef4444; }
+  @media (max-width:980px){ .controls{ flex-direction:column; align-items:stretch; } }
 </style>
 </head>
 <body>
@@ -35,46 +37,91 @@
 
   <div class="controls">
     <div>
-      <select id="filtroTienda"><option value="ALL">Todas</option><option>R04</option><option>B15</option><option>S04</option></select>
+      <label class="small">Tienda</label>
+      <select id="filtroTienda"><option value="">-- Seleccione tienda --</option><option>R04</option><option>B15</option><option>S04</option></select>
     </div>
-    <div><input type="date" id="fechaDesde" /></div>
-    <div><input type="date" id="fechaHasta" /></div>
+    <div>
+      <label class="small">Desde</label>
+      <input type="date" id="fechaDesde">
+    </div>
+    <div>
+      <label class="small">Hasta</label>
+      <input type="date" id="fechaHasta">
+    </div>
     <div style="margin-left:auto; display:flex; gap:8px;">
-      <button id="btnFiltrar" class="btn">Filtrar</button>
-      <button id="btnExport" class="btn" style="background:#0ea5a4">Export</button>
+      <button id="btnFiltrar" class="btn">Ver</button>
+      <button id="btnExport" class="btn" style="background:#0ea5a4">Exportar</button>
     </div>
   </div>
 
-  <div class="card summary">
-    <div class="box"><div class="small">USD (directo)</div><div style="font-weight:700" id="totalUsdPayments">$0.00</div></div>
-    <div class="box"><div class="small">Bs recibidos</div><div style="font-weight:700" id="totalBsPayments">0.00</div></div>
-    <div class="box"><div class="small">Equiv. USD (Bs)</div><div style="font-weight:700" id="totalBsToUsd">$0.00</div></div>
-    <div class="box"><div class="small">Gran total USD</div><div style="font-weight:700" id="grandTotalUsd">$0.00</div></div>
-    <div class="box"><div class="small">Comisiones (Mano $)</div><div style="font-weight:700" id="totalComisiones">$0.00</div></div>
+  <div id="emptyMessage" class="card">
+    <div style="font-weight:600; color:var(--muted)">Seleccione una tienda para ver sus detalles</div>
   </div>
 
-  <div class="card">
-    <div class="grid3">
-      <div>
-        <div class="small">Por tipo de pago</div>
-        <div id="resPagos"></div>
+  <div id="mainContent" class="hidden">
+    <div class="card">
+      <div style="display:flex;gap:12px;align-items:center;">
+        <div style="font-weight:700">Resumen — <span id="selectedStore"></span></div>
+        <div style="margin-left:auto; color:var(--muted)">Ventas: <span id="count">0</span></div>
       </div>
-      <div>
-        <div class="small">Por vendedor</div>
+      <div style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;">
+        <div style="padding:10px;border-radius:10px;border:1px solid #eef2f6;">USD directos: $<strong id="totalUsdPayments">0.00</strong></div>
+        <div style="padding:10px;border-radius:10px;border:1px solid #eef2f6;">Bs recibidos: <strong id="totalBsPayments">0.00</strong></div>
+        <div style="padding:10px;border-radius:10px;border:1px solid #eef2f6;">Equiv. USD (Bs): $<strong id="totalBsToUsd">0.00</strong></div>
+        <div style="padding:10px;border-radius:10px;border:1px solid #eef2f6;">Comisiones (Mano $): $<strong id="totalComisiones">0.00</strong></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <button id="tabVendedores" class="tab active">Vendedores</button>
+        <button id="tabTecnicos" class="tab">Técnicos</button>
+      </div>
+
+      <div id="panelVendedores">
         <div id="resVendedores"></div>
       </div>
-      <div>
-        <div class="small">Por técnico</div>
+      <div id="panelTecnicos" class="hidden">
         <div id="resTecnicos"></div>
       </div>
     </div>
-  </div>
 
-  <div class="card">
-    <table>
-      <thead><tr><th>Tienda</th><th>Fecha</th><th>Cliente</th><th>TipoPago</th><th>Mano $</th><th>Total $</th><th>Bs</th><th>Tasa</th></tr></thead>
-      <tbody id="tabla"></tbody>
-    </table>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:700">Listado detallado</div>
+        <div style="color:var(--muted)">Exporta o elimina filas</div>
+      </div>
+
+      <div class="table-wrap" style="margin-top:10px;">
+        <table>
+          <thead>
+            <tr>
+              <th>FECHA</th>
+              <th>NRO. FACTURA FISCAL MANUAL</th>
+              <th>NRO. FACTURA PROFIT</th>
+              <th>CASHEA</th>
+              <th>CEDULA</th>
+              <th>CLIENTE</th>
+              <th>TELEFONO</th>
+              <th>CONCEPTO</th>
+              <th>ORDEN</th>
+              <th>SUCURSAL</th>
+              <th>VENDEDOR</th>
+              <th>TECNICO</th>
+              <th>MANO DE OBRA ($)</th>
+              <th>TIPO DE PAGO</th>
+              <th>LOTE</th>
+              <th>TOTAL BS</th>
+              <th>TASA BCV</th>
+              <th>MONTO $</th>
+              <th>COMENTARIOS</th>
+              <th>ACCION</th>
+            </tr>
+          </thead>
+          <tbody id="tabla"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -86,85 +133,167 @@
 
   function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
   function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-  function bsToUsd(totalBs, tasa){ if(!totalBs || !tasa) return 0; return totalBs / tasa; }
+  function bsToUsd(totalBs, tasa){ if (!totalBs || !tasa) return 0; return totalBs / tasa; }
 
-  async function fetchVentas(filters = {}){
-    if (hasFirebase){
+  async function fetchVentas(filters = {}) {
+    if (hasFirebase) {
       let q = db.collection('sales').orderBy('date','desc');
-      if (filters.store && filters.store!=='ALL') q = q.where('storeId','==',filters.store);
-      if (filters.from) q = q.where('date','>=', new Date(filters.from));
-      if (filters.to){ const to=new Date(filters.to); to.setHours(23,59,59,999); q = q.where('date','<=', to); }
+      if (filters.store && filters.store !== 'ALL') q = q.where('storeId','==',filters.store);
+      if (filters.from) q = q.where('date', '>=', new Date(filters.from));
+      if (filters.to) { const to=new Date(filters.to); to.setHours(23,59,59,999); q = q.where('date','<=', to); }
       const snap = await q.get();
-      return snap.docs.map(d=>{ const s=d.data(); return { tienda: s.storeId||'', fecha: s.date ? (s.date.seconds? new Date(s.date.seconds*1000).toISOString().slice(0,10): new Date(s.date).toISOString().slice(0,10)) : '', cliente: s.cliente||'', concepto: s.concepto||'', tipoPago: s.tipoPago||'', vendedor: s.vendedor||'', tecnico: s.tecnico||'', manoDeObraUsd: Number(s.manoDeObraUsd||0), montoVentaUsd: Number(s.montoVentaUsd||s.montoUsd||0), totalBs: Number(s.totalBs||0), tasa: s.tasa || null }; });
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
     } else {
-      const arr = JSON.parse(localStorage.getItem(SALES_KEY)||'[]');
-      return arr.map(v=>({ tienda:v.storeId, fecha:v.fecha||(v.date?new Date(v.date).toISOString().slice(0,10):''), cliente:v.cliente, concepto:v.concepto, tipoPago:v.tipoPago||'', vendedor:v.vendedor, tecnico:v.tecnico, manoDeObraUsd:Number(v.manoDeObraUsd||0), montoVentaUsd:Number(v.montoVentaUsd||v.montoUsd||0), totalBs:Number(v.totalBs||0), tasa:v.tasa||null })).filter(v=>{
-        if (filters.store && filters.store!=='ALL' && v.tienda!==filters.store) return false;
-        if (filters.from && (!v.fecha || v.fecha < filters.from)) return false;
-        if (filters.to && (!v.fecha || v.fecha > filters.to)) return false;
-        return true;
-      });
+      const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+      return arr.map(v => ({ id: v.id, ...v }));
     }
   }
 
+  // actualiza la vista cuando seleccionas tienda + filtros
   async function cargar(){
-    const store = $('filtroTienda').value;
+    const tienda = $('filtroTienda').value;
+    if (!tienda) {
+      $('mainContent').classList.add('hidden'); $('emptyMessage').classList.remove('hidden');
+      return;
+    }
+    $('emptyMessage').classList.add('hidden'); $('mainContent').classList.remove('hidden');
+    $('selectedStore').textContent = tienda;
+
     const from = $('fechaDesde').value || null;
     const to = $('fechaHasta').value || null;
-    const ventas = await fetchVentas({ store, from, to });
+    const ventasRaw = await fetchVentas({ store: tienda, from, to });
 
-    $('tabla').innerHTML = ventas.map(v=>`<tr><td>${v.tienda}</td><td>${v.fecha}</td><td>${escapeHtml(v.cliente)}</td><td>${escapeHtml(v.tipoPago)}</td><td>$${formatMoney(v.manoDeObraUsd)}</td><td>$${formatMoney(v.montoVentaUsd)}</td><td>${v.totalBs?formatMoney(v.totalBs):''}</td><td>${v.tasa?formatMoney(v.tasa):''}</td></tr>`).join('');
+    // normalizar objetos y filtrar por store si usando localStorage
+    const ventas = ventasRaw
+      .map(s => {
+        // si vienen de Firestore, s.date puede ser Timestamp
+        const fecha = s.date ? (s.date.seconds ? new Date(s.date.seconds*1000).toISOString().slice(0,10) : (typeof s.date === 'string' ? s.date : new Date(s.date).toISOString().slice(0,10))) : (s.fecha || '');
+        return {
+          id: s.id || s._id || s.idGen || '',
+          fecha,
+          nroFacturaFiscalManual: s.nroFacturaFiscalManual || '',
+          nroFacturaProfit: s.nroFacturaProfit || '',
+          cashea: s.cashea === true || s.cashea === 'true',
+          cedulaCliente: s.cedulaCliente || '',
+          cliente: s.cliente || '',
+          telefonoCliente: s.telefonoCliente || '',
+          concepto: s.concepto || '',
+          ordenRecepcion: s.ordenRecepcion || '',
+          storeId: s.storeId || s.store || '',
+          vendedor: s.vendedor || '',
+          tecnico: s.tecnico || '',
+          manoDeObraUsd: Number(s.manoDeObraUsd || 0),
+          tipoPago: s.tipoPago || '',
+          lotePuntoVenta: s.lotePuntoVenta || '',
+          totalBs: Number(s.totalBs || 0),
+          tasa: s.tasa || null,
+          montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0),
+          comentarios: s.comentarios || ''
+        };
+      })
+      .filter(v => v.storeId === tienda);
 
-    const totalUsdPayments = ventas.filter(v=>['EFECTIVO','ZELLE','BINANCE'].includes((v.tipoPago||'').toUpperCase())).reduce((s,v)=>s+Number(v.montoVentaUsd||0),0);
-    const bsPayments = ventas.filter(v=>['PMF','PMB','PUNTO'].includes((v.tipoPago||'').toUpperCase()));
-    const totalBsPayments = bsPayments.reduce((s,v)=>s+Number(v.totalBs||0),0);
-    const totalBsToUsd = bsPayments.reduce((s,v)=>s + bsToUsd(Number(v.totalBs||0), Number(v.tasa||0)),0);
-    const grandTotalUsd = totalUsdPayments + totalBsToUsd;
-    const totalCommissions = ventas.reduce((s,v)=>s + Number(v.manoDeObraUsd||0),0);
+    // tabla detallada
+    $('tabla').innerHTML = ventas.map(v => {
+      const equivUsd = bsToUsd(v.totalBs, v.tasa);
+      return `<tr>
+        <td>${v.fecha}</td>
+        <td>${escapeHtml(v.nroFacturaFiscalManual)}</td>
+        <td>${escapeHtml(v.nroFacturaProfit)}</td>
+        <td>${v.cashea ? 'Sí' : 'No'}</td>
+        <td>${escapeHtml(v.cedulaCliente)}</td>
+        <td>${escapeHtml(v.cliente)}</td>
+        <td>${escapeHtml(v.telefonoCliente)}</td>
+        <td>${escapeHtml(v.concepto)}</td>
+        <td>${escapeHtml(v.ordenRecepcion)}</td>
+        <td>${escapeHtml(v.storeId)}</td>
+        <td>${escapeHtml(v.vendedor)}</td>
+        <td>${escapeHtml(v.tecnico)}</td>
+        <td>$${formatMoney(v.manoDeObraUsd)}</td>
+        <td>${escapeHtml(v.tipoPago)}</td>
+        <td>${escapeHtml(v.lotePuntoVenta)}</td>
+        <td>${v.totalBs ? formatMoney(v.totalBs) : ''}</td>
+        <td>${v.tasa ? formatMoney(v.tasa) : ''}</td>
+        <td>$${formatMoney(v.montoVentaUsd)}</td>
+        <td>${escapeHtml(v.comentarios)}</td>
+        <td><button data-id="${v.id}" class="delRow btn danger">Eliminar</button></td>
+      </tr>`;
+    }).join('');
 
-    $('totalUsdPayments').innerText = `$${formatMoney(totalUsdPayments)}`;
-    $('totalBsPayments').innerText = formatMoney(totalBsPayments);
-    $('totalBsToUsd').innerText = `$${formatMoney(totalBsToUsd)}`;
-    $('grandTotalUsd').innerText = `$${formatMoney(grandTotalUsd)}`;
-    $('totalComisiones').innerText = `$${formatMoney(totalCommissions)}`;
+    // attach delete handlers
+    Array.from(document.getElementsByClassName('delRow')).forEach(btn=>{
+      btn.onclick = async () => {
+        const id = btn.getAttribute('data-id');
+        if (!id) return alert('Id no disponible');
+        if (!confirm('Eliminar esta venta?')) return;
+        try {
+          if (hasFirebase) {
+            await db.collection('sales').doc(id).delete();
+            alert('Venta eliminada.');
+          } else {
+            let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+            arr = arr.filter(x => x.id !== id);
+            localStorage.setItem(SALES_KEY, JSON.stringify(arr));
+            alert('Venta eliminada (local)');
+          }
+          cargar(); // recargar vista
+        } catch (e) {
+          console.error(e); alert('Error eliminando');
+        }
+      };
+    });
 
-    // by tipo
-    const byTipo = {};
-    for(const v of ventas){
-      const key = (v.tipoPago||'OTRO').toUpperCase();
-      if(!byTipo[key]) byTipo[key] = { count:0, usd:0, bs:0, bsToUsd:0 };
-      byTipo[key].count++;
-      byTipo[key].usd += Number(v.montoVentaUsd||0);
-      byTipo[key].bs += Number(v.totalBs||0);
-      byTipo[key].bsToUsd += bsToUsd(Number(v.totalBs||0), Number(v.tasa||0));
-    }
-    let htmlTipo = '<table><thead><tr><th>Tipo</th><th>#</th><th>USD</th><th>Bs</th><th>Eq. USD</th></tr></thead><tbody>';
-    Object.keys(byTipo).forEach(k => { const it=byTipo[k]; htmlTipo += `<tr><td>${k}</td><td>${it.count}</td><td>$${formatMoney(it.usd)}</td><td>${formatMoney(it.bs)}</td><td>$${formatMoney(it.bsToUsd)}</td></tr>`; });
-    htmlTipo += '</tbody></table>';
-    $('resPagos').innerHTML = htmlTipo;
+    // totales y resúmenes
+    const totalUsdPayments = ventas.filter(v => ['EFECTIVO','ZELLE','BINANCE'].includes((v.tipoPago||'').toUpperCase())).reduce((s,v)=>s+v.montoVentaUsd,0);
+    const bsPayments = ventas.filter(v => ['PMF','PMB','PUNTO'].includes((v.tipoPago||'').toUpperCase()));
+    const totalBsPayments = bsPayments.reduce((s,v)=>s+v.totalBs,0);
+    const totalBsToUsd = bsPayments.reduce((s,v)=>s + bsToUsd(v.totalBs, v.tasa), 0);
+    const totalComisiones = ventas.reduce((s,v)=>s + v.manoDeObraUsd,0);
+    $('totalUsdPayments').textContent = formatMoney(totalUsdPayments);
+    $('totalBsPayments').textContent = formatMoney(totalBsPayments);
+    $('totalBsToUsd').textContent = formatMoney(totalBsToUsd);
+    $('totalComisiones').textContent = formatMoney(totalComisiones);
+    $('count').textContent = ventas.length;
 
-    // by vendedor
-    const byV = {};
-    ventas.forEach(v=> { const k=v.vendedor||'SIN'; byV[k] = (byV[k]||0)+Number(v.montoVentaUsd||0); });
-    $('resVendedores').innerHTML = '<table><thead><tr><th>Vendedor</th><th>USD</th></tr></thead><tbody>' + Object.keys(byV).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byV[k])}</td></tr>`).join('') + '</tbody></table>';
+    // resumen por vendedor y por técnico
+    const byV = {}; const byT = {};
+    ventas.forEach(v => {
+      const ven = v.vendedor || 'SIN VENDEDOR';
+      const tec = v.tecnico || 'SIN TÉCNICO';
+      byV[ven] = (byV[ven]||0) + v.montoVentaUsd;
+      byT[tec] = (byT[tec]||0) + v.manoDeObraUsd;
+    });
 
-    // by tecnico
-    const byT = {};
-    ventas.forEach(v=> { const k=v.tecnico||'SIN'; byT[k] = (byT[k]||0)+Number(v.manoDeObraUsd||0); });
-    $('resTecnicos').innerHTML = '<table><thead><tr><th>Técnico</th><th>Mano $</th></tr></thead><tbody>' + Object.keys(byT).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byT[k])}</td></tr>`).join('') + '</tbody></table>';
+    $('resVendedores').innerHTML = '<table style="width:100%"><thead><tr><th>Vendedor</th><th>USD</th></tr></thead><tbody>' +
+      Object.keys(byV).sort((a,b)=>byV[b]-byV[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byV[k])}</td></tr>`).join('') +
+      '</tbody></table>';
+
+    $('resTecnicos').innerHTML = '<table style="width:100%"><thead><tr><th>Técnico</th><th>Mano $</th></tr></thead><tbody>' +
+      Object.keys(byT).sort((a,b)=>byT[b]-byT[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byT[k])}</td></tr>`).join('') +
+      '</tbody></table>';
   }
 
+  // pestañas
+  $('tabVendedores').addEventListener('click', ()=>{ $('tabVendedores').classList.add('active'); $('tabTecnicos').classList.remove('active'); $('panelVendedores').classList.remove('hidden'); $('panelTecnicos').classList.add('hidden'); });
+  $('tabTecnicos').addEventListener('click', ()=>{ $('tabTecnicos').classList.add('active'); $('tabVendedores').classList.remove('active'); $('panelTecnicos').classList.remove('hidden'); $('panelVendedores').classList.add('hidden'); });
+
+  // eventos
   $('btnFiltrar').addEventListener('click', cargar);
   $('btnExport').addEventListener('click', async ()=>{
-    const store = $('filtroTienda').value; const from = $('fechaDesde').value||null; const to = $('fechaHasta').value||null;
-    const ventas = await fetchVentas({ store, from, to });
-    if (!ventas.length) return alert('No hay datos');
-    const keys = ['fecha','tienda','tipoPago','cliente','vendedor','tecnico','manoDeObraUsd','totalBs','tasa','montoVentaUsd','comentarios'];
-    const csv = [keys.join(',')].concat(ventas.map(it => keys.map(k=>`"${String((it[k]===undefined||it[k]===null)?'':it[k]).replace(/"/g,'""')}"`).join(','))).join('\n');
-    const blob=new Blob([csv],{type:'text/csv'}); const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download=`ventas_admin_${new Date().toISOString().slice(0,10)}.csv`; link.click();
+    const tienda = $('filtroTienda').value;
+    if (!tienda) return alert('Seleccione tienda');
+    const from = $('fechaDesde').value || null; const to = $('fechaHasta').value || null;
+    const ventas = await fetchVentas({ store: tienda, from, to });
+    const keys = ['fecha','nroFacturaFiscalManual','nroFacturaProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','storeId','vendedor','tecnico','manoDeObraUsd','tipoPago','lotePuntoVenta','totalBs','tasa','montoVentaUsd','comentarios'];
+    const header = keys.join(',');
+    const lines = ventas.filter(v=>v.storeId===tienda).map(it => keys.map(k => `"${String((it[k]===undefined||it[k]===null)?'':it[k]).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const csv = header + '\n' + lines;
+    const blob = new Blob([csv], { type:'text/csv' });
+    const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = `ventas_${tienda}_${new Date().toISOString().slice(0,10)}.csv`; link.click();
   });
 
-  (function init(){ const hoy=new Date().toISOString().slice(0,10); $('fechaHasta').value = hoy; cargar(); })();
+  // init
+  (function initAdmin(){ const hoy = new Date().toISOString().slice(0,10); $('fechaHasta').value = hoy; })();
 </script>
 </body>
 </html>
