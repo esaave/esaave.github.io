@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Registro de Ventas — Tienda</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tienda — Registro de Ventas</title>
 <link rel="icon" href="logopeq.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --accent: #ea580c;
-    --accent-2: #f97316;
-    --muted: #6b7280;
-    --card:#ffffff;
-  }
-  html,body{ height:100%; margin:0; font-family:'Poppins',sans-serif; color:#0f172a; }
-  body{
-    background: linear-gradient(180deg, #fff7f0 0%, #fffaf5 50%, #f3f7fb 100%);
-    display:flex; align-items:flex-start; justify-content:center; padding:28px;
-  }
-  .wrap{ width:100%; max-width:1040px; }
+  :root{ --accent:#ea580c; --accent-2:#f97316; --muted:#6b7280; --card:#fff; }
+  html,body{ height:100%; margin:0; font-family:'Poppins',sans-serif; background: linear-gradient(180deg,#fff7f0 0%,#f7fbff 100%); color:#0f172a; }
+  .wrap{ max-width:1100px; margin:26px auto; padding:14px; }
   header{ display:flex; align-items:center; gap:12px; margin-bottom:18px; }
   header img{ height:44px; }
   .title{ font-weight:600; color:var(--accent); font-size:20px; }
-  .layout{ display:grid; grid-template-columns: 1fr 420px; gap:18px; }
-  .card{ background:var(--card); border-radius:12px; padding:14px; box-shadow:0 10px 30px rgba(15,23,42,0.06); }
-  form .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
-  label{ font-size:13px; color:var(--muted); margin-bottom:6px; display:block; }
+  .layout{ display:grid; grid-template-columns:1fr 420px; gap:18px; }
+  .card{ background:var(--card); border-radius:12px; padding:14px; box-shadow:0 10px 24px rgba(15,23,42,0.06); }
+  .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+  label{ display:block; font-size:13px; color:var(--muted); margin-bottom:6px; }
   input, select, textarea{ width:100%; padding:10px; border-radius:8px; border:1px solid #eef2f6; box-sizing:border-box; font-size:14px; }
   .full{ grid-column:1 / -1; }
-  .actions{ display:flex; gap:8px; margin-top:10px; }
-  .btn{ background:var(--accent); color:white; padding:10px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
-  .btn.ghost{ background:transparent; border:1px solid rgba(15,23,42,0.06); color:#0f172a; font-weight:600; }
-  .small-btn{ background:var(--accent-2); color:#fff; border-radius:8px; padding:8px 10px; border:none; cursor:pointer; }
-  .table-wrap{ max-height:420px; overflow:auto; margin-top:12px; }
+  .actions{ display:flex; gap:8px; margin-top:12px; }
+  .btn{ background:var(--accent); color:#fff; padding:10px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
+  .btn.ghost{ background:transparent; border:1px solid rgba(15,23,42,0.06); color:#0f172a; }
+  .small-btn{ background:var(--accent-2); color:#fff; padding:8px 10px; border-radius:8px; border:none; cursor:pointer; }
+  .table-wrap{ max-height:520px; overflow:auto; margin-top:12px; }
   table{ width:100%; border-collapse:collapse; font-size:13px; }
   th,td{ padding:10px 8px; border-bottom:1px solid #f1f5f9; text-align:left; }
   th{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; position:sticky; top:0; }
   .hidden{ display:none!important; }
+  .msg{ padding:8px 10px; border-radius:8px; margin-bottom:10px; display:none; }
+  .msg.success{ background:#ecfccb; color:#14532d; }
+  .msg.error{ background:#fee2e2; color:#7f1d1d; }
   @media (max-width:980px){ .layout{ grid-template-columns:1fr; } }
 </style>
 </head>
@@ -49,59 +43,75 @@
 
   <div class="layout">
     <div class="card">
+      <div id="msg" class="msg"></div>
+
       <form id="formVenta" onsubmit="return false;">
         <div class="grid">
           <div>
             <label>Fecha</label>
             <input type="date" id="fecha" required />
           </div>
+
           <div>
             <label>Cashea</label>
             <select id="cashea"><option value="true">Sí</option><option value="false">No</option></select>
           </div>
 
           <div class="full">
+            <label>Nro. Factura Fiscal / Manual</label>
+            <input id="nroFiscal" type="text" placeholder="Opcional" />
+          </div>
+
+          <div class="full">
+            <label>Nro. Factura Profit</label>
+            <input id="nroProfit" type="text" placeholder="Opcional" />
+          </div>
+
+          <div>
             <label>Cédula</label>
-            <div style="display:flex; gap:8px;">
+            <div style="display:flex;gap:8px;">
               <select id="tipoCedula" style="width:110px;"><option>V</option><option>E</option><option>J</option></select>
-              <input type="text" id="cedula" placeholder="Número" />
+              <input id="cedula" type="text" placeholder="Número" />
             </div>
           </div>
 
           <div>
-            <label>Cliente</label>
-            <input type="text" id="cliente" />
+            <label>Cliente *</label>
+            <input id="cliente" type="text" placeholder="Nombre del cliente" />
           </div>
+
           <div>
-            <label>Teléfono</label>
-            <input type="tel" id="telefono" />
+            <label>Teléfono *</label>
+            <input id="telefono" type="tel" placeholder="Ej: 04141234567" />
           </div>
 
           <div class="full">
             <label>Concepto</label>
-            <input type="text" id="concepto" />
+            <input id="concepto" type="text" />
           </div>
 
           <div>
-            <label>Orden</label>
-            <input type="text" id="ordenRecepcion" />
+            <label>Orden Recepción</label>
+            <input id="ordenRecepcion" type="text" placeholder="#12345" />
           </div>
+
           <div>
             <label>Vendedor</label>
-            <input type="text" id="vendedor" />
+            <input id="vendedor" type="text" />
           </div>
 
           <div>
             <label>Técnico</label>
-            <input type="text" id="tecnico" />
-          </div>
-          <div>
-            <label>Mano $</label>
-            <input type="number" id="manoObraUsd" step="0.01" min="0" value="0" />
+            <input id="tecnico" type="text" />
           </div>
 
           <div>
-            <label>Tipo pago</label>
+            <label>Mano de obra ($)</label>
+            <input id="manoObraUsd" type="number" step="0.01" min="0" value="0" />
+          </div>
+
+          <div>
+            <label>Tipo de pago</label>
             <select id="tipoPago">
               <option>PMF</option><option>PMB</option><option>PUNTO</option>
               <option>EFECTIVO</option><option>ZELLE</option><option>BINANCE</option>
@@ -109,30 +119,29 @@
           </div>
 
           <div>
-            <label>Lote</label>
-            <input type="text" id="lotePuntoVenta" />
+            <label>Lote punto venta</label>
+            <input id="lotePuntoVenta" type="text" />
           </div>
 
           <div id="bsFields">
             <div>
-              <label>Tasa</label>
-              <input type="number" id="tasa" step="0.01" min="0" />
+              <label>Tasa BCV</label>
+              <input id="tasa" type="number" step="0.01" min="0" />
             </div>
-
-            <div style="display:flex; gap:8px; align-items:center;">
+            <div style="display:flex;gap:8px;align-items:end;">
               <div style="flex:1">
                 <label>Total (Bs)</label>
-                <input type="number" id="totalBs" step="0.01" min="0" />
+                <input id="totalBs" type="number" step="0.01" min="0" />
               </div>
-              <div style="width:120px; display:flex; align-items:flex-end;">
+              <div style="width:120px;">
                 <button id="btnCalcUsd" type="button" class="small-btn">Calcular</button>
               </div>
             </div>
           </div>
 
           <div>
-            <label>Monto $</label>
-            <input type="number" id="montoUsd" step="0.01" min="0" required />
+            <label>Monto $ *</label>
+            <input id="montoUsd" type="number" step="0.01" min="0" placeholder="Ej: 35.00" />
           </div>
 
           <div class="full">
@@ -150,13 +159,18 @@
     </div>
 
     <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
         <div style="font-weight:600">Mis ventas</div>
-        <div style="color:var(--muted)" id="countLabel">0</div>
+        <div id="countLabel" style="color:var(--muted)">0</div>
       </div>
+
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Fecha</th><th>Cliente</th><th>Vendedor</th><th>Mano $</th><th>Total $</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Fecha</th><th>Factura</th><th>Cliente</th><th>Vendedor</th><th>Técnico</th><th>Mano $</th><th>Total $</th><th>Acción</th>
+            </tr>
+          </thead>
           <tbody id="tablaVentas"></tbody>
         </table>
       </div>
@@ -165,6 +179,7 @@
 </div>
 
 <script>
+  // Config y utilidades
   const SALES_KEY = 'ventas';
   const urlParams = new URLSearchParams(location.search);
   const STORE_PARAM = urlParams.get('store');
@@ -177,133 +192,256 @@
   const auth = hasFirebase ? firebase.auth() : null;
   const DEFAULT_TASA = 1;
 
-  // Init date & tasa
+  function idGen(){ return Date.now().toString() + '-' + Math.random().toString(36).slice(2,8); }
+  function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function showMsg(txt, type='success'){ const m=$('msg'); m.className = 'msg ' + (type==='success'?'success':'error'); m.textContent = txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
+
   (function init(){
-    const hoy = new Date().toISOString().slice(0,10);
-    if (!$('fecha').value) $('fecha').value = hoy;
+    const hoy = new Date().toISOString().slice(0,10); if (!$('fecha').value) $('fecha').value = hoy;
     (async ()=>{
       if (hasFirebase) {
         try {
           const id = new Date().toISOString().slice(0,10);
           const doc = await db.collection('rates').doc(id).get();
-          if (doc.exists) $('tasa').value = doc.data().tasa;
-          else $('tasa').value = DEFAULT_TASA;
-        } catch { $('tasa').value = DEFAULT_TASA; }
+          $('tasa').value = doc.exists ? doc.data().tasa : DEFAULT_TASA;
+        } catch(e){ $('tasa').value = DEFAULT_TASA; }
       } else $('tasa').value = DEFAULT_TASA;
     })();
     handleTipoPagoChange();
     cargarTabla();
   })();
 
-  function showMsg(txt){ const m = $('msg'); if(!m) return; m.textContent = txt; m.style.display='block'; setTimeout(()=>m.style.display='none',2500); }
-
+  // comportamiento pago/BS
   function handleTipoPagoChange(){
     const tipo = $('tipoPago').value;
-    const enabled = (tipo==='PMF'||tipo==='PMB'||tipo==='PUNTO');
-    const bs = $('bsFields');
-    if (enabled) bs.classList.remove('hidden'); else { bs.classList.add('hidden'); $('totalBs').value=''; $('tasa').value=''; }
+    const bsVisible = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
+    const bsContainer = $('bsFields');
+    if (bsVisible) bsContainer.classList.remove('hidden'); else { bsContainer.classList.add('hidden'); $('totalBs').value=''; $('tasa').value=''; }
   }
   $('tipoPago').addEventListener('change', handleTipoPagoChange);
 
-  $('btnCalcUsd').addEventListener('click', ()=>{
+  // boton calcular sugerencia USD
+  $('btnCalcUsd').addEventListener('click', ()=> {
     const totalBs = parseFloat($('totalBs').value||0);
     const tasa = parseFloat($('tasa').value||0) || DEFAULT_TASA;
-    if (!totalBs){ showMsg('Introduce Bs'); return; }
-    if (!tasa){ showMsg('Introduce tasa'); return; }
+    if (!totalBs){ showMsg('Ingrese Total Bs', 'error'); return; }
+    if (!tasa){ showMsg('Ingrese Tasa', 'error'); return; }
     const usd = +(totalBs / tasa).toFixed(2);
-    if (confirm(`Sugerencia: $${usd}. ¿Copiar a Monto $?`)) $('montoUsd').value = usd;
+    if (confirm(`Equivalente sugerido: $${usd}. ¿Copiar a Monto $?`)) {
+      $('montoUsd').value = usd;
+      showMsg('Sugerencia copiada', 'success');
+    } else showMsg('Sugerencia: $' + usd, 'success');
   });
 
+  // Validaciones y guardado
   async function guardarVenta(){
-    if(!$('fecha').value){ showMsg('Fecha requerida'); return; }
+    // validaciones
+    const cliente = $('cliente').value.trim();
+    const telefono = $('telefono').value.trim();
+    const montoUsd = parseFloat($('montoUsd').value || 0);
+    if (!cliente){ showMsg('Cliente obligatorio', 'error'); return; }
+    if (!telefono){ showMsg('Teléfono obligatorio', 'error'); return; }
+    if (!montoUsd || montoUsd <= 0){ showMsg('Monto $ obligatorio', 'error'); return; }
+
+    // preparar campos
+    let orden = $('ordenRecepcion').value.trim();
+    if (orden && !orden.startsWith('#')) orden = '#' + orden;
     const tipo = $('tipoPago').value;
-    const enableBs = (tipo==='PMF'||tipo==='PMB'||tipo==='PUNTO');
-    const tasa = parseFloat($('tasa').value||DEFAULT_TASA) || DEFAULT_TASA;
-    const totalBs = parseFloat($('totalBs').value||0);
-    const manoUsd = parseFloat($('manoObraUsd').value||0);
-    const montoUsdInput = parseFloat($('montoUsd').value);
-    if (!montoUsdInput || montoUsdInput<=0){ showMsg('Monto $ requerido'); return; }
+    const enableBs = (tipo==='PMF' || tipo==='PMB' || tipo==='PUNTO');
+    const tasa = parseFloat($('tasa').value || DEFAULT_TASA) || DEFAULT_TASA;
+    const totalBs = parseFloat($('totalBs').value || 0);
+    const manoUsd = parseFloat($('manoObraUsd').value || 0);
     const manoBs = (enableBs && $('tasa').value) ? +(manoUsd * tasa).toFixed(2) : 0;
     const totalBsIncluyeMano = +( (enableBs ? totalBs : 0) + manoBs ).toFixed(2);
 
+    // objeto venta
     const venta = {
+      id: idGen(),
       date: new Date($('fecha').value),
       fecha: $('fecha').value,
-      cashea: $('cashea').value==='true',
-      cedulaCliente: ($('tipoCedula').value||'') + '-' + ($('cedula').value||''),
-      cliente: $('cliente').value||'',
-      telefonoCliente: $('telefono').value||'',
-      concepto: $('concepto').value||'',
-      ordenRecepcion: $('ordenRecepcion').value||'',
-      vendedor: $('vendedor').value||'',
-      tecnico: $('tecnico').value||'',
+      nroFacturaFiscalManual: $('nroFiscal').value.trim() || '',
+      nroFacturaProfit: $('nroProfit').value.trim() || '',
+      cashea: $('cashea').value === 'true',
+      cedulaCliente: ($('tipoCedula').value || '') + '-' + ($('cedula').value || ''),
+      cliente: cliente,
+      telefonoCliente: telefono,
+      concepto: $('concepto').value || '',
+      ordenRecepcion: orden || '',
+      vendedor: $('vendedor').value || '',
+      tecnico: $('tecnico').value || '',
       manoDeObraUsd: manoUsd,
       manoDeObraBs: manoBs,
       tipoPago: tipo,
-      lotePuntoVenta: $('lotePuntoVenta').value||'',
+      lotePuntoVenta: $('lotePuntoVenta').value || '',
       totalBs: enableBs ? totalBs : 0,
       totalBsIncluyeMano: totalBsIncluyeMano,
       tasa: enableBs ? tasa : null,
-      montoVentaUsd: +montoUsdInput.toFixed(2),
-      montoUsd: +montoUsdInput.toFixed(2),
-      comentarios: $('comentarios').value||'',
+      montoVentaUsd: +montoUsd.toFixed(2),
+      montoUsd: +montoUsd.toFixed(2),
+      comentarios: $('comentarios').value || '',
       storeId: DEFAULT_STORE,
       createdAt: new Date().toISOString()
     };
 
+    // guardar en Firestore o localStorage
     try {
       if (hasFirebase) {
-        await db.collection('sales').add({
+        const docRef = await db.collection('sales').add({
           date: firebase.firestore.Timestamp.fromDate(new Date(venta.fecha)),
-          ...venta,
+          nroFacturaFiscalManual: venta.nroFacturaFiscalManual,
+          nroFacturaProfit: venta.nroFacturaProfit,
+          cashea: venta.cashea,
+          cedulaCliente: venta.cedulaCliente,
+          cliente: venta.cliente,
+          telefonoCliente: venta.telefonoCliente,
+          concepto: venta.concepto,
+          ordenRecepcion: venta.ordenRecepcion,
+          vendedor: venta.vendedor,
+          tecnico: venta.tecnico,
+          manoDeObraUsd: venta.manoDeObraUsd,
+          manoDeObraBs: venta.manoDeObraBs,
+          tipoPago: venta.tipoPago,
+          lotePuntoVenta: venta.lotePuntoVenta,
+          totalBs: venta.totalBs,
+          totalBsIncluyeMano: venta.totalBsIncluyeMano,
+          tasa: venta.tasa,
+          montoVentaUsd: venta.montoVentaUsd,
+          montoUsd: venta.montoUsd,
+          comentarios: venta.comentarios,
+          storeId: venta.storeId,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        showMsg('Guardado');
+        showMsg('Venta guardada', 'success');
       } else {
-        const arr = JSON.parse(localStorage.getItem(SALES_KEY)||'[]');
+        const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
         arr.push(venta);
         localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-        showMsg('Guardado local');
+        showMsg('Venta guardada local', 'success');
       }
-      cargarTabla(); limpiarFormulario();
-    } catch (e){ console.error(e); showMsg('Error'); }
+      cargarTabla();
+      limpiarFormulario();
+    } catch (e) {
+      console.error(e);
+      showMsg('Error al guardar', 'error');
+    }
   }
 
+  // Cargar tabla y borrar
   async function cargarTabla(){
     try {
       let ventas = [];
-      if (hasFirebase){
-        const q = db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(200);
+      if (hasFirebase) {
+        const q = db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(500);
         const snap = await q.get();
-        ventas = snap.docs.map(d=>{ const s=d.data(); return { fecha: s.date ? (s.date.seconds ? new Date(s.date.seconds*1000).toISOString().slice(0,10) : new Date(s.date).toISOString().slice(0,10)) : '', cliente: s.cliente||'', concepto: s.concepto||'', vendedor: s.vendedor||'', manoDeObraUsd: Number(s.manoDeObraUsd||0), montoVentaUsd: Number(s.montoVentaUsd||s.montoUsd||0) }; });
+        ventas = snap.docs.map(doc => {
+          const s = doc.data();
+          return {
+            id: doc.id,
+            fecha: s.date ? (s.date.seconds ? new Date(s.date.seconds*1000).toISOString().slice(0,10) : new Date(s.date).toISOString().slice(0,10)) : '',
+            nroFiscal: s.nroFacturaFiscalManual || '',
+            nroProfit: s.nroFacturaProfit || '',
+            cashea: s.cashea || false,
+            cedulaCliente: s.cedulaCliente || '',
+            cliente: s.cliente || '',
+            telefonoCliente: s.telefonoCliente || '',
+            concepto: s.concepto || '',
+            ordenRecepcion: s.ordenRecepcion || '',
+            vendedor: s.vendedor || '',
+            tecnico: s.tecnico || '',
+            manoDeObraUsd: Number(s.manoDeObraUsd || 0),
+            tipoPago: s.tipoPago || '',
+            lotePuntoVenta: s.lotePuntoVenta || '',
+            totalBs: Number(s.totalBs || 0),
+            tasa: s.tasa || null,
+            montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0),
+            comentarios: s.comentarios || ''
+          };
+        });
       } else {
-        const arr = JSON.parse(localStorage.getItem(SALES_KEY)||'[]');
-        ventas = arr.filter(v=>v.storeId===DEFAULT_STORE).slice(-200).reverse().map(v=>({ fecha: v.fecha|| (v.date? new Date(v.date).toISOString().slice(0,10):''), cliente: v.cliente, concepto: v.concepto, vendedor: v.vendedor, manoDeObraUsd: Number(v.manoDeObraUsd||0), montoVentaUsd: Number(v.montoVentaUsd||v.montoUsd||0) }));
+        const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+        ventas = arr.filter(v => v.storeId === DEFAULT_STORE).slice(-500).reverse();
       }
-      $('tablaVentas').innerHTML = ventas.map(v=>`<tr><td>${v.fecha}</td><td>${escapeHtml(v.cliente)}</td><td>${escapeHtml(v.vendedor)}</td><td>$${formatMoney(v.manoDeObraUsd)}</td><td>$${formatMoney(v.montoVentaUsd)}</td></tr>`).join('');
+
+      $('tablaVentas').innerHTML = ventas.map(v => `
+        <tr>
+          <td>${v.fecha}</td>
+          <td>${v.nroFiscal || v.nroProfit || ''}</td>
+          <td>${escapeHtml(v.cliente)}</td>
+          <td>${escapeHtml(v.vendedor)}</td>
+          <td>${escapeHtml(v.tecnico)}</td>
+          <td>$${formatMoney(v.manoDeObraUsd)}</td>
+          <td>$${formatMoney(v.montoVentaUsd)}</td>
+          <td><button data-id="${v.id || v.idGen || ''}" class="btnDel" style="background:#ef4444;border:none;color:#fff;border-radius:6px;padding:6px 8px;cursor:pointer">Eliminar</button></td>
+        </tr>
+      `).join('');
+
+      // attach delete handlers
+      Array.from(document.getElementsByClassName('btnDel')).forEach(b=>{
+        b.onclick = async (e) => {
+          const id = b.getAttribute('data-id');
+          if (!id){ showMsg('Id no disponible', 'error'); return; }
+          if (!confirm('Eliminar esta venta? Esta acción no se puede deshacer.')) return;
+          try {
+            if (hasFirebase) {
+              await db.collection('sales').doc(id).delete();
+              showMsg('Venta eliminada (Firestore)', 'success');
+            } else {
+              let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+              arr = arr.filter(x => x.id !== id);
+              localStorage.setItem(SALES_KEY, JSON.stringify(arr));
+              showMsg('Venta eliminada (local)', 'success');
+            }
+            cargarTabla();
+          } catch (err) {
+            console.error(err);
+            showMsg('Error eliminando', 'error');
+          }
+        };
+      });
+
       $('countLabel').textContent = ventas.length;
-    } catch(e){ console.error(e); }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-  function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-  function limpiarFormulario(){ $('formVenta').reset(); const hoy=new Date().toISOString().slice(0,10); $('fecha').value=hoy; handleTipoPagoChange(); }
-
-  $('btnGuardar').addEventListener('click', guardarVenta);
-  $('btnExport').addEventListener('click', async ()=> {
-    let ventas = JSON.parse(localStorage.getItem(SALES_KEY)||'[]').filter(v=>v.storeId===DEFAULT_STORE);
-    if (hasFirebase) {
+  // Export CSV
+  async function exportMisVentasCSV(){
+    let ventas = [];
+    if (hasFirebase){
       const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000).get();
-      ventas = q.docs.map(d=>d.data());
+      ventas = q.docs.map(d => ({ id:d.id, ...d.data() }));
+    } else {
+      ventas = JSON.parse(localStorage.getItem(SALES_KEY) || '[]').filter(v => v.storeId === DEFAULT_STORE);
     }
-    if (!ventas.length) return showMsg('No hay datos');
-    const keys = ['fecha','cliente','vendedor','tecnico','manoDeObraUsd','totalBs','tasa','montoVentaUsd','tipoPago','comentarios'];
-    const csv = [keys.join(',')].concat(ventas.map(it => keys.map(k=>`"${String((it[k]===undefined||it[k]===null)?'':it[k]).replace(/"/g,'""')}"`).join(','))).join('\n');
-    const blob=new Blob([csv],{type:'text/csv'}); const link=document.createElement('a'); link.href=URL.createObjectURL(blob); link.download=`ventas_${DEFAULT_STORE}_${new Date().toISOString().slice(0,10)}.csv`; link.click();
-  });
+    if (!ventas.length) { showMsg('No hay ventas', 'error'); return; }
+    const keys = ['fecha','nroFacturaFiscalManual','nroFacturaProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','vendedor','tecnico','manoDeObraUsd','tipoPago','lotePuntoVenta','totalBs','tasa','montoVentaUsd','comentarios','storeId'];
+    const header = keys.join(',');
+    const lines = ventas.map(it => keys.map(k => {
+      let val = it[k] === undefined || it[k] === null ? '' : String(it[k]);
+      val = val.replace(/"/g,'""');
+      return `"${val}"`;
+    }).join(',')).join('\n');
+    const csv = header + '\n' + lines;
+    const blob = new Blob([csv], { type:'text/csv' });
+    const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = `ventas_${DEFAULT_STORE}_${new Date().toISOString().slice(0,10)}.csv`; link.click();
+  }
 
-  // start
-  // cargarTabla is called on init
+  // limpiar
+  function limpiarFormulario(){
+    $('formVenta').reset();
+    const hoy = new Date().toISOString().slice(0,10); $('fecha').value = hoy;
+    handleTipoPagoChange();
+  }
+
+  function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+  // eventos
+  $('btnGuardar').addEventListener('click', guardarVenta);
+  $('btnExport').addEventListener('click', exportMisVentasCSV);
+  $('btnLimpiar').addEventListener('click', limpiarFormulario);
+
+  // iniciar: cargarTabla ya es llamado en init()
 </script>
 </body>
 </html>
