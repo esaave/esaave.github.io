@@ -24,6 +24,7 @@
       position: relative;
     }
 
+    /* Fondo animado */
     .slideshow {
       position: absolute;
       inset: 0;
@@ -38,19 +39,17 @@
       opacity: 0;
       transition: opacity 2s ease-in-out;
       filter: blur(8px) brightness(0.6);
-      transform: scale(1);
     }
     .slideshow img.active {
       opacity: 1;
-      animation: kenburns 20s ease-in-out infinite;
+      animation: zoom 20s ease-in-out infinite;
+    }
+    @keyframes zoom {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
 
-    @keyframes kenburns {
-      0% { transform: scale(1) translate(0,0); }
-      50% { transform: scale(1.1) translate(10px, -10px); }
-      100% { transform: scale(1) translate(0,0); }
-    }
-
+    /* Contenedor login */
     .login-container {
       position: relative;
       z-index: 1;
@@ -70,11 +69,10 @@
       margin-bottom: 15px;
     }
 
-    .login-container h1 {
+    h1 {
       font-size: 24px;
       margin-bottom: 25px;
       font-weight: 700;
-      color: #fff;
     }
 
     .input-group {
@@ -83,7 +81,7 @@
       position: relative;
     }
 
-    .input-group label {
+    label {
       font-size: 14px;
       font-weight: 600;
       display: block;
@@ -91,7 +89,7 @@
       color: #fcd9bd;
     }
 
-    .input-group input {
+    input {
       width: 100%;
       padding: 12px;
       border: none;
@@ -103,7 +101,8 @@
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
       transition: border 0.2s;
     }
-    .input-group input:focus {
+
+    input:focus {
       border: 2px solid #ea580c;
     }
 
@@ -148,6 +147,7 @@
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
     }
+
     .btn:disabled {
       opacity: 0.7;
       cursor: not-allowed;
@@ -165,33 +165,16 @@
       animation: shake 0.3s;
     }
     @keyframes shake {
-      0% { transform: translateX(-8px); }
-      20% { transform: translateX(8px); }
-      40% { transform: translateX(-8px); }
-      60% { transform: translateX(8px); }
-      80% { transform: translateX(-8px); }
-      100% { transform: translateX(0); }
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
     }
-    .help-links {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 10px;
-      font-size: 13px;
-      color: #fcd9bd;
-    }
-    .help-links a {
-      color: #fcd9bd;
-      text-decoration: underline;
-      cursor: pointer;
-      transition: color 0.17s;
-    }
-    .help-links a:hover {
-      color: #fff;
-    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     @media(max-width: 480px) {
       .login-container {
         padding: 30px 20px;
@@ -199,7 +182,7 @@
       .logo {
         width: 65px;
       }
-      .login-container h1 {
+      h1 {
         font-size: 20px;
       }
       .show-hide {
@@ -209,7 +192,7 @@
   </style>
 </head>
 <body>
-  <!-- Slideshow -->
+  <!-- Fondo animado -->
   <div class="slideshow" aria-hidden="true">
     <img src="fondo1.jpg" class="active" alt="Fondo 1">
     <img src="fondo2.jpg" alt="Fondo 2">
@@ -217,124 +200,107 @@
     <img src="fondo4.jpg" alt="Fondo 4">
   </div>
 
-  <div class="login-container" role="form" aria-label="Formulario de inicio de sesión">
+  <div class="login-container">
     <img src="logo.png" alt="Orange Store" class="logo">
     <h1>Iniciar Sesión</h1>
+
     <form autocomplete="off" onsubmit="return false;">
       <div class="input-group">
         <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" placeholder="Ingresa tu usuario" autocomplete="username" />
+        <input type="text" id="usuario" placeholder="Ingresa tu usuario" autocomplete="username">
       </div>
+
       <div class="input-group">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" />
-        <span class="show-hide" id="togglePwd" title="Mostrar/Ocultar contraseña">👁️</span>
+        <input type="password" id="password" placeholder="Ingresa tu contraseña" autocomplete="current-password">
+        <span class="show-hide" id="togglePwd">👁️</span>
       </div>
+
       <div class="remember-group">
-        <input type="checkbox" id="rememberMe" />
+        <input type="checkbox" id="rememberMe">
         <label for="rememberMe">Recuérdame</label>
       </div>
+
       <button class="btn" id="btnLogin">Entrar</button>
-      <div id="errorMsg" class="error" role="status" aria-live="polite">Usuario o contraseña incorrectos</div>
-      <div class="help-links">
-        <a href="#" onclick="alert('Contacta al administrador para recuperar tu acceso.')">¿Olvidaste tu contraseña?</a>
-        <a href="mailto:soporte@orangestore.com?subject=Ayuda Login">¿Necesitas ayuda?</a>
-      </div>
+      <div id="errorMsg" class="error">Usuario o contraseña incorrectos</div>
     </form>
   </div>
 
   <script>
-    // Slideshow robusto y funcional
-    window.addEventListener("DOMContentLoaded", function() {
-      const slides = document.querySelectorAll(".slideshow img");
-      let current = 0;
-      slides.forEach((img, idx) => img.classList.toggle("active", idx === 0));
-      setInterval(() => {
-        slides[current].classList.remove("active");
-        current = (current + 1) % slides.length;
-        slides[current].classList.add("active");
-      }, 10000);
+  // Fondo animado
+  const slides = document.querySelectorAll(".slideshow img");
+  let current = 0;
+  setInterval(() => {
+    slides[current].classList.remove("active");
+    current = (current + 1) % slides.length;
+    slides[current].classList.add("active");
+  }, 10000);
 
-      // Mostrar/Ocultar contraseña
-      const togglePwd = document.getElementById('togglePwd');
-      const pwdInput = document.getElementById('password');
-      togglePwd.addEventListener('click', function() {
-        if (pwdInput.type === 'password') {
-          pwdInput.type = 'text';
-          togglePwd.textContent = '🙈';
-        } else {
-          pwdInput.type = 'password';
-          togglePwd.textContent = '👁️';
-        }
-      });
+  // Mostrar/Ocultar contraseña
+  const togglePwd = document.getElementById("togglePwd");
+  const pwdInput = document.getElementById("password");
+  togglePwd.addEventListener("click", () => {
+    const isHidden = pwdInput.type === "password";
+    pwdInput.type = isHidden ? "text" : "password";
+    togglePwd.textContent = isHidden ? "🙈" : "👁️";
+  });
 
-      // Recordar usuario si se marcó la opción
-      const recordado = localStorage.getItem("usuarioRecordado");
-      if (recordado) document.getElementById("usuario").value = recordado;
-    });
+  // Usuarios del sistema
+  const USERS = {
+    "Administracion": { pass: "AdminOrange", redirect: "administracion.html" },
+    "R04": { pass: "R04.CLAVE", redirect: "r04.html" },
+    "B15": { pass: "B15.CLAVE", redirect: "b15.html" },
+    "S04": { pass: "S04.CLAVE", redirect: "s04.html" }
+  };
 
-    // Seguridad: usuario y contraseña no visibles en el código
-    const AUTH = {
-      user: "Orange",
-      passHash: "d5b075b1e2e3d0c5c1b8ed5e8ea8e2d8" // md5("OrangeStore")
-    };
-    function md5(str) {
-      return str === "OrangeStore" ? AUTH.passHash : "";
-    }
-    let loginAttempts = parseInt(localStorage.getItem("loginAttempts") || "0");
+  let loginAttempts = parseInt(localStorage.getItem("loginAttempts") || "0");
 
-    function login() {
-      const user = document.getElementById("usuario").value.trim();
-      const pass = document.getElementById("password").value.trim();
-      const errorMsg = document.getElementById("errorMsg");
-      const btnLogin = document.getElementById("btnLogin");
+  function login() {
+    const user = document.getElementById("usuario").value.trim();
+    const pass = document.getElementById("password").value.trim();
+    const errorMsg = document.getElementById("errorMsg");
+    const btnLogin = document.getElementById("btnLogin");
 
-      errorMsg.style.display = "none";
-      btnLogin.disabled = true;
+    errorMsg.style.display = "none";
+    btnLogin.disabled = true;
 
-      if (!user || !pass) {
-        errorMsg.textContent = "Debes completar ambos campos";
-        errorMsg.style.display = "block";
-        btnLogin.disabled = false;
-        return;
-      }
-      if (loginAttempts >= 5) {
-        errorMsg.textContent = "Demasiados intentos. Espera unos minutos.";
-        errorMsg.style.display = "block";
-        btnLogin.disabled = false;
-        return;
-      }
-      if (user === AUTH.user && md5(pass) === AUTH.passHash) {
-        sessionStorage.setItem("logueado", "true");
-        localStorage.setItem("loginAttempts", "0");
-        if (document.getElementById('rememberMe').checked) {
-          localStorage.setItem("usuarioRecordado", user);
-        } else {
-          localStorage.removeItem("usuarioRecordado");
-        }
-        window.location.href = "index.html";
-      } else {
-        loginAttempts++;
-        localStorage.setItem("loginAttempts", loginAttempts);
-        errorMsg.textContent = "Usuario o contraseña incorrectos";
-        errorMsg.style.display = "block";
-      }
+    if (!user || !pass) {
+      errorMsg.textContent = "Debes completar ambos campos";
+      errorMsg.style.display = "block";
       btnLogin.disabled = false;
+      return;
     }
 
-    document.getElementById("usuario").addEventListener("input", ()=>errorMsg.style.display="none");
-    document.getElementById("password").addEventListener("input", ()=>errorMsg.style.display="none");
-    document.getElementById("usuario").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") login();
-    });
-    document.getElementById("password").addEventListener("keydown", (e) => {
-      if (e.key === "Enter") login();
-    });
-    document.getElementById("btnLogin").addEventListener("click", login);
-
-    if (sessionStorage.getItem("logueado") === "true") {
-      window.location.href = "index.html";
+    if (loginAttempts >= 5) {
+      errorMsg.textContent = "Demasiados intentos. Espera unos minutos.";
+      errorMsg.style.display = "block";
+      btnLogin.disabled = false;
+      return;
     }
+
+    const u = USERS[user];
+    if (u && u.pass === pass) {
+      sessionStorage.setItem("logueado", "true");
+      sessionStorage.setItem("rol", user);
+      localStorage.setItem("loginAttempts", "0");
+      if (document.getElementById("rememberMe").checked)
+        localStorage.setItem("usuarioRecordado", user);
+      else
+        localStorage.removeItem("usuarioRecordado");
+      window.location.href = u.redirect;
+    } else {
+      loginAttempts++;
+      localStorage.setItem("loginAttempts", loginAttempts);
+      errorMsg.textContent = "Usuario o contraseña incorrectos";
+      errorMsg.style.display = "block";
+    }
+
+    btnLogin.disabled = false;
+  }
+
+  document.getElementById("usuario").addEventListener("keydown", e => { if (e.key === "Enter") login(); });
+  document.getElementById("password").addEventListener("keydown", e => { if (e.key === "Enter") login(); });
+  document.getElementById("btnLogin").addEventListener("click", login);
   </script>
 </body>
 </html>
