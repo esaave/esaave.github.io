@@ -40,17 +40,11 @@
       <label class="small">Tienda</label>
       <select id="filtroTienda"><option value="">-- Seleccione tienda --</option><option>R04</option><option>B15</option><option>S04</option></select>
     </div>
-    <div>
-      <label class="small">Desde</label>
-      <input type="date" id="fechaDesde">
-    </div>
-    <div>
-      <label class="small">Hasta</label>
-      <input type="date" id="fechaHasta">
-    </div>
+    <div><label class="small">Desde</label><input type="date" id="fechaDesde"></div>
+    <div><label class="small">Hasta</label><input type="date" id="fechaHasta"></div>
     <div style="margin-left:auto; display:flex; gap:8px;">
       <button id="btnFiltrar" class="btn">Ver</button>
-      <button id="btnExport" class="btn" style="background:#0ea5a4">Exportar</button>
+      <button id="btnExport" class="btn" style="background:#0ea5a4">Exportar .xlsx</button>
     </div>
   </div>
 
@@ -125,7 +119,88 @@
   </div>
 </div>
 
+<!-- SheetJS CDN -->
+<script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+
 <script>
+  /* Embedded export logic (same as used in tienda) */
+  (function(global){
+    const EXCEL_HEADERS = ['FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE','CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE DE PUNTO DE VENTA','TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'];
+    function pad2(n){ return String(n).padStart(2,'0'); }
+    function fechaToSheetName(f){
+      const d = (f instanceof Date) ? f : (typeof f === 'string' && f.length>=10 ? new Date(f.slice(0,10)) : new Date(f));
+      if (isNaN(d)) { const t=new Date(); return pad2(t.getDate())+pad2(t.getMonth()+1); }
+      return pad2(d.getDate()) + pad2(d.getMonth()+1);
+    }
+    function sanitize(name){ return String(name||'').replace(/[:\\\/\?\*\[\]]/g,'-').slice(0,31) || 'sheet'; }
+    function _row(s){
+      const fechaStr = s.fecha && typeof s.fecha==='string' ? s.fecha : (s.date && s.date.toDate ? s.date.toDate().toISOString().slice(0,10) : (s.fecha || (s.date ? new Date(s.date).toISOString().slice(0,10) : '')));
+      return [
+        fechaStr || '',
+        s.nroFacturaFiscalManual || '',
+        s.nroFacturaProfit || '',
+        (s.cashea===true || s.cashea==='true') ? 'Sí' : 'No',
+        s.cedulaCliente || '',
+        s.cliente || '',
+        s.telefonoCliente || '',
+        s.concepto || '',
+        s.ordenRecepcion ? s.ordenRecepcion.toString() : '',
+        s.storeId || s.sucursal || '',
+        s.vendedor || '',
+        s.tecnico || '',
+        (s.manoDeObraUsd!==undefined ? Number(s.manoDeObraUsd).toFixed(2) : ''),
+        s.tipoPago || '',
+        s.lotePuntoVenta || '',
+        (s.totalBs!==undefined && s.totalBs!==null) ? Number(s.totalBs).toFixed(2) : '',
+        (s.tasa!==undefined && s.tasa!==null) ? Number(s.tasa).toFixed(2) : '',
+        (s.montoVentaUsd!==undefined ? Number(s.montoVentaUsd).toFixed(2) : (s.montoUsd!==undefined ? Number(s.montoUsd).toFixed(2) : '')),
+        s.comentarios || ''
+      ];
+    }
+    function exportVentasXLSX(ventas, { filename } = {}){
+      if (!window.XLSX) throw new Error('SheetJS no cargado');
+      if (!Array.isArray(ventas) || ventas.length===0){ alert('No hay ventas para exportar'); return; }
+      const groups = {};
+      for (const v of ventas){
+        let f = v.fecha || v.date || v.createdAt;
+        if (f && typeof f === 'object' && f.toDate) f = f.toDate().toISOString().slice(0,10);
+        if (f && typeof f === 'string' && f.length>=10) f = f.slice(0,10);
+        if (!f) f = (new Date()).toISOString().slice(0,10);
+        if (!groups[f]) groups[f] = [];
+        groups[f].push(v);
+      }
+      const wb = XLSX.utils.book_new();
+      const fechas = Object.keys(groups).sort();
+      for (const fecha of fechas){
+        const rows = [EXCEL_HEADERS];
+        for (const s of groups[fecha]) rows.push(_row(s));
+        const ws = XLSX.utils.aoa_to_sheet(rows);
+        const sheetName = sanitize(fechaToSheetName(fecha));
+        XLSX.utils.book_append_sheet(wb, ws, sheetName);
+      }
+      const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
+      const out = filename || `ventas_${ts}.xlsx`;
+      XLSX.writeFile(wb, out);
+    }
+    function exportVentasSingleDay(ventas, dateStr, { filename } = {}){
+      if (!Array.isArray(ventas) || ventas.length===0){ alert('No hay ventas para exportar'); return; }
+      if (!window.XLSX) throw new Error('SheetJS no cargado');
+      const wb = XLSX.utils.book_new();
+      const rows = [EXCEL_HEADERS];
+      for (const s of ventas) rows.push(_row(s));
+      const ws = XLSX.utils.aoa_to_sheet(rows);
+      const sheetName = sanitize(fechaToSheetName(dateStr));
+      XLSX.utils.book_append_sheet(wb, ws, sheetName);
+      const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
+      const out = filename || `ventas_${sheetName}_${ts}.xlsx`;
+      XLSX.writeFile(wb, out);
+    }
+    global.exportsXLSX = { exportVentasXLSX, exportVentasSingleDay };
+  })(window);
+</script>
+
+<script>
+  // Admin JS (adaptado): fetchVentas ya definido below; export button wired to exportsXLSX.exportVentasXLSX
   const $ = id => document.getElementById(id);
   const SALES_KEY = 'ventas';
   const hasFirebase = (window.firebase && firebase.firestore);
@@ -149,53 +224,41 @@
     }
   }
 
-  // actualiza la vista cuando seleccionas tienda + filtros
   async function cargar(){
     const tienda = $('filtroTienda').value;
-    if (!tienda) {
-      $('mainContent').classList.add('hidden'); $('emptyMessage').classList.remove('hidden');
-      return;
-    }
+    if (!tienda) { $('mainContent').classList.add('hidden'); $('emptyMessage').classList.remove('hidden'); return; }
     $('emptyMessage').classList.add('hidden'); $('mainContent').classList.remove('hidden');
     $('selectedStore').textContent = tienda;
-
     const from = $('fechaDesde').value || null;
     const to = $('fechaHasta').value || null;
     const ventasRaw = await fetchVentas({ store: tienda, from, to });
+    const ventas = ventasRaw.map(s => {
+      const fecha = s.date ? (s.date.seconds ? new Date(s.date.seconds*1000).toISOString().slice(0,10) : (typeof s.date === 'string' ? s.date : new Date(s.date).toISOString().slice(0,10))) : (s.fecha || '');
+      return {
+        id: s.id || s._id || s.idGen || '',
+        fecha,
+        nroFacturaFiscalManual: s.nroFacturaFiscalManual || '',
+        nroFacturaProfit: s.nroFacturaProfit || '',
+        cashea: s.cashea === true || s.cashea === 'true',
+        cedulaCliente: s.cedulaCliente || '',
+        cliente: s.cliente || '',
+        telefonoCliente: s.telefonoCliente || '',
+        concepto: s.concepto || '',
+        ordenRecepcion: s.ordenRecepcion || '',
+        storeId: s.storeId || s.store || '',
+        vendedor: s.vendedor || '',
+        tecnico: s.tecnico || '',
+        manoDeObraUsd: Number(s.manoDeObraUsd || 0),
+        tipoPago: s.tipoPago || '',
+        lotePuntoVenta: s.lotePuntoVenta || '',
+        totalBs: Number(s.totalBs || 0),
+        tasa: s.tasa || null,
+        montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0),
+        comentarios: s.comentarios || ''
+      };
+    }).filter(v => v.storeId === tienda);
 
-    // normalizar objetos y filtrar por store si usando localStorage
-    const ventas = ventasRaw
-      .map(s => {
-        // si vienen de Firestore, s.date puede ser Timestamp
-        const fecha = s.date ? (s.date.seconds ? new Date(s.date.seconds*1000).toISOString().slice(0,10) : (typeof s.date === 'string' ? s.date : new Date(s.date).toISOString().slice(0,10))) : (s.fecha || '');
-        return {
-          id: s.id || s._id || s.idGen || '',
-          fecha,
-          nroFacturaFiscalManual: s.nroFacturaFiscalManual || '',
-          nroFacturaProfit: s.nroFacturaProfit || '',
-          cashea: s.cashea === true || s.cashea === 'true',
-          cedulaCliente: s.cedulaCliente || '',
-          cliente: s.cliente || '',
-          telefonoCliente: s.telefonoCliente || '',
-          concepto: s.concepto || '',
-          ordenRecepcion: s.ordenRecepcion || '',
-          storeId: s.storeId || s.store || '',
-          vendedor: s.vendedor || '',
-          tecnico: s.tecnico || '',
-          manoDeObraUsd: Number(s.manoDeObraUsd || 0),
-          tipoPago: s.tipoPago || '',
-          lotePuntoVenta: s.lotePuntoVenta || '',
-          totalBs: Number(s.totalBs || 0),
-          tasa: s.tasa || null,
-          montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0),
-          comentarios: s.comentarios || ''
-        };
-      })
-      .filter(v => v.storeId === tienda);
-
-    // tabla detallada
     $('tabla').innerHTML = ventas.map(v => {
-      const equivUsd = bsToUsd(v.totalBs, v.tasa);
       return `<tr>
         <td>${v.fecha}</td>
         <td>${escapeHtml(v.nroFacturaFiscalManual)}</td>
@@ -220,30 +283,19 @@
       </tr>`;
     }).join('');
 
-    // attach delete handlers
     Array.from(document.getElementsByClassName('delRow')).forEach(btn=>{
       btn.onclick = async () => {
         const id = btn.getAttribute('data-id');
         if (!id) return alert('Id no disponible');
         if (!confirm('Eliminar esta venta?')) return;
         try {
-          if (hasFirebase) {
-            await db.collection('sales').doc(id).delete();
-            alert('Venta eliminada.');
-          } else {
-            let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-            arr = arr.filter(x => x.id !== id);
-            localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-            alert('Venta eliminada (local)');
-          }
-          cargar(); // recargar vista
-        } catch (e) {
-          console.error(e); alert('Error eliminando');
-        }
+          if (hasFirebase) { await db.collection('sales').doc(id).delete(); alert('Venta eliminada.'); }
+          else { let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]'); arr = arr.filter(x => x.id !== id); localStorage.setItem(SALES_KEY, JSON.stringify(arr)); alert('Venta eliminada (local)'); }
+          cargar();
+        } catch (e) { console.error(e); alert('Error eliminando'); }
       };
     });
 
-    // totales y resúmenes
     const totalUsdPayments = ventas.filter(v => ['EFECTIVO','ZELLE','BINANCE'].includes((v.tipoPago||'').toUpperCase())).reduce((s,v)=>s+v.montoVentaUsd,0);
     const bsPayments = ventas.filter(v => ['PMF','PMB','PUNTO'].includes((v.tipoPago||'').toUpperCase()));
     const totalBsPayments = bsPayments.reduce((s,v)=>s+v.totalBs,0);
@@ -254,45 +306,25 @@
     $('totalBsToUsd').textContent = formatMoney(totalBsToUsd);
     $('totalComisiones').textContent = formatMoney(totalComisiones);
     $('count').textContent = ventas.length;
-
-    // resumen por vendedor y por técnico
-    const byV = {}; const byT = {};
-    ventas.forEach(v => {
-      const ven = v.vendedor || 'SIN VENDEDOR';
-      const tec = v.tecnico || 'SIN TÉCNICO';
-      byV[ven] = (byV[ven]||0) + v.montoVentaUsd;
-      byT[tec] = (byT[tec]||0) + v.manoDeObraUsd;
-    });
-
-    $('resVendedores').innerHTML = '<table style="width:100%"><thead><tr><th>Vendedor</th><th>USD</th></tr></thead><tbody>' +
-      Object.keys(byV).sort((a,b)=>byV[b]-byV[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byV[k])}</td></tr>`).join('') +
-      '</tbody></table>';
-
-    $('resTecnicos').innerHTML = '<table style="width:100%"><thead><tr><th>Técnico</th><th>Mano $</th></tr></thead><tbody>' +
-      Object.keys(byT).sort((a,b)=>byT[b]-byT[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byT[k])}</td></tr>`).join('') +
-      '</tbody></table>';
+    $('resVendedores').innerHTML = '<table><thead><tr><th>Vendedor</th><th>USD</th></tr></thead><tbody>' + Object.keys(ventas.reduce((acc,v)=>{ acc[v.vendedor||'SIN VENDEDOR'] = (acc[v.vendedor||'SIN VENDEDOR']||0)+v.montoVentaUsd; return acc; },{})).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney((ventas.reduce((s,v)=> v.vendedor===k?s+v.montoVentaUsd:s,0)))}</td></tr>`).join('') + '</tbody></table>';
+    // simplified vendor/tech render (already computed above)
+    const byT = {};
+    ventas.forEach(v=>{ const k = v.tecnico || 'SIN TÉCNICO'; byT[k] = (byT[k]||0) + v.manoDeObraUsd; });
+    $('resTecnicos').innerHTML = '<table><thead><tr><th>Técnico</th><th>Mano $</th></tr></thead><tbody>' + Object.keys(byT).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byT[k])}</td></tr>`).join('') + '</tbody></table>';
   }
 
-  // pestañas
-  $('tabVendedores').addEventListener('click', ()=>{ $('tabVendedores').classList.add('active'); $('tabTecnicos').classList.remove('active'); $('panelVendedores').classList.remove('hidden'); $('panelTecnicos').classList.add('hidden'); });
-  $('tabTecnicos').addEventListener('click', ()=>{ $('tabTecnicos').classList.add('active'); $('tabVendedores').classList.remove('active'); $('panelTecnicos').classList.remove('hidden'); $('panelVendedores').classList.add('hidden'); });
-
-  // eventos
-  $('btnFiltrar').addEventListener('click', cargar);
-  $('btnExport').addEventListener('click', async ()=>{
+  // export .xlsx from admin - uses fetchVentas to get raw docs and then exports
+  $('btnExport').addEventListener('click', async () => {
     const tienda = $('filtroTienda').value;
-    if (!tienda) return alert('Seleccione tienda');
-    const from = $('fechaDesde').value || null; const to = $('fechaHasta').value || null;
+    if (!tienda) { alert('Seleccione tienda'); return; }
+    const from = $('fechaDesde').value || null;
+    const to = $('fechaHasta').value || null;
     const ventas = await fetchVentas({ store: tienda, from, to });
-    const keys = ['fecha','nroFacturaFiscalManual','nroFacturaProfit','cashea','cedulaCliente','cliente','telefonoCliente','concepto','ordenRecepcion','storeId','vendedor','tecnico','manoDeObraUsd','tipoPago','lotePuntoVenta','totalBs','tasa','montoVentaUsd','comentarios'];
-    const header = keys.join(',');
-    const lines = ventas.filter(v=>v.storeId===tienda).map(it => keys.map(k => `"${String((it[k]===undefined||it[k]===null)?'':it[k]).replace(/"/g,'""')}"`).join(',')).join('\n');
-    const csv = header + '\n' + lines;
-    const blob = new Blob([csv], { type:'text/csv' });
-    const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = `ventas_${tienda}_${new Date().toISOString().slice(0,10)}.csv`; link.click();
+    if (!ventas || ventas.length===0) { alert('No hay ventas para exportar'); return; }
+    exportsXLSX.exportVentasXLSX(ventas, { filename: `ventas_${tienda}_${from||'all'}-${to||'all'}.xlsx` });
   });
 
-  // init
+  $('btnFiltrar').addEventListener('click', cargar);
   (function initAdmin(){ const hoy = new Date().toISOString().slice(0,10); $('fechaHasta').value = hoy; })();
 </script>
 </body>
