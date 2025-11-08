@@ -1,8 +1,8 @@
 // ======================================================
-// 🌐 Orange Store PWA - Service Worker (versión v3.5.1)
+// 🌐 Orange Store PWA - Service Worker (versión v3.5.2)
 // ======================================================
 
-const CACHE_NAME = 'orange-store-v3.5.1';
+const CACHE_NAME = 'orange-store-v3.5.2';
 const urlsToCache = [
   '/',                     
   '/index.html',           
