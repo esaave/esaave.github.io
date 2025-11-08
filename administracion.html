@@ -7,28 +7,28 @@
 <link rel="icon" href="logopeq.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-/* (misma CSS que tenías) */
-:root{ --accent:#ea580c; --accent-2:#f97316; --muted:#6b7280; --card:#fff; }
-html,body{ height:100%; margin:0; font-family:'Poppins',sans-serif; background: linear-gradient(180deg,#fbf7f3 0%,#f3f7fb 100%); color:#0f172a; }
-.wrap{ max-width:1200px; margin:24px auto; padding:14px; }
-header{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-header img{ height:44px; }
-h1{ margin:0; color:var(--accent); font-size:20px; }
-.controls{ display:flex; gap:12px; align-items:end; flex-wrap:wrap; margin:12px 0; }
-.card{ background:var(--card); border-radius:12px; padding:12px; box-shadow:0 10px 24px rgba(15,23,42,0.06); margin-bottom:12px; }
-.tab{ padding:8px 12px; border-radius:8px; background:transparent; border:1px solid transparent; cursor:pointer; }
-.tab.active{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; }
-.table-wrap{ max-height:420px; overflow:auto; }
-table{ width:100%; border-collapse:collapse; font-size:13px; }
-th,td{ padding:10px; border-bottom:1px solid #f1f5f9; text-align:left; vertical-align:middle; }
-th{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; position:sticky; top:0; }
-.hidden{ display:none!important; }
-.btn{ background:var(--accent); color:#fff; padding:8px 10px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
-.btn.danger{ background:#ef4444; }
-.summary{ display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; }
-.box{ flex:1; padding:10px; border-radius:8px; background:linear-gradient(180deg,#fff,#fff); border:1px solid #eef2f6; text-align:center; }
-.small{ color:var(--muted); font-size:13px; }
-@media (max-width:980px){ .controls{ flex-direction:column; align-items:stretch; } .summary{flex-direction:column;} }
+  :root{ --accent:#ea580c; --accent-2:#f97316; --muted:#6b7280; --card:#fff; }
+  html,body{ height:100%; margin:0; font-family:'Poppins',sans-serif; background: linear-gradient(180deg,#fbf7f3 0%,#f3f7fb 100%); color:#0f172a; }
+  .wrap{ max-width:1200px; margin:24px auto; padding:14px; }
+  header{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  header img{ height:44px; }
+  h1{ margin:0; color:var(--accent); font-size:20px; }
+  .controls{ display:flex; gap:12px; align-items:end; flex-wrap:wrap; margin:12px 0; }
+  .card{ background:var(--card); border-radius:12px; padding:12px; box-shadow:0 10px 24px rgba(15,23,42,0.06); margin-bottom:12px; }
+  .tabs{ display:flex; gap:8px; margin-bottom:12px; }
+  .tab{ padding:8px 12px; border-radius:8px; background:transparent; border:1px solid transparent; cursor:pointer; }
+  .tab.active{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; }
+  .table-wrap{ max-height:420px; overflow:auto; }
+  table{ width:100%; border-collapse:collapse; font-size:13px; }
+  th,td{ padding:10px; border-bottom:1px solid #f1f5f9; text-align:left; vertical-align:middle; }
+  th{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; position:sticky; top:0; }
+  .hidden{ display:none!important; }
+  .btn{ background:var(--accent); color:#fff; padding:8px 10px; border-radius:8px; border:none; cursor:pointer; font-weight:600; }
+  .btn.danger{ background:#ef4444; }
+  .summary{ display:flex; gap:12px; flex-wrap:wrap; margin-top:10px; }
+  .box{ flex:1; padding:10px; border-radius:8px; background:linear-gradient(180deg,#fff,#fff); border:1px solid #eef2f6; text-align:center; }
+  .small{ color:var(--muted); font-size:13px; }
+  @media (max-width:980px){ .controls{ flex-direction:column; align-items:stretch; } .summary{flex-direction:column;} }
 </style>
 </head>
 <body>
@@ -59,10 +59,11 @@ th{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff;
     </div>
 
     <div class="card">
-      <div style="display:flex;gap:12px;align-items:center;">
+      <div class="tabs">
         <button id="tabVendedores" class="tab active">Vendedores</button>
         <button id="tabTecnicos" class="tab">Técnicos</button>
       </div>
+
       <div id="panelVendedores"><div id="resVendedores"></div></div>
       <div id="panelTecnicos" class="hidden"><div id="resTecnicos"></div></div>
     </div>
@@ -78,17 +79,17 @@ th{ background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff;
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 <script>
-/* CONFIGURA ESTO */
-const API_URL = 'https://script.google.com/macros/s/REEMPLAZA_POR_TU_ID/exec'; // <- URL del Web App
-let API_TOKEN = null; // prompt below will set it
-/* FIN CONFIG */
+/* Configura aquí */
+const API_URL = 'https://script.google.com/macros/s/AKfycbwJcTI5wjpUJC4y3vM7wzJUuaSuCTB16uGBfmCGVxjHP67o6a9UTw09YYAByeLjMENN/exec';
+let API_TOKEN = null; // te pedirá token al cargar
+/* fin config */
 
 const SALES_KEY = 'ventas_local_fallback';
 const $ = id => document.getElementById(id);
 
 function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
 function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-function toISODateStr(d) { if (!d) return null; if (typeof d === 'string' && d.length >= 10) return d.slice(0,10); try { const dateObj = new Date(d); if (isNaN(dateObj)) return null; return new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())).toISOString().slice(0,10); } catch(e){ return null; } }
+function toISODateStr(d) { if (!d) return null; if (typeof d === 'string' && d.length >= 10) return d.slice(0,10); if (d && typeof d.toDate === 'function') return d.toDate().toISOString().slice(0,10); const dateObj = new Date(d); if (isNaN(dateObj)) return null; return new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())).toISOString().slice(0,10); }
 function parseYYYYMMDD(dateStr){ if (!dateStr) return null; const parts = dateStr.split('-').map(Number); return new Date(Date.UTC(parts[0], parts[1]-1, parts[2], 0,0,0,0)); }
 
 async function fetchVentasViaSheets(filters = {}) {
@@ -108,7 +109,13 @@ async function fetchVentasViaSheets(filters = {}) {
   } catch (err) {
     console.warn('fetchVentasViaSheets failed, fallback to local', err);
     const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-    return arr.filter(v => { if (filters.store && v.storeId !== filters.store) return false; const vDateStr = toISODateStr(v.fecha || v.date || v.createdAt); if (filters.from && vDateStr < filters.from) return false; if (filters.to && vDateStr > filters.to) return false; return true; });
+    return arr.filter(v => {
+      if (filters.store && v.storeId !== filters.store) return false;
+      const vDateStr = toISODateStr(v.fecha || v.date || v.createdAt);
+      if (filters.from && vDateStr < filters.from) return false;
+      if (filters.to && vDateStr > filters.to) return false;
+      return true;
+    });
   }
 }
 
@@ -139,7 +146,7 @@ function exportVentasStyledXLSX(rawVentas, { filename } = {}) {
     groups[iso].push(s);
   });
   const wb = XLSX.utils.book_new();
-  const headers = ['FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE','CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE','TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'];
+  const headers = ['FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE','CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE DE PUNTO DE VENTA','TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'];
   const sortedDates = Object.keys(groups).sort();
   for (const fecha of sortedDates) {
     const rows = [headers];
@@ -174,7 +181,7 @@ function exportVentasStyledXLSX(rawVentas, { filename } = {}) {
   XLSX.writeFile(wb, out);
 }
 
-// UI functions
+// UI logic
 async function cargar(){
   const tienda = $('filtroTienda').value;
   if (!tienda) { $('mainContent').classList.add('hidden'); $('emptyMessage').classList.remove('hidden'); return; }
@@ -261,7 +268,6 @@ async function cargar(){
   $('totalComisiones').textContent = `$${formatMoney(totalCommissions)}`;
   $('count').textContent = ventas.length;
 
-  // Vendedores
   const byV = {};
   ventas.forEach(v => { const k = v.vendedor || 'SIN VENDEDOR'; byV[k] = (byV[k]||0) + v.montoVentaUsd; });
   $('resVendedores').innerHTML = '<table style="width:100%"><thead><tr><th>Vendedor</th><th>USD</th></tr></thead><tbody>' +
@@ -294,11 +300,7 @@ $('btnExport').addEventListener('click', async () => {
 $('btnFiltrar').addEventListener('click', cargar);
 
 // init
-(function initAdmin(){
-  // ask token for this admin session
-  API_TOKEN = prompt('Introduce el token de administrador (se configura en Apps Script):');
-  const hoy = new Date().toISOString().slice(0,10); $('fechaHasta').value = hoy;
-})();
+(function initAdmin(){ API_TOKEN = prompt('Introduce el token de administrador (se configura en Apps Script):'); const hoy = new Date().toISOString().slice(0,10); $('fechaHasta').value = hoy; })();
 </script>
 </body>
 </html>
