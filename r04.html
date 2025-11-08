@@ -47,107 +47,28 @@
 
       <form id="formVenta">
         <div class="grid">
-          <div>
-            <label for="fecha">Fecha</label>
-            <input type="date" id="fecha" required />
-          </div>
-
-          <div>
-            <label for="cashea">Cashea</label>
-            <select id="cashea"><option value="true">Sí</option><option value="false">No</option></select>
-          </div>
-
-          <div class="full">
-            <label for="nroFiscal">Nro. Factura Fiscal / Manual</label>
-            <input id="nroFiscal" type="text" placeholder="Opcional" />
-          </div>
-
-          <div class="full">
-            <label for="nroProfit">Nro. Factura Profit</label>
-            <input id="nroProfit" type="text" placeholder="Opcional" />
-          </div>
-
-          <div>
-            <label>Cédula</label>
-            <div style="display:flex;gap:8px;">
-              <select id="tipoCedula" style="width:110px;"><option>V</option><option>E</option><option>J</option></select>
-              <input id="cedula" type="text" placeholder="Número" />
-            </div>
-          </div>
-
-          <div>
-            <label for="cliente">Cliente *</label>
-            <input id="cliente" type="text" placeholder="Nombre del cliente" />
-          </div>
-
-          <div>
-            <label for="telefono">Teléfono *</label>
-            <input id="telefono" type="tel" placeholder="Ej: 04141234567" />
-          </div>
-
-          <div class="full">
-            <label for="concepto">Concepto</label>
-            <input id="concepto" type="text" />
-          </div>
-
-          <div>
-            <label for="ordenRecepcion">Orden Recepción</label>
-            <input id="ordenRecepcion" type="text" placeholder="#12345" />
-          </div>
-
-          <div>
-            <label for="vendedor">Vendedor</label>
-            <input id="vendedor" type="text" />
-          </div>
-
-          <div>
-            <label for="tecnico">Técnico</label>
-            <input id="tecnico" type="text" />
-          </div>
-
-          <div>
-            <label for="manoObraUsd">Mano de obra ($)</label>
-            <input id="manoObraUsd" type="number" step="0.01" min="0" value="0" />
-          </div>
-
-          <div>
-            <label for="tipoPago">Tipo de pago</label>
-            <select id="tipoPago">
-              <option>PMF</option><option>PMB</option><option>PUNTO</option>
-              <option>EFECTIVO</option><option>ZELLE</option><option>BINANCE</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="lotePuntoVenta">Lote punto venta</label>
-            <input id="lotePuntoVenta" type="text" />
-          </div>
+          <div><label for="fecha">Fecha</label><input type="date" id="fecha" required /></div>
+          <div><label for="cashea">Cashea</label><select id="cashea"><option value="true">Sí</option><option value="false">No</option></select></div>
+          <div class="full"><label for="nroFiscal">Nro. Factura Fiscal / Manual</label><input id="nroFiscal" type="text" placeholder="Opcional" /></div>
+          <div class="full"><label for="nroProfit">Nro. Factura Profit</label><input id="nroProfit" type="text" placeholder="Opcional" /></div>
+          <div><label>Cédula</label><div style="display:flex;gap:8px;"><select id="tipoCedula" style="width:110px;"><option>V</option><option>E</option><option>J</option></select><input id="cedula" type="text" placeholder="Número" /></div></div>
+          <div><label for="cliente">Cliente *</label><input id="cliente" type="text" placeholder="Nombre del cliente" /></div>
+          <div><label for="telefono">Teléfono *</label><input id="telefono" type="tel" placeholder="Ej: 04141234567" /></div>
+          <div class="full"><label for="concepto">Concepto</label><input id="concepto" type="text" /></div>
+          <div><label for="ordenRecepcion">Orden Recepción</label><input id="ordenRecepcion" type="text" placeholder="#12345" /></div>
+          <div><label for="vendedor">Vendedor</label><input id="vendedor" type="text" /></div>
+          <div><label for="tecnico">Técnico</label><input id="tecnico" type="text" /></div>
+          <div><label for="manoObraUsd">Mano de obra ($)</label><input id="manoObraUsd" type="number" step="0.01" min="0" value="0" /></div>
+          <div><label for="tipoPago">Tipo de pago</label><select id="tipoPago"><option>PMF</option><option>PMB</option><option>PUNTO</option><option>EFECTIVO</option><option>ZELLE</option><option>BINANCE</option></select></div>
+          <div><label for="lotePuntoVenta">Lote punto venta</label><input id="lotePuntoVenta" type="text" /></div>
 
           <div id="bsFields">
-            <div>
-              <label for="tasa">Tasa BCV</label>
-              <input id="tasa" type="number" step="0.01" min="0" />
-            </div>
-            <div style="display:flex;gap:8px;align-items:end;">
-              <div style="flex:1">
-                <label for="totalBs">Total (Bs)</label>
-                <input id="totalBs" type="number" step="0.01" min="0" />
-              </div>
-              <div style="width:120px;">
-                <button id="btnCalcUsd" type="button" class="small-btn">Calcular</button>
-              </div>
-            </div>
+            <div><label for="tasa">Tasa BCV</label><input id="tasa" type="number" step="0.01" min="0" /></div>
+            <div style="display:flex;gap:8px;align-items:end;"><div style="flex:1"><label for="totalBs">Total (Bs)</label><input id="totalBs" type="number" step="0.01" min="0" /></div><div style="width:120px;"><button id="btnCalcUsd" type="button" class="small-btn">Calcular</button></div></div>
           </div>
 
-          <div>
-            <label for="montoUsd">Monto $ *</label>
-            <input id="montoUsd" type="number" step="0.01" min="0" placeholder="Ej: 35.00" />
-          </div>
-
-          <div class="full">
-            <label for="comentarios">Comentarios</label>
-            <textarea id="comentarios" rows="2"></textarea>
-          </div>
+          <div><label for="montoUsd">Monto $ *</label><input id="montoUsd" type="number" step="0.01" min="0" placeholder="Ej: 35.00" /></div>
+          <div class="full"><label for="comentarios">Comentarios</label><textarea id="comentarios" rows="2"></textarea></div>
 
           <div class="full actions">
             <button id="btnGuardar" type="button" class="btn">Guardar</button>
@@ -160,207 +81,141 @@
     </div>
 
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <div style="font-weight:600">Mis ventas</div>
-        <div id="countLabel" style="color:var(--muted)">0</div>
-      </div>
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Fecha</th><th>Factura</th><th>Cliente</th><th>Vendedor</th><th>Técnico</th><th>Mano $</th><th>Total $</th><th>Acción</th>
-            </tr>
-          </thead>
-          <tbody id="tablaVentas"></tbody>
-        </table>
-      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div style="font-weight:600">Mis ventas</div><div id="countLabel" style="color:var(--muted)">0</div></div>
+      <div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Factura</th><th>Cliente</th><th>Vendedor</th><th>Técnico</th><th>Mano $</th><th>Total $</th><th>Acción</th></tr></thead><tbody id="tablaVentas"></tbody></table></div>
     </div>
   </div>
 </div>
 
-<!-- Optional: Firebase SDK v8 (only used if you provide FIREBASE_CONFIG below) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-<!-- SheetJS CDN -->
+<!-- SheetJS (export xlsx) -->
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 <script>
-/*
-  Instrucciones para habilitar base de datos compartida (Firestore):
-  - Crea un proyecto en Firebase console.
-  - Habilita Firestore en modo de pruebas (o configura reglas seguras si sabes cómo).
-  - Copia tu firebaseConfig (apiKey, authDomain, projectId, ...)
-  - Asigna window.FIREBASE_CONFIG = { ... } antes de que este script se ejecute,
-    por ejemplo incluyéndolo en una <script> en la página o editando esta sección.
-  - Con el config habilitado, la app se inicializará y usará Firestore para guardar
-    y sincronizar ventas entre dispositivos/países.
-  Nota: este ejemplo usa signInAnonymously() para facilitar escritura. Ajusta Auth y Rules según tu seguridad.
-*/
+/* Configura aquí: tu Web App URL y token (no compartas el token públicamente si no quieres) */
+const API_URL = 'https://script.google.com/macros/s/AKfycbwJcTI5wjpUJC4y3vM7wzJUuaSuCTB16uGBfmCGVxjHP67o6a9UTw09YYAByeLjMENN/exec';
+const API_TOKEN = 'INVERSIONESORANGESTORE';
 
-// ===== CONFIGURE FIREBASE HERE (OPTIONAL) =====
-// Example:
-// window.FIREBASE_CONFIG = {
-//   apiKey: "...",
-//   authDomain: "...",
-//   projectId: "...",
-//   // ...
-// };
-const FIREBASE_CONFIG = window.FIREBASE_CONFIG || null;
-
-// ===== Utilities (shared) =====
+/* No necesitas cambiar el resto. Si quieres entender cada parte, te lo explico paso a paso. */
+const SALES_KEY = 'ventas_local_fallback';
+const urlParams = new URLSearchParams(location.search);
+const STORE_PARAM = urlParams.get('store');
+const DEFAULT_STORE = STORE_PARAM || 'R04';
+document.getElementById('storeLabel').textContent = DEFAULT_STORE;
 const $ = id => document.getElementById(id);
-const SALES_KEY = 'ventas';
 const DEFAULT_TASA = 1;
 
 function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-function escapeHtml(s = '') {
-  return String(s).replace(/[&<>"']/g, function (m) {
-    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
-  });
-}
-// Normalize date string to YYYY-MM-DD (robust against timezone issues)
-function toISODateStr(d){
-  if (!d) return null;
-  if (typeof d === 'string' && d.length >= 10) return d.slice(0,10);
-  // Firestore Timestamp
-  if (d && typeof d.toDate === 'function') return d.toDate().toISOString().slice(0,10);
-  // Date-like
-  const dateObj = new Date(d);
-  if (isNaN(dateObj)) return null;
-  // build yyyy-mm-dd from UTC to avoid local timezone shifts
-  return new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())).toISOString().slice(0,10);
-}
-// Parse YYYY-MM-DD into a Date set at UTC midnight (consistent)
-function parseYYYYMMDD(dateStr){
-  if (!dateStr) return null;
-  const parts = dateStr.split('-').map(Number);
-  if (parts.length < 3) return new Date(dateStr);
-  return new Date(Date.UTC(parts[0], parts[1]-1, parts[2], 0,0,0,0));
-}
+function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function parseYYYYMMDD(dateStr){ if(!dateStr) return null; const p=dateStr.split('-').map(Number); return new Date(Date.UTC(p[0],p[1]-1,p[2],0,0,0,0)); }
+function toISODateStr(d){ if(!d) return null; if(typeof d==='string'&&d.length>=10) return d.slice(0,10); const dateObj=new Date(d); if(isNaN(dateObj)) return null; return new Date(Date.UTC(dateObj.getFullYear(),dateObj.getMonth(),dateObj.getDate())).toISOString().slice(0,10); }
 
-// ===== Firestore initialization (optional) =====
-let hasFirebase = false;
-let db = null;
-let auth = null;
+function showMsg(txt, type='success'){ const m=$('msg'); if(!m) return; m.className='msg '+(type==='success'?'success':'error'); m.textContent=txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
 
-(function initFirebaseIfConfigured(){
-  if (!FIREBASE_CONFIG) { hasFirebase = false; return; }
-  if (typeof firebase === 'undefined' || !firebase || !firebase.initializeApp) {
-    console.warn('Firebase SDK no cargado. Agrega los scripts de Firebase o remueve FIREBASE_CONFIG.');
-    hasFirebase = false;
-    return;
-  }
+// API helpers for Google Sheets backend
+async function fetchVentasViaSheets({store=null, from=null, to=null, limit=10000} = {}) {
   try {
-    if (!firebase.apps || !firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
-    db = firebase.firestore();
-    auth = firebase.auth();
-    hasFirebase = !!db;
-    // Sign in anonymously to enable writes without manual login.
-    auth.signInAnonymously().catch(e => {
-      console.warn('Firebase auth (anonymous) failed:', e && e.message ? e.message : e);
+    const q = new URL(API_URL);
+    if (store) q.searchParams.set('store', store);
+    if (from) q.searchParams.set('from', from);
+    if (to) q.searchParams.set('to', to);
+    if (limit) q.searchParams.set('limit', String(limit));
+    const res = await fetch(q.toString());
+    if (!res.ok) throw new Error('Error fetching ventas: ' + res.status);
+    return await res.json();
+  } catch (err) {
+    console.warn('fetchVentasViaSheets failed, fallback to local', err);
+    const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+    return arr.filter(v=>v.storeId === (store||DEFAULT_STORE));
+  }
+}
+
+async function guardarVentaViaSheets(venta){
+  try {
+    const payload = Object.assign({}, venta, { token: API_TOKEN });
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
-  } catch (e) {
-    console.error('Error inicializando Firebase:', e);
-    hasFirebase = false;
+    const data = await res.json();
+    if (data && data.ok) return data;
+    throw new Error(data && data.error ? data.error : 'Error saving');
+  } catch (err) {
+    console.warn('guardarVentaViaSheets failed, saving locally', err);
+    const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+    arr.push(venta);
+    localStorage.setItem(SALES_KEY, JSON.stringify(arr));
+    return { ok: true, local: true };
   }
-})();
-
-// ===== XLSX export helper (used by both pages) =====
-function sanitizeSheetName(name){
-  return String(name||'').replace(/[:\\\/\?\*\[\]]/g,'-').slice(0,31) || 'sheet';
-}
-function sheetNameFromISO(isoDate) {
-  if (!isoDate) {
-    const t = new Date();
-    return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
-  }
-  const d = new Date(isoDate);
-  if (isNaN(d)) {
-    const t = new Date();
-    return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
-  }
-  return String(d.getDate()).padStart(2,'0') + String(d.getMonth()+1).padStart(2,'0');
 }
 
+async function deleteVentaViaSheets(id){
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id, token: API_TOKEN })
+    });
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.warn('deleteViaSheets failed', err);
+    let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+    arr = arr.filter(x => x.id !== id);
+    localStorage.setItem(SALES_KEY, JSON.stringify(arr));
+    return { ok: true, local: true };
+  }
+}
+
+// Simple XLSX export (SheetJS)
 function exportVentasStyledXLSX(rawVentas, { filename } = {}) {
   if (!window.XLSX) return alert('SheetJS no cargado.');
   if (!Array.isArray(rawVentas) || rawVentas.length === 0) return alert('No hay ventas para exportar.');
-
-  // Group by ISO date (YYYY-MM-DD)
   const groups = {};
   rawVentas.forEach(s => {
     const iso = toISODateStr(s.fecha || s.date || s.createdAt) || (new Date()).toISOString().slice(0,10);
     if (!groups[iso]) groups[iso] = [];
     groups[iso].push(s);
   });
-
   const wb = XLSX.utils.book_new();
-  const headers = [
-    'FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE',
-    'CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE DE PUNTO DE VENTA',
-    'TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'
-  ];
-
+  const headers = ['FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA','CLIENTE','TELEFONO','CONCEPTO','ORDEN','SUCURSAL','VENDEDOR','TECNICO','MANO $','TIPO PAGO','LOTE','TOTAL BS','TASA','MONTO $','COMENTARIOS'];
   const sortedDates = Object.keys(groups).sort();
   for (const fecha of sortedDates) {
     const rows = [headers];
     groups[fecha].forEach(s => {
-      const fechaStr = toISODateStr(s.fecha || s.date || s.createdAt) || '';
       rows.push([
-        fechaStr,
-        s.nroFacturaFiscalManual || '',
-        s.nroFacturaProfit || '',
-        (s.cashea === true || s.cashea === 'true') ? 'Sí' : 'No',
-        s.cedulaCliente || '',
-        s.cliente || '',
-        s.telefonoCliente || '',
-        s.concepto || '',
-        s.ordenRecepcion || '',
-        s.storeId || s.sucursal || '',
-        s.vendedor || '',
-        s.tecnico || '',
-        s.manoDeObraUsd !== undefined ? Number(s.manoDeObraUsd) : '',
-        s.tipoPago || '',
-        s.lotePuntoVenta || '',
-        s.totalBs !== undefined ? Number(s.totalBs) : '',
-        s.tasa !== undefined ? Number(s.tasa) : '',
-        (s.montoVentaUsd !== undefined ? Number(s.montoVentaUsd) : (s.montoUsd !== undefined ? Number(s.montoUsd) : '')),
-        s.comentarios || ''
+        toISODateStr(s.fecha || s.date || s.createdAt) || '',
+        s.nroFacturaFiscalManual||'',
+        s.nroFacturaProfit||'',
+        (s.cashea==='true' || s.cashea===true)?'Sí':'No',
+        s.cedulaCliente||'',
+        s.cliente||'',
+        s.telefonoCliente||'',
+        s.concepto||'',
+        s.ordenRecepcion||'',
+        s.storeId||'',
+        s.vendedor||'',
+        s.tecnico||'',
+        Number(s.manoDeObraUsd||0),
+        s.tipoPago||'',
+        s.lotePuntoVenta||'',
+        s.totalBs||'',
+        s.tasa||'',
+        s.montoVentaUsd||s.montoUsd||0,
+        s.comentarios||''
       ]);
     });
-
     const ws = XLSX.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [
-      { wch:10 },{ wch:18 },{ wch:16 },{ wch:6 },{ wch:14 },{ wch:18 },{ wch:12 },{ wch:20 },{ wch:12 },{ wch:10 },
-      { wch:14 },{ wch:14 },{ wch:12 },{ wch:10 },{ wch:12 },{ wch:12 },{ wch:8 },{ wch:12 },{ wch:24 }
-    ];
-    const sheetName = sanitizeSheetName(sheetNameFromISO(fecha));
-    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    XLSX.utils.book_append_sheet(wb, ws, fecha.replace(/-/g,''));
   }
-
   const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
-  const out = filename || `ventas_${ts}.xlsx`;
+  const out = filename || `ventas_${DEFAULT_STORE}_${ts}.xlsx`;
   XLSX.writeFile(wb, out);
 }
+window.exportsXLSX = { exportVentasXLSX: exportVentasStyledXLSX, exportVentasSingleDay: exportVentasStyledXLSX };
 
-// Provide a compatibility wrapper used originally by r04
-window.exportsXLSX = {
-  exportVentasXLSX: (ventas, opts) => exportVentasStyledXLSX(ventas, opts || {}),
-  exportVentasSingleDay: (ventas, fecha, opts) => exportVentasStyledXLSX(ventas, opts || {})
-};
-
-// ===== Page-specific logic =====
-const urlParams = new URLSearchParams(location.search);
-const STORE_PARAM = urlParams.get('store');
-const DEFAULT_STORE = STORE_PARAM || 'R04';
-document.getElementById('storeLabel').textContent = DEFAULT_STORE;
-
+// UI logic
 function idGen(){ return Date.now().toString() + '-' + Math.random().toString(36).slice(2,8); }
-
-function showMsg(txt, type='success'){ const m=$('msg'); if(!m) return; m.className='msg '+(type==='success'?'success':'error'); m.textContent=txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
 
 function limpiarFormulario() {
   const form = $('formVenta');
@@ -412,7 +267,6 @@ async function guardarVenta(){
   const fechaStr = $('fecha').value || new Date().toISOString().slice(0,10);
   const venta = {
     id: idGen(),
-    dateISO: parseYYYYMMDD(fechaStr).toISOString(),
     fecha: fechaStr,
     nroFacturaFiscalManual: $('nroFiscal').value.trim() || '',
     nroFacturaProfit: $('nroProfit').value.trim() || '',
@@ -439,95 +293,34 @@ async function guardarVenta(){
   };
 
   try {
-    if (hasFirebase && db) {
-      if (!firebase.apps || !firebase.apps.length) throw new Error('Firebase no inicializado.');
-      // store date as Timestamp for proper queries
-      const dateObj = parseYYYYMMDD(venta.fecha);
-      const doc = {
-        date: firebase.firestore.Timestamp.fromDate(dateObj),
-        fecha: venta.fecha,
-        nroFacturaFiscalManual: venta.nroFacturaFiscalManual,
-        nroFacturaProfit: venta.nroFacturaProfit,
-        cashea: venta.cashea,
-        cedulaCliente: venta.cedulaCliente,
-        cliente: venta.cliente,
-        telefonoCliente: venta.telefonoCliente,
-        concepto: venta.concepto,
-        ordenRecepcion: venta.ordenRecepcion,
-        vendedor: venta.vendedor,
-        tecnico: venta.tecnico,
-        manoDeObraUsd: venta.manoDeObraUsd,
-        manoDeObraBs: venta.manoDeObraBs,
-        tipoPago: venta.tipoPago,
-        lotePuntoVenta: venta.lotePuntoVenta,
-        totalBs: venta.totalBs,
-        totalBsIncluyeMano: venta.totalBsIncluyeMano,
-        tasa: venta.tasa,
-        montoVentaUsd: venta.montoVentaUsd,
-        montoUsd: venta.montoUsd,
-        comentarios: venta.comentarios,
-        storeId: venta.storeId,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        createdBy: auth && auth.currentUser ? auth.currentUser.uid : null
-      };
-      await db.collection('sales').add(doc);
-      showMsg('Venta guardada (Firestore)', 'success');
+    const res = await guardarVentaViaSheets(venta);
+    if (res && res.ok) {
+      showMsg(res.local ? 'Venta guardada local' : 'Venta guardada (Sheets)', 'success');
     } else {
-      const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-      arr.push(venta);
-      localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-      showMsg('Venta guardada local', 'success');
+      showMsg('No se pudo guardar', 'error');
     }
     await cargarTabla();
     limpiarFormulario();
   } catch (e) {
-    console.error('Error al guardar venta:', e);
+    console.error('Error guardarVenta:', e);
     alert('Error al guardar la venta: ' + (e && e.message ? e.message : e));
   }
 }
 
 async function cargarTabla(){
   try {
-    let ventas = [];
-    if (hasFirebase && db) {
-      try {
-        const q = db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(500);
-        const snap = await q.get();
-        ventas = snap.docs.map(doc => {
-          const s = doc.data();
-          return {
-            id: doc.id,
-            fecha: toISODateStr(s.date || s.fecha || s.createdAt) || '',
-            nroFiscal: s.nroFacturaFiscalManual || '',
-            nroProfit: s.nroFacturaProfit || '',
-            cashea: s.cashea || false,
-            cedulaCliente: s.cedulaCliente || '',
-            cliente: s.cliente || '',
-            telefonoCliente: s.telefonoCliente || '',
-            concepto: s.concepto || '',
-            ordenRecepcion: s.ordenRecepcion || '',
-            vendedor: s.vendedor || '',
-            tecnico: s.tecnico || '',
-            manoDeObraUsd: Number(s.manoDeObraUsd || 0),
-            tipoPago: s.tipoPago || '',
-            lotePuntoVenta: s.lotePuntoVenta || '',
-            totalBs: Number(s.totalBs || 0),
-            tasa: s.tasa || null,
-            montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0),
-            comentarios: s.comentarios || ''
-          };
-        });
-      } catch (e) {
-        console.error('Error consultando Firestore:', e);
-        showMsg('Error leyendo Firestore. Comprueba índices y permisos. Reintente con localStorage.', 'error');
-        // fallback to localStorage if Firestore query fails
-        const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-        ventas = arr.filter(v => v.storeId === DEFAULT_STORE).slice(-500).reverse();
-      }
-    } else {
-      const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-      ventas = arr.filter(v => v.storeId === DEFAULT_STORE).slice(-500).reverse();
-    }
+    let ventas = await fetchVentasViaSheets({ store: DEFAULT_STORE, limit: 500 });
+    ventas = ventas.map(s => ({
+      id: s.id || s._id || '',
+      fecha: toISODateStr(s.fecha || s.date || s.createdAt) || '',
+      nroFiscal: s.nroFacturaFiscalManual || '',
+      nroProfit: s.nroFacturaProfit || '',
+      cliente: s.cliente || '',
+      vendedor: s.vendedor || '',
+      tecnico: s.tecnico || '',
+      manoDeObraUsd: Number(s.manoDeObraUsd || 0),
+      montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0)
+    }));
 
     $('tablaVentas').innerHTML = ventas.map(v => `
       <tr>
@@ -538,7 +331,7 @@ async function cargarTabla(){
         <td>${escapeHtml(v.tecnico)}</td>
         <td>$${formatMoney(v.manoDeObraUsd)}</td>
         <td>$${formatMoney(v.montoVentaUsd)}</td>
-        <td><button data-id="${v.id || v.idGen || ''}" class="btnDel" style="background:#ef4444;border:none;color:#fff;border-radius:6px;padding:6px 8px;cursor:pointer">Eliminar</button></td>
+        <td><button data-id="${v.id || ''}" class="btnDel" style="background:#ef4444;border:none;color:#fff;border-radius:6px;padding:6px 8px;cursor:pointer">Eliminar</button></td>
       </tr>
     `).join('');
 
@@ -548,15 +341,9 @@ async function cargarTabla(){
         if (!id){ showMsg('Id no disponible', 'error'); return; }
         if (!confirm('Eliminar esta venta? Esta acción no se puede deshacer.')) return;
         try {
-          if (hasFirebase && db) {
-            await db.collection('sales').doc(id).delete();
-            showMsg('Venta eliminada (Firestore)', 'success');
-          } else {
-            let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-            arr = arr.filter(x => x.id !== id);
-            localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-            showMsg('Venta eliminada (local)', 'success');
-          }
+          const res = await deleteVentaViaSheets(id);
+          if (res && res.ok) showMsg(res.local ? 'Venta eliminada (local)' : 'Venta eliminada (Sheets)', 'success');
+          else showMsg('Error eliminando', 'error');
           cargarTabla();
         } catch (err) {
           console.error(err);
@@ -566,67 +353,31 @@ async function cargarTabla(){
     });
 
     $('countLabel').textContent = ventas.length;
-  } catch (e) { console.error(e); }
+  } catch (e) {
+    console.error(e);
+  }
 }
 
-async function exportAllFiltered(){
-  let ventas = [];
-  if (hasFirebase && db) {
-    try {
-      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000).get();
-      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
-    } catch (e) {
-      console.error('Error export Firestore:', e);
-      alert('Error consultando Firestore para exportar. Intenta exportar desde local o revisa permisos.');
-      return;
-    }
-  } else {
-    ventas = JSON.parse(localStorage.getItem(SALES_KEY) || '[]').filter(v => v.storeId === DEFAULT_STORE);
-  }
+// Export handlers
+$('btnExport').addEventListener('click', async ()=> {
+  let ventas = await fetchVentasViaSheets({ store: DEFAULT_STORE, limit: 10000 });
   if (!ventas.length){ showMsg('No hay ventas para exportar', 'error'); return; }
   exportVentasStyledXLSX(ventas, { filename: `ventas_${DEFAULT_STORE}_all.xlsx` });
-}
+});
 
-$('btnExport').addEventListener('click', exportAllFiltered);
-
-$('btnExportHoy').addEventListener('click', async () => {
+$('btnExportHoy').addEventListener('click', async ()=>{
   const fecha = $('fecha').value || new Date().toISOString().slice(0,10);
-  let ventas = [];
-  if (hasFirebase && db) {
-    try {
-      const start = parseYYYYMMDD(fecha);
-      const end = new Date(start); end.setUTCHours(23,59,59,999);
-      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).where('date','>=', start).where('date','<=', end).get();
-      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
-    } catch (e) {
-      console.error('Error export hoy Firestore:', e);
-      alert('Error exportando desde Firestore. Revisa índices/permisos.');
-      return;
-    }
-  } else {
-    const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-    ventas = arr.filter(v => v.storeId === DEFAULT_STORE && (v.fecha === fecha || (v.dateISO && toISODateStr(v.dateISO) === fecha)));
-  }
+  let ventas = await fetchVentasViaSheets({ store: DEFAULT_STORE, from: fecha, to: fecha });
   if (!ventas.length){ showMsg('No hay ventas para esa fecha', 'error'); return; }
   exportVentasStyledXLSX(ventas, { filename: `ventas_${DEFAULT_STORE}_${fecha}.xlsx` });
 });
 
 $('btnLimpiar').addEventListener('click', ()=>{ limpiarFormulario(); });
-
 $('btnGuardar').addEventListener('click', guardarVenta);
 
 // init
 (function init(){
   const hoy = new Date().toISOString().slice(0,10); if (!$('fecha').value) $('fecha').value = hoy;
-  (async ()=>{
-    if (hasFirebase && db) {
-      try {
-        const id = new Date().toISOString().slice(0,10);
-        const doc = await db.collection('rates').doc(id).get();
-        $('tasa').value = doc.exists ? doc.data().tasa : DEFAULT_TASA;
-      } catch(e){ $('tasa').value = DEFAULT_TASA; }
-    } else $('tasa').value = DEFAULT_TASA;
-  })();
   handleTipoPagoChange();
   cargarTabla();
 })();
