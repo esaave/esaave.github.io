@@ -45,25 +45,25 @@
     <div class="card">
       <div id="msg" class="msg"></div>
 
-      <form id="formVenta" onsubmit="return false;">
+      <form id="formVenta">
         <div class="grid">
           <div>
-            <label>Fecha</label>
+            <label for="fecha">Fecha</label>
             <input type="date" id="fecha" required />
           </div>
 
           <div>
-            <label>Cashea</label>
+            <label for="cashea">Cashea</label>
             <select id="cashea"><option value="true">Sí</option><option value="false">No</option></select>
           </div>
 
           <div class="full">
-            <label>Nro. Factura Fiscal / Manual</label>
+            <label for="nroFiscal">Nro. Factura Fiscal / Manual</label>
             <input id="nroFiscal" type="text" placeholder="Opcional" />
           </div>
 
           <div class="full">
-            <label>Nro. Factura Profit</label>
+            <label for="nroProfit">Nro. Factura Profit</label>
             <input id="nroProfit" type="text" placeholder="Opcional" />
           </div>
 
@@ -76,42 +76,42 @@
           </div>
 
           <div>
-            <label>Cliente *</label>
+            <label for="cliente">Cliente *</label>
             <input id="cliente" type="text" placeholder="Nombre del cliente" />
           </div>
 
           <div>
-            <label>Teléfono *</label>
+            <label for="telefono">Teléfono *</label>
             <input id="telefono" type="tel" placeholder="Ej: 04141234567" />
           </div>
 
           <div class="full">
-            <label>Concepto</label>
+            <label for="concepto">Concepto</label>
             <input id="concepto" type="text" />
           </div>
 
           <div>
-            <label>Orden Recepción</label>
+            <label for="ordenRecepcion">Orden Recepción</label>
             <input id="ordenRecepcion" type="text" placeholder="#12345" />
           </div>
 
           <div>
-            <label>Vendedor</label>
+            <label for="vendedor">Vendedor</label>
             <input id="vendedor" type="text" />
           </div>
 
           <div>
-            <label>Técnico</label>
+            <label for="tecnico">Técnico</label>
             <input id="tecnico" type="text" />
           </div>
 
           <div>
-            <label>Mano de obra ($)</label>
+            <label for="manoObraUsd">Mano de obra ($)</label>
             <input id="manoObraUsd" type="number" step="0.01" min="0" value="0" />
           </div>
 
           <div>
-            <label>Tipo de pago</label>
+            <label for="tipoPago">Tipo de pago</label>
             <select id="tipoPago">
               <option>PMF</option><option>PMB</option><option>PUNTO</option>
               <option>EFECTIVO</option><option>ZELLE</option><option>BINANCE</option>
@@ -119,18 +119,18 @@
           </div>
 
           <div>
-            <label>Lote punto venta</label>
+            <label for="lotePuntoVenta">Lote punto venta</label>
             <input id="lotePuntoVenta" type="text" />
           </div>
 
           <div id="bsFields">
             <div>
-              <label>Tasa BCV</label>
+              <label for="tasa">Tasa BCV</label>
               <input id="tasa" type="number" step="0.01" min="0" />
             </div>
             <div style="display:flex;gap:8px;align-items:end;">
               <div style="flex:1">
-                <label>Total (Bs)</label>
+                <label for="totalBs">Total (Bs)</label>
                 <input id="totalBs" type="number" step="0.01" min="0" />
               </div>
               <div style="width:120px;">
@@ -140,17 +140,17 @@
           </div>
 
           <div>
-            <label>Monto $ *</label>
+            <label for="montoUsd">Monto $ *</label>
             <input id="montoUsd" type="number" step="0.01" min="0" placeholder="Ej: 35.00" />
           </div>
 
           <div class="full">
-            <label>Comentarios</label>
+            <label for="comentarios">Comentarios</label>
             <textarea id="comentarios" rows="2"></textarea>
           </div>
 
           <div class="full actions">
-            <button id="btnGuardar" class="btn">Guardar</button>
+            <button id="btnGuardar" type="button" class="btn">Guardar</button>
             <button id="btnExport" type="button" class="btn ghost">Exportar</button>
             <button id="btnExportHoy" type="button" class="btn ghost">Exportar hoy</button>
             <button id="btnLimpiar" type="button" class="btn ghost">Limpiar</button>
@@ -179,178 +179,325 @@
   </div>
 </div>
 
+<!-- Optional: Firebase SDK v8 (only used if you provide FIREBASE_CONFIG below) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
 <!-- SheetJS CDN -->
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 <script>
-  // Same JS as provided previously for R04 with date-safe behavior and export
-  // (The full JS is included above in the administracion.html file section for export; here we reuse the same helper patterns.)
-  const SALES_KEY = 'ventas';
-  const urlParams = new URLSearchParams(location.search);
-  const STORE_PARAM = urlParams.get('store');
-  const DEFAULT_STORE = STORE_PARAM || 'R04';
-  document.getElementById('storeLabel').textContent = DEFAULT_STORE;
-  const $ = id => document.getElementById(id);
-  const hasFirebase = (window.firebase && firebase.firestore);
-  const db = hasFirebase ? firebase.firestore() : null;
-  const auth = hasFirebase ? firebase.auth() : null;
-  const DEFAULT_TASA = 1;
+/*
+  Instrucciones para habilitar base de datos compartida (Firestore):
+  - Crea un proyecto en Firebase console.
+  - Habilita Firestore en modo de pruebas (o configura reglas seguras si sabes cómo).
+  - Copia tu firebaseConfig (apiKey, authDomain, projectId, ...)
+  - Asigna window.FIREBASE_CONFIG = { ... } antes de que este script se ejecute,
+    por ejemplo incluyéndolo en una <script> en la página o editando esta sección.
+  - Con el config habilitado, la app se inicializará y usará Firestore para guardar
+    y sincronizar ventas entre dispositivos/países.
+  Nota: este ejemplo usa signInAnonymously() para facilitar escritura. Ajusta Auth y Rules según tu seguridad.
+*/
 
-  function idGen(){ return Date.now().toString() + '-' + Math.random().toString(36).slice(2,8); }
-  function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+// ===== CONFIGURE FIREBASE HERE (OPTIONAL) =====
+// Example:
+// window.FIREBASE_CONFIG = {
+//   apiKey: "...",
+//   authDomain: "...",
+//   projectId: "...",
+//   // ...
+// };
+const FIREBASE_CONFIG = window.FIREBASE_CONFIG || null;
 
-  function escapeHtml(s = '') {
-    return String(s).replace(/[&<>"']/g, function (m) {
-      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+// ===== Utilities (shared) =====
+const $ = id => document.getElementById(id);
+const SALES_KEY = 'ventas';
+const DEFAULT_TASA = 1;
+
+function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function escapeHtml(s = '') {
+  return String(s).replace(/[&<>"']/g, function (m) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+  });
+}
+// Normalize date string to YYYY-MM-DD (robust against timezone issues)
+function toISODateStr(d){
+  if (!d) return null;
+  if (typeof d === 'string' && d.length >= 10) return d.slice(0,10);
+  // Firestore Timestamp
+  if (d && typeof d.toDate === 'function') return d.toDate().toISOString().slice(0,10);
+  // Date-like
+  const dateObj = new Date(d);
+  if (isNaN(dateObj)) return null;
+  // build yyyy-mm-dd from UTC to avoid local timezone shifts
+  return new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())).toISOString().slice(0,10);
+}
+// Parse YYYY-MM-DD into a Date set at UTC midnight (consistent)
+function parseYYYYMMDD(dateStr){
+  if (!dateStr) return null;
+  const parts = dateStr.split('-').map(Number);
+  if (parts.length < 3) return new Date(dateStr);
+  return new Date(Date.UTC(parts[0], parts[1]-1, parts[2], 0,0,0,0));
+}
+
+// ===== Firestore initialization (optional) =====
+let hasFirebase = false;
+let db = null;
+let auth = null;
+
+(function initFirebaseIfConfigured(){
+  if (!FIREBASE_CONFIG) { hasFirebase = false; return; }
+  if (typeof firebase === 'undefined' || !firebase || !firebase.initializeApp) {
+    console.warn('Firebase SDK no cargado. Agrega los scripts de Firebase o remueve FIREBASE_CONFIG.');
+    hasFirebase = false;
+    return;
+  }
+  try {
+    if (!firebase.apps || !firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG);
+    db = firebase.firestore();
+    auth = firebase.auth();
+    hasFirebase = !!db;
+    // Sign in anonymously to enable writes without manual login.
+    auth.signInAnonymously().catch(e => {
+      console.warn('Firebase auth (anonymous) failed:', e && e.message ? e.message : e);
     });
+  } catch (e) {
+    console.error('Error inicializando Firebase:', e);
+    hasFirebase = false;
   }
+})();
 
-  function limpiarFormulario() {
-    const form = document.getElementById('formVenta');
-    if (form) form.reset();
-    const hoy = new Date().toISOString().slice(0, 10);
-    const fechaEl = document.getElementById('fecha');
-    if (fechaEl) fechaEl.value = hoy;
-    try { if (typeof handleTipoPagoChange === 'function') handleTipoPagoChange(); } catch(e){ console.warn(e); }
-    const montoEl = document.getElementById('montoUsd'); if (montoEl) montoEl.value = '';
+// ===== XLSX export helper (used by both pages) =====
+function sanitizeSheetName(name){
+  return String(name||'').replace(/[:\\\/\?\*\[\]]/g,'-').slice(0,31) || 'sheet';
+}
+function sheetNameFromISO(isoDate) {
+  if (!isoDate) {
+    const t = new Date();
+    return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
   }
-
-  function showMsg(txt, type='success'){ const m=$('msg'); m.className='msg '+(type==='success'?'success':'error'); m.textContent=txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
-
-  (function init(){
-    const hoy = new Date().toISOString().slice(0,10); if (!$('fecha').value) $('fecha').value = hoy;
-    (async ()=>{
-      if (hasFirebase) {
-        try {
-          const id = new Date().toISOString().slice(0,10);
-          const doc = await db.collection('rates').doc(id).get();
-          $('tasa').value = doc.exists ? doc.data().tasa : DEFAULT_TASA;
-        } catch(e){ $('tasa').value = DEFAULT_TASA; }
-      } else $('tasa').value = DEFAULT_TASA;
-    })();
-    handleTipoPagoChange();
-    cargarTabla();
-  })();
-
-  function handleTipoPagoChange(){
-    const tipo = $('tipoPago').value;
-    const bsVisible = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
-    const bsContainer = $('bsFields');
-    if (bsVisible) bsContainer.classList.remove('hidden'); else { bsContainer.classList.add('hidden'); $('totalBs').value=''; $('tasa').value=''; }
+  const d = new Date(isoDate);
+  if (isNaN(d)) {
+    const t = new Date();
+    return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
   }
-  $('tipoPago').addEventListener('change', handleTipoPagoChange);
+  return String(d.getDate()).padStart(2,'0') + String(d.getMonth()+1).padStart(2,'0');
+}
 
-  $('btnCalcUsd').addEventListener('click', ()=> {
-    const totalBs = parseFloat($('totalBs').value||0);
-    const tasa = parseFloat($('tasa').value||0) || DEFAULT_TASA;
-    if (!totalBs){ showMsg('Ingrese Total Bs', 'error'); return; }
-    if (!tasa){ showMsg('Ingrese Tasa', 'error'); return; }
-    const usd = +(totalBs / tasa).toFixed(2);
-    if (confirm(`Equivalente sugerido: $${usd}. ¿Copiar a Monto $?`)) {
-      $('montoUsd').value = usd;
-      showMsg('Sugerencia copiada', 'success');
-    } else showMsg('Sugerencia: $' + usd, 'success');
+function exportVentasStyledXLSX(rawVentas, { filename } = {}) {
+  if (!window.XLSX) return alert('SheetJS no cargado.');
+  if (!Array.isArray(rawVentas) || rawVentas.length === 0) return alert('No hay ventas para exportar.');
+
+  // Group by ISO date (YYYY-MM-DD)
+  const groups = {};
+  rawVentas.forEach(s => {
+    const iso = toISODateStr(s.fecha || s.date || s.createdAt) || (new Date()).toISOString().slice(0,10);
+    if (!groups[iso]) groups[iso] = [];
+    groups[iso].push(s);
   });
 
-  async function guardarVenta(){
-    const cliente = $('cliente').value.trim();
-    const telefono = $('telefono').value.trim();
-    const montoUsd = parseFloat($('montoUsd').value || 0);
-    if (!cliente){ showMsg('Cliente obligatorio', 'error'); return; }
-    if (!telefono){ showMsg('Teléfono obligatorio', 'error'); return; }
-    if (!montoUsd || montoUsd <= 0){ showMsg('Monto $ obligatorio', 'error'); return; }
-    let orden = $('ordenRecepcion').value.trim();
-    if (orden && !orden.startsWith('#')) orden = '#' + orden;
-    const tipo = $('tipoPago').value;
-    const enableBs = (tipo==='PMF' || tipo==='PMB' || tipo==='PUNTO');
-    const tasa = parseFloat($('tasa').value || DEFAULT_TASA) || DEFAULT_TASA;
-    const totalBs = parseFloat($('totalBs').value || 0);
-    const manoUsd = parseFloat($('manoObraUsd').value || 0);
-    const manoBs = (enableBs && $('tasa').value) ? +(manoUsd * tasa).toFixed(2) : 0;
-    const totalBsIncluyeMano = +( (enableBs ? totalBs : 0) + manoBs ).toFixed(2);
-    const venta = {
-      id: idGen(),
-      date: new Date($('fecha').value),
-      fecha: $('fecha').value,
-      nroFacturaFiscalManual: $('nroFiscal').value.trim() || '',
-      nroFacturaProfit: $('nroProfit').value.trim() || '',
-      cashea: $('cashea').value === 'true',
-      cedulaCliente: ($('tipoCedula').value || '') + '-' + ($('cedula').value || ''),
-      cliente: cliente,
-      telefonoCliente: telefono,
-      concepto: $('concepto').value || '',
-      ordenRecepcion: orden || '',
-      vendedor: $('vendedor').value || '',
-      tecnico: $('tecnico').value || '',
-      manoDeObraUsd: manoUsd,
-      manoDeObraBs: manoBs,
-      tipoPago: tipo,
-      lotePuntoVenta: $('lotePuntoVenta').value || '',
-      totalBs: enableBs ? totalBs : 0,
-      totalBsIncluyeMano: totalBsIncluyeMano,
-      tasa: enableBs ? tasa : null,
-      montoVentaUsd: +montoUsd.toFixed(2),
-      montoUsd: +montoUsd.toFixed(2),
-      comentarios: $('comentarios').value || '',
-      storeId: DEFAULT_STORE,
-      createdAt: new Date().toISOString()
-    };
-    try {
-      if (hasFirebase) {
-        if (!firebase.apps || !firebase.apps.length) throw new Error('Firebase no inicializado.');
-        if (!auth || !auth.currentUser) throw new Error('No autenticado. Inicia sesión antes de guardar en Firestore.');
-        const docRef = await db.collection('sales').add({
-          date: firebase.firestore.Timestamp.fromDate(new Date(venta.fecha)),
-          nroFacturaFiscalManual: venta.nroFacturaFiscalManual,
-          nroFacturaProfit: venta.nroFacturaProfit,
-          cashea: venta.cashea,
-          cedulaCliente: venta.cedulaCliente,
-          cliente: venta.cliente,
-          telefonoCliente: venta.telefonoCliente,
-          concepto: venta.concepto,
-          ordenRecepcion: venta.ordenRecepcion,
-          vendedor: venta.vendedor,
-          tecnico: venta.tecnico,
-          manoDeObraUsd: venta.manoDeObraUsd,
-          manoDeObraBs: venta.manoDeObraBs,
-          tipoPago: venta.tipoPago,
-          lotePuntoVenta: venta.lotePuntoVenta,
-          totalBs: venta.totalBs,
-          totalBsIncluyeMano: venta.totalBsIncluyeMano,
-          tasa: venta.tasa,
-          montoVentaUsd: venta.montoVentaUsd,
-          montoUsd: venta.montoUsd,
-          comentarios: venta.comentarios,
-          storeId: venta.storeId,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          createdBy: auth.currentUser ? auth.currentUser.uid : null
-        });
-        showMsg('Venta guardada', 'success');
-      } else {
-        const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-        arr.push(venta);
-        localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-        showMsg('Venta guardada local', 'success');
-      }
-      cargarTabla();
-      limpiarFormulario();
-    } catch (e) {
-      console.error('Error al guardar venta:', e);
-      alert('Error al guardar la venta: ' + (e.message || e));
-    }
+  const wb = XLSX.utils.book_new();
+  const headers = [
+    'FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE',
+    'CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE DE PUNTO DE VENTA',
+    'TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'
+  ];
+
+  const sortedDates = Object.keys(groups).sort();
+  for (const fecha of sortedDates) {
+    const rows = [headers];
+    groups[fecha].forEach(s => {
+      const fechaStr = toISODateStr(s.fecha || s.date || s.createdAt) || '';
+      rows.push([
+        fechaStr,
+        s.nroFacturaFiscalManual || '',
+        s.nroFacturaProfit || '',
+        (s.cashea === true || s.cashea === 'true') ? 'Sí' : 'No',
+        s.cedulaCliente || '',
+        s.cliente || '',
+        s.telefonoCliente || '',
+        s.concepto || '',
+        s.ordenRecepcion || '',
+        s.storeId || s.sucursal || '',
+        s.vendedor || '',
+        s.tecnico || '',
+        s.manoDeObraUsd !== undefined ? Number(s.manoDeObraUsd) : '',
+        s.tipoPago || '',
+        s.lotePuntoVenta || '',
+        s.totalBs !== undefined ? Number(s.totalBs) : '',
+        s.tasa !== undefined ? Number(s.tasa) : '',
+        (s.montoVentaUsd !== undefined ? Number(s.montoVentaUsd) : (s.montoUsd !== undefined ? Number(s.montoUsd) : '')),
+        s.comentarios || ''
+      ]);
+    });
+
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [
+      { wch:10 },{ wch:18 },{ wch:16 },{ wch:6 },{ wch:14 },{ wch:18 },{ wch:12 },{ wch:20 },{ wch:12 },{ wch:10 },
+      { wch:14 },{ wch:14 },{ wch:12 },{ wch:10 },{ wch:12 },{ wch:12 },{ wch:8 },{ wch:12 },{ wch:24 }
+    ];
+    const sheetName = sanitizeSheetName(sheetNameFromISO(fecha));
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
   }
 
-  async function cargarTabla(){
-    try {
-      let ventas = [];
-      if (hasFirebase) {
+  const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
+  const out = filename || `ventas_${ts}.xlsx`;
+  XLSX.writeFile(wb, out);
+}
+
+// Provide a compatibility wrapper used originally by r04
+window.exportsXLSX = {
+  exportVentasXLSX: (ventas, opts) => exportVentasStyledXLSX(ventas, opts || {}),
+  exportVentasSingleDay: (ventas, fecha, opts) => exportVentasStyledXLSX(ventas, opts || {})
+};
+
+// ===== Page-specific logic =====
+const urlParams = new URLSearchParams(location.search);
+const STORE_PARAM = urlParams.get('store');
+const DEFAULT_STORE = STORE_PARAM || 'R04';
+document.getElementById('storeLabel').textContent = DEFAULT_STORE;
+
+function idGen(){ return Date.now().toString() + '-' + Math.random().toString(36).slice(2,8); }
+
+function showMsg(txt, type='success'){ const m=$('msg'); if(!m) return; m.className='msg '+(type==='success'?'success':'error'); m.textContent=txt; m.style.display='block'; setTimeout(()=>m.style.display='none',3000); }
+
+function limpiarFormulario() {
+  const form = $('formVenta');
+  if (form) form.reset();
+  const hoy = new Date().toISOString().slice(0, 10);
+  const fechaEl = $('fecha');
+  if (fechaEl) fechaEl.value = hoy;
+  try { if (typeof handleTipoPagoChange === 'function') handleTipoPagoChange(); } catch(e){ console.warn(e); }
+  const montoEl = $('montoUsd'); if (montoEl) montoEl.value = '';
+}
+
+function handleTipoPagoChange(){
+  const tipo = $('tipoPago').value;
+  const bsVisible = (tipo === 'PMF' || tipo === 'PMB' || tipo === 'PUNTO');
+  const bsContainer = $('bsFields');
+  if (bsVisible) bsContainer.classList.remove('hidden'); else { bsContainer.classList.add('hidden'); $('totalBs').value=''; $('tasa').value=''; }
+}
+$('tipoPago').addEventListener('change', handleTipoPagoChange);
+
+$('btnCalcUsd').addEventListener('click', ()=> {
+  const totalBs = parseFloat($('totalBs').value||0);
+  const tasa = parseFloat($('tasa').value||0) || DEFAULT_TASA;
+  if (!totalBs){ showMsg('Ingrese Total Bs', 'error'); return; }
+  if (!tasa){ showMsg('Ingrese Tasa', 'error'); return; }
+  const usd = +(totalBs / tasa).toFixed(2);
+  if (confirm(`Equivalente sugerido: $${usd}. ¿Copiar a Monto $?`)) {
+    $('montoUsd').value = usd;
+    showMsg('Sugerencia copiada', 'success');
+  } else showMsg('Sugerencia: $' + usd, 'success');
+});
+
+async function guardarVenta(){
+  const cliente = $('cliente').value.trim();
+  const telefono = $('telefono').value.trim();
+  const montoUsd = parseFloat($('montoUsd').value || 0);
+  if (!cliente){ showMsg('Cliente obligatorio', 'error'); return; }
+  if (!telefono){ showMsg('Teléfono obligatorio', 'error'); return; }
+  if (!montoUsd || montoUsd <= 0){ showMsg('Monto $ obligatorio', 'error'); return; }
+  let orden = $('ordenRecepcion').value.trim();
+  if (orden && !orden.startsWith('#')) orden = '#' + orden;
+  const tipo = $('tipoPago').value;
+  const enableBs = (tipo==='PMF' || tipo==='PMB' || tipo==='PUNTO');
+  const tasa = parseFloat($('tasa').value || DEFAULT_TASA) || DEFAULT_TASA;
+  const totalBs = parseFloat($('totalBs').value || 0);
+  const manoUsd = parseFloat($('manoObraUsd').value || 0);
+  const manoBs = (enableBs && $('tasa').value) ? +(manoUsd * tasa).toFixed(2) : 0;
+  const totalBsIncluyeMano = +( (enableBs ? totalBs : 0) + manoBs ).toFixed(2);
+
+  const fechaStr = $('fecha').value || new Date().toISOString().slice(0,10);
+  const venta = {
+    id: idGen(),
+    dateISO: parseYYYYMMDD(fechaStr).toISOString(),
+    fecha: fechaStr,
+    nroFacturaFiscalManual: $('nroFiscal').value.trim() || '',
+    nroFacturaProfit: $('nroProfit').value.trim() || '',
+    cashea: $('cashea').value === 'true',
+    cedulaCliente: ($('tipoCedula').value || '') + '-' + ($('cedula').value || ''),
+    cliente: cliente,
+    telefonoCliente: telefono,
+    concepto: $('concepto').value || '',
+    ordenRecepcion: orden || '',
+    vendedor: $('vendedor').value || '',
+    tecnico: $('tecnico').value || '',
+    manoDeObraUsd: manoUsd,
+    manoDeObraBs: manoBs,
+    tipoPago: tipo,
+    lotePuntoVenta: $('lotePuntoVenta').value || '',
+    totalBs: enableBs ? totalBs : 0,
+    totalBsIncluyeMano: totalBsIncluyeMano,
+    tasa: enableBs ? tasa : null,
+    montoVentaUsd: +montoUsd.toFixed(2),
+    montoUsd: +montoUsd.toFixed(2),
+    comentarios: $('comentarios').value || '',
+    storeId: DEFAULT_STORE,
+    createdAt: new Date().toISOString()
+  };
+
+  try {
+    if (hasFirebase && db) {
+      if (!firebase.apps || !firebase.apps.length) throw new Error('Firebase no inicializado.');
+      // store date as Timestamp for proper queries
+      const dateObj = parseYYYYMMDD(venta.fecha);
+      const doc = {
+        date: firebase.firestore.Timestamp.fromDate(dateObj),
+        fecha: venta.fecha,
+        nroFacturaFiscalManual: venta.nroFacturaFiscalManual,
+        nroFacturaProfit: venta.nroFacturaProfit,
+        cashea: venta.cashea,
+        cedulaCliente: venta.cedulaCliente,
+        cliente: venta.cliente,
+        telefonoCliente: venta.telefonoCliente,
+        concepto: venta.concepto,
+        ordenRecepcion: venta.ordenRecepcion,
+        vendedor: venta.vendedor,
+        tecnico: venta.tecnico,
+        manoDeObraUsd: venta.manoDeObraUsd,
+        manoDeObraBs: venta.manoDeObraBs,
+        tipoPago: venta.tipoPago,
+        lotePuntoVenta: venta.lotePuntoVenta,
+        totalBs: venta.totalBs,
+        totalBsIncluyeMano: venta.totalBsIncluyeMano,
+        tasa: venta.tasa,
+        montoVentaUsd: venta.montoVentaUsd,
+        montoUsd: venta.montoUsd,
+        comentarios: venta.comentarios,
+        storeId: venta.storeId,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        createdBy: auth && auth.currentUser ? auth.currentUser.uid : null
+      };
+      await db.collection('sales').add(doc);
+      showMsg('Venta guardada (Firestore)', 'success');
+    } else {
+      const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+      arr.push(venta);
+      localStorage.setItem(SALES_KEY, JSON.stringify(arr));
+      showMsg('Venta guardada local', 'success');
+    }
+    await cargarTabla();
+    limpiarFormulario();
+  } catch (e) {
+    console.error('Error al guardar venta:', e);
+    alert('Error al guardar la venta: ' + (e && e.message ? e.message : e));
+  }
+}
+
+async function cargarTabla(){
+  try {
+    let ventas = [];
+    if (hasFirebase && db) {
+      try {
         const q = db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(500);
         const snap = await q.get();
         ventas = snap.docs.map(doc => {
           const s = doc.data();
           return {
             id: doc.id,
-            fecha: s.date ? (s.date.seconds ? new Date(s.date.seconds*1000).toISOString().slice(0,10) : new Date(s.date).toISOString().slice(0,10)) : '',
+            fecha: toISODateStr(s.date || s.fecha || s.createdAt) || '',
             nroFiscal: s.nroFacturaFiscalManual || '',
             nroProfit: s.nroFacturaProfit || '',
             cashea: s.cashea || false,
@@ -370,84 +517,119 @@
             comentarios: s.comentarios || ''
           };
         });
-      } else {
+      } catch (e) {
+        console.error('Error consultando Firestore:', e);
+        showMsg('Error leyendo Firestore. Comprueba índices y permisos. Reintente con localStorage.', 'error');
+        // fallback to localStorage if Firestore query fails
         const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
         ventas = arr.filter(v => v.storeId === DEFAULT_STORE).slice(-500).reverse();
       }
-
-      $('tablaVentas').innerHTML = ventas.map(v => `
-        <tr>
-          <td>${v.fecha}</td>
-          <td>${v.nroFiscal || v.nroProfit || ''}</td>
-          <td>${escapeHtml(v.cliente)}</td>
-          <td>${escapeHtml(v.vendedor)}</td>
-          <td>${escapeHtml(v.tecnico)}</td>
-          <td>$${formatMoney(v.manoDeObraUsd)}</td>
-          <td>$${formatMoney(v.montoVentaUsd)}</td>
-          <td><button data-id="${v.id || v.idGen || ''}" class="btnDel" style="background:#ef4444;border:none;color:#fff;border-radius:6px;padding:6px 8px;cursor:pointer">Eliminar</button></td>
-        </tr>
-      `).join('');
-
-      Array.from(document.getElementsByClassName('btnDel')).forEach(b=>{
-        b.onclick = async () => {
-          const id = b.getAttribute('data-id');
-          if (!id){ showMsg('Id no disponible', 'error'); return; }
-          if (!confirm('Eliminar esta venta? Esta acción no se puede deshacer.')) return;
-          try {
-            if (hasFirebase) {
-              await db.collection('sales').doc(id).delete();
-              showMsg('Venta eliminada (Firestore)', 'success');
-            } else {
-              let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-              arr = arr.filter(x => x.id !== id);
-              localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-              showMsg('Venta eliminada (local)', 'success');
-            }
-            cargarTabla();
-          } catch (err) {
-            console.error(err);
-            showMsg('Error eliminando', 'error');
-          }
-        };
-      });
-
-      $('countLabel').textContent = ventas.length;
-    } catch (e) { console.error(e); }
-  }
-
-  async function exportAllFiltered(){
-    let ventas = [];
-    if (hasFirebase) {
-      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000).get();
-      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
-    } else {
-      ventas = JSON.parse(localStorage.getItem(SALES_KEY) || '[]').filter(v => v.storeId === DEFAULT_STORE);
-    }
-    if (!ventas.length){ showMsg('No hay ventas para exportar', 'error'); return; }
-    exportsXLSX.exportVentasXLSX(ventas, { filename: `ventas_${DEFAULT_STORE}_all.xlsx` });
-  }
-
-  $('btnExport').addEventListener('click', exportAllFiltered);
-
-  $('btnExportHoy').addEventListener('click', async () => {
-    const fecha = $('fecha').value || new Date().toISOString().slice(0,10);
-    let ventas = [];
-    if (hasFirebase) {
-      const start = new Date(fecha); start.setHours(0,0,0,0);
-      const end = new Date(fecha); end.setHours(23,59,59,999);
-      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).where('date','>=', start).where('date','<=', end).get();
-      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
     } else {
       const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-      ventas = arr.filter(v => v.storeId === DEFAULT_STORE && (v.fecha === fecha || (v.date && new Date(v.date).toISOString().slice(0,10) === fecha)));
+      ventas = arr.filter(v => v.storeId === DEFAULT_STORE).slice(-500).reverse();
     }
-    if (!ventas.length){ showMsg('No hay ventas para esa fecha', 'error'); return; }
-    exportsXLSX.exportVentasSingleDay(ventas, fecha, { filename: `ventas_${DEFAULT_STORE}_${fecha}.xlsx` });
-  });
 
-  $('btnLimpiar').addEventListener('click', ()=>{ limpiarFormulario(); });
+    $('tablaVentas').innerHTML = ventas.map(v => `
+      <tr>
+        <td>${v.fecha}</td>
+        <td>${escapeHtml(v.nroFiscal || v.nroProfit || '')}</td>
+        <td>${escapeHtml(v.cliente)}</td>
+        <td>${escapeHtml(v.vendedor)}</td>
+        <td>${escapeHtml(v.tecnico)}</td>
+        <td>$${formatMoney(v.manoDeObraUsd)}</td>
+        <td>$${formatMoney(v.montoVentaUsd)}</td>
+        <td><button data-id="${v.id || v.idGen || ''}" class="btnDel" style="background:#ef4444;border:none;color:#fff;border-radius:6px;padding:6px 8px;cursor:pointer">Eliminar</button></td>
+      </tr>
+    `).join('');
 
-  $('btnGuardar').addEventListener('click', guardarVenta);
+    Array.from(document.getElementsByClassName('btnDel')).forEach(b=>{
+      b.onclick = async () => {
+        const id = b.getAttribute('data-id');
+        if (!id){ showMsg('Id no disponible', 'error'); return; }
+        if (!confirm('Eliminar esta venta? Esta acción no se puede deshacer.')) return;
+        try {
+          if (hasFirebase && db) {
+            await db.collection('sales').doc(id).delete();
+            showMsg('Venta eliminada (Firestore)', 'success');
+          } else {
+            let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+            arr = arr.filter(x => x.id !== id);
+            localStorage.setItem(SALES_KEY, JSON.stringify(arr));
+            showMsg('Venta eliminada (local)', 'success');
+          }
+          cargarTabla();
+        } catch (err) {
+          console.error(err);
+          showMsg('Error eliminando', 'error');
+        }
+      };
+    });
+
+    $('countLabel').textContent = ventas.length;
+  } catch (e) { console.error(e); }
+}
+
+async function exportAllFiltered(){
+  let ventas = [];
+  if (hasFirebase && db) {
+    try {
+      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).orderBy('date','desc').limit(10000).get();
+      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (e) {
+      console.error('Error export Firestore:', e);
+      alert('Error consultando Firestore para exportar. Intenta exportar desde local o revisa permisos.');
+      return;
+    }
+  } else {
+    ventas = JSON.parse(localStorage.getItem(SALES_KEY) || '[]').filter(v => v.storeId === DEFAULT_STORE);
+  }
+  if (!ventas.length){ showMsg('No hay ventas para exportar', 'error'); return; }
+  exportVentasStyledXLSX(ventas, { filename: `ventas_${DEFAULT_STORE}_all.xlsx` });
+}
+
+$('btnExport').addEventListener('click', exportAllFiltered);
+
+$('btnExportHoy').addEventListener('click', async () => {
+  const fecha = $('fecha').value || new Date().toISOString().slice(0,10);
+  let ventas = [];
+  if (hasFirebase && db) {
+    try {
+      const start = parseYYYYMMDD(fecha);
+      const end = new Date(start); end.setUTCHours(23,59,59,999);
+      const q = await db.collection('sales').where('storeId','==',DEFAULT_STORE).where('date','>=', start).where('date','<=', end).get();
+      ventas = q.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch (e) {
+      console.error('Error export hoy Firestore:', e);
+      alert('Error exportando desde Firestore. Revisa índices/permisos.');
+      return;
+    }
+  } else {
+    const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+    ventas = arr.filter(v => v.storeId === DEFAULT_STORE && (v.fecha === fecha || (v.dateISO && toISODateStr(v.dateISO) === fecha)));
+  }
+  if (!ventas.length){ showMsg('No hay ventas para esa fecha', 'error'); return; }
+  exportVentasStyledXLSX(ventas, { filename: `ventas_${DEFAULT_STORE}_${fecha}.xlsx` });
+});
+
+$('btnLimpiar').addEventListener('click', ()=>{ limpiarFormulario(); });
+
+$('btnGuardar').addEventListener('click', guardarVenta);
+
+// init
+(function init(){
+  const hoy = new Date().toISOString().slice(0,10); if (!$('fecha').value) $('fecha').value = hoy;
+  (async ()=>{
+    if (hasFirebase && db) {
+      try {
+        const id = new Date().toISOString().slice(0,10);
+        const doc = await db.collection('rates').doc(id).get();
+        $('tasa').value = doc.exists ? doc.data().tasa : DEFAULT_TASA;
+      } catch(e){ $('tasa').value = DEFAULT_TASA; }
+    } else $('tasa').value = DEFAULT_TASA;
+  })();
+  handleTipoPagoChange();
+  cargarTabla();
+})();
 </script>
 </body>
 </html>
