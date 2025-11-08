@@ -39,17 +39,34 @@
   </header>
 
   <div class="controls">
-    <div><label class="small">Tienda</label><select id="filtroTienda"><option value="">-- Seleccione tienda --</option><option>R04</option><option>B15</option><option>S04</option></select></div>
-    <div><label class="small">Desde</label><input type="date" id="fechaDesde"></div>
-    <div><label class="small">Hasta</label><input type="date" id="fechaHasta"></div>
-    <div style="margin-left:auto; display:flex; gap:8px;"><button id="btnFiltrar" class="btn">Ver</button><button id="btnExport" class="btn" style="background:#0ea5a4">Exportar .xlsx</button></div>
+    <div>
+      <label class="small">Tienda</label>
+      <select id="filtroTienda"><option value="">-- Seleccione tienda --</option><option>R04</option><option>B15</option><option>S04</option></select>
+    </div>
+    <div>
+      <label class="small">Desde</label>
+      <input type="date" id="fechaDesde">
+    </div>
+    <div>
+      <label class="small">Hasta</label>
+      <input type="date" id="fechaHasta">
+    </div>
+    <div style="margin-left:auto; display:flex; gap:8px;">
+      <button id="btnFiltrar" class="btn">Ver</button>
+      <button id="btnExport" class="btn" style="background:#0ea5a4">Exportar .xlsx</button>
+    </div>
   </div>
 
-  <div id="emptyMessage" class="card"><div style="font-weight:600; color:var(--muted)">Seleccione una tienda para ver sus detalles</div></div>
+  <div id="emptyMessage" class="card">
+    <div style="font-weight:600; color:var(--muted)">Seleccione una tienda para ver sus detalles</div>
+  </div>
 
   <div id="mainContent" class="hidden">
     <div class="card">
-      <div style="display:flex;gap:12px;align-items:center;"><div style="font-weight:700">Resumen — <span id="selectedStore"></span></div><div style="margin-left:auto; color:var(--muted)">Ventas: <span id="count">0</span></div></div>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <div style="font-weight:700">Resumen — <span id="selectedStore"></span></div>
+        <div style="margin-left:auto; color:var(--muted)">Ventas: <span id="count">0</span></div>
+      </div>
       <div class="summary">
         <div class="box"><div class="small">USD directos</div><div style="font-weight:700" id="totalUsdPayments">$0.00</div></div>
         <div class="box"><div class="small">Bs recibidos</div><div style="font-weight:700" id="totalBsPayments">0.00</div></div>
@@ -64,243 +81,360 @@
         <button id="tabTecnicos" class="tab">Técnicos</button>
       </div>
 
-      <div id="panelVendedores"><div id="resVendedores"></div></div>
-      <div id="panelTecnicos" class="hidden"><div id="resTecnicos"></div></div>
+      <div id="panelVendedores">
+        <div id="resVendedores"></div>
+      </div>
+      <div id="panelTecnicos" class="hidden">
+        <div id="resTecnicos"></div>
+      </div>
     </div>
 
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;"><div style="font-weight:700">Listado detallado</div><div style="color:var(--muted)">Exporta o elimina filas</div></div>
-      <div class="table-wrap" style="margin-top:10px;"><table><thead><tr><th>FECHA</th><th>NRO. FACTURA FISCAL MANUAL</th><th>NRO. FACTURA PROFIT</th><th>CASHEA</th><th>CEDULA</th><th>CLIENTE</th><th>TELEFONO</th><th>CONCEPTO</th><th>ORDEN</th><th>SUCURSAL</th><th>VENDEDOR</th><th>TECNICO</th><th>MANO DE OBRA ($)</th><th>TIPO DE PAGO</th><th>LOTE</th><th>TOTAL BS</th><th>TASA BCV</th><th>MONTO $</th><th>COMENTARIOS</th><th>ACCION</th></tr></thead><tbody id="tabla"></tbody></table></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="font-weight:700">Listado detallado</div>
+        <div style="color:var(--muted)">Exporta o elimina filas</div>
+      </div>
+
+      <div class="table-wrap" style="margin-top:10px;">
+        <table>
+          <thead>
+            <tr>
+              <th>FECHA</th><th>NRO. FACTURA FISCAL MANUAL</th><th>NRO. FACTURA PROFIT</th><th>CASHEA</th><th>CEDULA</th>
+              <th>CLIENTE</th><th>TELEFONO</th><th>CONCEPTO</th><th>ORDEN</th><th>SUCURSAL</th>
+              <th>VENDEDOR</th><th>TECNICO</th><th>MANO DE OBRA ($)</th><th>TIPO DE PAGO</th><th>LOTE</th>
+              <th>TOTAL BS</th><th>TASA BCV</th><th>MONTO $</th><th>COMENTARIOS</th><th>ACCION</th>
+            </tr>
+          </thead>
+          <tbody id="tabla"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- SheetJS -->
+<!-- SheetJS CDN -->
 <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 <script>
-/* Configura aquí */
-const API_URL = 'https://script.google.com/macros/s/AKfycbwJcTI5wjpUJC4y3vM7wzJUuaSuCTB16uGBfmCGVxjHP67o6a9UTw09YYAByeLjMENN/exec';
-let API_TOKEN = null; // te pedirá token al cargar
-/* fin config */
+  // ---------- Utilities ----------
+  const $ = id => document.getElementById(id);
+  const SALES_KEY = 'ventas';
+  const hasFirebase = (window.firebase && firebase.firestore);
+  const db = hasFirebase ? firebase.firestore() : null;
 
-const SALES_KEY = 'ventas_local_fallback';
-const $ = id => document.getElementById(id);
+  function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function bsToUsd(totalBs, tasa){ if (!totalBs || !tasa) return 0; return totalBs / tasa; }
 
-function formatMoney(v){ return Number(v||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
-function escapeHtml(s=''){ return String(s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-function toISODateStr(d) { if (!d) return null; if (typeof d === 'string' && d.length >= 10) return d.slice(0,10); if (d && typeof d.toDate === 'function') return d.toDate().toISOString().slice(0,10); const dateObj = new Date(d); if (isNaN(dateObj)) return null; return new Date(Date.UTC(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate())).toISOString().slice(0,10); }
-function parseYYYYMMDD(dateStr){ if (!dateStr) return null; const parts = dateStr.split('-').map(Number); return new Date(Date.UTC(parts[0], parts[1]-1, parts[2], 0,0,0,0)); }
-
-async function fetchVentasViaSheets(filters = {}) {
-  const store = filters.store || null;
-  const from = filters.from || null;
-  const to = filters.to || null;
-  const limit = filters.limit || 10000;
-  try {
-    const q = new URL(API_URL);
-    if (store) q.searchParams.set('store', store);
-    if (from) q.searchParams.set('from', from);
-    if (to) q.searchParams.set('to', to);
-    q.searchParams.set('limit', String(limit));
-    const res = await fetch(q.toString());
-    if (!res.ok) throw new Error('Error fetching ventas: ' + res.status);
-    return await res.json();
-  } catch (err) {
-    console.warn('fetchVentasViaSheets failed, fallback to local', err);
-    const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-    return arr.filter(v => {
-      if (filters.store && v.storeId !== filters.store) return false;
-      const vDateStr = toISODateStr(v.fecha || v.date || v.createdAt);
-      if (filters.from && vDateStr < filters.from) return false;
-      if (filters.to && vDateStr > filters.to) return false;
-      return true;
-    });
+  // Normalize date string to YYYY-MM-DD
+  function toISODateStr(d) {
+    if (!d) return null;
+    if (typeof d === 'string' && d.length >= 10) return d.slice(0,10);
+    if (d && d.toDate) return d.toDate().toISOString().slice(0,10);
+    const dateObj = new Date(d);
+    if (isNaN(dateObj)) return null;
+    return dateObj.toISOString().slice(0,10);
   }
-}
 
-async function deleteVentaViaSheets(id){
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'delete', id, token: API_TOKEN })
-    });
-    return await res.json();
-  } catch (err) {
-    console.warn('deleteVentaViaSheets fallback local', err);
-    let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
-    arr = arr.filter(x => x.id !== id);
-    localStorage.setItem(SALES_KEY, JSON.stringify(arr));
-    return { ok: true, local: true };
+  // ---------- Fetch with correct date filtering ----------
+  // filters: { store, from, to } where from/to are strings "YYYY-MM-DD" or null
+  async function fetchVentas(filters = {}) {
+    const store = filters.store || null;
+    const from = filters.from || null;
+    const to = filters.to || null;
+
+    if (hasFirebase) {
+      let q = db.collection('sales');
+      if (store && store !== 'ALL') q = q.where('storeId','==',store);
+
+      // apply date range using Timestamp comparisons
+      if (from) {
+        const start = new Date(from); start.setHours(0,0,0,0);
+        q = q.where('date','>=', start);
+      }
+      if (to) {
+        const end = new Date(to); end.setHours(23,59,59,999);
+        q = q.where('date','<=', end);
+      }
+      q = q.orderBy('date','desc').limit(10000);
+
+      const snap = await q.get();
+      // return raw documents (id + data) for flexibility
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } else {
+      // localStorage fallback: load all and filter by store + date range using Date objects
+      const arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]');
+      return arr.filter(v => {
+        if (store && store !== 'ALL' && v.storeId !== store) return false;
+
+        // parse v.fecha (string 'YYYY-MM-DD') or v.date
+        const vDateStr = toISODateStr(v.fecha || v.date || v.createdAt);
+        if (!vDateStr) return false;
+        if (from && vDateStr < from) return false;
+        if (to && vDateStr > to) return false;
+        return true;
+      });
+    }
   }
-}
 
-function exportVentasStyledXLSX(rawVentas, { filename } = {}) {
-  if (!window.XLSX) return alert('SheetJS no cargado.');
-  if (!Array.isArray(rawVentas) || rawVentas.length === 0) return alert('No hay ventas para exportar.');
-  const groups = {};
-  rawVentas.forEach(s => {
-    const iso = toISODateStr(s.fecha || s.date || s.createdAt) || (new Date()).toISOString().slice(0,10);
-    if (!groups[iso]) groups[iso] = [];
-    groups[iso].push(s);
+  // ---------- XLSX export with styles ----------
+  // Uses global XLSX (SheetJS)
+  function sanitizeSheetName(name){
+    return String(name||'').replace(/[:\\\/\?\*\[\]]/g,'-').slice(0,31) || 'sheet';
+  }
+
+  function sheetNameFromISO(isoDate) {
+    if (!isoDate) {
+      const t = new Date();
+      return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
+    }
+    const d = new Date(isoDate);
+    if (isNaN(d)) {
+      const t = new Date();
+      return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
+    }
+    return String(d.getDate()).padStart(2,'0') + String(d.getMonth()+1).padStart(2,'0');
+  }
+
+  // Build workbook and style headers / alternate rows
+  function exportVentasStyledXLSX(rawVentas, { filename } = {}) {
+    if (!window.XLSX) return alert('SheetJS no cargado.');
+    if (!Array.isArray(rawVentas) || rawVentas.length === 0) return alert('No hay ventas para exportar.');
+
+    // Group by ISO date (YYYY-MM-DD)
+    const groups = {};
+    rawVentas.forEach(s => {
+      const iso = toISODateStr(s.fecha || s.date || s.createdAt) || (new Date()).toISOString().slice(0,10);
+      if (!groups[iso]) groups[iso] = [];
+      groups[iso].push(s);
+    });
+
+    const wb = XLSX.utils.book_new();
+    const headers = [
+      'FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE',
+      'CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE DE PUNTO DE VENTA',
+      'TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'
+    ];
+
+    const sortedDates = Object.keys(groups).sort();
+    for (const fecha of sortedDates) {
+      const rows = [headers];
+      groups[fecha].forEach(s => {
+        const fechaStr = toISODateStr(s.fecha || s.date || s.createdAt) || '';
+        rows.push([
+          fechaStr,
+          s.nroFacturaFiscalManual || '',
+          s.nroFacturaProfit || '',
+          (s.cashea === true || s.cashea === 'true') ? 'Sí' : 'No',
+          s.cedulaCliente || '',
+          s.cliente || '',
+          s.telefonoCliente || '',
+          s.concepto || '',
+          s.ordenRecepcion || '',
+          s.storeId || s.sucursal || '',
+          s.vendedor || '',
+          s.tecnico || '',
+          s.manoDeObraUsd !== undefined ? Number(s.manoDeObraUsd) : '',
+          s.tipoPago || '',
+          s.lotePuntoVenta || '',
+          s.totalBs !== undefined ? Number(s.totalBs) : '',
+          s.tasa !== undefined ? Number(s.tasa) : '',
+          (s.montoVentaUsd !== undefined ? Number(s.montoVentaUsd) : (s.montoUsd !== undefined ? Number(s.montoUsd) : '')),
+          s.comentarios || ''
+        ]);
+      });
+
+      const ws = XLSX.utils.aoa_to_sheet(rows);
+
+      // Column widths (approx)
+      ws['!cols'] = [
+        { wch:10 },{ wch:18 },{ wch:16 },{ wch:6 },{ wch:14 },{ wch:18 },{ wch:12 },{ wch:20 },{ wch:12 },{ wch:10 },
+        { wch:14 },{ wch:14 },{ wch:12 },{ wch:10 },{ wch:12 },{ wch:12 },{ wch:8 },{ wch:12 },{ wch:24 }
+      ];
+
+      // Apply header style and number formats + alternate row shading
+      const range = XLSX.utils.decode_range(ws['!ref']);
+      // header style
+      for (let C = range.s.c; C <= range.e.c; ++C) {
+        const cellAddress = XLSX.utils.encode_cell({ r: range.s.r, c: C });
+        if (!ws[cellAddress]) continue;
+        ws[cellAddress].s = {
+          font: { name: 'Poppins', sz: 11, bold: true, color: { rgb: 'FFFFFFFF' } },
+          fill: { fgColor: { rgb: 'FFEA580C' } }, // orange header
+          alignment: { vertical: 'center', horizontal: 'center' },
+          border: {
+            top: { style: 'thin', color: { rgb: 'FFD1D5DB' } },
+            bottom: { style: 'thin', color: { rgb: 'FFD1D5DB' } }
+          }
+        };
+      }
+
+      // Number formatting for numeric columns (mano de obra col 12 => index 12, totalBs index 15, tasa 16, monto 17)
+      for (let R = range.s.r + 1; R <= range.e.r; ++R) {
+        // alternate shading
+        const fillColor = (R % 2 === 0) ? 'FFF8FAF9' : 'FFFFFFFF';
+        for (let C = range.s.c; C <= range.e.c; ++C) {
+          const addr = XLSX.utils.encode_cell({ r: R, c: C });
+          const cell = ws[addr];
+          if (!cell) continue;
+          // Apply shading
+          cell.s = cell.s || {};
+          cell.s.fill = { fgColor: { rgb: fillColor } };
+          // Right-align numeric-looking columns
+          if ([12,15,16,17].includes(C)) { // zero-based
+            cell.s.numFmt = '$#,##0.00';
+            cell.s.alignment = { horizontal: 'right' };
+          }
+        }
+      }
+
+      const sheetName = sanitizeSheetName(sheetNameFromISO(fecha));
+      XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    }
+
+    const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
+    const out = filename || `ventas_${ts}.xlsx`;
+    XLSX.writeFile(wb, out);
+  }
+
+  function sheetNameFromISO(iso) {
+    if (!iso) {
+      const t = new Date();
+      return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
+    }
+    const d = new Date(iso);
+    if (isNaN(d)) {
+      const t = new Date();
+      return String(t.getDate()).padStart(2,'0') + String(t.getMonth()+1).padStart(2,'0');
+    }
+    return String(d.getDate()).padStart(2,'0') + String(d.getMonth()+1).padStart(2,'0');
+  }
+
+  // ---------- UI logic ----------
+  async function cargar(){
+    const tienda = $('filtroTienda').value;
+    if (!tienda) { $('mainContent').classList.add('hidden'); $('emptyMessage').classList.remove('hidden'); return; }
+    $('emptyMessage').classList.add('hidden'); $('mainContent').classList.remove('hidden');
+    $('selectedStore').textContent = tienda;
+    const from = $('fechaDesde').value || null;
+    const to = $('fechaHasta').value || null;
+
+    const ventasRaw = await fetchVentas({ store: tienda, from, to });
+    // normalize
+    const ventas = ventasRaw.map(s => {
+      const fecha = toISODateStr(s.fecha || s.date || s.createdAt) || '';
+      return {
+        id: s.id || s._id || '',
+        fecha,
+        nroFacturaFiscalManual: s.nroFacturaFiscalManual || '',
+        nroFacturaProfit: s.nroFacturaProfit || '',
+        cashea: s.cashea === true || s.cashea === 'true',
+        cedulaCliente: s.cedulaCliente || '',
+        cliente: s.cliente || '',
+        telefonoCliente: s.telefonoCliente || '',
+        concepto: s.concepto || '',
+        ordenRecepcion: s.ordenRecepcion || '',
+        storeId: s.storeId || s.store || '',
+        vendedor: s.vendedor || '',
+        tecnico: s.tecnico || '',
+        manoDeObraUsd: Number(s.manoDeObraUsd || 0),
+        tipoPago: s.tipoPago || '',
+        lotePuntoVenta: s.lotePuntoVenta || '',
+        totalBs: Number(s.totalBs || 0),
+        tasa: s.tasa || null,
+        montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0),
+        comentarios: s.comentarios || ''
+      };
+    }).filter(v => v.storeId === tienda);
+
+    // Table
+    $('tabla').innerHTML = ventas.map(v => {
+      return `<tr>
+        <td>${v.fecha}</td>
+        <td>${escapeHtml(v.nroFacturaFiscalManual)}</td>
+        <td>${escapeHtml(v.nroFacturaProfit)}</td>
+        <td>${v.cashea ? 'Sí' : 'No'}</td>
+        <td>${escapeHtml(v.cedulaCliente)}</td>
+        <td>${escapeHtml(v.cliente)}</td>
+        <td>${escapeHtml(v.telefonoCliente)}</td>
+        <td>${escapeHtml(v.concepto)}</td>
+        <td>${escapeHtml(v.ordenRecepcion)}</td>
+        <td>${escapeHtml(v.storeId)}</td>
+        <td>${escapeHtml(v.vendedor)}</td>
+        <td>${escapeHtml(v.tecnico)}</td>
+        <td>$${formatMoney(v.manoDeObraUsd)}</td>
+        <td>${escapeHtml(v.tipoPago)}</td>
+        <td>${escapeHtml(v.lotePuntoVenta)}</td>
+        <td>${v.totalBs ? formatMoney(v.totalBs) : ''}</td>
+        <td>${v.tasa ? formatMoney(v.tasa) : ''}</td>
+        <td>$${formatMoney(v.montoVentaUsd)}</td>
+        <td>${escapeHtml(v.comentarios)}</td>
+        <td><button data-id="${v.id}" class="delRow btn danger">Eliminar</button></td>
+      </tr>`;
+    }).join('');
+
+    // Delete handlers
+    Array.from(document.getElementsByClassName('delRow')).forEach(btn=>{
+      btn.onclick = async () => {
+        const id = btn.getAttribute('data-id');
+        if (!id) return alert('Id no disponible');
+        if (!confirm('Eliminar esta venta?')) return;
+        try {
+          if (hasFirebase) { await db.collection('sales').doc(id).delete(); alert('Venta eliminada.'); }
+          else { let arr = JSON.parse(localStorage.getItem(SALES_KEY) || '[]'); arr = arr.filter(x => x.id !== id); localStorage.setItem(SALES_KEY, JSON.stringify(arr)); alert('Venta eliminada (local)'); }
+          cargar();
+        } catch (e) { console.error(e); alert('Error eliminando'); }
+      };
+    });
+
+    // Totals
+    const totalUsdPayments = ventas.filter(v=>['EFECTIVO','ZELLE','BINANCE'].includes((v.tipoPago||'').toUpperCase())).reduce((s,v)=>s+v.montoVentaUsd,0);
+    const bsPayments = ventas.filter(v=>['PMF','PMB','PUNTO'].includes((v.tipoPago||'').toUpperCase()));
+    const totalBsPayments = bsPayments.reduce((s,v)=>s+v.totalBs,0);
+    const totalBsToUsd = bsPayments.reduce((s,v)=>s + bsToUsd(v.totalBs, v.tasa), 0);
+    const totalCommissions = ventas.reduce((s,v)=>s + v.manoDeObraUsd,0);
+
+    $('totalUsdPayments').textContent = `$${formatMoney(totalUsdPayments)}`;
+    $('totalBsPayments').textContent = formatMoney(totalBsPayments);
+    $('totalBsToUsd').textContent = `$${formatMoney(totalBsToUsd)}`;
+    $('totalComisiones').textContent = `$${formatMoney(totalCommissions)}`;
+    $('count').textContent = ventas.length;
+
+    // Vendedores
+    const byV = {};
+    ventas.forEach(v => { const k = v.vendedor || 'SIN VENDEDOR'; byV[k] = (byV[k]||0) + v.montoVentaUsd; });
+    $('resVendedores').innerHTML = '<table style="width:100%"><thead><tr><th>Vendedor</th><th>USD</th></tr></thead><tbody>' +
+      Object.keys(byV).sort((a,b)=>byV[b]-byV[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byV[k])}</td></tr>`).join('') +
+      '</tbody></table>';
+
+    // Tecnicos
+    const byT = {};
+    ventas.forEach(v => { const k = v.tecnico || 'SIN TÉCNICO'; byT[k] = (byT[k]||0) + v.manoDeObraUsd; });
+    $('resTecnicos').innerHTML = '<table style="width:100%"><thead><tr><th>Técnico</th><th>Mano $</th></tr></thead><tbody>' +
+      Object.keys(byT).sort((a,b)=>byT[b]-byT[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byT[k])}</td></tr>`).join('') +
+      '</tbody></table>';
+  }
+
+  // Tab switch
+  $('tabVendedores').addEventListener('click', ()=>{ $('tabVendedores').classList.add('active'); $('tabTecnicos').classList.remove('active'); $('panelVendedores').classList.remove('hidden'); $('panelTecnicos').classList.add('hidden'); });
+  $('tabTecnicos').addEventListener('click', ()=>{ $('tabTecnicos').classList.add('active'); $('tabVendedores').classList.remove('active'); $('panelTecnicos').classList.remove('hidden'); $('panelVendedores').classList.add('hidden'); });
+
+  // Export handler: uses currently filtered ventas
+  $('btnExport').addEventListener('click', async () => {
+    const tienda = $('filtroTienda').value;
+    if (!tienda) return alert('Seleccione tienda');
+    const from = $('fechaDesde').value || null;
+    const to = $('fechaHasta').value || null;
+    const ventas = await fetchVentas({ store: tienda, from, to });
+    if (!ventas || ventas.length === 0) return alert('No hay ventas para exportar');
+    exportVentasStyledXLSX(ventas, { filename: `ventas_${tienda}_${from||'all'}-${to||'all'}.xlsx` });
   });
-  const wb = XLSX.utils.book_new();
-  const headers = ['FECHA','NRO. FACTURA FISCAL MANUAL','NRO. FACTURA PROFIT','CASHEA','CEDULA CLIENTE','CLIENTE','TELEFONO CLIENTE','CONCEPTO','ORDEN RECEPCION','SUCURSAL','VENDEDOR','TECNICO','MANO DE OBRA ($)','TIPO DE PAGO','LOTE DE PUNTO DE VENTA','TOTAL BS','TASA BCV','MONTO $','COMENTARIOS'];
-  const sortedDates = Object.keys(groups).sort();
-  for (const fecha of sortedDates) {
-    const rows = [headers];
-    groups[fecha].forEach(s => {
-      rows.push([
-        toISODateStr(s.fecha || s.date || s.createdAt) || '',
-        s.nroFacturaFiscalManual || '',
-        s.nroFacturaProfit || '',
-        (s.cashea === true || s.cashea === 'true') ? 'Sí' : 'No',
-        s.cedulaCliente || '',
-        s.cliente || '',
-        s.telefonoCliente || '',
-        s.concepto || '',
-        s.ordenRecepcion || '',
-        s.storeId || '',
-        s.vendedor || '',
-        s.tecnico || '',
-        s.manoDeObraUsd !== undefined ? Number(s.manoDeObraUsd) : '',
-        s.tipoPago || '',
-        s.lotePuntoVenta || '',
-        s.totalBs !== undefined ? Number(s.totalBs) : '',
-        s.tasa !== undefined ? Number(s.tasa) : '',
-        (s.montoVentaUsd !== undefined ? Number(s.montoVentaUsd) : (s.montoUsd !== undefined ? Number(s.montoUsd) : '')),
-        s.comentarios || ''
-      ]);
-    });
-    const ws = XLSX.utils.aoa_to_sheet(rows);
-    XLSX.utils.book_append_sheet(wb, ws, fecha.replace(/-/g,''));
-  }
-  const ts = new Date().toISOString().replace(/[:\-T\.]/g,'').slice(0,12);
-  const out = filename || `ventas_${ts}.xlsx`;
-  XLSX.writeFile(wb, out);
-}
 
-// UI logic
-async function cargar(){
-  const tienda = $('filtroTienda').value;
-  if (!tienda) { $('mainContent').classList.add('hidden'); $('emptyMessage').classList.remove('hidden'); return; }
-  $('emptyMessage').classList.add('hidden'); $('mainContent').classList.remove('hidden');
-  $('selectedStore').textContent = tienda;
-  const from = $('fechaDesde').value || null;
-  const to = $('fechaHasta').value || null;
+  // Filter button
+  $('btnFiltrar').addEventListener('click', cargar);
 
-  const ventasRaw = await fetchVentasViaSheets({ store: tienda, from, to });
-  const ventas = ventasRaw.map(s => {
-    const fecha = toISODateStr(s.fecha || s.date || s.createdAt) || '';
-    return {
-      id: s.id || s._id || '',
-      fecha,
-      nroFacturaFiscalManual: s.nroFacturaFiscalManual || '',
-      nroFacturaProfit: s.nroFacturaProfit || '',
-      cashea: s.cashea === true || s.cashea === 'true',
-      cedulaCliente: s.cedulaCliente || '',
-      cliente: s.cliente || '',
-      telefonoCliente: s.telefonoCliente || '',
-      concepto: s.concepto || '',
-      ordenRecepcion: s.ordenRecepcion || '',
-      storeId: s.storeId || s.store || '',
-      vendedor: s.vendedor || '',
-      tecnico: s.tecnico || '',
-      manoDeObraUsd: Number(s.manoDeObraUsd || 0),
-      tipoPago: s.tipoPago || '',
-      lotePuntoVenta: s.lotePuntoVenta || '',
-      totalBs: Number(s.totalBs || 0),
-      tasa: s.tasa || null,
-      montoVentaUsd: Number(s.montoVentaUsd || s.montoUsd || 0),
-      comentarios: s.comentarios || ''
-    };
-  }).filter(v => v.storeId === tienda);
-
-  $('tabla').innerHTML = ventas.map(v => {
-    return `<tr>
-      <td>${v.fecha}</td>
-      <td>${escapeHtml(v.nroFacturaFiscalManual)}</td>
-      <td>${escapeHtml(v.nroFacturaProfit)}</td>
-      <td>${v.cashea ? 'Sí' : 'No'}</td>
-      <td>${escapeHtml(v.cedulaCliente)}</td>
-      <td>${escapeHtml(v.cliente)}</td>
-      <td>${escapeHtml(v.telefonoCliente)}</td>
-      <td>${escapeHtml(v.concepto)}</td>
-      <td>${escapeHtml(v.ordenRecepcion)}</td>
-      <td>${escapeHtml(v.storeId)}</td>
-      <td>${escapeHtml(v.vendedor)}</td>
-      <td>${escapeHtml(v.tecnico)}</td>
-      <td>$${formatMoney(v.manoDeObraUsd)}</td>
-      <td>${escapeHtml(v.tipoPago)}</td>
-      <td>${escapeHtml(v.lotePuntoVenta)}</td>
-      <td>${v.totalBs ? formatMoney(v.totalBs) : ''}</td>
-      <td>${v.tasa ? formatMoney(v.tasa) : ''}</td>
-      <td>$${formatMoney(v.montoVentaUsd)}</td>
-      <td>${escapeHtml(v.comentarios)}</td>
-      <td><button data-id="${v.id}" class="delRow btn danger">Eliminar</button></td>
-    </tr>`;
-  }).join('');
-
-  Array.from(document.getElementsByClassName('delRow')).forEach(btn=>{
-    btn.onclick = async () => {
-      const id = btn.getAttribute('data-id');
-      if (!id) return alert('Id no disponible');
-      if (!confirm('Eliminar esta venta?')) return;
-      try {
-        const res = await deleteVentaViaSheets(id);
-        if (res && res.ok) alert('Venta eliminada');
-        else alert('Error eliminando');
-        cargar();
-      } catch (e) { console.error(e); alert('Error eliminando'); }
-    };
-  });
-
-  const totalUsdPayments = ventas.filter(v=>['EFECTIVO','ZELLE','BINANCE'].includes((v.tipoPago||'').toUpperCase())).reduce((s,v)=>s+v.montoVentaUsd,0);
-  const bsPayments = ventas.filter(v=>['PMF','PMB','PUNTO'].includes((v.tipoPago||'').toUpperCase()));
-  const totalBsPayments = bsPayments.reduce((s,v)=>s+v.totalBs,0);
-  const totalBsToUsd = bsPayments.reduce((s,v)=>s + (v.totalBs && v.tasa ? (v.totalBs / v.tasa) : 0), 0);
-  const totalCommissions = ventas.reduce((s,v)=>s + v.manoDeObraUsd,0);
-
-  $('totalUsdPayments').textContent = `$${formatMoney(totalUsdPayments)}`;
-  $('totalBsPayments').textContent = formatMoney(totalBsPayments);
-  $('totalBsToUsd').textContent = `$${formatMoney(totalBsToUsd)}`;
-  $('totalComisiones').textContent = `$${formatMoney(totalCommissions)}`;
-  $('count').textContent = ventas.length;
-
-  const byV = {};
-  ventas.forEach(v => { const k = v.vendedor || 'SIN VENDEDOR'; byV[k] = (byV[k]||0) + v.montoVentaUsd; });
-  $('resVendedores').innerHTML = '<table style="width:100%"><thead><tr><th>Vendedor</th><th>USD</th></tr></thead><tbody>' +
-    Object.keys(byV).sort((a,b)=>byV[b]-byV[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byV[k])}</td></tr>`).join('') +
-    '</tbody></table>';
-
-  const byT = {};
-  ventas.forEach(v => { const k = v.tecnico || 'SIN TÉCNICO'; byT[k] = (byT[k]||0) + v.manoDeObraUsd; });
-  $('resTecnicos').innerHTML = '<table style="width:100%"><thead><tr><th>Técnico</th><th>Mano $</th></tr></thead><tbody>' +
-    Object.keys(byT).sort((a,b)=>byT[b]-byT[a]).map(k=>`<tr><td>${escapeHtml(k)}</td><td>$${formatMoney(byT[k])}</td></tr>`).join('') +
-    '</tbody></table>';
-}
-
-// Tab switch
-$('tabVendedores').addEventListener('click', ()=>{ $('tabVendedores').classList.add('active'); $('tabTecnicos').classList.remove('active'); $('panelVendedores').classList.remove('hidden'); $('panelTecnicos').classList.add('hidden'); });
-$('tabTecnicos').addEventListener('click', ()=>{ $('tabTecnicos').classList.add('active'); $('tabVendedores').classList.remove('active'); $('panelTecnicos').classList.remove('hidden'); $('panelVendedores').classList.add('hidden'); });
-
-// Export handler
-$('btnExport').addEventListener('click', async () => {
-  const tienda = $('filtroTienda').value;
-  if (!tienda) return alert('Seleccione tienda');
-  const from = $('fechaDesde').value || null;
-  const to = $('fechaHasta').value || null;
-  const ventas = await fetchVentasViaSheets({ store: tienda, from, to });
-  if (!ventas || ventas.length === 0) return alert('No hay ventas para exportar');
-  exportVentasStyledXLSX(ventas, { filename: `ventas_${tienda}_${from||'all'}-${to||'all'}.xlsx` });
-});
-
-// Filter button
-$('btnFiltrar').addEventListener('click', cargar);
-
-// init
-(function initAdmin(){ API_TOKEN = prompt('Introduce el token de administrador (se configura en Apps Script):'); const hoy = new Date().toISOString().slice(0,10); $('fechaHasta').value = hoy; })();
+  // init
+  (function initAdmin(){ const hoy = new Date().toISOString().slice(0,10); $('fechaHasta').value = hoy; })();
 </script>
 </body>
 </html>
