@@ -466,7 +466,7 @@
           const precioRaw = String(r.precio || "").replace(",", ".").replace(/[^0-9.]/g,"");
           let precio = parseFloat(precioRaw);
           if (isNaN(precio)) precio = 0;
-          const precioMultiplicado = precio * 1.8;
+          const precioMultiplicado = precio * 1.6;
           const tr = document.createElement("tr");
           tr.innerHTML = `<td>${escapeHtml(r.nombre || "")}</td><td>$${isNaN(precio)? "-": precioMultiplicado.toFixed(2)}</td>`;
           tr.addEventListener("click", () => abrirModal(item.modelo, marca, r, precioMultiplicado));
